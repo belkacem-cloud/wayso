@@ -1,0 +1,255 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">
+<title>Wayso Strategy Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+<style>
+    body { background: #FFFFFF; color: #1A1A1A; font-family: 'Cairo', sans-serif; margin: 0; padding: 60px 20px; line-height: 1.6; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    
+    /* Header Section */
+    .header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 20px; border-bottom: 2px solid #000; }
+    .wayso-logo { height: 60px; } /* تكبير الشعار */
+    .brand-tag { font-family: 'Montserrat'; font-size: 1em; font-weight: 700; color: #000; letter-spacing: 2px; }
+
+    /* Hero Section */
+    .hero { margin: 60px 0 50px 0; }
+    .hero h1 { font-size: 3.2em; font-weight: 700; margin: 0; color: #000; letter-spacing: -2px; }
+    .hero p { color: #5F5E5B; font-size: 1.3em; margin-top: 15px; max-width: 800px; }
+
+    /* Notion Style Table */
+    .table-wrapper { margin-top: 50px; border-top: 1px solid #EDECE9; }
+    table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+    th { background: #000; color: #FFF; font-size: 1em; font-weight: 700; padding: 18px 15px; text-align: right; }
+    td { padding: 25px 15px; border-bottom: 1px solid #EDECE9; vertical-align: middle; font-size: 1.1em; }
+    
+    /* Elements */
+    .code-badge { font-family: 'Montserrat'; font-weight: 700; color: #000; background: #FFD700; padding: 4px 10px; border-radius: 6px; font-size: 0.9em; }
+    .type-text { font-weight: 700; color: #000; font-size: 1.1em; }
+    
+    /* Hook Styling - More Prominent */
+    .hook-pill { background: #000; color: #FFD700; padding: 10px 15px; border-radius: 8px; font-weight: 700; font-size: 1em; display: block; line-height: 1.4; border-right: 5px solid #FFD700; }
+
+    /* Interactive Tooltip Design */
+    .script-container { position: relative; cursor: help; background: #F9F9F9; padding: 12px; border-radius: 8px; border: 1px dashed #DDD; transition: 0.3s; }
+    .script-container:hover { background: #F0F0F0; border-color: #000; }
+    .script-preview { color: #555; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: 0.95em; }
+    
+    /* The Tooltip Box */
+    .script-container .tooltip-text { 
+        visibility: hidden; width: 450px; background-color: #FFFFFF; color: #000; text-align: right; border-radius: 12px; padding: 20px; 
+        position: absolute; z-index: 99; bottom: 125%; right: 0; opacity: 0; transition: opacity 0.3s;
+        box-shadow: 0 15px 45px rgba(0,0,0,0.15); border: 1px solid #EDECE9; font-size: 0.95em; line-height: 1.8; pointer-events: none;
+    }
+    .script-container .tooltip-text::after { content: ""; position: absolute; top: 100%; right: 30px; border-width: 10px; border-style: solid; border-color: #FFF transparent transparent transparent; }
+    .script-container:hover .tooltip-text { visibility: visible; opacity: 1; }
+
+    .price-text { font-family: 'Montserrat'; font-weight: 700; color: #000; font-size: 1.2em; }
+
+    /* Summary Footer */
+    .summary-section { margin-top: 80px; padding: 60px; background: #000; border-radius: 20px; text-align: center; color: #FFF; }
+    .total-label { color: #FFD700; font-size: 1.2em; font-weight: 700; display: block; margin-bottom: 15px; text-transform: uppercase; }
+    .total-amount { font-family: 'Montserrat'; font-size: 4.5em; font-weight: 700; color: #FFF; display: block; }
+    .cta-btn { display: inline-block; margin-top: 35px; padding: 20px 60px; background: #FFD700; color: #000; text-decoration: none; border-radius: 50px; font-weight: 700; font-size: 1.3em; transition: 0.3s; }
+    .cta-btn:hover { transform: scale(1.05); box-shadow: 0 10px 20px rgba(255, 215, 0, 0.3); }
+</style></head><body><div class="container">
+
+<div class="header">
+    <img src="https://storage.googleapis.com/msgsndr/GwIPQCjstTzxnzDQ1B32/media/68fddb5534bb1597bc934f89.png" class="wayso-logo">
+    <div class="brand-tag">WAYSO STRATEGY HUB</div>
+</div>
+
+<div class="hero">
+    <h1>خطة المعركة الإنتاجية</h1>
+    <p>استراتيجية محتوى احترافية مصممة خصيصاً لمشروعكم. مرر الفأرة فوق السكربت لقراءة التفاصيل الكاملة.</p>
+</div>
+
+<div class="table-wrapper">
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 8%;">كود</th>
+                <th style="width: 12%;">النوع</th>
+                <th style="width: 25%;">الهوك (Hook)</th>
+                <th style="width: 40%;">السكربت (مرر لرؤية المزيد)</th>
+                <th style="width: 15%;">التكلفة التقديرية</th>
+            </tr>
+        </thead>
+        <tbody><tr>
+        <td><span class="code-badge">V1</span></td>
+        <td><span class="type-text">فيديو</span></td>
+        <td><div class="hook-pill">3 أسرار تخلي الريحة تاعك تدوم 24 ساعة... وقاع الناس تسقسيك عليها!</div></td>
+        <td>
+            <div class="script-container">
+                <div class="script-preview">ثلاثة أسرار تخلي الريحة تاعك تدوم 24 ساعة... وقاع الناس تسقسيك عليها!
+السر الأول...</div>
+                <div class="tooltip-text">
+                    <strong>السكربت الكامل:</strong><br>
+                    ثلاثة أسرار تخلي الريحة تاعك تدوم 24 ساعة... وقاع الناس تسقسيك عليها!<br>السر الأول: ما ترشّش العطر تاعك عشوائيا. رشّو في أماكن النبض... هنا... وهنا... الحرارة تاع الجسم هي اللي تخليه يفوح.<br>السر الثاني، وهذا بزاف يغفلو عليه: الترطيب! ديما رطّب البشرة تاعك بكريم معطر خفيف ولا فازلين قبل ما ترشّ... الرطوبة تحكم العطر لمدة أطول.<br>والسر الثالث والأهم: التركيز! خير ديما الـ 'Eau de Parfum' ماشي 'Toilette'. تركيزو العالي هو ضمان الثبات.<br>والمليح في عطور 'النخبة'؟ أنها جاية بتركيز Eau de Parfum مصممة باش تبقى معاك نهار كامل.<br>أدخل لبروفايلنا وشوف بنفسك كيفاش 'النخبة' تضمنلك ريحة تدوم وتفرّحك!
+                    <hr style="margin:15px 0; border:0; border-top:1px solid #EEE;">
+                    <strong>التوجيه الفني:</strong><br>
+                    <span style="color:#666; font-size:0.9em;">[الإطار العام: استوديو بتصميم أنيق ومينيماليست، إضاءة دافئة وناعمة تعكس الفخامة. المقدمة (Host) ترتدي ملابس أنيقة بلون محايد.]
+
+[0-3 ثواني]: زاوية تصوير متوسطة (Medium Shot) للمقدمة وهي تنظر مباشرة للكاميرا بابتسامة واثقة. يظهر نص الهوك على الشاشة بخط أنيق.
+
+[4-8 ثواني]: [السر الأول] زاوية مقربة (Close-up) على معصم المقدمة وهي ترش العطر، ثم لقطة على رقبتها. ظهور أيقونة 'نبض' صغيرة مع نص 'Pulse Points' على الشاشة.
+[أداء الصوت]: نبرة صوت كاشفة للسر، مع وقفة قصيرة قبل ذكر السر.
+
+[9-14 ثانية]: [السر الثاني] لقطة للمقدمة وهي تضع القليل من كريم مرطب على يدها. تظهر أيقونة 'قطرة ماء' مع نص 'Moisturize First'.
+[أداء الصوت]: نبرة توضيحية وبسيطة.
+
+[15-20 ثانية]: [السر الثالث] لقطة لزجاجتي عطر، واحدة مكتوب عليها Eau de Toilette (باهتة قليلاً) والأخرى Eau de Parfum (واضحة ولامعة). المقدمة تشير إلى زجاجة EDP.
+[أداء الصوت]: نبرة حاسمة ومؤكدة.
+
+[21-25 ثانية]: انتقال سلس لعرض مجموعة من عطور 'النخبة' بشكل فني. زاوية تصوير بطيئة على المنتجات. يظهر شعار 'Eau de Parfum' بوضوح.
+
+[26-30 ثانية]: عودة للمقدمة وهي تحمل أحد عطور 'النخبة'. تبتسم للكاميرا بثقة. يظهر الـ CTA على الشاشة.</span>
+                </div>
+            </div>
+        </td>
+        <td><span class="price-text">20,000 دج دج</span><br><small style="color:#A1A1A1">بن صايبي (المونتير المحترف)</small></td>
+    </tr><tr>
+        <td><span class="code-badge">C1</span></td>
+        <td><span class="type-text">كاروسال</span></td>
+        <td><div class="hook-pill">كشفنا السر: علاش عطور النخبة تدوم؟</div></td>
+        <td>
+            <div class="script-container">
+                <div class="script-preview">Slide 1: كشفنا السر: علاش عطور 'النخبة' عندها ثبات خرافي؟
+(امسح لليسار باش تعرف)...</div>
+                <div class="tooltip-text">
+                    <strong>السكربت الكامل:</strong><br>
+                    Slide 1: كشفنا السر: علاش عطور 'النخبة' عندها ثبات خرافي؟<br>(امسح لليسار باش تعرف)<br><br>Slide 2: السر الأول: طريقة التطبيق الذكية.<br>العطر ماشي مجرد رشة عشوائية. طبّقو على مناطق النبض (المعصم، الرقبة، خلف الأذن) وين حرارة الجسم تفوّح الرائحة وتخليها تدوم.<br><br>Slide 3: السر الثاني: البشرة المرطبة هي الأساس.<br>البشرة الجافة 'تشرب' العطر بسرعة. قبل ما ترش، استعمل كريم مرطب خفيف ولا فازلين على مناطق النبض. الترطيب يعمل كقاعدة تثبيت طبيعية.<br><br>Slide 4: السر الثالث: قوة التركيز هي كلش.<br>كاين فرق كبير بين Eau de Toilette و Eau de Parfum (EDP). الـ EDP فيه نسبة زيوت عطرية أعلى، وهذا يعني ثبات يدوم لساعات وساعات طويلة.<br><br>Slide 5: عطور النخبة: مصممة لتدوم.<br>حنا في 'النخبة' ما نخدموش غير بالـ Eau de Parfum. كل عطورنا مصممة بتركيز عالي باش تضمنلك فوحان وثبات يفوق 24 ساعة. بلا ما تحتاج تعاود ترش.<br><br>Slide 6: نصيحة ذهبية إضافية:<br>ما تحكّش معصميك بعد رش العطر! هاد الحركة تكسّر جزيئات العطر وتضعّف من ثباته. خليه ينشف طبيعيا على بشرتك.<br><br>Slide 7: مستعد لتجربة الثبات الحقيقي؟<br>اكتشف تشكيلتنا الفاخرة واختار العطر اللي يكمّل شخصيتك ويبقى معاك من الصباح لليل.
+                    <hr style="margin:15px 0; border:0; border-top:1px solid #EEE;">
+                    <strong>التوجيه الفني:</strong><br>
+                    <span style="color:#666; font-size:0.9em;">Slide 1: [الخلفية] صورة جذابة ومبهمة لزجاجة عطر مع إضاءة درامية. [النص] الهوك مكتوب بخط فخم وكبير. سهم صغير يشير إلى التمرير.
+
+Slide 2: [الخلفية] رسم بياني بسيط (انفوجرافيك) يوضح مناطق النبض على صورة ظلية لجسم الإنسان. [الألوان] ألوان هادئة وفاخرة (ذهبي، أسود، بيج).
+
+Slide 3: [الخلفية] صورة مقربة ليد تضع كريم مرطب، مع أيقونة قطرة ماء بجانب النص. [الخط] خط واضح وسهل القراءة للشرح.
+
+Slide 4: [الخلفية] تصميم يقارن بين زجاجتين، واحدة 'EDT' والأخرى 'EDP'. يتم إبراز زجاجة EDP بوضوح أكثر. استخدام أيقونات نسبة مئوية لإظهار فرق التركيز.
+
+Slide 5: [الخلفية] صورة احترافية لإحدى عطور 'النخبة'. الشعار يكون واضحا. [النص] التركيز على كلمة 'Eau de Parfum' و '24+ ساعة'.
+
+Slide 6: [الخلفية] أيقونة بسيطة تظهر علامة 'X' على صورة يدين تحتكان. [التصميم] تصميم بسيط ومباشر لإيصال النصيحة بسرعة.
+
+Slide 7: [الخلفية] صورة لمجموعة من عطور 'النخبة'. [النص] دعوة للعمل واضحة مع زر وهمي 'اكتشف الآن' لتشجيع النقر نحو الرابط في البايو.</span>
+                </div>
+            </div>
+        </td>
+        <td><span class="price-text">2,000 دج دج</span><br><small style="color:#A1A1A1">عبد الرحمن (المصمم)</small></td>
+    </tr><tr>
+        <td><span class="code-badge">P1</span></td>
+        <td><span class="type-text">صورة</span></td>
+        <td><div class="hook-pill">تخيّل ريحة تبقى معاك من الصباح لليل... مستحيل؟</div></td>
+        <td>
+            <div class="script-container">
+                <div class="script-preview">تخيّل ريحة تبقى معاك من الصباح لليل...
+ماشي مستحيل.
+[شعار 'النخبة']
+24+ ساعة ثبا...</div>
+                <div class="tooltip-text">
+                    <strong>السكربت الكامل:</strong><br>
+                    تخيّل ريحة تبقى معاك من الصباح لليل...<br>ماشي مستحيل.<br>[شعار 'النخبة']<br>24+ ساعة ثبات مضمون.
+                    <hr style="margin:15px 0; border:0; border-top:1px solid #EEE;">
+                    <strong>التوجيه الفني:</strong><br>
+                    <span style="color:#666; font-size:0.9em;">صورة فوتوغرافية احترافية عالية الجودة لزجاجة عطر من 'النخبة' موضوعة على سطح عاكس (رخام أسود أو مرآة). الإضاءة جانبية ودرامية تبرز تفاصيل الزجاجة. يتم كتابة النص بخطين مختلفين: الهوك بخط أنيق ومائل (Script)، وشعار '24+ ساعة ثبات مضمون' بخط عصري وجريء (Sans-serif). الألوان السائدة هي الأسود، الذهبي، أو الأبيض لتعزيز الإحساس بالفخامة.</span>
+                </div>
+            </div>
+        </td>
+        <td><span class="price-text">1,000 دج دج</span><br><small style="color:#A1A1A1">عبد الرحمن (المصمم)</small></td>
+    </tr><tr>
+        <td><span class="code-badge">V2</span></td>
+        <td><span class="type-text">فيديو</span></td>
+        <td><div class="hook-pill">شريت عطر غالي وتخاف ما يعجبكش ولا ما يشدش؟</div></td>
+        <td>
+            <div class="script-container">
+                <div class="script-preview">(صوت قلق ومتردد قليلاً)
+راك حاب تشري عطر جديد أونلاين... بصح خايف.
+خايف الريحة م...</div>
+                <div class="tooltip-text">
+                    <strong>السكربت الكامل:</strong><br>
+                    (صوت قلق ومتردد قليلاً)<br>راك حاب تشري عطر جديد أونلاين... بصح خايف.<br>خايف الريحة ما تعجبكش كي توصلك...<br>خايف تخسر دراهمك في عطر ما يشدش قاع النهار...<br>وتحس روحك ندمت.<br><br>(توقف قصير، تغيير في الموسيقى لتصبح واثقة وإيجابية)<br><br>خلاص! هاد التخمام كمل مع 'النخبة'.<br>جبنالك الحل: الضمان الذهبي.<br>واش معنتها؟<br>اشري العطر تاعك، جرّبو، وإذا ما عجبكش ولا ما شدّش كيما وعَدناك... رجّعو واسترجع دراهمك 100%.<br><br>مع 'النخبة'، راك تشري في الثقة والاطمئنان، ماشي غير في الريحة.<br>ما تزيدش تخمّم. ما تزيدش تريسكي.<br><br>'النخبة'. الريحة اللي تستاهلها، بالضمان اللي يريّحلك بالك.
+                    <hr style="margin:15px 0; border:0; border-top:1px solid #EEE;">
+                    <strong>التوجيه الفني:</strong><br>
+                    <span style="color:#666; font-size:0.9em;">[الإطار العام: فيديو Motion Graphics بالكامل مع تعليق صوتي احترافي.]
+
+[0-5 ثواني - Problem]: شاشة مقسومة. على اليسار أيقونة 'عربة تسوق' مع علامة استفهام كبيرة. على اليمين، شخصية كرتونية قلقة. [النص المتحرك]: 'شريت عطر غالي؟' و 'خايف ما يعجبكش؟'. [الألوان] درجات الرمادي والأسود.
+[أداء الصوت]: نبرة تعكس القلق والتردد.
+
+[6-10 ثواني - Agitate]: أيقونة 'ساعة' تدور بسرعة وتختفي (ترمز للرائحة التي تتلاشى). أيقونة 'محفظة نقود' تتمزق وتخرج منها أوراق نقدية تختفي. الشخصية الكرتونية تضع يدها على رأسها في إحباط. [الموسيقى] تصبح متوترة قليلاً.
+
+[11-15 ثواني - Solution]: انتقال مفاجئ ومشرق. تظهر أيقونة 'درع ذهبي' كبير في وسط الشاشة مع شعار 'النخبة'. [النص المتحرك]: 'الحل: الضمان الذهبي'. [الألوان] تتحول إلى الذهبي والأبيض الساطع. [الموسيقى] تصبح ملهمة وواثقة.
+
+[16-22 ثانية]: رسوم توضيحية بسيطة تشرح العملية: 1. أيقونة 'صندوق' (اطلب). 2. أيقونة 'بخاخ عطر' (جرّب). 3. أيقونة 'سهمين دائريين' مع علامة '100%' (استرجع نقودك). تظهر النصوص 'اطلب، جرّب، ما عجبكش؟ رجّع!'.
+[أداء الصوت]: نبرة واثقة، مطمئنة، وواضحة جداً.
+
+[23-28 ثانية]: ظهور مجموعة من عطور 'النخبة' مع الدرع الذهبي خلفها. الشخصية الكرتونية تظهر الآن مبتسمة وواثقة. [النص المتحرك]: 'الثقة، الأمان، الجودة'.
+
+[29-32 ثانية]: شاشة النهاية مع شعار 'النخبة' والـ CTA الواضح: 'اضغط واكتشف الضمان الذهبي!'.</span>
+                </div>
+            </div>
+        </td>
+        <td><span class="price-text">15,000 دج دج</span><br><small style="color:#A1A1A1">أحمد وإسلام (فريق المونتاج)</small></td>
+    </tr><tr>
+        <td><span class="code-badge">C2</span></td>
+        <td><span class="type-text">كاروسال</span></td>
+        <td><div class="hook-pill">واش صرا كي الناس بدات تشري عطور 'النخبة' بلا خوف؟</div></td>
+        <td>
+            <div class="script-container">
+                <div class="script-preview">Slide 1: واش صرا كي الناس بدات تشري عطور 'النخبة' بلا خوف؟
+(مرّر الشاشة وشوف رحل...</div>
+                <div class="tooltip-text">
+                    <strong>السكربت الكامل:</strong><br>
+                    Slide 1: واش صرا كي الناس بدات تشري عطور 'النخبة' بلا خوف؟<br>(مرّر الشاشة وشوف رحلة الزبون السعيد)<br><br>Slide 2: قبل 'النخبة': القلق.<br>كان سليم ديما يتردد. يشوف عطر يعجبو أونلاين، بصح يبقى يخمم: 'وإذا ما عجبتنيش الريحة؟'...'وإذا خسرت دراهمي باطل؟'.<br><br>Slide 3: قبل 'النخبة': الإحباط.<br>شحال من مرة شرات ليلى عطر غالي، بصح بعد ساعة... الريحة تروح! تحس باللي خدعوها وتغشّت في المنتج اللي شراتو.<br><br>Slide 4: نقطة التحول: اكتشاف 'النخبة'!<br>في يوم من الأيام، شافو إعلان على 'الضمان الذهبي'. فكرة جديدة وجريئة في الجزائر: 'جرّب العطر، ما عجبكش؟ رجّعو!'.<br><br>Slide 5: بعد 'النخبة': الثقة المطلقة.<br>سليم قرر يجرب. طلب أول عطر ليه من 'النخبة' وهو مرتاح. عارف باللي ما عندو واش يخسر. تجربة شراء بلا أي ضغط نفسي.<br><br>Slide 6: بعد 'النخبة': السعادة والرضا.<br>ليلى لقات ضالتها. عطر بريحة قاوية تدوم نهار كامل، والأهم، شراتو وهي مطمئنة. ولات تحس بالتميز والثقة في كل رشة.<br><br>Slide 7: هذا هو الضمان الذهبي تاعنا:<br>بكل بساطة: نضمنولك الجودة والثبات. وإذا لأي سبب ما كنتش راضي 100%، عندك الحق ترجع المنتج وتسترجع أموالك كاملة. ثقتك هي أولويتنا.<br><br>Slide 8: حاب تعيش تجربة 'بعد'؟<br>انضم لعائلة 'النخبة' واطلب عطرك الفاخر اليوم بثقة تامة. راك مضمون.
+                    <hr style="margin:15px 0; border:0; border-top:1px solid #EEE;">
+                    <strong>التوجيه الفني:</strong><br>
+                    <span style="color:#666; font-size:0.9em;">Slide 1: [الخلفية] تصميم جذاب يقسم الشاشة نصفين، نصف معتم ونصف مشرق. [النص] الهوك بخط كبير ومثير للفضول.
+
+Slide 2: [التصميم] رسم توضيحي بسيط لشخصية 'سليم' وهو ينظر لهاتفه بقلق، مع فقاعات تفكير فيها علامات استفهام. [الألوان] رمادية وباهتة.
+
+Slide 3: [التصميم] رسم توضيحي لشخصية 'ليلى' وهي تشم معصمها بحزن، مع أيقونة ساعة تختفي. [الألوان] تدرجات الأزرق البارد.
+
+Slide 4: [التصميم] رسم للشخصيتين وهما ينظران لأيقونة 'درع ذهبي' لامعة تظهر من شاشة هاتف. [الألوان] بداية ظهور اللون الذهبي المشرق.
+
+Slide 5: [التصميم] شخصية 'سليم' يفتح صندوق 'النخبة' بابتسامة وثقة. لا يوجد أي علامات استفهام. [الألوان] دافئة ومشرقة.
+
+Slide 6: [التصميم] شخصية 'ليلى' تمشي بثقة ورأس مرفوع، مع هالة عطرية حولها. [الألوان] زاهية ومفعمة بالحياة (وردي، ذهبي).
+
+Slide 7: [التصميم] انفوجرافيك بسيط وواضح: أيقونة 'شاحنة' -> أيقونة 'بخاخ' -> أيقونة 'سهمين دائريين مع نقود'. [النص] واضح ومباشر.
+
+Slide 8: [الخلفية] صورة لعملاء سعداء (Stock photo) أو صور لمنتجات النخبة. [النص] دعوة للعمل واضحة مع زر وهمي 'اطلب الآن وأنت مطمئن'.</span>
+                </div>
+            </div>
+        </td>
+        <td><span class="price-text">2,000 دج دج</span><br><small style="color:#A1A1A1">عبد الرحمن (المصمم)</small></td>
+    </tr><tr>
+        <td><span class="code-badge">P2</span></td>
+        <td><span class="type-text">صورة</span></td>
+        <td><div class="hook-pill">ما تزيدش تخسر دراهمك على عطر ما يعجبكش!</div></td>
+        <td>
+            <div class="script-container">
+                <div class="script-preview">ما تزيدش تخسر دراهمك على عطر ما يعجبكش!
+الضمان الذهبي من 'النخبة'
+اشري. جرّب. اس...</div>
+                <div class="tooltip-text">
+                    <strong>السكربت الكامل:</strong><br>
+                    ما تزيدش تخسر دراهمك على عطر ما يعجبكش!<br>الضمان الذهبي من 'النخبة'<br>اشري. جرّب. استمتع.<br>(أو استرجع أموالك 100%)
+                    <hr style="margin:15px 0; border:0; border-top:1px solid #EEE;">
+                    <strong>التوجيه الفني:</strong><br>
+                    <span style="color:#666; font-size:0.9em;">صورة فوتوغرافية واضحة ومضاءة جيداً. في المقدمة، بطاقة بتصميم فاخر تشبه بطاقة ائتمان ذهبية، مكتوب عليها 'الضمان الذهبي - مؤسسة النخبة التجارية'. بجانبها، تستند عليها زجاجة عطر من 'النخبة' بشكل أنيق. الخلفية نظيفة ومحايدة (بيضاء أو رمادية فاتحة) لتركيز الانتباه على البطاقة والعطر. النص المكتوب على الصورة يكون بخط واضح وجريء وسهل القراءة.</span>
+                </div>
+            </div>
+        </td>
+        <td><span class="price-text">1,000 دج دج</span><br><small style="color:#A1A1A1">عبد الرحمن (المصمم)</small></td>
+    </tr></tbody></table></div>
+
+<div class="summary-section">
+    <span class="total-label">الميزانية الإجمالية المعتمدة</span>
+    <span class="total-amount">51,000 دج دج</span>
+    <a href="https://wa.me/213770820431" class="cta-btn">اعتماد الخطة والبدء في التنفيذ</a>
+</div>
+
+<div style="text-align: center; margin-top: 60px; color: #A1A1A1; font-size: 0.9em;">
+    &copy; 2026 Wayso Digital Agency. جميع الحقوق محفوظة.
+</div>
+
+</div></body></html>
