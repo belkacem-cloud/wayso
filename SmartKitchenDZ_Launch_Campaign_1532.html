@@ -1,0 +1,800 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Wayso Strategy | SmartKitchenDZ_Launch_Campaign_1532</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+<style>
+    body { background: #FFFFFF; color: #1A1A1A; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; line-height: 1.6; overflow-x: hidden; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 15px; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 2px solid #000; }
+    .wayso-logo { height: 45px; }
+    
+    .analysis-section { margin: 30px 0; }
+    .card-philosophy { padding: 30px; border-radius: 20px; background: #000; color: #FFF; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+    .card-philosophy h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #FFD700; }
+    
+    .card-why { padding: 30px; border-radius: 20px; background: #F9F9F9; color: #333; margin-bottom: 20px; border: 1px solid #EDECE9; }
+    .card-why h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #000; display: flex; align-items: center; gap: 10px; }
+    .card-why h2::after { content: ''; flex-grow: 1; height: 1px; background: #EDECE9; margin-right: 15px; }
+
+    .hero { margin: 35px 0 20px 0; border-right: 6px solid #FFD700; padding-right: 15px; }
+    .hero h1 { font-size: 2.5em; font-weight: 700; margin: 0; }
+    .table-wrapper { margin-top: 25px; border-radius: 12px; overflow: hidden; border: 1px solid #EDECE9; }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #000; color: #FFF; padding: 15px; text-align: right; font-size: 0.9em; }
+    td { padding: 20px 12px; border-bottom: 1px solid #EDECE9; vertical-align: top; }
+    
+    .code-badge { font-family: 'Montserrat', sans-serif; font-weight: 700; background: #FFD700; color: #000; padding: 5px 12px; border-radius: 6px; font-size: 1.1em; display: inline-block; margin-bottom: 5px; }
+    .type-label { display: block; font-weight: 700; color: #555; font-size: 0.95em; }
+    
+    .hook-pill { background: #000; color: #FFD700; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 1.1em; display: block; border-right: 5px solid #FFD700; }
+    .script-trigger { background: #F8F9FA; border: 1px solid #EDECE9; padding: 15px; border-radius: 10px; cursor: pointer; }
+    .preview-text { font-size: 0.95em; color: #333; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    
+    .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(8px); }
+    .modal-content { background: #FFF; margin: 5% auto; padding: 30px; border-radius: 20px; width: 88%; max-width: 700px; position: relative; max-height: 85vh; overflow-y: auto; }
+    .close-modal { position: absolute; top: 15px; left: 15px; font-size: 35px; cursor: pointer; color: #999; line-height: 1; }
+    .modal-section { margin-bottom: 25px; }
+    .modal-body { white-space: pre-wrap; font-size: 1.15em; color: #1A1A1A; line-height: 1.7; }
+    
+    .summary-box { margin-top: 50px; background: #000; color: #FFF; padding: 40px 20px; border-radius: 25px; text-align: center; }
+    .total-amount { font-family: 'Montserrat'; font-size: 3.5em; font-weight: 700; display: block; color: #FFD700; margin: 10px 0; }
+    .cta-btn { display: inline-block; background: #FFD700; color: #000; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.2em; margin-bottom: 25px; }
+    
+    .phones-list { margin-top: 15px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; direction: ltr; } 
+    .phone-item { background: #1A1A1A; padding: 8px 15px; border-radius: 8px; border: 1px solid #333; color: #FFF; font-family: 'Montserrat'; font-weight: 700; font-size: 1.2em; white-space: nowrap; }
+
+    @media (max-width: 768px) {
+        thead { display: none; }
+        tr { display: block; border: 1px solid #EDECE9; border-radius: 15px; margin-bottom: 20px; padding: 15px; background: #FFF; }
+        td { display: block; padding: 8px 0; text-align: right; }
+        td::before { content: attr(data-label); font-weight: 700; color: #BBB; display: block; font-size: 0.75em; margin-bottom: 4px; }
+        .phone-item { font-size: 1.1em; width: 100%; text-align: center; }
+    }
+</style></head><body>
+
+<div class="container">
+    <div class="header">
+        <img src="https://storage.googleapis.com/msgsndr/GwIPQCjstTzxnzDQ1B32/media/68fddb5534bb1597bc934f89.png" class="wayso-logo">
+        <div style="font-family:Montserrat; font-weight:700; font-size: 0.8em;">WAYSO HUB</div>
+    </div>
+
+    <div class="analysis-section">
+        <div class="card-philosophy"><h2>🎯 فلسفة الاستراتيجية</h2><p>في Smart Kitchen DZ، نؤمن بأن المطبخ هو قلب كل منزل جزائري، وأن الفوضى فيه لا تسرق الوقت والجهد فحسب، بل تؤثر على الراحة النفسية والإبداع. فلسفتنا تقوم على تمكين المرأة الجزائرية من استعادة هذا القلب، بتحويل مطبخها من مصدر إرهاق إلى مساحة منظمة، عملية، وملهمة، تعكس ذوقها وتلبي احتياجاتها اليومية بأقل جهد ممكن. نحن نقدم حلولًا ذكية وعصرية، مصممة خصيصًا لتناسب خصوصية المطابخ الجزائرية وتحدياتها، مع التركيز على الجودة، الجمال، وسهولة الاستخدام.</p></div>
+        <div class="card-why"><h2>💡 لماذا هذه الخطة؟</h2><p>هذه الخطة هي الأنسب لـ Smart Kitchen DZ لأنها تعتمد استراتيجية محتوى متكاملة تستهدف نقاط الألم الرئيسية للمرأة الجزائرية المتعلقة بفوضى المطبخ ونقص التنظيم، وتقدم حلولاً عملية وجذابة عبر أنواع محتوى متنوعة. من خلال الفيديوهات القصصية (Storytelling) ومحتوى UGC، نبني الثقة والمصداقية ونعزز الشعور بالانتماء للمجتمع. الكاروسالات والصور الإنفوجرافيكية تقدم نصائح سريعة وموجهة، بينما فيديوهات Motion Graphics تبرز جمالية المنتجات وذكاء التصميم. هذا المزيج يضمن وصول الرسالة بفعالية، بناء علاقة قوية مع الجمهور، وتحفيزهم على اتخاذ إجراء، كل ذلك مع التركيز على الجودة والقيمة التي تقدمها Smart Kitchen DZ.</p></div>
+    </div>
+
+    <div class="hero"><h1>خطة الإنتاج الإبداعي</h1></div>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th style="width: 20%;">الكود والنوع</th><th style="width: 30%;">الهوك (Hook)</th><th style="width: 50%;">المحتوى</th></tr></thead>
+            <tbody><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V1</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">تعبتِ من كوزينتك المخلطة وطيابك يشد اليدين؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('1')">
+                    <div class="preview-text">تعبتِ من كوزينتك ديما مخلطة؟ كل ما تحبي طيبي حاجة، نص وقتك يروح و انتِ تحوسي؟
+تحسي روحك عيانة قبل ما...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-1" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('1')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V1</h2>
+                        <div class="modal-section"><h4>السكربت</h4><div class="modal-body">تعبتِ من كوزينتك ديما مخلطة؟ كل ما تحبي طيبي حاجة، نص وقتك يروح و انتِ تحوسي؟
+تحسي روحك عيانة قبل ما تبداي أصلا...
+هاد الفوضى ماشي برك تضيعلك الوقت، راهي تسرقلك في راحتك النفسية.
+بصح كاين حل. حل يرجعلك النظام والراحة لكوزينتك.
+تابعينا، باه نكشفولك الحل السحري اللي راح يبدلك حياتك.</div></div>
+                        <div class="modal-section" style="background:#FFF9E6; padding:15px; border-radius:10px;"><h4>Ad Copy</h4><div style="font-size:1.1em;">[object Object]</div></div>
+                        <div class="modal-section" style="margin-top:15px;"><h4>ملاحظات</h4><div style="color:#666; font-size:0.9em;">المشهد: وجه إعلامي (سيدة أنيقة وعصرية في الثلاثينيات) واقفة في مطبخ يبدو جميلاً لكن عند التدقيق نرى بعض الفوضى (خزانة مفتوحة قليلاً ومحتوياتها غير مرتبة، سطح العمل عليه بعض الأغراض غير المنظمة).
+زاوية الكاميرا: تبدأ بلقطة متوسطة (Medium shot) للوجه الإعلامي. عند ذكر الفوضى، تنتقل الكاميرا لقطات مقربة (Close-up) على تفاصيل الفوضى بشكل سريع. تعود الكاميرا للوجه الإعلامي في لقطة مقربة وهي تتحدث بنبرة متعاطفة وهادئة.
+الإضاءة: طبيعية وناعمة.
+أداء الصوت: تبدأ بنبرة متعبة ومتفهمة، ثم تتحول إلى نبرة ملهمة وواثقة عند ذكر الحل.</div></div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C1</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الفوضى في الكوزينة ماشي غير تخلط، تنقص من عمرك!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('2')">
+                    <div class="preview-text">Slide 1: كوزينتك كيما هاذي؟
+Slide 2: (بدون نص، فقط صور)
+Slide 3: واش يصرالك كل يوم؟
+- إرهاق ذهني وضغ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-2" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('2')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C1</h2>
+                        <div class="modal-section"><h4>السكربت</h4><div class="modal-body">Slide 1: كوزينتك كيما هاذي؟
+Slide 2: (بدون نص، فقط صور)
+Slide 3: واش يصرالك كل يوم؟
+- إرهاق ذهني وضغط نفسي.
+- ضياع وقت ثمين في البحث.
+- العزوف عن الطبخ والإبداع.
+Slide 4: تخيّلي لو كانت كوزينتك منظمة، ساهلة، وكل حاجة في بلاصتها... تخيّلي الراحة النفسية والوقت اللي راح تربحيه!
+Slide 5: التحول ممكن ويبدأ بخطوة بسيطة. نظّمي كوزينتك وزيّنيها بلمسة وحدة.</div></div>
+                        <div class="modal-section" style="background:#FFF9E6; padding:15px; border-radius:10px;"><h4>Ad Copy</h4><div style="font-size:1.1em;">[object Object]</div></div>
+                        <div class="modal-section" style="margin-top:15px;"><h4>ملاحظات</h4><div style="color:#666; font-size:0.9em;">Slide 1: خلفية بتصميم نظيف وعصري. العنوان مكتوب بخط كبير وواضح. في الأسفل صورة صغيرة غير واضحة لمطبخ فوضوي.
+Slide 2: مجموعة صور (Collage) واقعية لمطابخ جزائرية غير منظمة: أدراج ممتلئة، رفوف فوضوية، سطح عمل مزدحم.
+Slide 3: خلفية بلون هادئ من ألوان العلامة. النص على شكل نقاط واضحة بجانب كل نقطة أيقونة بسيطة (أيقونة رأس متعب، ساعة، طاه حزين).
+Slide 4: صورة كاملة لمطبخ منظم بشكل مثالي ومشرق. النص مكتوب فوق الصورة بطريقة أنيقة.
+Slide 5: شعار Smart Kitchen DZ في الوسط. العنوان مكتوب بخط ملهم. في الأسفل دعوة لتصفح الصفحة.</div></div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P1</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">تخسري سوايع وانتِ تحوسي على حاجة في الكوزينة؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('3')">
+                    <div class="preview-text">تخسري سوايع وانتِ تحوسي على حاجة في الكوزينة؟
+وقتك أثمن من الفوضى....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-3" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('3')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P1</h2>
+                        <div class="modal-section"><h4>السكربت</h4><div class="modal-body">تخسري سوايع وانتِ تحوسي على حاجة في الكوزينة؟
+وقتك أثمن من الفوضى.</div></div>
+                        <div class="modal-section" style="background:#FFF9E6; padding:15px; border-radius:10px;"><h4>Ad Copy</h4><div style="font-size:1.1em;">[object Object]</div></div>
+                        <div class="modal-section" style="margin-top:15px;"><h4>ملاحظات</h4><div style="color:#666; font-size:0.9em;">التصميم: صورة لسيدة تبدو متعبة ومحبطة وهي تبحث داخل خزانة مطبخ فوضوية جداً. النص مكتوب فوق الصورة بخط عريض وواضح بلون يتباين مع الصورة. في الأسفل يوضع شعار Smart Kitchen DZ بشكل صغير.</div></div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V2</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">علاش أغلب النسا تعاني من نفس مشكل الكوزينة؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('4')">
+                    <div class="preview-text">(صوت نسائي أول) "كل يوم نقول اليوم نسقمها، ومبعد نعيا ونخلي كلش."
+(صوت نسائي ثاني) "عندي بزاف مواعين...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-4" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('4')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V2</h2>
+                        <div class="modal-section"><h4>السكربت</h4><div class="modal-body">(صوت نسائي أول) "كل يوم نقول اليوم نسقمها، ومبعد نعيا ونخلي كلش."
+(صوت نسائي ثاني) "عندي بزاف مواعين بصح معنديش وين نحطهم بطريقة منظمة."
+(صوت نسائي ثالث) "نتلف واش عندي وواش معنديش، ونعاود نشري حاجات عندي منهم ديجا."
+(صوت الراوي) هادي ماشي حكايتك وحدك. هي حكاية آلاف النسا في دزاير.
+المشكل ماشي فيك، المشكل في طريقة التخزين اللي ما تناسبش احتياجاتك.
+بصح كي تعرفي الحل، كلش يولي ساهل.</div></div>
+                        <div class="modal-section" style="background:#FFF9E6; padding:15px; border-radius:10px;"><h4>Ad Copy</h4><div style="font-size:1.1em;">[object Object]</div></div>
+                        <div class="modal-section" style="margin-top:15px;"><h4>ملاحظات</h4><div style="color:#666; font-size:0.9em;">الأسلوب: UGC (محتوى من إنشاء المستخدمين). الفيديو عبارة عن مونتاج سريع لمقاطع فيديو قصيرة تبدو وكأنها مصورة بالهاتف.
+المشاهد: مقاطع سريعة لأدراج فوضوية، خزائن ممتلئة، سيدة تتنهد وهي تنظر لمطبخها. لا يجب إظهار وجوه السيدات بوضوح للحفاظ على الخصوصية.
+الصوت: الأصوات النسائية تبدو حقيقية ومسجلة بشكل طبيعي (ليس في استوديو). صوت الراوي يكون هادئاً ومتعاطفاً. تضاف موسيقى خلفية هادئة وملهمة في النهاية.
+النص: تظهر اقتباسات قصيرة مكتوبة على الشاشة بالتزامن مع الصوت.</div></div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C2</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">تجنبي هاد الأخطاء وخلي كوزينتك ديما واجدة!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('5')">
+                    <div class="preview-text">Slide 1: 3 أخطاء شائعة تخليك تخسري وقتك في الكوزينة!
+Slide 2: الخطأ 1: التخزين العشوائي.
+وضع الأغراض...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-5" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('5')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C2</h2>
+                        <div class="modal-section"><h4>السكربت</h4><div class="modal-body">Slide 1: 3 أخطاء شائعة تخليك تخسري وقتك في الكوزينة!
+Slide 2: الخطأ 1: التخزين العشوائي.
+وضع الأغراض فوق بعضها بلا نظام يخليك تضيعي وقتك كل مرة تحوسي على حاجة.
+Slide 3: الخطأ 2: عدم استغلال المساحات.
+إهمال المساحات العمودية والزوايا الضايعة هو سبب رئيسي في الإحساس بالضيق والفوضى.
+Slide 4: الحل بسيط: تنظيم ذكي!
+باستعمال المنظمات المناسبة، تقدري تضاعفي مساحة التخزين وتلقاي كلش بسهولة.</div></div>
+                        <div class="modal-section" style="background:#FFF9E6; padding:15px; border-radius:10px;"><h4>Ad Copy</h4><div style="font-size:1.1em;">[object Object]</div></div>
+                        <div class="modal-section" style="margin-top:15px;"><h4>ملاحظات</h4><div style="color:#666; font-size:0.9em;">Slide 1: عنوان جذاب بخط كبير. خلفية لصورة مطبخ أنيق لكن فيها لمحة من الفوضى.
+Slide 2: تصميم مقسوم: نصف صورة لخزانة فوضوية، والنصف الآخر نص يشرح الخطأ. استخدام أيقونة (X) حمراء.
+Slide 3: نفس تصميم السلايد الثاني. صورة لمساحة فارغة فوق الثلاجة أو زاوية مهملة.
+Slide 4: صورة مشرقة لمنتجات Smart Kitchen DZ وهي مستعملة في خزانة منظمة. استخدام أيقونة (✓) خضراء.</div></div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P2</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">هل تعلمين كم ساعة تضيعينها في كوزينة غير منظمة؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('6')">
+                    <div class="preview-text">هل تعلمين؟
+قد تخسر المرأة الجزائرية حتى 150 ساعة في السنة بحثاً عن الأغراض في مطبخ غير منظم!
+هذا يعا...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-6" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('6')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P2</h2>
+                        <div class="modal-section"><h4>السكربت</h4><div class="modal-body">هل تعلمين؟
+قد تخسر المرأة الجزائرية حتى 150 ساعة في السنة بحثاً عن الأغراض في مطبخ غير منظم!
+هذا يعادل أسبوع عمل كامل!</div></div>
+                        <div class="modal-section" style="background:#FFF9E6; padding:15px; border-radius:10px;"><h4>Ad Copy</h4><div style="font-size:1.1em;">[object Object]</div></div>
+                        <div class="modal-section" style="margin-top:15px;"><h4>ملاحظات</h4><div style="color:#666; font-size:0.9em;">التصميم: إنفوجرافيك بسيط وجذاب. الخلفية بلون من ألوان العلامة. في الأعلى أيقونة ساعة كبيرة. الرقم "150 ساعة" يكون بحجم كبير جداً لجذب الانتباه. النص المتبقي يكون بحجم أصغر لكن واضح. في الأسفل شعار @SmartKitchenDZ.</div></div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V3</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">3 خطوات سحرية تحولي بيها كوزينتك الضيقة لجنة!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('7')">
+                    <div class="preview-text">(صوت الراوي، نبرة حماسية وعملية)
+عندك كوزينة ضيقة وتحسيها ديما مخنوقة؟ تبعي هاد 3 خطوات سحرية!
+أولاً...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-7" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('7')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V3</h2>
+                        <div class="modal-section"><h4>السكربت</h4><div class="modal-body">(صوت الراوي، نبرة حماسية وعملية)
+عندك كوزينة ضيقة وتحسيها ديما مخنوقة؟ تبعي هاد 3 خطوات سحرية!
+أولاً: استغلي الجدران! الرفوف العمودية تزيدلك مساحة تخزين وتمد منظر شباب.
+ثانياً: نظمي الأدراج! استعملي فواصل الأدراج. كل حاجة في بلاصتها، تربحي الوقت والجهد.
+ثالثاً: الزوايا الميتة! كاين منظمات خاصة بالزوايا تخليك تستغلي كل سنتيمتر في كوزينتك.
+بهاد الخطوات البسيطة، كوزينتك الضيقة تولي منظمة وعملية.</div></div>
+                        <div class="modal-section" style="background:#FFF9E6; padding:15px; border-radius:10px;"><h4>Ad Copy</h4><div style="font-size:1.1em;">[object Object]</div></div>
+                        <div class="modal-section" style="margin-top:15px;"><h4>ملاحظات</h4><div style="color:#666; font-size:0.9em;">الأسلوب: Motion Graphics (رسوم متحركة).
+المشاهد: يبدأ الفيديو برسم كرتوني لمطبخ صغير وفوضوي. مع كل خطوة يشرحها الراوي، تحدث تغييرات في الرسم:
+1. تظهر رفوف عمودية على الجدار وتنتقل إليها العلب بشكل منظم.
+2. يتم عمل زوم على درج فوضوي، ثم تظهر فواصل وتقوم بترتيب الأدوات داخله.
+3. يتم التركيز على زاوية فارغة، ثم يظهر فيها منظم زاوية دوار.
+يجب أن تكون الرسوم بسيطة، بألوان العلامة التجارية، والانتقالات سلسة وسريعة.</div></div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C3</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">تخلصي من الحيرة واختاري المنظمات المناسبة!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('8')">
+                    <div class="preview-text">Slide 1: كيفاش تختاري المنظمات الصح لكل بلاصة في كوزينتك؟ الدليل الكامل!
+Slide 2: لخزائن المواعين: ا...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-8" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('8')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C3</h2>
+                        <div class="modal-section"><h4>السكربت</h4><div class="modal-body">Slide 1: كيفاش تختاري المنظمات الصح لكل بلاصة في كوزينتك؟ الدليل الكامل!
+Slide 2: لخزائن المواعين: الرفوف المتعددة.
+تسمحلك تضاعفي المساحة وتستغلي الارتفاع. مثالية للصحون والكيسان.
+Slide 3: لأدراج الأدوات: الفواصل الذكية.
+تمنع الفوضى وتخلي كل أداة في مكانها. سهلة التنظيف والتركيب.
+Slide 4: للبهارات والعلب: المنظمات الدوارة.
+تخليك توصلي لكل علبة بسهولة بلا ما تفرغي الرف كامل.
+Slide 5: تحت الحوض: حلول التخزين العمودي.
+استغلي المساحة تحت الحوض بمنظمات ذات طابقين لمواد التنظيف.
+Slide 6: كل هاد الحلول وأكثر تلقاوها عندنا. ابدئي اليوم مع Smart Kitchen DZ!</div></div>
+                        <div class="modal-section" style="background:#FFF9E6; padding:15px; border-radius:10px;"><h4>Ad Copy</h4><div style="font-size:1.1em;">[object Object]</div></div>
+                        <div class="modal-section" style="margin-top:15px;"><h4>ملاحظات</h4><div style="color:#666; font-size:0.9em;">Slide 1: عنوان جذاب على خلفية صورة لمطبخ منظم بشكل احترافي.
+Slides 2-5: كل سلايد يعرض صورة عالية الجودة للمنظم المذكور وهو قيد الاستخدام في المكان المخصص له (خزانة، درج، إلخ). النص يكون واضح ومختصر بجانب الصورة أو فوقها.
+Slide 6: تصميم جرافيكي يعرض كولاج لعدة منتجات من Smart Kitchen DZ مع الشعار ومعلومات الاتصال أو رابط الموقع.</div></div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P3</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">نصيحة ذهبية: استعملي المساحات العمودية في كوزينتك!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('9')">
+                    <div class="preview-text">نصيحة ذهبية 💡
+استعملي المساحات العمودية في كوزينتك.
+الجدران والرفوف العالية كنز مخفي!...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-9" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('9')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P3</h2>
+                        <div class="modal-section"><h4>السكربت</h4><div class="modal-body">نصيحة ذهبية 💡
+استعملي المساحات العمودية في كوزينتك.
+الجدران والرفوف العالية كنز مخفي!</div></div>
+                        <div class="modal-section" style="background:#FFF9E6; padding:15px; border-radius:10px;"><h4>Ad Copy</h4><div style="font-size:1.1em;">[object Object]</div></div>
+                        <div class="modal-section" style="margin-top:15px;"><h4>ملاحظات</h4><div style="color:#666; font-size:0.9em;">التصميم: تصميم جرافيكي أنيق. الخلفية صورة مموهة لمطبخ جميل. النص مكتوب في الوسط بخط عصري وأنيق. بجانب كلمة "ذهبية" أيقونة لمبة مضيئة. في الأسفل الشعار @SmartKitchenDZ.</div></div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V4</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">تخيلي كوزينتك تولي هكدا في أقل من ساعة... ممكن؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('10')">
+                    <div class="preview-text">(صوت الراوي، نبرة هادئة وملهمة)
+كانت هادي هي كوزينة سارة. فوضى في كل بلاصة، وضياع كبير للوقت كل صباح...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-10" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('10')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V4</h2>
+                        <div class="modal-section"><h4>السكربت</h4><div class="modal-body">(صوت الراوي، نبرة هادئة وملهمة)
+كانت هادي هي كوزينة سارة. فوضى في كل بلاصة، وضياع كبير للوقت كل صباح.
+كانت تحس باللي مستحيل تتنظم... حتى قررت تبدا بخطوة صغيرة.
+خطوة بسيطة... غيرت كلش.
+شوفي النتيجة.
+ماشي سحر، هادا هو قوة التنظيم الذكي.
+وأنتِ تاني تقدري. التحول يبدا من عندك.</div></div>
+                        <div class="modal-section" style="background:#FFF9E6; padding:15px; border-radius:10px;"><h4>Ad Copy</h4><div style="font-size:1.1em;">[object Object]</div></div>
+                        <div class="modal-section" style="margin-top:15px;"><h4>ملاحظات</h4><div style="color:#666; font-size:0.9em;">الأسلوب: Storytelling مع Before/After.
+المشاهد: يبدأ الفيديو بلقطات (Before) لمطبخ حقيقي فوضوي، مصورة بطريقة واقعية. مع بداية كلام الراوي عن "الخطوة الصغيرة"، يبدأ تسريع زمني (Timelapse) لعملية التنظيم (إفراغ الخزائن، تنظيف، ثم وضع المنظمات وإعادة الأغراض).
+ينتهي الفيديو بلقطات سينمائية بطيئة وجميلة (After) لنفس المطبخ وهو منظم ومشرق. التركيز على تفاصيل التنظيم والراحة التي يوحي بها المشهد.
+الموسيقى: تبدأ بموسيقى هادئة وحزينة قليلاً، ثم تتصاعد تدريجياً لتصبح ملهمة ومبهجة في مشاهد الـ After.</div></div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C4</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">رفوف البهارات والعلب ديما مخلطة؟
+دليل سريع في 3 خطوات لترتيبها للأبد!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('11')">
+                    <div class="preview-text">Slide 1: رفوف البهارات والعلب ديما مخلطة؟
+دليل سريع في 3 خطوات لترتيبها للأبد!
+Slide 2: الخطوة 1: فر...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-11" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('11')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C4</h2>
+                        <div class="modal-section"><h4>السكربت</h4><div class="modal-body">Slide 1: رفوف البهارات والعلب ديما مخلطة؟
+دليل سريع في 3 خطوات لترتيبها للأبد!
+Slide 2: الخطوة 1: فرّغي كلش.
+أول حاجة، أخرجي كل العلب والبهارات من الرف. نظفيه مليح وامسحيه.
+Slide 3: الخطوة 2: صنّفيهم.
+حطي البهارات اللي تستعمليهم يومياً وحدهم، والعلب حسب الحجم أو النوع.
+Slide 4: الخطوة 3: استعملي منظمات شفافة.
+المنظمات والعلب الشفافة تخليك تشوفي واش كاين لداخل بلا ما تفتحي. استعملي رفوف متدرجة للبهارات.
+Slide 5: النتيجة: رفوف مرتبة وعملية!
+كل حاجة واضحة وفي بلاصتها. الطياب يولي أسهل وأسرع.</div></div>
+                        <div class="modal-section" style="background:#FFF9E6; padding:15px; border-radius:10px;"><h4>Ad Copy</h4><div style="font-size:1.1em;">[object Object]</div></div>
+                        <div class="modal-section" style="margin-top:15px;"><h4>ملاحظات</h4><div style="color:#666; font-size:0.9em;">Slide 1: صورة مقربة لرف بهارات فوضوي جداً، مع عنوان واضح وجذاب.
+Slides 2-4: كل سلايد يحتوي على صورة عالية الجودة توضح الخطوة المذكورة (رف فارغ ونظيف، بهارات مصنفة على الطاولة، منظمات شفافة). النص يكون على شكل نقاط واضحة.
+Slide 5: صورة نهائية جميلة جداً لنفس الرف بعد التنظيم، يبدو عملياً وأنيقاً.</div></div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P4</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">من الفوضى إلى النظام في لمحة!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('12')">
+                    <div class="preview-text">قبل (نص على الصورة اليسرى)
+بعد (نص على الصورة اليمنى)...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-12" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('12')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P4</h2>
+                        <div class="modal-section"><h4>السكربت</h4><div class="modal-body">قبل (نص على الصورة اليسرى)
+بعد (نص على الصورة اليمنى)</div></div>
+                        <div class="modal-section" style="background:#FFF9E6; padding:15px; border-radius:10px;"><h4>Ad Copy</h4><div style="font-size:1.1em;">[object Object]</div></div>
+                        <div class="modal-section" style="margin-top:15px;"><h4>ملاحظات</h4><div style="color:#666; font-size:0.9em;">التصميم: صورة مقسومة إلى نصفين (Split-screen).
+النصف الأيسر (قبل): صورة لدرج أدوات مطبخ فوضوي جداً، كل شيء فوق بعضه.
+النصف الأيمن (بعد): نفس الدرج، لكن منظم بشكل مثالي باستخدام فواصل الأدراج من Smart Kitchen DZ.
+يتم وضع شعار الشركة في المنتصف على الخط الفاصل.</div></div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V5</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">وشنو هو السر اللي يخلي الكوزينة تبان ديما شابة ومنظمة؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('13')">
+                    <div class="preview-text">(صوت الراوي، نبرة أنيقة وراقية)
+السر ليس فقط في النظافة...
+بل في تناغم التفاصيل.
+في اختيار القطع الل...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-13" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('13')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V5</h2>
+                        <div class="modal-section"><h4>السكربت</h4><div class="modal-body">(صوت الراوي، نبرة أنيقة وراقية)
+السر ليس فقط في النظافة...
+بل في تناغم التفاصيل.
+في اختيار القطع اللي تجمع بين الجمال... والذكاء.
+قطع عملية تخفي الفوضى... وتبرز الأناقة.
+كل قطعة في مكانها الصحيح... تخدمك وتزين مطبخك.
+هذا هو سر المطبخ العصري.
+لمسة بسيطة... تغير كل شيء.</div></div>
+                        <div class="modal-section" style="background:#FFF9E6; padding:15px; border-radius:10px;"><h4>Ad Copy</h4><div style="font-size:1.1em;">[object Object]</div></div>
+                        <div class="modal-section" style="margin-top:15px;"><h4>ملاحظات</h4><div style="color:#666; font-size:0.9em;">الأسلوب: Motion Graphics أنيق جداً.
+المشاهد: الفيديو يركز على جماليات المنتجات. رسوم متحركة ثلاثية الأبعاد (3D) لمطبخ عصري فارغ. ثم تبدأ المنتجات (منظمات، علب أنيقة) بالظهور والتوضع في أماكنها بسلاسة ونعومة. التركيز على الخطوط النظيفة، الألوان الهادئة (ألوان العلامة)، والانعكاسات الضوئية التي تبرز جودة التصميم.
+الموسيقى: موسيقى Lounge هادئة وراقية.</div></div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C5</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">زيدي جمال لكوزينتك بلمسات بسيطة وعصرية!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('14')">
+                    <div class="preview-text">Slide 1: 5 لمسات بسيطة تزيد الجمال لكوزينتك المنظمة!
+Slide 2: 1. الألوان المنسجمة.
+اختاري منظمات وعل...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-14" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('14')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C5</h2>
+                        <div class="modal-section"><h4>السكربت</h4><div class="modal-body">Slide 1: 5 لمسات بسيطة تزيد الجمال لكوزينتك المنظمة!
+Slide 2: 1. الألوان المنسجمة.
+اختاري منظمات وعلب بألوان متناسقة مع ديكور مطبخك. اللون الأبيض أو الشفاف يضيف لمسة من النقاء.
+Slide 3: 2. الإضاءة المناسبة.
+الإضاءة تحت الخزائن تبرز جمال التنظيم وتضيف جواً دافئاً للمطبخ.
+Slide 4: 3. لمسة من الطبيعة.
+نبتة خضراء صغيرة على الرف أو سطح العمل تمنح الحياة والانتعاش للمكان.
+Slide 5: 4. أدوات أنيقة وعملية.
+اختاري أدوات مطبخ بتصميم جميل وضعيها في حامل أنيق على سطح العمل.
+Slide 6: 5. اللمسة الأخيرة من Smart Kitchen DZ!
+منظماتنا مصممة لتكون جميلة بقدر ما هي عملية. هي قطعة ديكور بحد ذاتها.</div></div>
+                        <div class="modal-section" style="background:#FFF9E6; padding:15px; border-radius:10px;"><h4>Ad Copy</h4><div style="font-size:1.1em;">[object Object]</div></div>
+                        <div class="modal-section" style="margin-top:15px;"><h4>ملاحظات</h4><div style="color:#666; font-size:0.9em;">الأسلوب: صور عالية الجودة بأسلوب المجلات (Magazine style).
+Slide 1: عنوان أنيق على صورة لمطبخ منظم وجميل جداً.
+Slides 2-5: كل سلايد يعرض صورة احترافية تجسد الفكرة المذكورة. مثلاً، سلايد 3 يركز على شريط إضاءة LED تحت خزانة. سلايد 4 يركز على نبتة صغيرة بجانب منظمات أنيقة.
+Slide 6: صورة مقربة جداً لأحد منتجات Smart Kitchen DZ الأكثر جمالاً، مع إبراز تفاصيل التصميم.</div></div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P5</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الجمال والعملية في منتج واحد.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('15')">
+                    <div class="preview-text">الجمال والعملية في منتج واحد.
+Smart Kitchen DZ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-15" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('15')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P5</h2>
+                        <div class="modal-section"><h4>السكربت</h4><div class="modal-body">الجمال والعملية في منتج واحد.
+Smart Kitchen DZ</div></div>
+                        <div class="modal-section" style="background:#FFF9E6; padding:15px; border-radius:10px;"><h4>Ad Copy</h4><div style="font-size:1.1em;">[object Object]</div></div>
+                        <div class="modal-section" style="margin-top:15px;"><h4>ملاحظات</h4><div style="color:#666; font-size:0.9em;">التصميم: صورة احترافية عالية الجودة (Product in context). يظهر فيها منتج أنيق من الشركة (مثلاً، طقم علب بهارات زجاجي بغطاء خشبي) موضوع بشكل جميل على سطح عمل من الرخام. بجانبه بعض المكونات الطبيعية (أعشاب، حبات فلفل) لإضافة لمسة فنية. الإضاءة طبيعية وناعمة. النص مكتوب بخط أنيق في زاوية من الصورة.</div></div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V6</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">أكثر من 1000 امرأة جزائرية غيرت كوزينتها بهاد الطريقة... واش خلاهم يوثقو فينا؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('16')">
+                    <div class="preview-text">(صوت الراوي، نبرة صادقة ودافئة)
+ماشي حنا اللي نقولو منتجاتنا هي الأفضل...
+زبوناتنا هوما اللي يقولو.
+...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-16" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('16')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V6</h2>
+                        <div class="modal-section"><h4>السكربت</h4><div class="modal-body">(صوت الراوي، نبرة صادقة ودافئة)
+ماشي حنا اللي نقولو منتجاتنا هي الأفضل...
+زبوناتنا هوما اللي يقولو.
+أكثر من ألف سيدة جزائرية... من الشرق للغرب... من الشمال للجنوب... وثقت فينا.
+وثقت في حلولنا باش تغير مطبخها... وتغير حياتها.
+النتائج الحقيقية... والتجارب الصادقة... هي أكبر دليل على جودتنا.
+شكراً لثقتكم.</div></div>
+                        <div class="modal-section" style="background:#FFF9E6; padding:15px; border-radius:10px;"><h4>Ad Copy</h4><div style="font-size:1.1em;">[object Object]</div></div>
+                        <div class="modal-section" style="margin-top:15px;"><h4>ملاحظات</h4><div style="color:#666; font-size:0.9em;">الأسلوب: UGC ومونتاج شهادات.
+المشاهد: مونتاج سريع جداً لمجموعة كبيرة من الصور والفيديوهات القصيرة التي أرسلها الزبائن (بعد أخذ الإذن). الصور تظهر لقطات "قبل وبعد" لمطابخهم. يمكن إدراج صور لمحادثات (Screenshots) تظهر رضا الزبائن (مع إخفاء المعلومات الشخصية). تظهر على الشاشة اقتباسات قصيرة من شهادات الزبائن.
+الموسيقى: موسيقى إيجابية وملهمة.</div></div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C6</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">اسمعي للي جربو ولقاو الحل لكوزينتهم!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('17')">
+                    <div class="preview-text">Slide 1: نصائح من القلب... وتجارب حقيقية من زبائننا!
+Slide 2: "أخيراً لقيت راحتي في كوزينتي! المنتجا...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-17" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('17')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C6</h2>
+                        <div class="modal-section"><h4>السكربت</h4><div class="modal-body">Slide 1: نصائح من القلب... وتجارب حقيقية من زبائننا!
+Slide 2: "أخيراً لقيت راحتي في كوزينتي! المنتجات عملية والجودة تاعهم ممتازة. شكراً Smart Kitchen DZ" - أمينة، الجزائر العاصمة.
+Slide 3: "التنظيم ولا أسهل مع منظمات الأدراج. كل حاجة في بلاصتها والمنظر يفتح النفس. ننصحكم بيهم." - فاطمة، وهران.
+Slide 4: راكي حابة تكوني الزبونة السعيدة القادمة؟ انضمي لعائلتنا اليوم!</div></div>
+                        <div class="modal-section" style="background:#FFF9E6; padding:15px; border-radius:10px;"><h4>Ad Copy</h4><div style="font-size:1.1em;">[object Object]</div></div>
+                        <div class="modal-section" style="margin-top:15px;"><h4>ملاحظات</h4><div style="color:#666; font-size:0.9em;">Slide 1: عنوان جذاب على خلفية تحتوي على كولاج صغير لصور مطابخ منظمة أرسلها الزبائن.
+Slides 2-3: كل سلايد مخصص لشهادة واحدة. التصميم يحتوي على صورة للمنتج الذي تتحدث عنه الزبونة، بجانب النص المقتبس منها. اسم الزبونة ومدينتها يكتبان بخط أصغر. استخدام تصميم جرافيكي للاقتباس (علامات تنصيص كبيرة).
+Slide 4: دعوة مباشرة للانضمام، مع عرض شعار الشركة ووسائل التواصل.</div></div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P6</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الزبائن هما خير دليل على جودتنا!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('18')">
+                    <div class="preview-text">"المنتجات غيرتلي حياتي في المطبخ، كل شيء ولا منظم وسهل. الجودة خير من اللي توقعت."
+- نادية، قسنطينة....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-18" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('18')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P6</h2>
+                        <div class="modal-section"><h4>السكربت</h4><div class="modal-body">"المنتجات غيرتلي حياتي في المطبخ، كل شيء ولا منظم وسهل. الجودة خير من اللي توقعت."
+- نادية، قسنطينة.</div></div>
+                        <div class="modal-section" style="background:#FFF9E6; padding:15px; border-radius:10px;"><h4>Ad Copy</h4><div style="font-size:1.1em;">[object Object]</div></div>
+                        <div class="modal-section" style="margin-top:15px;"><h4>ملاحظات</h4><div style="color:#666; font-size:0.9em;">التصميم: تصميم جرافيكي نظيف وأنيق مخصص لعرض الاقتباس. النص مكتوب بخط واضح وجميل في وسط التصميم. اسم الزبونة ومدينتها في الأسفل. الخلفية بلون هادئ من ألوان العلامة. شعار @SmartKitchenDZ في الزاوية.</div></div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V7</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">مازال عندك مشكل الفوضى في الكوزينة وتتلفلك واش تشري؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('19')">
+                    <div class="preview-text">(صوت الراوي، نبرة متعاطفة ثم حل)
+(مشكلة) عندك مشكل مع الأدراج اللي ديما مقلبة؟
+(تحريض) كل صباح تخسري...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-19" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('19')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V7</h2>
+                        <div class="modal-section"><h4>السكربت</h4><div class="modal-body">(صوت الراوي، نبرة متعاطفة ثم حل)
+(مشكلة) عندك مشكل مع الأدراج اللي ديما مقلبة؟
+(تحريض) كل صباح تخسري وقتك و أنتِ تحوسي على مغرف ولا موس؟
+(حل) منظمات الأدراج الذكية من Smart Kitchen DZ هي الحل. كل حاجة في مكانها.
+(مشكلة) الخزانة تاعك فوضوية والطباسل فوق بعضاهم؟
+(تحريض) تخافي تجبدي طبسي يطيح كلش؟
+(حل) الرفوف المقسمة تاعنا تضاعفلك المساحة وتنظم كلش بأمان.
+(مشكلة) البهارات والعلب ضايعين؟
+(تحريض) تعاودي تشري حاجات وهوما عندك ديجا مخبيين؟
+(حل) المنظمات الدوارة والشفافة تخليك تشوفي كلش بلمحة.
+لكل مشكل في كوزينتك، عندنا الحل.</div></div>
+                        <div class="modal-section" style="background:#FFF9E6; padding:15px; border-radius:10px;"><h4>Ad Copy</h4><div style="font-size:1.1em;">[object Object]</div></div>
+                        <div class="modal-section" style="margin-top:15px;"><h4>ملاحظات</h4><div style="color:#666; font-size:0.9em;">الأسلوب: PAS (Problem, Agitate, Solution) سريع ومباشر.
+المشاهد: الفيديو يعرض سلسلة من 3 مشاكل وحلول. كل جزء يبدأ بلقطة سريعة للمشكلة (درج فوضوي)، ثم لقطة تظهر الإزعاج (يد تبحث بصعوبة)، ثم تنتقل الشاشة بسلاسة (Wipe transition) لتظهر الحل (نفس الدرج منظم بالمنتج).
+يجب أن يكون الإيقاع سريعاً ومقنعاً. يظهر اسم المنتج على الشاشة عند عرض الحل.</div></div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C7</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">لا تخلي الحيرة تمنعك من كوزينة أحلامك!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('20')">
+                    <div class="preview-text">Slide 1: دليل اختيار المنتجات الأنسب لمطبخك! متزيديش تحتاري.
+Slide 2: 1. قيّمي احتياجاتك: ابداي بالم...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-20" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('20')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C7</h2>
+                        <div class="modal-section"><h4>السكربت</h4><div class="modal-body">Slide 1: دليل اختيار المنتجات الأنسب لمطبخك! متزيديش تحتاري.
+Slide 2: 1. قيّمي احتياجاتك: ابداي بالمكان اللي يزعجك أكثر. الأدراج؟ الخزائن؟ رفوف البهارات؟
+Slide 3: 2. قيسي المساحات: قبل ما تشري أي منظم، استعملي المتر وقيسي الطول، العرض، والارتفاع بدقة.
+Slide 4: 3. اختاري المواد: البلاستيك عالي الجودة سهل التنظيف، المعدن متين، والزجاج أنيق. اختاري حسب استخدامك.
+Slide 5: 4. تصميم أنيق وعملي: اختاري تصميم يسهل عليك الاستخدام اليومي ويزيد جمالية لمطبخك.
+Slide 6: 5. الحل في Smart Kitchen DZ: تشكيلتنا المتنوعة تضمنلك تلقاي المنظم المثالي لكل احتياج، قياس، وذوق.
+Slide 7: كوزينة أحلامك على بعد خطوة. ابدئي التسوق اليوم!</div></div>
+                        <div class="modal-section" style="background:#FFF9E6; padding:15px; border-radius:10px;"><h4>Ad Copy</h4><div style="font-size:1.1em;">[object Object]</div></div>
+                        <div class="modal-section" style="margin-top:15px;"><h4>ملاحظات</h4><div style="color:#666; font-size:0.9em;">Slide 1: عنوان واضح على صورة لسيدة تنظر إلى مطبخها بنظرة تخطيط.
+Slides 2-5: كل سلايد يستخدم أيقونة بسيطة تمثل الخطوة (أيقونة قائمة، مسطرة، مواد مختلفة، لمبة). بجانب الأيقونة نص مختصر وصورة توضيحية صغيرة.
+Slide 6: كولاج جميل لأفضل منتجات Smart Kitchen DZ.
+Slide 7: دعوة للعمل واضحة مع شعار الشركة ورابط الموقع.</div></div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P7</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الحل الكامل لمطبخك المثالي بين يديك!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('21')">
+                    <div class="preview-text">الحل الكامل لمطبخك المثالي بين يديك!
+منظمات الأدراج | رفوف الخزائن | علب التخزين | وأكثر......</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-21" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('21')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P7</h2>
+                        <div class="modal-section"><h4>السكربت</h4><div class="modal-body">الحل الكامل لمطبخك المثالي بين يديك!
+منظمات الأدراج | رفوف الخزائن | علب التخزين | وأكثر...</div></div>
+                        <div class="modal-section" style="background:#FFF9E6; padding:15px; border-radius:10px;"><h4>Ad Copy</h4><div style="font-size:1.1em;">[object Object]</div></div>
+                        <div class="modal-section" style="margin-top:15px;"><h4>ملاحظات</h4><div style="color:#666; font-size:0.9em;">التصميم: صورة مجمعة (Collage) مصممة بشكل احترافي وأنيق. تعرض مجموعة متنوعة من أفضل منتجات Smart Kitchen DZ. يجب أن تكون الصور عالية الجودة والخلفية موحدة ونظيفة. النص مكتوب في وسط الصورة بخط عريض وعصري. شعار الشركة في الأسفل.</div></div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V8</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">وشنو هو السر اللي يخلي منظمات Smart Kitchen DZ متميزة؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('22')">
+                    <div class="preview-text">(الوجه الإعلامي تتحدث مباشرة للكاميرا بثقة)
+بزاف اللي يسقسوني: وشنو هو السر اللي يخلي منظمات Smart K...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-22" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('22')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V8</h2>
+                        <div class="modal-section"><h4>السكربت</h4><div class="modal-body">(الوجه الإعلامي تتحدث مباشرة للكاميرا بثقة)
+بزاف اللي يسقسوني: وشنو هو السر اللي يخلي منظمات Smart Kitchen DZ متميزة؟
+أولاً، الجودة. (تقوم بلمس المنتج وإظهار متانته) نستعملو مواد عالية الجودة، مصممة باش تعيش معاك سنين.
+ثانياً، التصميم الذكي. (تفتح وتغلق المنتج بسهولة) كل قطعة مدروسة باش تكون عملية وتسهل عليك حياتك اليومية، ماشي تعقدها.
+وثالثاً، الأناقة. (تعرض المنتج من زوايا مختلفة) لأننا نآمنو باللي كوزينتك لازم تكون منظمة... وشابة.
+كفاك من الفوضى والحلول المؤقتة. استثمري في الجودة والراحة اللي تدوم.
+هذا ماشي مجرد منظم، هذا هو مساعدك اليومي لمطبخ أحلامك.</div></div>
+                        <div class="modal-section" style="background:#FFF9E6; padding:15px; border-radius:10px;"><h4>Ad Copy</h4><div style="font-size:1.1em;">[object Object]</div></div>
+                        <div class="modal-section" style="margin-top:15px;"><h4>ملاحظات</h4><div style="color:#666; font-size:0.9em;">المشهد: الوجه الإعلامي في مطبخ منظم بشكل مثالي ومشرق. هي تقف بجانب طاولة عليها مجموعة من منتجات الشركة.
+زاوية الكاميرا: لقطة متوسطة (Medium shot). عند الحديث عن كل ميزة، تقوم الكاميرا بعمل زوم بطيء (Slow zoom in) على المنتج الذي تحمله لإظهار التفاصيل (الملمس، آلية الفتح، التصميم).
+الأداء: نبرة الصوت يجب أن تكون واثقة، مقنعة، وودودة. تتحدث وكأنها تنصح صديقة مقربة. في النهاية، تبتسم وتنظر مباشرة إلى الكاميرا.</div></div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C8</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">حابة تطلبي بصح خايفة تتلفلك؟ شوفي شحال ساهلة!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('23')">
+                    <div class="preview-text">Slide 1: كيفاش ديري الطلبية من Smart Kitchen DZ؟
+أسهل طريقة في 4 خطوات بسيطة!
+Slide 2: الخطوة 1: اخت...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-23" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('23')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C8</h2>
+                        <div class="modal-section"><h4>السكربت</h4><div class="modal-body">Slide 1: كيفاش ديري الطلبية من Smart Kitchen DZ؟
+أسهل طريقة في 4 خطوات بسيطة!
+Slide 2: الخطوة 1: اختاري منتجاتك.
+تصفحي صفحتنا أو موقعنا الإلكتروني واختاري المنتجات اللي تحتاجيها.
+Slide 3: الخطوة 2: أرسلي طلبك.
+ابعثيلنا رسالة على الخاص أو تواصلي معانا على الواتساب بالمنتجات اللي اخترتيها.
+Slide 4: الخطوة 3: أكدي معلوماتك.
+ทีมنا راح يتواصل معاك لتأكيد الطلبية، العنوان، وطريقة الدفع.
+Slide 5: الخطوة 4: توصلك لباب الدار!
+ارتاحي، وطلبيتك راح توصلك في أسرع وقت ممكن. التوصيل لـ 58 ولاية!</div></div>
+                        <div class="modal-section" style="background:#FFF9E6; padding:15px; border-radius:10px;"><h4>Ad Copy</h4><div style="font-size:1.1em;">[object Object]</div></div>
+                        <div class="modal-section" style="margin-top:15px;"><h4>ملاحظات</h4><div style="color:#666; font-size:0.9em;">Slide 1: عنوان واضح مع أيقونات بسيطة (سلة تسوق، شاحنة توصيل).
+Slides 2-5: كل سلايد مخصص لخطوة. استخدام تصميم جرافيكي بسيط مع أيقونات كبيرة وواضحة لكل خطوة (أيقونة يد تختار، أيقونة رسالة، أيقونة هاتف، أيقونة منزل). النص يكون مختصراً ومباشراً.</div></div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P8</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">متراطيش الفرصة! تخفيض حصري ينتظرك!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('24')">
+                    <div class="preview-text">عرض خاص!
+تخفيض 25% على كل المنتجات
+لمدة 48 ساعة فقط!
+استعملي كود: SMART25...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-24" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('24')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P8</h2>
+                        <div class="modal-section"><h4>السكربت</h4><div class="modal-body">عرض خاص!
+تخفيض 25% على كل المنتجات
+لمدة 48 ساعة فقط!
+استعملي كود: SMART25</div></div>
+                        <div class="modal-section" style="background:#FFF9E6; padding:15px; border-radius:10px;"><h4>Ad Copy</h4><div style="font-size:1.1em;">[object Object]</div></div>
+                        <div class="modal-section" style="margin-top:15px;"><h4>ملاحظات</h4><div style="color:#666; font-size:0.9em;">التصميم: تصميم جرافيكي جذاب ومُلفت للنظر. الخلفية بلون قوي مثل الأحمر أو البرتقالي لخلق إحساس بالإلحاح. النص "تخفيض 25%" يكتب بأكبر حجم. استخدام أيقونة ساعة رملية أو عد تنازلي. كل النصوص تكون واضحة ومقروءة بسهولة.</div></div>
+                    </div>
+                </div>
+            </td>
+        </tr></tbody></table></div>
+    <div class="summary-box">
+        <span style="font-weight: 700; color: #FFD700;">الميزانية الإجمالية المعتمدة</span>
+        <span class="total-amount">164000 دج</span>
+        <a href="https://wa.me/213770820431" class="cta-btn">تواصل معنا للاعتماد</a>
+        <div style="border: 1px dashed #FFD700; padding: 25px; border-radius: 15px; margin-top: 20px;">
+            <h3 style="color:#FFD700; margin:0;">الخطوة التالية</h3>
+            <p style="margin:10px 0;">مكالمة قصيرة لنكيّف هذه الاستراتيجية حسب مشروعك ونبدأ العمل فوراً.</p>
+            <div class="phones-list">
+                <div class="phone-item">0770 82 04 31</div>
+                <div class="phone-item">0770 55 01 51</div>
+                <div class="phone-item">0770 82 01 45</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+function openModal(id) { document.getElementById('modal-' + id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
+function closeModal(id) { document.getElementById('modal-' + id).style.display = 'none'; document.body.style.overflow = 'auto'; }
+window.onclick = function(event) { if (event.target.className === 'modal') { event.target.style.display = 'none'; document.body.style.overflow = 'auto'; } }
+</script></body></html>
