@@ -1,0 +1,228 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wayso Strategy | AlNakhba_Fragrance_Campaign</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+<style>
+    body { background: #FFFFFF; color: #1A1A1A; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 2px solid #000; }
+    .wayso-logo { height: 60px; }
+    .brand-tag { font-family: 'Montserrat'; font-weight: 700; font-size: 0.9em; }
+    .highlights-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 40px 0; }
+    .highlight-card { padding: 20px; background: #FBFBFA; border-radius: 12px; border: 1px solid #EDECE9; }
+    .highlight-card h3 { margin: 0 0 8px 0; font-size: 1.1em; color: #000; display: flex; align-items: center; gap: 8px; }
+    .highlight-card h3::before { content: ''; width: 4px; height: 16px; background: #FFD700; display: inline-block; border-radius: 10px; }
+    .highlight-card p { margin: 0; font-size: 0.95em; color: #555; }
+    .analysis-section { margin: 40px 0; }
+    .analysis-card.philosophy { padding: 35px; border-radius: 20px; background: #000; color: #FFF; border: 1px solid #000; }
+    .analysis-card h2 { font-size: 1.6em; margin: 0 0 15px 0; color: #FFD700; }
+    .analysis-card p { font-size: 1.1em; line-height: 1.9; margin: 0; opacity: 0.95; }
+    .hero { margin: 40px 0 20px 0; border-right: 8px solid #FFD700; padding-right: 20px; }
+    .hero h1 { font-size: 3em; font-weight: 700; margin: 0; letter-spacing: -1px; }
+    .table-wrapper { margin-top: 30px; }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #000; color: #FFF; padding: 18px; text-align: right; font-size: 0.95em; }
+    td { padding: 25px 15px; border-bottom: 1px solid #EDECE9; vertical-align: top; }
+    .code-badge { font-family: 'Montserrat'; font-weight: 700; background: #FFD700; padding: 4px 10px; border-radius: 4px; font-size: 0.85em; display: inline-block; }
+    .type-label { display: block; font-weight: 700; color: #888; font-size: 0.85em; margin-top: 5px; }
+    .hook-pill { background: #000; color: #FFD700; padding: 18px; border-radius: 12px; font-weight: 700; font-size: 1.3em; display: block; border-right: 7px solid #FFD700; line-height: 1.4; box-shadow: 0 4px 15px rgba(0,0,0,0.06); }
+    .script-trigger { background: #F8F9FA; border: 1px solid #EDECE9; padding: 18px; border-radius: 12px; cursor: pointer; transition: 0.2s; }
+    .script-trigger:hover { border-color: #000; background: #F3F3F3; transform: translateY(-2px); }
+    .preview-text { font-size: 1.05em; color: #333; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); }
+    .modal-content { background: #FFF; margin: 5% auto; padding: 45px; border-radius: 30px; width: 85%; max-width: 750px; position: relative; max-height: 80vh; overflow-y: auto; box-shadow: 0 25px 60px rgba(0,0,0,0.4); }
+    .close-modal { position: absolute; top: 25px; left: 25px; font-size: 40px; cursor: pointer; color: #CCC; }
+    .modal-section { margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #EEE; }
+    .modal-section h4 { color: #888; font-size: 0.85em; margin-bottom: 10px; text-transform: uppercase; }
+    .modal-body { white-space: pre-wrap; font-size: 1.3em; color: #1A1A1A; line-height: 1.9; padding: 20px 0; }
+    .modal-tech { margin-top: 25px; padding: 25px; background: #F9F9F9; border-radius: 18px; border-right: 5px solid #333; color: #555; }
+    .price-tag { font-family: 'Montserrat'; font-weight: 700; font-size: 1.35em; color: #000; }
+    .summary-box { margin-top: 60px; background: #000; color: #FFF; padding: 60px; border-radius: 25px; text-align: center; }
+    .total-amount { font-family: 'Montserrat'; font-size: 4.5em; font-weight: 700; display: block; color: #FFD700; margin: 15px 0; }
+    .cta-btn { display: inline-block; background: #FFD700; color: #000; padding: 22px 60px; border-radius: 60px; text-decoration: none; font-weight: 700; font-size: 1.4em; transition: 0.3s; }
+    .next-step-box { margin-top: 35px; border: 2px dashed #FFD700; padding: 25px; border-radius: 18px; text-align: center; }
+
+    @media (max-width: 768px) {
+        .highlights-grid { grid-template-columns: 1fr; }
+        thead { display: none; }
+        tr { display: block; border: 1px solid #EDECE9; border-radius: 25px; margin-bottom: 30px; padding: 25px; background: #FFF; }
+        td { display: block; padding: 10px 0; border: none; text-align: right; }
+        td::before { content: attr(data-label); font-weight: 700; color: #BBB; display: block; font-size: 0.85em; margin-bottom: 8px; }
+        .modal-content { width: 92%; margin: 15% auto; padding: 30px; }
+        .total-amount { font-size: 3em; }
+    }
+</style></head><body>
+<div class="container">
+    <div class="header">
+        <img src="https://storage.googleapis.com/msgsndr/GwIPQCjstTzxnzDQ1B32/media/68fddb5534bb1597bc934f89.png" class="wayso-logo">
+        <div class="brand-tag">STRATEGY HUB</div>
+    </div>
+    <div class="analysis-section"><div class="analysis-card philosophy"><h2>🎯 فلسفة الاستراتيجية</h2><p>تعتمد فلسفتنا على بناء جسور الثقة بين 'النخبة' وعملائها من خلال تقديم محتوى شفاف وقيّم يحل مشكلاتهم الأساسية: ضمان ثبات العطر وتوفير تجربة شراء خالية من المخاطر. نركز على تعزيز القيمة المتصورة للمنتج الفاخر عبر سرد قصصي مقنع وتأكيد ملموس للجودة.</p></div></div>
+    <div class="highlights-grid">
+        <div class="highlight-card"><h3>لماذا هذه الخطة؟</h3><p>هذه الخطة هي الأنسب لمشروع 'النخبة' لأنها تعالج بفعالية أبرز تحديين يواجههما مستهلكو العطور: قلق تلاشي الرائحة سريعاً ومخاطر الشراء عبر الإنترنت. من خلال محتوى الفيديو الغني بالنصائح العملية (V1) والكاروسيل التوضيحي (C1)، نبني المعرفة والثقة حول ثبات عطوركم. وفي نفس الوقت، نستخدم حملة الضمان الذهبي بالفيديو (V2) والكاروسيل (C2) والصور (P2) لتبديد المخاوف المتعلقة بالشراء أونلاين، مما يرفع معدلات التحويل ويعزز الولاء للعلامة التجارية. إنها استراتيجية متكاملة تهدف إلى تثقيف، إقناع، وطمأنة العميل.</p></div>
+        <div class="highlight-card"><h3>كيف نعمل؟</h3><p>سنعمل معكم خطوة بخطوة بدءًا من تحليل احتياجات الجمهور المستهدف وتحديد نقاط الألم. قمنا بتطوير استراتيجية محتوى متعددة الأشكال (فيديوهات إرشادية، موشن جرافيك توضيحي، منشورات كاروسيل وصور) لضمان أقصى قدر من الوصول والتفاعل. سيتولى فريقنا الإبداعي إنتاج المحتوى بجودة عالية تعكس فخامة علامتكم التجارية، مع التزام صارم بالجدول الزمني. بعد الإنتاج، سنتأكد من جدولة ونشر المحتوى بكفاءة على المنصات المستهدفة، مع متابعة مستمرة للأداء لضمان تحقيق الأهداف المرجوة.</p></div>
+        <div class="highlight-card"><h3>دورنا معكم</h3><p>في Wayso، دورنا يتجاوز مجرد إنتاج المحتوى؛ نحن شريككم الاستراتيجي الذي يقدم رؤى عميقة وحلولاً إبداعية. نعمل كمنسقين ماليين وإبداعيين لضمان أن كل دينار يتم استثماره يعود عليكم بأفضل عائد. سندعم قراراتكم التسويقية بالبيانات والتحليلات، ونضمن أن رسالة 'النخبة' تصل إلى جمهورها المستهدف بأقصى فعالية وجاذبية، مع الحفاظ على هوية العلامة التجارية الفاخرة والموثوقة.</p></div>
+        <div class="highlight-card"><h3>ماذا نحتاج منك؟</h3><p>معلومات بسيطة وموافقتك على الأفكار، والتنفيذ كامل علينا بالكامل.</p></div>
+    </div>
+    <div class="hero"><h1>خطة الإنتاج الإبداعي</h1></div>
+    <div class="table-wrapper"><table><thead><tr><th style="width: 12%;">الكود</th><th style="width: 30%;">الهوك (Hook)</th><th style="width: 43%;">المحتوى والتفاصيل</th><th style="width: 15%;">التكلفة</th></tr></thead><tbody><tr>
+            <td data-label="الهوية"><span class="code-badge">STRAT-FEE</span><span class="type-label">🎬 الرسوم الاستراتيجية</span></td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill"></div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('0')">
+                    <div class="preview-text">...</div>
+                    <span style="font-size:0.85em; color:#000; font-weight:700; margin-top:10px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 انقر للتفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-0" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('0')">&times;</span>
+                        <h2 style="border-bottom: 4px solid #FFD700; padding-bottom: 15px;">STRAT-FEE | DETAILS</h2>
+                        <div class="modal-section"><h4>السكربت الكامل</h4><div class="modal-body"></div></div>
+                        <div class="modal-section" style="background:#FFF9E6; padding:20px; border-radius:15px; border:1px solid #FFE69C;">
+                            <h4>نص المنشور (Ad Copy)</h4><div style="white-space:pre-wrap; font-size:1.15em;">سيتم صياغته بناءً على مخرجات الإنتاج.</div>
+                        </div>
+                        <div class="modal-section"><h4>ملاحظات الإنتاج</h4><div style="color:#666;"></div></div>
+                    </div>
+                </div>
+            </td>
+            <td data-label="التكلفة"><span class="price-tag">10,000 دج</span></td>
+        </tr><tr>
+            <td data-label="الهوية"><span class="code-badge">V1</span><span class="type-label">🎬 فيديو</span></td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">[object Object]</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('1')">
+                    <div class="preview-text">[object Object]...</div>
+                    <span style="font-size:0.85em; color:#000; font-weight:700; margin-top:10px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 انقر للتفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-1" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('1')">&times;</span>
+                        <h2 style="border-bottom: 4px solid #FFD700; padding-bottom: 15px;">V1 | DETAILS</h2>
+                        <div class="modal-section"><h4>السكربت الكامل</h4><div class="modal-body">[object Object]</div></div>
+                        <div class="modal-section" style="background:#FFF9E6; padding:20px; border-radius:15px; border:1px solid #FFE69C;">
+                            <h4>نص المنشور (Ad Copy)</h4><div style="white-space:pre-wrap; font-size:1.15em;">[object Object]</div>
+                        </div>
+                        <div class="modal-section"><h4>ملاحظات الإنتاج</h4><div style="color:#666;">[object Object]</div></div>
+                    </div>
+                </div>
+            </td>
+            <td data-label="التكلفة"><span class="price-tag">20,000 دج</span></td>
+        </tr><tr>
+            <td data-label="الهوية"><span class="code-badge">C1</span><span class="type-label">🎬 كاروسال</span></td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">[object Object]</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('2')">
+                    <div class="preview-text">[object Object]...</div>
+                    <span style="font-size:0.85em; color:#000; font-weight:700; margin-top:10px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 انقر للتفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-2" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('2')">&times;</span>
+                        <h2 style="border-bottom: 4px solid #FFD700; padding-bottom: 15px;">C1 | DETAILS</h2>
+                        <div class="modal-section"><h4>السكربت الكامل</h4><div class="modal-body">[object Object]</div></div>
+                        <div class="modal-section" style="background:#FFF9E6; padding:20px; border-radius:15px; border:1px solid #FFE69C;">
+                            <h4>نص المنشور (Ad Copy)</h4><div style="white-space:pre-wrap; font-size:1.15em;">[object Object]</div>
+                        </div>
+                        <div class="modal-section"><h4>ملاحظات الإنتاج</h4><div style="color:#666;">[object Object]</div></div>
+                    </div>
+                </div>
+            </td>
+            <td data-label="التكلفة"><span class="price-tag">2,000 دج</span></td>
+        </tr><tr>
+            <td data-label="الهوية"><span class="code-badge">P1</span><span class="type-label">🎬 صورة</span></td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">[object Object]</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('3')">
+                    <div class="preview-text">[object Object]...</div>
+                    <span style="font-size:0.85em; color:#000; font-weight:700; margin-top:10px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 انقر للتفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-3" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('3')">&times;</span>
+                        <h2 style="border-bottom: 4px solid #FFD700; padding-bottom: 15px;">P1 | DETAILS</h2>
+                        <div class="modal-section"><h4>السكربت الكامل</h4><div class="modal-body">[object Object]</div></div>
+                        <div class="modal-section" style="background:#FFF9E6; padding:20px; border-radius:15px; border:1px solid #FFE69C;">
+                            <h4>نص المنشور (Ad Copy)</h4><div style="white-space:pre-wrap; font-size:1.15em;">[object Object]</div>
+                        </div>
+                        <div class="modal-section"><h4>ملاحظات الإنتاج</h4><div style="color:#666;">[object Object]</div></div>
+                    </div>
+                </div>
+            </td>
+            <td data-label="التكلفة"><span class="price-tag">1,000 دج</span></td>
+        </tr><tr>
+            <td data-label="الهوية"><span class="code-badge">V2</span><span class="type-label">🎬 فيديو</span></td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">[object Object]</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('4')">
+                    <div class="preview-text">[object Object]...</div>
+                    <span style="font-size:0.85em; color:#000; font-weight:700; margin-top:10px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 انقر للتفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-4" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('4')">&times;</span>
+                        <h2 style="border-bottom: 4px solid #FFD700; padding-bottom: 15px;">V2 | DETAILS</h2>
+                        <div class="modal-section"><h4>السكربت الكامل</h4><div class="modal-body">[object Object]</div></div>
+                        <div class="modal-section" style="background:#FFF9E6; padding:20px; border-radius:15px; border:1px solid #FFE69C;">
+                            <h4>نص المنشور (Ad Copy)</h4><div style="white-space:pre-wrap; font-size:1.15em;">[object Object]</div>
+                        </div>
+                        <div class="modal-section"><h4>ملاحظات الإنتاج</h4><div style="color:#666;">[object Object]</div></div>
+                    </div>
+                </div>
+            </td>
+            <td data-label="التكلفة"><span class="price-tag">15,000 دج</span></td>
+        </tr><tr>
+            <td data-label="الهوية"><span class="code-badge">C2</span><span class="type-label">🎬 كاروسال</span></td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">[object Object]</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('5')">
+                    <div class="preview-text">[object Object]...</div>
+                    <span style="font-size:0.85em; color:#000; font-weight:700; margin-top:10px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 انقر للتفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-5" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('5')">&times;</span>
+                        <h2 style="border-bottom: 4px solid #FFD700; padding-bottom: 15px;">C2 | DETAILS</h2>
+                        <div class="modal-section"><h4>السكربت الكامل</h4><div class="modal-body">[object Object]</div></div>
+                        <div class="modal-section" style="background:#FFF9E6; padding:20px; border-radius:15px; border:1px solid #FFE69C;">
+                            <h4>نص المنشور (Ad Copy)</h4><div style="white-space:pre-wrap; font-size:1.15em;">[object Object]</div>
+                        </div>
+                        <div class="modal-section"><h4>ملاحظات الإنتاج</h4><div style="color:#666;">[object Object]</div></div>
+                    </div>
+                </div>
+            </td>
+            <td data-label="التكلفة"><span class="price-tag">2,000 دج</span></td>
+        </tr><tr>
+            <td data-label="الهوية"><span class="code-badge">P2</span><span class="type-label">🎬 صورة</span></td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">[object Object]</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('6')">
+                    <div class="preview-text">[object Object]...</div>
+                    <span style="font-size:0.85em; color:#000; font-weight:700; margin-top:10px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 انقر للتفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-6" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('6')">&times;</span>
+                        <h2 style="border-bottom: 4px solid #FFD700; padding-bottom: 15px;">P2 | DETAILS</h2>
+                        <div class="modal-section"><h4>السكربت الكامل</h4><div class="modal-body">[object Object]</div></div>
+                        <div class="modal-section" style="background:#FFF9E6; padding:20px; border-radius:15px; border:1px solid #FFE69C;">
+                            <h4>نص المنشور (Ad Copy)</h4><div style="white-space:pre-wrap; font-size:1.15em;">[object Object]</div>
+                        </div>
+                        <div class="modal-section"><h4>ملاحظات الإنتاج</h4><div style="color:#666;">[object Object]</div></div>
+                    </div>
+                </div>
+            </td>
+            <td data-label="التكلفة"><span class="price-tag">1,000 دج</span></td>
+        </tr></tbody></table></div>
+    <div class="summary-box">
+        <span style="font-weight: 700; color: #FFD700;">الميزانية الإجمالية التقديرية</span>
+        <span class="total-amount">51,000 دج</span>
+        <a href="https://wa.me/213770820431" class="cta-btn">اعتماد الاستراتيجية والبدء</a>
+        <div class="next-step-box"><h4 style="margin:0 0 10px 0; color:#FFD700;">الخطوة التالية</h4><p style="margin:0; font-size:1.15em;">مكالمة قصيرة لنكيّف هذه الاستراتيجية حسب مشروعك ونبدأ العمل فوراً.</p></div>
+    </div>
+    <p style="text-align: center; margin-top: 60px; color: #AAA; font-size: 0.9em;">&copy; 2026 Wayso Digital Agency.</p>
+</div>
+<script>
+function openModal(id) { document.getElementById('modal-' + id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
+function closeModal(id) { document.getElementById('modal-' + id).style.display = 'none'; document.body.style.overflow = 'auto'; }
+window.onclick = function(event) { if (event.target.className === 'modal') { event.target.style.display = 'none'; document.body.style.overflow = 'auto'; } }
+</script></body></html>
