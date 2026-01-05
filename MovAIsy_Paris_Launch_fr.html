@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Wayso Strategy | MovAIsy_Paris_Launch_6760_FR</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+    body { background: #FFFFFF; color: #1A1A1A; font-family: 'Montserrat', sans-serif; margin: 0; padding: 0; line-height: 1.6; overflow-x: hidden; direction: ltr; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 15px; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 2px solid #000; }
+    .wayso-logo { height: 45px; }
+
+    .analysis-section { margin: 30px 0; }
+    .card-philosophy { padding: 30px; border-radius: 20px; background: #000; color: #FFF; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+    .card-philosophy h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #FFD700; }
+
+    .card-why { padding: 30px; border-radius: 20px; background: #F9F9F9; color: #333; margin-bottom: 20px; border: 1px solid #EDECE9; }
+    .card-why h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #000; display: flex; align-items: center; gap: 10px; }
+    .card-why h2::after { content: ''; flex-grow: 1; height: 1px; background: #EDECE9; margin-left: 15px; }
+
+    .hero { margin: 35px 0 20px 0; border-left: 6px solid #FFD700; padding-left: 15px; }
+    .hero h1 { font-size: 2.5em; font-weight: 700; margin: 0; }
+    .table-wrapper { margin-top: 25px; border-radius: 12px; overflow: hidden; border: 1px solid #EDECE9; }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #000; color: #FFF; padding: 15px; text-align: left; font-size: 0.9em; }
+    td { padding: 20px 12px; border-bottom: 1px solid #EDECE9; vertical-align: top; }
+
+    .code-badge { font-weight: 700; background: #FFD700; color: #000; padding: 5px 12px; border-radius: 6px; font-size: 1.1em; display: inline-block; margin-bottom: 5px; }
+    .type-label { display: block; font-weight: 700; color: #555; font-size: 0.95em; }
+
+    .hook-pill { background: #000; color: #FFD700; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 1.1em; display: block; border-left: 5px solid #FFD700; }
+    .script-trigger { background: #F8F9FA; border: 1px solid #EDECE9; padding: 15px; border-radius: 10px; cursor: pointer; }
+    .preview-text { font-size: 0.95em; color: #333; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+    .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(8px); }
+    .modal-content { background: #FFF; margin: 5% auto; padding: 30px; border-radius: 20px; width: 88%; max-width: 700px; position: relative; max-height: 85vh; overflow-y: auto; }
+    .close-modal { position: absolute; top: 15px; right: 15px; font-size: 35px; cursor: pointer; color: #999; line-height: 1; }
+    .modal-section { margin-bottom: 25px; }
+    .modal-body { white-space: pre-wrap; font-size: 1.15em; color: #1A1A1A; line-height: 1.7; }
+
+    .summary-box { margin-top: 50px; background: #000; color: #FFF; padding: 40px 20px; border-radius: 25px; text-align: center; }
+    .total-amount { font-size: 3.5em; font-weight: 700; display: block; color: #FFD700; margin: 10px 0; }
+    .cta-btn { display: inline-block; background: #FFD700; color: #000; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.2em; margin-bottom: 25px; }
+
+    .phones-list { margin-top: 15px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+    .phone-item { background: #1A1A1A; padding: 8px 15px; border-radius: 8px; border: 1px solid #333; color: #FFF; font-weight: 700; font-size: 1.2em; white-space: nowrap; }
+
+    @media (max-width: 768px) {
+        thead { display: none; }
+        tr { display: block; border: 1px solid #EDECE9; border-radius: 15px; margin-bottom: 20px; padding: 15px; background: #FFF; }
+        td { display: block; padding: 8px 0; text-align: left; }
+        td::before { content: attr(data-label); font-weight: 700; color: #BBB; display: block; font-size: 0.75em; margin-bottom: 4px; }
+        .phone-item { font-size: 1.1em; width: 100%; text-align: center; }
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <img src="https://storage.googleapis.com/msgsndr/GwIPQCjstTzxnzDQ1B32/media/68fddb5534bb1597bc934f89.png" class="wayso-logo">
+    <div style="font-weight:700; font-size:0.8em;">WAYSO HUB</div>
+  </div>
+
+  <div class="analysis-section">
+    <div class="card-philosophy">
+      <h2>🎯 Philosophie de la Stratégie</h2>
+      <p>Notre approche stratégique pour ce projet s’articule autour du renforcement de la souveraineté économique et technologique française. MovAIsy incarne une alternative nationale intelligente dans le secteur du transport. Nous mettons en avant la fierté et l’appartenance, tout en garantissant l’équité et la transparence pour les chauffeurs et les passagers. MovAIsy n’est pas simplement un service, mais un mouvement visant à soutenir l’économie locale et à redéfinir l’expérience de mobilité à Paris grâce à l’innovation éthique et inclusive.</p>
+    </div>
+
+    <div class="card-why">
+      <h2>💡 Pourquoi cette stratégie ?</h2>
+      <p>Ce plan stratégique a été conçu pour répondre aux défis spécifiques du marché français : la domination des applications étrangères et les modèles de commission injustes. L’objectif est de positionner MovAIsy comme <b>“l’alternative nationale intelligente”</b> soutenant les chauffeurs français et offrant une transparence totale des prix. Il met également en lumière la diversité des services proposés (VTC, Taxi, Livraison, CPAM), garantissant un impact émotionnel et économique fort auprès du public parisien.</p>
+    </div>
+  </div>
+
+  <div class="hero">
+    <h1>Plan de Production Créative</h1>
+  </div>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 20%;">Code & Type</th>
+          <th style="width: 30%;">Hook</th>
+          <th style="width: 50%;">Contenu</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <!-- V1 -->
+        <tr>
+          <td data-label="Code & Type">
+            <span class="code-badge">V1</span>
+            <span class="type-label">🎬 Vidéo</span>
+          </td>
+
+          <td data-label="Hook">
+            <div class="hook-pill">Pourquoi choisir une application de transport française n’est pas un hasard ? Le secret est ici !</div>
+          </td>
+
+          <td data-label="Contenu">
+            <div class="script-trigger" onclick="openModal('1')">
+              <div class="preview-text">
+                Chaque trajet compte. Et si vos euros soutenaient vraiment la France ? Découvrez MovAIsy...
+              </div>
+              <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 Détails et Ad Copy</span>
+            </div>
+
+            <div id="modal-1" class="modal">
+              <div class="modal-content">
+                <span class="close-modal" onclick="closeModal('1')">&times;</span>
+                <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">Détails V1</h2>
+
+                <div class="modal-section">
+                  <h4>Script</h4>
+                  <div class="modal-body">
+                    Chaque jour, vous commandez un VTC...  
+                    Avez-vous déjà pensé à où va vraiment votre argent ?  
+                    Une grande partie quitte la France.  
+
+                    Ces bénéfices vont à des plateformes étrangères.  
+                    Mais aujourd’hui, une alternative existe : **MovAIsy**.  
+
+                    Plus qu’une simple application, MovAIsy est un projet national.  
+                    Chaque trajet que vous effectuez contribue à soutenir les chauffeurs français,  
+                    à renforcer notre technologie et à faire tourner notre économie.  
+
+                    Déplacez-vous avec fierté.  
+                    Déplacez-vous pour la France.  
+                    **MovAIsy : la mobilité française, juste et intelligente.**
+                  </div>
+                </div>
+
+                <div class="modal-section" style="background:#FFF9E6; padding:15px; border-radius:10px;">
+                  <h4>Ad Copy</h4>
+                  <div style="font-size:1.1em;">
+                    headline : 🇫🇷 Chaque trajet a du sens. Choisissez français !  
+                    body : Toutes les applications ne se valent pas.  
+                    Certaines envoient leurs profits à l’étranger, d’autres les réinvestissent ici, en France.  
+
+                    MovAIsy, c’est bien plus qu’une app : c’est un mouvement pour soutenir notre économie locale et nos chauffeurs.  
+                    Chaque course avec MovAIsy est un pas vers une souveraineté technologique française.  
+
+                    cta : Faites la différence – Téléchargez MovAIsy dès aujourd’hui !  
+                    hashtags : #MovAIsy #MadeInFrance #VTCParis #TransportFrançais #TechnologieFrançaise #EconomieLocale
+                  </div>
+                </div>
+
+                <div class="modal-section" style="margin-top:15px;">
+                  <h4>Notes</h4>
+                  <div style="color:#666; font-size:0.9em;">
+                    Style : Motion Graphics professionnel avec une touche patriotique.  
+                    <br><br>
+                    <b>Scène 1 :</b> Main ouvrant une app concurrente (sans logo), des euros s’envolent hors de la carte de France.  
+                    <br>
+                    <b>Scène 2 :</b> Monuments de Paris en teintes ternes – symbole de perte économique.  
+                    <br>
+                    <b>Scène 3 :</b> Apparition lumineuse de l’interface MovAIsy et d’un chauffeur français souriant.  
+                    <br>
+                    <b>Scène 4 :</b> Animation montrant les profits qui restent dans l’économie française.  
+                    <br>
+                    <b>Scène 5 :</b> Logo MovAIsy sur un lever de soleil parisien – ton inspirant et confiant.  
+                    <br><br>
+                    <b>Voix off :</b> sérieuse au début, puis fière et motivante à la fin.
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </td>
+        </tr>
+
+
+        <!-- C1 -->
+        <tr>
+          <td data-label="Code & Type">
+            <span class="code-badge">C1</span>
+            <span class="type-label">📚 Carrousel</span>
+          </td>
+
+          <td data-label="Hook">
+            <div class="hook-pill">Pourquoi choisir une application française de mobilité ? 🇫🇷 Découvrez les raisons de ce choix de fierté !</div>
+          </td>
+
+          <td data-label="Contenu">
+            <div class="script-trigger" onclick="openModal('2')">
+              <div class="preview-text">Slide 1 : La souveraineté technologique française, un enjeu vital ! Nos trajets quotidiens façonnent notre économie...</div>
+              <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 Détails et Ad Copy</span>
+            </div>
+
+            <div id="modal-2" class="modal">
+              <div class="modal-content">
+                <span class="close-modal" onclick="closeModal('2')">&times;</span>
+                <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">Détails C1</h2>
+
+                <div class="modal-section">
+                  <h4>Script</h4>
+                  <div class="modal-body">
+                    Slide 1 : **La souveraineté technologique française : pourquoi est-ce essentiel ?**  
+                    Le transport fait partie de notre vie quotidienne et de notre sécurité économique.  
+                    En choisissant des solutions françaises, nous gardons nos données et nos revenus en France.
+
+                    Slide 2 : **Le problème :** la domination des applis étrangères.  
+                    Une grande partie des bénéfices de chaque course quitte le pays, affaiblissant notre économie et réduisant les emplois locaux.
+
+                    Slide 3 : **La solution nationale :** MovAIsy.  
+                    100 % française, chaque euro reste ici pour soutenir les chauffeurs, développer notre technologie et créer de la valeur ajoutée.
+
+                    Slide 4 : **Innovation et sécurité françaises.**  
+                    Avec MovAIsy, profitez d’une technologie avancée, pensée pour le marché français, avec une protection maximale de vos données.
+
+                    Slide 5 : **Faites partie du changement.**  
+                    En choisissant MovAIsy, vous ne choisissez pas qu’un service de transport : vous soutenez une économie juste et durable.  
+                    Ensemble, faisons bouger la France.
+                  </div>
+                </div>
+
+                <div class="modal-section" style="background:#FFF9E6; padding:15px; border-radius:10px;">
+                  <h4>Ad Copy</h4>
+                  <div style="font-size:1.1em;">
+                    headline : Votre choix de transport influence l’économie nationale ! 🇫🇷  
+                    body : Savez-vous que votre application VTC peut impacter toute l’économie française ?  
+
+                    Dans ce carrousel, découvrez pourquoi soutenir une alternative nationale comme **MovAIsy** n’est pas un simple choix de confort, mais un acte pour l’indépendance économique et technologique de la France.  
+
+                    cta : Faites défiler et découvrez les vraies raisons du changement !  
+                    hashtags : #SouverainetéTech #MovAIsyFrance #VTCFrançais #MadeInFrance #EconomieLocale #ConsommerFrançais #ParisJeTAime #LaFrenchTech
+                  </div>
+                </div>
+
+                <div class="modal-section" style="margin-top:15px;">
+                  <h4>Notes</h4>
+                  <div style="color:#666; font-size:0.9em;">
+                    Style général : infographies élégantes avec icônes et illustrations épurées.  
+                    <br><br>
+                    • **Slide 1 :** icône de bouclier tricolore sur une voiture stylisée.  
+                    • **Slide 2 :** flèches sortant d’une carte de France (symbolisant les profits perdus).  
+                    • **Slide 3 :** flèches inversées rentrant dans la carte – profits qui restent.  
+                    • **Slide 4 :** icônes de cadenas et puce électronique ; capture d’écran de l’app mettant en avant la sécurité.  
+                    • **Slide 5 :** personnages divers regardant le logo MovAIsy avec fierté.  
+                    <br><br>
+                    Palette : blanc, bleu clair, doré – esprit « tech française élégante ».
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <!-- P1 -->
+        <tr>
+          <td data-label="Code & Type">
+            <span class="code-badge">P1</span>
+            <span class="type-label">🖼️ Image</span>
+          </td>
+
+          <td data-label="Hook">
+            <div class="hook-pill">Paris au cœur de notre technologie. Déplacez-vous avec fierté, déplacez-vous à la française.</div>
+          </td>
+
+          <td data-label="Contenu">
+            <div class="script-trigger" onclick="openModal('3')">
+              <div class="preview-text">Paris inspire notre innovation. MovAIsy incarne l’élégance, la performance et la technologie française...</div>
+              <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 Détails et Ad Copy</span>
+            </div>
+
+            <div id="modal-3" class="modal">
+              <div class="modal-content">
+                <span class="close-modal" onclick="closeModal('3')">&times;</span>
+                <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">Détails P1</h2>
+
+                <div class="modal-section">
+                  <h4>Script</h4>
+                  <div class="modal-body">
+                    Paris au cœur de notre technologie.  
+                    Déplacez-vous avec fierté.  
+                    Déplacez-vous à la française.
+                  </div>
+                </div>
+
+                <div class="modal-section" style="background:#FFF9E6; padding:15px; border-radius:10px;">
+                  <h4>Ad Copy</h4>
+                  <div style="font-size:1.1em;">
+                    headline : Paris mérite le meilleur. Paris mérite la technologie française. 🇫🇷  
+                    body : Notre ville est notre inspiration, nos passagers notre priorité.  
+                    MovAIsy, solutions françaises de mobilité intégrée, reflète l’âme de Paris : élégante, efficace et innovante.  
+                    Vos trajets deviennent un acte de fierté nationale.  
+                    cta : Téléchargez MovAIsy... et faites bouger la France !  
+                    hashtags : #ParisFrance #MovAIsy #FiertéFrançaise #EiffelTower #VTCParis #LaFrenchTech #MobilitéParisienne
+                  </div>
+                </div>
+
+                <div class="modal-section">
+                  <h4>Notes</h4>
+                  <div style="color:#666; font-size:0.9em;">
+                    Photo premium : main élégante tenant un smartphone affichant l’app MovAIsy, arrière-plan flou du coucher de soleil sur la Tour Eiffel. Lumière dorée, ambiance chic et française.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+
+        <!-- V2 -->
+        <tr>
+          <td data-label="Code & Type">
+            <span class="code-badge">V2</span>
+            <span class="type-label">🎬 Vidéo</span>
+          </td>
+
+          <td data-label="Hook">
+            <div class="hook-pill">Marre des frais cachés et des commissions injustes ? Découvrez l’alternative équitable !</div>
+          </td>
+
+          <td data-label="Contenu">
+            <div class="script-trigger" onclick="openModal('4')">
+              <div class="preview-text">Chaque mois, les mêmes calculs… des heures de travail, et des commissions incompréhensibles. Découvrez MovAIsy...</div>
+              <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 Détails et Ad Copy</span>
+            </div>
+
+            <div id="modal-4" class="modal">
+              <div class="modal-content">
+                <span class="close-modal" onclick="closeModal('4')">&times;</span>
+                <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">Détails V2</h2>
+
+                <div class="modal-section">
+                  <h4>Script</h4>
+                  <div class="modal-body">
+                    (Voix d’un chauffeur, ton fatigué)  
+                    Chaque mois, les mêmes comptes…  
+                    Des heures et des heures de travail, mais une grande part part en commissions floues.  
+
+                    (Voix d’un client, ton frustré)  
+                    Le prix affiché au départ n’est jamais celui payé à la fin...  
+
+                    (Voix narrateur)  
+                    Ce sentiment d’injustice doit cesser.  
+                    C’est pour cela qu’existe MovAIsy.  
+
+                    Zéro commission sur le client.  
+                    Et la plus basse du marché pour les chauffeurs partenaires.  
+
+                    Une relation équitable, transparente, humaine.  
+                    MovAIsy, la mobilité juste et claire.
+                  </div>
+                </div>
+
+                <div class="modal-section" style="background:#FFF9E6; padding:15px; border-radius:10px;">
+                  <h4>Ad Copy</h4>
+                  <div style="font-size:1.1em;">
+                    headline : La transparence n’est pas une option, c’est notre promesse. ⚖️  
+                    body : Marre des frais imprévus et des calculs sans fin ? Vous n’êtes pas seul.  
+                    Chez MovAIsy, nous croyons qu’une relation juste entre chauffeur et client est la clé d’un transport réussi.  
+                    Notre modèle repose sur l’équité et la clarté totale.  
+                    cta : Essayez la justice – Téléchargez MovAIsy dès maintenant !  
+                    hashtags : #TransportJuste #MovAIsy #ZeroCommission #Transparence #VTCParis #ChauffeurHeureux #MobilitéClaire
+                  </div>
+                </div>
+
+                <div class="modal-section">
+                  <h4>Notes</h4>
+                  <div style="color:#666; font-size:0.9em;">
+                    Style : contenu UGC authentique.  
+                    <br><b>Scène 1 :</b> visages fatigués de chauffeurs à Paris.  
+                    <br><b>Scène 2 :</b> interface concurrente floutée avec chiffres de commissions.  
+                    <br><b>Scène 3 :</b> MovAIsy lumineux, chauffeur souriant, facture claire.  
+                    <br><b>Scène 4 :</b> écran partagé – à gauche l’ancien modèle, à droite MovAIsy “0% client”.  
+                    <br><b>Scène 5 :</b> salutation chaleureuse chauffeur/client – fin positive.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+
+        <!-- C2 -->
+        <tr>
+          <td data-label="Code & Type">
+            <span class="code-badge">C2</span>
+            <span class="type-label">📚 Carrousel</span>
+          </td>
+
+          <td data-label="Hook">
+            <div class="hook-pill">MovAIsy : comment on change les règles du jeu en France ! Découvrez les vérités cachées...</div>
+          </td>
+
+          <td data-label="Contenu">
+            <div class="script-trigger" onclick="openModal('5')">
+              <div class="preview-text">Avant MovAIsy : commissions jusqu’à 25 %. Après MovAIsy : transparence et justice pour tous...</div>
+              <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 Détails et Ad Copy</span>
+            </div>
+
+            <div id="modal-5" class="modal">
+              <div class="modal-content">
+                <span class="close-modal" onclick="closeModal('5')">&times;</span>
+                <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">Détails C2</h2>
+
+                <div class="modal-section">
+                  <h4>Script</h4>
+                  <div class="modal-body">
+                    Avant MovAIsy : commissions jusqu’à 25 % pour les chauffeurs, frais cachés pour les clients.  
+                    Résultat : stress, perte de confiance et revenus diminués.  
+
+                    Avec MovAIsy : zéro commission client, et la plus basse pour les chauffeurs.  
+                    Plus de transparence, plus d’équité, plus de respect.  
+
+                    Rejoignez la révolution du transport juste en France.  
+                    Votre choix aujourd’hui change la vie de milliers demain.
+                  </div>
+                </div>
+
+                <div class="modal-section" style="background:#FFF9E6; padding:15px; border-radius:10px;">
+                  <h4>Ad Copy</h4>
+                  <div style="font-size:1.1em;">
+                    headline : Avant / Après MovAIsy – la différence est claire ! ⚖️  
+                    body : Le monde du transport avait besoin d’un changement profond.  
+                    Nous en avions assez des modèles injustes qui exploitent chauffeurs et passagers.  
+                    Faites glisser et voyez comment MovAIsy redéfinit la transparence.  
+                    cta : Découvrez la différence réelle – Faites glisser à gauche !  
+                    hashtags : #AvantApres #MovAIsyJustice #RévolutionVTC #EconomieJuste #ChauffeursFrançais #ClientsSatisfaits
+                  </div>
+                </div>
+
+                <div class="modal-section">
+                  <h4>Notes</h4>
+                  <div style="color:#666; font-size:0.9em;">
+                    Design comparatif « avant/après » :  
+                    • Avant : couleurs sombres, graphiques négatifs.  
+                    • Après : couleurs lumineuses, icônes positives, croissances visibles.  
+                    • Dernière slide : icône de poignée de mains symbolisant la justice et la confiance.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+
+        <!-- P2 -->
+        <tr>
+          <td data-label="Code & Type">
+            <span class="code-badge">P2</span>
+            <span class="type-label">🖼️ Image</span>
+          </td>
+
+          <td data-label="Hook">
+            <div class="hook-pill">La justice n’est pas un luxe, c’est un droit. MovAIsy la garantit à chaque trajet.</div>
+          </td>
+
+          <td data-label="Contenu">
+            <div class="script-trigger" onclick="openModal('6')">
+              <div class="preview-text">Commissions : concurrents jusqu’à 25 % | MovAIsy : la plus basse du marché...</div>
+              <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 Détails et Ad Copy</span>
+            </div>
+
+            <div id="modal-6" class="modal">
+              <div class="modal-content">
+                <span class="close-modal" onclick="closeModal('6')">&times;</span>
+                <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">Détails P2</h2>
+
+                <div class="modal-section">
+                  <h4>Script</h4>
+                  <div class="modal-body">
+                    Concurrents : jusqu’à 25 % de commission  
+                    MovAIsy : la plus basse du marché  
+                    La justice à chaque trajet.
+                  </div>
+                </div>
+
+                <div class="modal-section" style="background:#FFF9E6; padding:15px; border-radius:10px;">
+                  <h4>Ad Copy</h4>
+                  <div style="font-size:1.1em;">
+                    headline : Les chiffres ne mentent pas. Choisissez la transparence, choisissez la justice. ⚖️  
+                    body : Chez MovAIsy, la différence ne se mesure pas qu’en pourcentages.  
+                    C’est une philosophie : le chauffeur mérite la plus grande part de son revenu, et le client un tarif juste.  
+                    cta : Transparence totale – Téléchargez l’app maintenant !  
+                    hashtags : #ComparatifVTC #MovAIsy #CommissionJuste #Transparence #VTCParis #FairPlay
+                  </div>
+                </div>
+
+                <div class="modal-section">
+                  <h4>Notes</h4>
+                  <div style="color:#666; font-size:0.9em;">
+                    Infographie simple :  
+                    colonne gauche sombre “Concurrents 25 %”,  
+                    colonne droite dorée “MovAIsy – la plus basse du marché”,  
+                    balance dorée au centre, design épuré et clair.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+
+
+        <!-- V3 -->
+        <tr>
+          <td data-label="Code & Type">
+            <span class="code-badge">V3</span>
+            <span class="type-label">🎬 Vidéo</span>
+          </td>
+          <td data-label="Hook">
+            <div class="hook-pill">Imaginez Paris sans le stress des trajets ? Avec MovAIsy, tout devient simple !</div>
+          </td>
+          <td data-label="Contenu">
+            <div class="script-trigger" onclick="openModal('7')">
+              <div class="preview-text">Une journée parisienne fluide : VTC, taxi, livraison ou transport médical, tout en une seule app...</div>
+              <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 Détails et Ad Copy</span>
+            </div>
+
+            <div id="modal-7" class="modal">
+              <div class="modal-content">
+                <span class="close-modal" onclick="closeModal('7')">&times;</span>
+                <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">Détails V3</h2>
+
+                <div class="modal-section">
+                  <h4>Script</h4>
+                  <div class="modal-body">
+                    (Musique rythmée et moderne)  
+                    Vous sortez du bureau ? Besoin d’un VTC en un clic ?  
+                    MovAIsy est là.  
+
+                    Un rendez-vous médical ? Commandez un véhicule agréé CPAM.  
+
+                    Un colis urgent ? Livraison express via l’app.  
+
+                    Taxi, VTC, Livraison, Transport médical…  
+                    Tous vos besoins de mobilité à Paris réunis dans une seule application intelligente.  
+
+                    MovAIsy, votre assistant personnel de mobilité.  
+                    Simplifiez votre vie. Déplacez-vous avec intelligence.
+                  </div>
+                </div>
+
+                <div class="modal-section" style="background:#FFF9E6; padding:15px; border-radius:10px;">
+                  <h4>Ad Copy</h4>
+                  <div style="font-size:1.1em;">
+                    headline : Une seule app pour tous vos déplacements à Paris. Votre vie simplifiée ! ✨  
+                    body : Pourquoi multiplier les applications quand tout peut être centralisé ?  
+                    MovAIsy est la première **Super-App française** qui regroupe VTC, Taxi, Livraison et Transport médical (CPAM) dans une seule interface fluide et claire.  
+                    Découvrez comment MovAIsy simplifie la mobilité urbaine.  
+                    cta : Simplifiez votre quotidien – Téléchargez MovAIsy maintenant !  
+                    hashtags : #SuperApp #MovAIsy #ParisPratique #VTCParis #TaxiParis #LivraisonRapide #CPAM #MobilitéIntelligente
+                  </div>
+                </div>
+
+                <div class="modal-section">
+                  <h4>Notes</h4>
+                  <div style="color:#666; font-size:0.9em;">
+                    Style : démonstration produit dynamique.  
+                    Scènes variées : bureau, médecin, café, taxi.  
+                    Animation fluide entre les écrans du smartphone et les lieux de Paris.  
+                    Ton : moderne, efficace, optimiste.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+
+        <!-- C3 -->
+        <tr>
+          <td data-label="Code & Type">
+            <span class="code-badge">C3</span>
+            <span class="type-label">📚 Carrousel</span>
+          </td>
+          <td data-label="Hook">
+            <div class="hook-pill">Paris à portée de main : découvrez tous les services MovAIsy qui simplifient votre quotidien !</div>
+          </td>
+          <td data-label="Contenu">
+            <div class="script-trigger" onclick="openModal('8')">
+              <div class="preview-text">VTC, Taxi, Livraison, CPAM... une seule app pour tout faire à Paris !</div>
+              <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 Détails et Ad Copy</span>
+            </div>
+
+            <div id="modal-8" class="modal">
+              <div class="modal-content">
+                <span class="close-modal" onclick="closeModal('8')">&times;</span>
+                <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">Détails C3</h2>
+
+                <div class="modal-section">
+                  <h4>Script</h4>
+                  <div class="modal-body">
+                    Slide 1 : Une seule app, des possibilités infinies. MovAIsy, la Super-App qui réunit tous vos besoins de mobilité.  
+                    Slide 2 : Service VTC – confort et sécurité garantis.  
+                    Slide 3 : Service Taxi – trouvez un chauffeur agréé en un clic.  
+                    Slide 4 : Livraison express – rapide, fiable, locale.  
+                    Slide 5 : Transport médical CPAM – facile, humain et sûr.  
+                    Slide 6 : Paiement sécurisé, suivi en temps réel, assistance 24/7.  
+                    Slide 7 : Téléchargez MovAIsy et redécouvrez la mobilité intelligente à la française.
+                  </div>
+                </div>
+
+                <div class="modal-section" style="background:#FFF9E6; padding:15px; border-radius:10px;">
+                  <h4>Ad Copy</h4>
+                  <div style="font-size:1.1em;">
+                    headline : De VTC à la livraison, tout ce dont vous avez besoin dans une seule app ! 📲  
+                    body : MovAIsy n’est pas qu’une application VTC, c’est votre portail vers tous les services de mobilité à Paris.  
+                    Découvrez en détail chaque service pensé pour faciliter votre vie urbaine.  
+                    cta : Faites défiler et explorez !  
+                    hashtags : #MovAIsyApp #SuperAppFrance #MobilitéParis #TaxiParisien #LivraisonExpress #ServiceCPAM #VieParisienne
+                  </div>
+                </div>
+
+                <div class="modal-section">
+                  <h4>Notes</h4>
+                  <div style="color:#666; font-size:0.9em;">
+                    Carrousel clair et élégant.  
+                    Arrière-plan blanc, mise en avant de l’UI MovAIsy avec icônes animées.  
+                    Slides dédiées à chaque service, terminant sur un call-to-action fort avec boutons App Store / Google Play.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Budget + Footer -->
+  <div class="summary-box">
+    <span style="font-weight:700; color:#FFD700;">Budget total approuvé</span>
+    <span class="total-amount">64 000 DZD</span>
+    <a href="https://wa.me/213770820431" class="cta-btn">Contactez-nous pour validation</a>
+    <div style="border:1px dashed #FFD700; padding:25px; border-radius:15px; margin-top:20px;">
+      <h3 style="color:#FFD700; margin:0;">Prochaine étape</h3>
+      <p style="margin:10px 0;">Un appel rapide pour adapter cette stratégie à votre projet et lancer la mise en œuvre immédiatement.</p>
+      <div class="phones-list">
+        <div class="phone-item">+213 770 82 04 31</div>
+        <div class="phone-item">+213 770 55 01 51</div>
+        <div class="phone-item">+213 770 82 01 45</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function openModal(id) {
+  document.getElementById('modal-' + id).style.display = 'block';
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(id) {
+  document.getElementById('modal-' + id).style.display = 'none';
+  document.body.style.overflow = 'auto';
+}
+window.onclick = function(event) {
+  if (event.target.className === 'modal') {
+    event.target.style.display = 'none';
+    document.body.style.overflow = 'auto';
+  }
+}
+</script>
+</body>
+</html>
