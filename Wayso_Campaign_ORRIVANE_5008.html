@@ -1,0 +1,556 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Wayso Strategy | Wayso_Campaign_ORRIVANE_5008</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+<style>
+    body { background: #FFFFFF; color: #1A1A1A; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; line-height: 1.6; overflow-x: hidden; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 15px; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 2px solid #000; }
+    .wayso-logo { height: 45px; }
+    .brand-name { font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 1.4em; color: #000; text-transform: uppercase; border-right: 4px solid #FFD700; padding-right: 12px; }
+    
+    .analysis-section { margin: 30px 0; }
+    .card-philosophy { padding: 30px; border-radius: 20px; background: #000; color: #FFF; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+    .card-philosophy h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #FFD700; }
+    
+    .card-why { padding: 30px; border-radius: 20px; background: #F9F9F9; color: #333; margin-bottom: 20px; border: 1px solid #EDECE9; }
+    .card-why h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #000; display: flex; align-items: center; gap: 10px; }
+    .card-why h2::after { content: ''; flex-grow: 1; height: 1px; background: #EDECE9; margin-right: 15px; }
+
+    .hero { margin: 35px 0 20px 0; border-right: 6px solid #FFD700; padding-right: 15px; }
+    .hero h1 { font-size: 2.5em; font-weight: 700; margin: 0; }
+    .table-wrapper { margin-top: 25px; border-radius: 12px; overflow: hidden; border: 1px solid #EDECE9; }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #000; color: #FFF; padding: 15px; text-align: right; font-size: 0.9em; }
+    td { padding: 20px 12px; border-bottom: 1px solid #EDECE9; vertical-align: top; }
+    
+    .code-badge { font-family: 'Montserrat', sans-serif; font-weight: 700; background: #FFD700; color: #000; padding: 5px 12px; border-radius: 6px; font-size: 1.1em; display: inline-block; margin-bottom: 5px; }
+    .type-label { display: block; font-weight: 700; color: #555; font-size: 0.95em; }
+    
+    .hook-pill { background: #000; color: #FFD700; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 1.1em; display: block; border-right: 5px solid #FFD700; }
+    .script-trigger { background: #F8F9FA; border: 1px solid #EDECE9; padding: 15px; border-radius: 10px; cursor: pointer; }
+    .preview-text { font-size: 0.95em; color: #333; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; white-space: pre-wrap; }
+    
+    .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(8px); }
+    .modal-content { background: #FFF; margin: 5% auto; padding: 30px; border-radius: 20px; width: 88%; max-width: 700px; position: relative; max-height: 85vh; overflow-y: auto; }
+    .close-modal { position: absolute; top: 15px; left: 15px; font-size: 35px; cursor: pointer; color: #999; line-height: 1; }
+    .modal-section { margin-bottom: 25px; padding: 15px; border-radius: 12px; background: #fbfbfa; border: 1px solid #eee; }
+    
+    /* تحسين تنسيق النصوص داخل المودال لضمان بقاء الفراغات والأسطر */
+    .modal-body { white-space: pre-wrap; font-size: 1.15em; color: #1A1A1A; line-height: 1.8; word-wrap: break-word; }
+    
+    .disclaimer-card { margin: 25px 0; padding: 20px; background: #FFF9E6; border-radius: 12px; border-right: 5px solid #FFC107; font-size: 1.05em; color: #856404; display: flex; align-items: center; gap: 12px; }
+
+    .summary-box { margin-top: 50px; background: #000; color: #FFF; padding: 40px 20px; border-radius: 25px; text-align: center; }
+    .total-amount { font-family: 'Montserrat'; font-size: 3.5em; font-weight: 700; display: block; color: #FFD700; margin: 10px 0; }
+    .cta-btn { display: inline-block; background: #FFD700; color: #000; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.2em; margin-bottom: 25px; }
+    
+    .phones-list { margin-top: 15px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; direction: ltr; } 
+    .phone-item { background: #1A1A1A; padding: 8px 15px; border-radius: 8px; border: 1px solid #333; color: #FFF; font-family: 'Montserrat'; font-weight: 700; font-size: 1.2em; white-space: nowrap; }
+
+    @media (max-width: 768px) {
+        thead { display: none; }
+        tr { display: block; border: 1px solid #EDECE9; border-radius: 15px; margin-bottom: 20px; padding: 15px; background: #FFF; }
+        td { display: block; padding: 8px 0; text-align: right; }
+        td::before { content: attr(data-label); font-weight: 700; color: #BBB; display: block; font-size: 0.75em; margin-bottom: 4px; }
+        .brand-name { font-size: 1.1em; }
+    }
+</style></head><body>
+
+<div class="container">
+    <div class="header">
+        <img src="https://storage.googleapis.com/msgsndr/GwIPQCjstTzxnzDQ1B32/media/68fddb5534bb1597bc934f89.png" class="wayso-logo">
+        <div class="brand-name">مشروع جديد</div>
+    </div>
+
+    <div class="analysis-section">
+        <div class="card-philosophy"><h2>🎯 فلسفة الاستراتيجية</h2><p>في Wayso، نصمم استراتيجيات لا تُضاهى تجمع بين أحدث الأطر التسويقية الهجينة وتكثيف الرسالة عبر فيديوهات رئيسية (Master Video) لضمان تفاعل عميق ونتائج ملموسة. نركز على حل تحديات مشروعك تحديداً، مع تقديم حلول مبتكرة تضمن النمو المستدام والتفوق في سوقك. هدفنا هو تحويل رؤيتك إلى واقع مربح.</p></div>
+        <div class="card-why"><h2>💡 لماذا هذه الخطة؟</h2><p>هذا التسلسل المدروس (فيديو، كاروسال، صورة) مصمم لتحويل المشاهد العابر إلى عميل وفيّ بأسرع وقت، بفضل بناء الثقة، معالجة نقاط الألم، وتقديم الحلول بشكل متدرج ومقنع.</p></div>
+    </div>
+
+    <div class="hero"><h1>خطة الإنتاج الإبداعي</h1></div>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th style="width: 20%;">الكود والنوع</th><th style="width: 30%;">الهوك (Hook)</th><th style="width: 50%;">المحتوى</th></tr></thead>
+            <tbody><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V1</span>
+                <span class="type-label">🎬 VIDEO</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">Stop wasting your money and time on products that yield no results! Who guarantees you authenticity in this sea of products?</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('1')">
+                    <div class="preview-text">...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-1" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('1')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V1</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body"></div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">
+  headline: Are you tired of trying and wasting your money on beauty products? The solution is here!
+
+  body: Every day new promises
+ and every day more confusion. 😥 We know well the feeling of frustration when you buy an expensive product and in the end
+ it does nothing.\n\nAt ORRIVANE
+ we decided to put an end to this suffering. Our mission is not just to sell
+ our mission is to choose the best for you! ✅\n\nOur team of experts studies and meticulously examines every product before it reaches you
+ to ensure effectiveness
+ quality
+ and peace of mind.\n\nWatch the video and discover how we can restore the trust you lost in the sea of products.
+
+  cta: Discover the world of ORRIVANE where expertise is at your service! Visit our website now and see how we offer you trust and beauty!
+
+  hashtags: #ORRIVANE #AlgerianBeauty #AlgerianSkincare #OriginalProductsAlgeria #TrustAndBeauty #dzbeauty #algerianbeauty
+</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;"></div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C2</span>
+                <span class="type-label">📚 CAROUSEL</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">Tired of the confusion every time you want to buy a beauty product? There's a secret behind the products that work for you!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('2')">
+                    <div class="preview-text">...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-2" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('2')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C2</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body"></div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">
+  headline: The secret so you never regret any beauty product you buy!
+
+  body: The confusion in front of product shelves can be very exhausting. 🤯 But it doesn't have to be that way.\n\nAt ORRIVANE
+ we built a complete system to ensure that every product we have is the best for you. From meticulous research to rigorous testing
+ we do the hard work so you can enjoy the peace of mind.\n\nSwipe to see the journey of each product before it reaches your hands.
+
+  cta: Swipe and see how ORRIVANE guarantees you a choice without regret!
+
+  hashtags: #ORRIVANE #ExpertChoice #Skincare #BeautyTips #NoToFakes #dzpower #algeria
+</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;"></div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P3</span>
+                <span class="type-label">🖼️ IMAGE</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">A common myth in the beauty world: 'The expensive product is always the best.' Not always!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('3')">
+                    <div class="preview-text">...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-3" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('3')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P3</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body"></div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">
+  headline: The biggest myth in the beauty world people still believe!
+
+  body: How many times have we heard 'this is expensive
+ therefore it's good'?\n\nThis is one of the biggest misconceptions that makes us waste our money. The high price might be due to marketing
+ packaging
+ or brand name
+ and not always effectiveness.\n\nAt ORRIVANE
+ we believe in effectiveness above all else. We choose products for you where ingredients are the foundation
+ regardless of their price. We are your expert eye that sees beyond the packaging.
+
+  cta: Discover the truth and let ORRIVANE be your expert eye. Click the link in bio to learn more about our philosophy.
+
+  hashtags: #BeautyMyths #TruthAndFiction #ORRIVANE_TIPS #SmartBeauty #AlgerianSkincare #alger
+</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;"></div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V4</span>
+                <span class="type-label">🎬 VIDEO</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">The world of beauty is evolving rapidly, and you're still stuck with old solutions? There's something new and effective waiting for you!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('4')">
+                    <div class="preview-text">...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-4" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('4')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V4</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body"></div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">
+  headline: Don't let the beauty train pass you by! 🚆✨
+
+  body: The world is evolving
+ and the world of beauty is evolving with it! Why keep using old solutions when there are new and effective innovations that can change your routine for the better?\n\nAt ORRIVANE
+ our mission is to be your direct bridge to the latest and most powerful international products. We do the research
+ and you enjoy the results.\n\nWatch the video to see how we put the future in your hands.
+
+  cta: See how ORRIVANE brings you the latest global innovations. Subscribe to our mailing list so you don't miss anything!
+
+  hashtags: #BeautyInnovation #BeautyTechnology #ORRIVANE #BeTheFirst #dzbeauty #algiers
+</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;"></div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C5</span>
+                <span class="type-label">📚 CAROUSEL</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">You've seen our products, but do you know who stands behind them? ORRIVANE's story isn't just about buying and selling!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('5')">
+                    <div class="preview-text">...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-5" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('5')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C5</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body"></div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">
+  headline: We are not just a brand
+ we are a story of trust that began with an experience similar to yours.
+
+  body: Behind every product we choose
+ behind every advice we offer
+ there is a team of passionate individuals who believe in one thing: you deserve the best and safest.\n\nOur story is not about buying and selling
+ our story is about building a bridge of trust between you and the world of true beauty.\n\nSwipe to get to know us better and discover the beating heart of ORRIVANE.
+
+  cta: Swipe to discover our passion that serves your comfort. We'd love to get to know you more in the comments!
+
+  hashtags: #BrandStory #Teamwork #Passion #TrustIsOurFoundation #ORRIVANE_Story #algerianbrand
+</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;"></div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P6</span>
+                <span class="type-label">🖼️ IMAGE</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">Is your skin sensitive and you're afraid to try anything? There are dedicated and guaranteed solutions for it!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('6')">
+                    <div class="preview-text">...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-6" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('6')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P6</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body"></div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">
+  headline: End the fear of trying new products on your sensitive skin!
+
+  body: We know that people with sensitive skin suffer a lot. Any new product is an adventure that can cause redness
+ irritation
+ and anxiety. 😥\n\nFor this reason
+ at ORRIVANE
+ we pay special attention to this category. The product we recommend today was chosen after strict scrutiny of its ingredients
+ gentle formula
+ and proven results in soothing and strengthening the skin.\n\nGoodbye to uncalculated adventures
+ and hello to comfort and safety.
+
+  cta: Get rid of anxiety with ORRIVANE's product specially selected for sensitive skin. Contact us for more information and consultation!
+
+  hashtags: #SensitiveSkin #GentleCare #SafeSolutions #ORRIVANE #GuaranteedProducts #dzpharmacie #algeria
+</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;"></div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V7</span>
+                <span class="type-label">🎬 VIDEO</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">Our voice isn't what's important, but the voice of the customers who tried ORRIVANE! See the difference with your own eyes!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('7')">
+                    <div class="preview-text">...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-7" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('7')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V7</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body"></div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">
+  headline: Don't listen to us... listen to them! 💬❤️
+
+  body: The strongest proof of our success is not our words
+ but the results and satisfaction of our customers who trusted us.\n\nIn this video
+ we gathered some of their real experiences. Stories of transformation from confusion to trust
+ and from problems to solutions.\n\nSee with your own eyes why ORRIVANE is more than just a store
+ it's your partner in the beauty journey.
+
+  cta: Don't believe words
+ believe results! Contact us to start your success story with ORRIVANE.
+
+  hashtags: #CustomerTestimonials #RealExperiences #HappyCustomers #ORRIVANE_Community #socialproof #algerianwomen
+</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;"></div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C8</span>
+                <span class="type-label">📚 CAROUSEL</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">How many times have you bought a product and then regretted it? There's a simple way to protect yourself!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('8')">
+                    <div class="preview-text">...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-8" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('8')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C8</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body"></div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">
+  headline: Regret after purchase? Never again with these tips!
+
+  body: That feeling when you open a new product and discover it's not for you... we all know it. But with a little cleverness
+ you can avoid it entirely.\n\nWe've prepared a small guide of 3 practical steps that will make you shop with confidence and avoid marketing traps.\n\nSwipe and arm yourself with knowledge!
+
+  cta: Learn how to be a smart customer with ORRIVANE's tips. Follow us for more guidance!
+
+  hashtags: #BeautyTips #SmartShopping #BeYourOwnExpert #ORRIVANE_Educates #ShopWithConfidence #alger
+</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;"></div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P9</span>
+                <span class="type-label">🖼️ IMAGE</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">Are you still waiting to find the magical solution for your skin? The solution is here, and guaranteed!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('9')">
+                    <div class="preview-text">...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-9" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('9')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P9</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body"></div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">
+  headline: You are the heroine of your beauty story. And we are here to be your guide.
+
+  body: There is no single magic recipe that suits everyone. Instead
+ there is a personal journey
+ well-thought-out steps
+ and smart choices.\n\nAt ORRIVANE
+ we believe that every woman is capable of being her own beauty expert. Our role is to give you the right tools
+ reliable knowledge
+ and guaranteed products to reach your goal with confidence.\n\nDon't wait
+ start your journey today.
+
+  cta: Embark on your beauty journey with ORRIVANE. Visit our website and see how we can be your trusted guide.
+
+  hashtags: #BeYourOwnHero #BeautyJourney #WomenEmpowerment #ORRIVANE #TrustIsBeauty #algerianwomen
+</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;"></div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V10</span>
+                <span class="type-label">🎬 VIDEO</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">What's the difference between a product you find everywhere, and one carefully selected for you by ORRIVANE? The secret is in the details!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('10')">
+                    <div class="preview-text">...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-10" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('10')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V10</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body"></div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">
+  headline: Not all that glitters is gold... especially in the world of beauty!
+
+  body: A famous product doesn't always mean it's effective. And a product available everywhere isn't always the most suitable option for you.\n\nAt ORRIVANE
+ we believe in the power of precise selection. Our secret lies in the details: in long hours of research
+ in strict scrutiny of ingredients
+ and in the passion for delivering only the best.\n\nWatch the video and discover what happens behind the scenes before any product reaches our store.
+
+  cta: See the care and expertise behind every ORRIVANE product. Visit the store and start your unique experience!
+
+  hashtags: #QualityOverQuantity #ExpertChoice #BehindTheScenes #ORRIVANE #Excellence #dzquality
+</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;"></div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr></tbody></table></div>
+
+    <div class="disclaimer-card">
+        <span style="font-size: 1.2em;">⚠️</span>
+        <span>قد تخضع هذه الاستراتيجية لبعض التعديلات والتحسينات، حسب المواد الإعلامية المتوفرة أو لغرض تحقيق أفضل النتائج.</span>
+    </div>
+
+    <div class="summary-box">
+        <span style="font-weight: 700; color: #FFD700;">الميزانية الإجمالية المعتمدة</span>
+        <span class="total-amount">0 دج</span>
+        <a href="https://wa.me/213770820431" class="cta-btn">تواصل معنا للاعتماد</a>
+        <div style="border: 1px dashed #FFD700; padding: 25px; border-radius: 15px; margin-top: 20px;">
+            <h3 style="color:#FFD700; margin:0;">الخطوة التالية</h3>
+            <p style="margin:10px 0;">مكالمة قصيرة لنكيّف هذه الاستراتيجية حسب مشروعك ونبدأ العمل فوراً.</p>
+            <div class="phones-list">
+                <div class="phone-item">0770 82 04 31</div>
+                <div class="phone-item">0770 55 01 51</div>
+                <div class="phone-item">0770 82 01 45</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+function openModal(id) { document.getElementById('modal-' + id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
+function closeModal(id) { document.getElementById('modal-' + id).style.display = 'none'; document.body.style.overflow = 'auto'; }
+window.onclick = function(event) { if (event.target.className === 'modal') { event.target.style.display = 'none'; document.body.style.overflow = 'auto'; } }
+</script></body></html>
