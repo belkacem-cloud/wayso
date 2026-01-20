@@ -1,0 +1,732 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Wayso Strategy | Wayso_Pastalif_Campaign_9673</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+<style>
+    body { background: #FFFFFF; color: #1A1A1A; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; line-height: 1.6; overflow-x: hidden; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 15px; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 2px solid #000; }
+    .wayso-logo { height: 45px; }
+    .brand-name { font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 1.4em; color: #000; text-transform: uppercase; border-right: 4px solid #FFD700; padding-right: 12px; }
+    
+    .analysis-section { margin: 30px 0; }
+    .card-philosophy { padding: 30px; border-radius: 20px; background: #000; color: #FFF; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+    .card-philosophy h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #FFD700; }
+    
+    .card-why { padding: 30px; border-radius: 20px; background: #F9F9F9; color: #333; margin-bottom: 20px; border: 1px solid #EDECE9; }
+    .card-why h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #000; display: flex; align-items: center; gap: 10px; }
+    .card-why h2::after { content: ''; flex-grow: 1; height: 1px; background: #EDECE9; margin-right: 15px; }
+
+    .hero { margin: 35px 0 20px 0; border-right: 6px solid #FFD700; padding-right: 15px; }
+    .hero h1 { font-size: 2.5em; font-weight: 700; margin: 0; }
+    .table-wrapper { margin-top: 25px; border-radius: 12px; overflow: hidden; border: 1px solid #EDECE9; }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #000; color: #FFF; padding: 15px; text-align: right; font-size: 0.9em; }
+    td { padding: 20px 12px; border-bottom: 1px solid #EDECE9; vertical-align: top; }
+    
+    .code-badge { font-family: 'Montserrat', sans-serif; font-weight: 700; background: #FFD700; color: #000; padding: 5px 12px; border-radius: 6px; font-size: 1.1em; display: inline-block; margin-bottom: 5px; }
+    .type-label { display: block; font-weight: 700; color: #555; font-size: 0.95em; }
+    
+    .hook-pill { background: #000; color: #FFD700; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 1.1em; display: block; border-right: 5px solid #FFD700; }
+    .script-trigger { background: #F8F9FA; border: 1px solid #EDECE9; padding: 15px; border-radius: 10px; cursor: pointer; }
+    .preview-text { font-size: 0.95em; color: #333; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; white-space: pre-wrap; }
+    
+    .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(8px); }
+    .modal-content { background: #FFF; margin: 5% auto; padding: 30px; border-radius: 20px; width: 88%; max-width: 700px; position: relative; max-height: 85vh; overflow-y: auto; }
+    .close-modal { position: absolute; top: 15px; left: 15px; font-size: 35px; cursor: pointer; color: #999; line-height: 1; }
+    .modal-section { margin-bottom: 25px; padding: 15px; border-radius: 12px; background: #fbfbfa; border: 1px solid #eee; }
+    
+    /* تحسين تنسيق النصوص داخل المودال لضمان بقاء الفراغات والأسطر */
+    .modal-body { white-space: pre-wrap; font-size: 1.15em; color: #1A1A1A; line-height: 1.8; word-wrap: break-word; }
+    
+    .disclaimer-card { margin: 25px 0; padding: 20px; background: #FFF9E6; border-radius: 12px; border-right: 5px solid #FFC107; font-size: 1.05em; color: #856404; display: flex; align-items: center; gap: 12px; }
+
+    .summary-box { margin-top: 50px; background: #000; color: #FFF; padding: 40px 20px; border-radius: 25px; text-align: center; }
+    .total-amount { font-family: 'Montserrat'; font-size: 3.5em; font-weight: 700; display: block; color: #FFD700; margin: 10px 0; }
+    .cta-btn { display: inline-block; background: #FFD700; color: #000; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.2em; margin-bottom: 25px; }
+    
+    .phones-list { margin-top: 15px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; direction: ltr; } 
+    .phone-item { background: #1A1A1A; padding: 8px 15px; border-radius: 8px; border: 1px solid #333; color: #FFF; font-family: 'Montserrat'; font-weight: 700; font-size: 1.2em; white-space: nowrap; }
+
+    @media (max-width: 768px) {
+        thead { display: none; }
+        tr { display: block; border: 1px solid #EDECE9; border-radius: 15px; margin-bottom: 20px; padding: 15px; background: #FFF; }
+        td { display: block; padding: 8px 0; text-align: right; }
+        td::before { content: attr(data-label); font-weight: 700; color: #BBB; display: block; font-size: 0.75em; margin-bottom: 4px; }
+        .brand-name { font-size: 1.1em; }
+    }
+</style></head><body>
+
+<div class="container">
+    <div class="header">
+        <img src="https://storage.googleapis.com/msgsndr/GwIPQCjstTzxnzDQ1B32/media/68fddb5534bb1597bc934f89.png" class="wayso-logo">
+        <div class="brand-name">مشروع جديد</div>
+    </div>
+
+    <div class="analysis-section">
+        <div class="card-philosophy"><h2>🎯 فلسفة الاستراتيجية</h2><p>استراتيجيتنا في Wayso ترتكز على إطلاق العنان لإمكانات Pastalif في السوق. اعتمدنا الأطر التسويقية الهجينة مع فيديو رئيسي Master Video لـ Pastalif، لخلق حوار مباشر مع الشيفات، معالجين مخاوفهم ومتطلباتهم. هذا النهج يضمن تحويل عملائكم المحتملين إلى شركاء دائمين، مؤكدين على جودة Pastalif كحل استراتيجي لمطابخهم.</p></div>
+        <div class="card-why"><h2>💡 لماذا هذه الخطة؟</h2><p>هذا التسلسل المدروس (فيديو، كاروسال، صور ثابتة) يهدف إلى بناء الثقة تدريجياً، معالجة نقاط الألم، وتقديم الحلول المقنعة. يضمن هذا التدفق تحويل المشاهدين إلى عملاء أوفياء، من خلال رحلة محتوى متكاملة ومحفزة.</p></div>
+    </div>
+
+    <div class="hero"><h1>خطة الإنتاج الإبداعي</h1></div>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th style="width: 20%;">الكود والنوع</th><th style="width: 30%;">الهوك (Hook)</th><th style="width: 50%;">المحتوى</th></tr></thead>
+            <tbody><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V0</span>
+                <span class="type-label">🎬 STRATEGY FEES</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">N/A</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('0')">
+                    <div class="preview-text">...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-0" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('0')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V0</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body"></div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">N/A</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;"></div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V1</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">أكبر كابوس لأي شاف؟ إنه سمعتو تروح بسبّة مكوّن واحد! و إذا هذي الباستا ما كانتش مضمونة... وشكون لي راح يخلص الثمن؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('1')">
+                    <div class="preview-text">...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-1" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('1')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V1</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body"></div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">سمعتك كـ شيف هي كلش. لا تخاطر بها!
+كل طبق يخرج من مطبخك يحمل اسمك وسمعتك. في Pastalif، نفهم أن الثبات في جودة المكونات هو أساس راحة بالك ونجاح مطعمك.
+
+لهذا السبب، نقدم لك باستا حرفية بجودة مضمونة في كل حبة، مصنوعة بـ 10 بيضات في الكيلو لتوفر لك قواماً مثالياً وبنة لا تتغير. باستاليف ليست مجرد باستا، بل هي شريكك لضمان رضا زبائنك وحماية سمعتك.
+
+اكتشف الفرق الذي يحدثه شريك موثوق في مطبخك.
+تواصلوا معنا الآن لطلب عيناتكم المجانية واحكموا بأنفسكم!
+#باستاليف #شيف_جزائري #مطبخ_جزائري #مطاعم_الجزائر #باستا_حرفية #جودة_مضمونة #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;"></div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C2</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">مستقبل سمعتك المهنية رهين بجودة مكوناتك... باستا مضمونة ولا مغامرة؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('2')">
+                    <div class="preview-text">...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-2" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('2')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C2</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body"></div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">باستا مضمونة أو مغامرة تهدد سمعتك؟ الخيار واضح.
+كل شاف يعرف هذا السيناريو: جودة الباستا لي تخدم بيها اليوم ماشي كيما تاع البارح. هذا التقلب هو أكبر عدو لسمعتك!
+
+مع Pastalif، هذه المشكلة تصبح من الماضي. نضمن لك جودة ثابتة وقواماً مثالياً في كل طلبية، بفضل وصفتنا الفريدة بـ 10 بيضات في الكيلو.
+
+تصفح الكاروسال واكتشف كيف تحمي باستاليف سمعتك وتضمن لك راحة البال.
+لا تخاطر بعد الآن! اطلب عيناتك المجانية من باستاليف اليوم.
+#باستاليف_الجودة #سمعة_الشيف #مشاكل_المطبخ #حلول_للمطاعم #باستا_الجزائر #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;"></div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P3</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">سمعتك في المطبخ هي رأس مالك لي ما يتعوّضش. باش تحميها من تقلبات السوق؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('3')">
+                    <div class="preview-text">...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-3" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('3')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P3</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body"></div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">رأس مالك الحقيقي ليس المطعم، بل سمعتك.
+في عالم الطهي، السمعة هي كل شيء. كل طبق تقدمه هو توقيعك. أي خطأ صغير، خاصة في مكون أساسي مثل الباستا، يمكن أن يكلفك الكثير.
+
+Pastalif هي درعك ضد تقلبات الجودة. نقدم لك باستا حرفية تضمن لك نتائج مثالية في كل مرة، لتحافظ على توقيعك دائماً في القمة.
+
+استثمر في راحة بالك. استثمر في Pastalif.
+حمّي سمعتك و قدّم الأفضل لزبائنك. تواصل معنا للطلب أو للاستفسار.
+#حماية_السمعة #جودة_عالية #باستاليف #شيف_محترف #مطبخ_الجزائر #فن_الطهي</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;"></div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V4</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">سرّ القوام المثالي و البنة اللي ما تتبدلش من طبق لطبق؟ يبدا من هنا، وين الحرفة تتلاقى مع الشغف...</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('4')">
+                    <div class="preview-text">...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-4" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('4')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V4</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body"></div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">الجودة لا تأتي بالصدفة، بل بالشغف والحرفة.
+وراء كل طبق باستاليف مثالي، توجد قصة من الإتقان. من اختيار أجود المكونات إلى عملية التجفيف البطيئة، كل خطوة نقوم بها هي لضمان أن تصلك باستا بقوام وبنة لا تتغير.
+
+شاهدوا في هذا الفيديو لمسة الحرفية التي تجعل من Pastalif الخيار المفضل للشيفات الذين لا يقبلون إلا بالأفضل.
+
+الجودة التي ترونها هي الجودة التي ستجدونها في كل طلبية.
+اطلبوا عيناتكم المجانية الآن واكتشفوا بأنفسكم سر باستاليف.
+#صنع_في_الجزائر #حرفية #جودة_عالية #باستاليف #وراء_الكواليس #شغف_الطهي</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;"></div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C5</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">وراء كل طبق باستا فاخر، قصة حرفية و إتقان... هكذا نصنع باستاليف.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('5')">
+                    <div class="preview-text">...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-5" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('5')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C5</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body"></div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">رحلة حبة الباستا المثالية: من الحقل إلى طبقك!
+الجودة الاستثنائية لباستاليف ليست سراً، بل هي نتيجة عملية إنتاج دقيقة ومدروسة بعناية.
+
+من اختيار المكونات، مروراً بالعجن البطيء والتشكيل بقوالب البرونز، وصولاً إلى التجفيف الطبيعي... كل خطوة هي ضمان للقوام والبنة التي تبحث عنها.
+
+تصفحوا الكاروسال لتكتشفوا شفافية عملنا وسر تميزنا.
+هل تريد معرفة المزيد؟ تواصلوا معنا الآن لطلب الكتالوج الكامل لمنتجاتنا.
+#شفافية #عملية_الانتاج #جودة_باستاليف #صناعة_حرفية #مكونات_طبيعية #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;"></div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P6</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كل خيط باستا يحكي قصة إتقان و تفاني... هكذا نحول الحرفة إلى فنّ.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('6')">
+                    <div class="preview-text">...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-6" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('6')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P6</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body"></div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">السر يكمن في الملمس.
+هل تساءلت يوماً لماذا تلتصق الصلصة ببعض أنواع الباستا أفضل من غيرها؟
+
+الجواب في السطح الخشن الذي تمنحه قوالب البرونز التقليدية لـ Pastalif. هذا الملمس ليس مجرد تفصيل، بل هو سر الطبق المتكامل الذي يحلم به كل شيف.
+
+الجودة التي يمكنك رؤيتها... وتذوقها.
+جرّبوا الفرق الذي تحدثه اللمسة الحرفية. باستاليف - فنّ الباستا الأصيل.
+#تفاصيل_الجودة #قوالب_البرونز #باستا_مثالية #ملمس_فريد #فن_الباستا #باستاليف</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;"></div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V7</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">شحال من مرة طبقتك الفاخرة فسدت بسبّة باستا مطلوقة و مذبّلة؟ هذا الكابوس لازم ينتهي هنا!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('7')">
+                    <div class="preview-text">...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-7" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('7')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V7</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body"></div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">نهاية كابوس الباستا الـ 'مطلوقة'!
+كل شيف يعرف الإحباط الناتج عن باستا تفقد قوامها وتفسد الطبق بأكمله. هذه المشكلة لا تؤثر فقط على مظهر الطبق، بل على سمعتك أيضاً.
+
+في هذا الفيديو، شاهدوا المقارنة البصرية المباشرة بين باستا عادية وباستاليف. سترون بأعينكم كيف أن وصفتنا الفريدة تضمن لكم قوام 'Al Dente' مثالي، حتى تحت أصعب ظروف المطبخ.
+
+لا مزيد من التنازلات. لا مزيد من الأطباق الفاسدة.
+ودّعوا الباستا المطلوقة للأبد! اطلبوا عينات باستاليف و ضمنوا قواماً مثالياً في كل طبق.
+#باستا_شادة_روحها #مقارنة_جودة #حل_المشاكل #شيف_الجزائر #مطبخ_احترافي #باستاليف</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;"></div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C8</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الفرق بين باستا تبهدلك و باستا ترفعلك راسك...! شوفو علاه Pastalif هي الحل.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('8')">
+                    <div class="preview-text">...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-8" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('8')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C8</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body"></div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">باستا تحمّر الوجه... أو باستا تفسد السمعة؟ الاختيار لك.
+قوام الباستا هو أساس نجاح طبقك. باستا ضعيفة تعني طبقاً فاشلاً، مهما كانت جودة صلصتك.
+
+Pastalif مصممة خصيصاً لتكون شريكك في النجاح. تركيبتها الغنية بالبيض تضمن لك قواماً لا مثيل له، يحافظ على تماسكه ويجعل من كل طبق تحفة فنية.
+
+اكتشفوا في هذا الكاروسال سر القوام الذي يثق به المحترفون.
+لا تقبل بأقل من الكمال! اطلب عيناتك الآن من باستاليف.
+#قوام_مثالي #الفرق_الواضح #باستاليف_ضمان #جودة_احترافية #مطبخ_ناجح #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;"></div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P9</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">عشر بيضات في كل كيلو... هذا هو سرّ القوام لي يشد روحو و يهزّ الصوص كيما يلزم!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('9')">
+                    <div class="preview-text">...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-9" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('9')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P9</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body"></div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">سر القوام المثالي في رقم واحد: 10.
+عشر بيضات كاملة وطازجة في كل كيلوغرام من السميد الفاخر. هذه هي وصفتنا البسيطة والفعالة للحصول على باستا بقوام استثنائي، غنية بالبروتين، وتحافظ على شكلها ومذاقها بعد الطهي.
+
+هذا هو التزامنا بالجودة. هذا هو الفرق الذي يميز Pastalif.
+جرّبوا القوام الفريد لباستاليف. زوروا موقعنا أو تواصلوا معنا للطلب.
+#عشر_بيضات #سر_الجودة #باستاليف #قوام_لايقاوم #باستا_غنية #شيف_الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;"></div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V10</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">في مطبخ سريع، كل دقيقة محسوبة و كل طبق لازم يكون مثالي. باستا ما تخليكش تخسر وقت و مال؟ نعم كاينة!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('10')">
+                    <div class="preview-text">...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-10" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('10')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V10</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body"></div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">مطبخك ليس بحاجة لمكونات فقط، بل لحلول ذكية.
+الشيف الناجح لا يبحث عن البنة فقط، بل عن الكفاءة والربحية أيضاً. مكون غير موثوق يمكن أن يكلفك أكثر من سعره بكثير.
+
+في هذا الفيديو، يشاركنا الشيف [اسم الشيف] كيف أصبحت Pastalif شريكه الاستراتيجي في المطبخ، ليس فقط لجودتها، بل لفوائدها التشغيلية التي تساهم في تقليل الهدر، زيادة سرعة الخدمة، وضمان رضا الزبائن.
+
+باستاليف: استثمارك الذكي لمطبخ أكثر كفاءة وربحية.
+اطلب عيناتك الآن واكتشف كيف يمكن لـ Pastalif تحسين كفاءة مطبخك.
+#كفاءة_المطبخ #ربحية #حلول_للشيف #باستاليف #مطبخ_ذكي #استثمار_ناجح</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;"></div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C11</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">سرّ المطبخ الناجح: باستا لا تخذلك أبداً، حتى في أوقات الذروة.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('11')">
+                    <div class="preview-text">...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-11" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('11')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C11</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body"></div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">هل مطبخك يعمل بأقصى كفاءة؟ قد تكون الباستا هي السبب.
+الهدر، ضياع الوقت، والتوتر في أوقات الذروة... هذه ليست مشاكل حتمية، بل يمكن حلها باختيار المكونات الصحيحة.
+
+Pastalif ليست مجرد باستا عالية الجودة، بل هي أداة لتحسين أداء مطبخك. قوامها الثابت يقلل من الأخطاء والهدر، ويمنحك وفريقك راحة البال للتركيز على الإبداع.
+
+تصفح الكاروسال واكتشف كيف يمكن لـ Pastalif أن تكون استثمارك الأكثر ربحية.
+ضاعف ربحيتك وقلل التوتر. تواصل مع Pastalif لتجربة الحل الذكي لمطبخك.
+#ربحية_المطاعم #كفاءة_تشغيلية #تقليل_الهدر #باستاليف #حلول_ذكية #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;"></div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P12</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">باستاليف: مش مجرد مكوّن، بل استثمار ذكي في نجاح و ربحية مطبخك على المدى الطويل.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('12')">
+                    <div class="preview-text">...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-12" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('12')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P12</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body"></div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">لا تفكر في سعر الكيلو، فكر في تكلفة الطبق الفاشل.
+الاستثمار في مكون عالي الجودة مثل Pastalif قد يبدو تكلفة إضافية في البداية، ولكنه في الحقيقة يوفر عليك الكثير على المدى الطويل.
+
+تقليل الهدر، توفير الوقت، وضمان رضا الزبون... هذه هي العوائد الحقيقية لاستثمارك في باستاليف.
+
+اختر الحل الذكي. اختر النجاح المستدام لمطبخك.
+استثمر في الجودة و الكفاءة. باستاليف هي الحل. اطلب عرض أسعار الآن!
+#استثمار_ذكي #نجاح_المطاعم #كفاءة #جودة #باستاليف #شيف_الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;"></div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V13</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">من أشهر مطابخ الجزائر... الشيفات الكبار يختارو باستاليف لسمعتهم و جودة أطباقهم. تعرف علاه؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('13')">
+                    <div class="preview-text">...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-13" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('13')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V13</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body"></div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">عندما يتحدث أفضل الشيفات، عليك أن تستمع.
+لماذا يضع أفضل الشيفات في الجزائر ثقتهم في Pastalif؟
+
+لأنهم يدركون أن السمعة تُبنى على الثبات، والتميز يُصنع من الجودة. باستاليف تقدم لهم كليهما.
+
+شاهدوا في هذا الفيديو شهادات من محترفين اختاروا الارتقاء بأطباقهم وضمان رضا زبائنهم. حان دورك لتنضم إلى نخبة المحترفين.
+انضموا إلى نخبة الشيفات الذين اختاروا التميز. اطلبوا باستاليف وارفعوا مستوى أطباقكم!
+#شهادة_شيف #دليل_اجتماعي #اختيار_المحترفين #باستاليف #مطاعم_فاخرة #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;"></div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C14</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">إبداعات شيفات الجزائر مع باستاليف: الجودة تحكي عن نفسها في كل طبق.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('14')">
+                    <div class="preview-text">...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-14" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('14')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C14</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body"></div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">لا تأخذوا كلامنا فقط، بل استمعوا لخبراء الميدان!
+يسعدنا ويشرفنا أن نكون جزءاً من نجاح أفضل المطابخ في الجزائر. شيفات محترفون يشاركوننا شهاداتهم حول تأثير Pastalif على جودة أطباقهم وراحة بالهم.
+
+تصفحوا هذا الكاروسال لتكتشفوا إبداعاتهم والسبب وراء ثقتهم المطلقة في علامتنا.
+
+الجودة التي يثق بها المحترفون، أصبحت الآن بين يديك.
+هل أنت مستعد للانضمام إليهم؟ جرّب باستاليف بنفسك واكتشف الفرق.
+#شهادات_عملاء #ثقة_الشيفات #قصص_نجاح #باستاليف #مطاعم_الجزائر #CuisineAlgerienne</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;"></div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P15</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الشيف [اسم الشيف] عن باستاليف: 'الجودة اللي ما لقيتهاش في حتى بلاصة أخرى! هذا هو السر لي خلاني نحافظ على سمعة مطبخي.'</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('15')">
+                    <div class="preview-text">...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-15" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('15')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P15</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body"></div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">عندما يضع المحترفون ثقتهم في علامتنا، فهذا هو أكبر دليل على جودتنا.
+الشيف نبيل عمران، المعروف بأطباقه الاستثنائية وتفانيه في الجودة، يختار Pastalif لضمان تقديم الأفضل لزبائنه.
+
+شهادته هي تأكيد على التزامنا بتقديم منتج لا يرضى إلا بالكمال. عندما تختار باستاليف، فأنت تختار الجودة التي يثق بها الكبار.
+
+انضم إلى المحترفين. اختر باستاليف.
+جرّبوا اختيار المحترفين. اطلبوا باستاليف و خلّوا أطباقكم تحكي عن الإتقان.
+#اختيار_الشيف #ثقة_المحترفين #ضمان_الجودة #باستاليف #شيف_جزائري #مرجعية_الجودة</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;"></div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr></tbody></table></div>
+
+    <div class="disclaimer-card">
+        <span style="font-size: 1.2em;">⚠️</span>
+        <span>قد تخضع هذه الاستراتيجية لبعض التعديلات والتحسينات، حسب المواد الإعلامية المتوفرة أو لغرض تحقيق أفضل النتائج.</span>
+    </div>
+
+    <div class="summary-box">
+        <span style="font-weight: 700; color: #FFD700;">الميزانية الإجمالية المعتمدة</span>
+        <span class="total-amount">0 دج</span>
+        <a href="https://wa.me/213770820431" class="cta-btn">تواصل معنا للاعتماد</a>
+        <div style="border: 1px dashed #FFD700; padding: 25px; border-radius: 15px; margin-top: 20px;">
+            <h3 style="color:#FFD700; margin:0;">الخطوة التالية</h3>
+            <p style="margin:10px 0;">مكالمة قصيرة لنكيّف هذه الاستراتيجية حسب مشروعك ونبدأ العمل فوراً.</p>
+            <div class="phones-list">
+                <div class="phone-item">0770 82 04 31</div>
+                <div class="phone-item">0770 55 01 51</div>
+                <div class="phone-item">0770 82 01 45</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+function openModal(id) { document.getElementById('modal-' + id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
+function closeModal(id) { document.getElementById('modal-' + id).style.display = 'none'; document.body.style.overflow = 'auto'; }
+window.onclick = function(event) { if (event.target.className === 'modal') { event.target.style.display = 'none'; document.body.style.overflow = 'auto'; } }
+</script></body></html>
