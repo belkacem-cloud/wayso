@@ -1,0 +1,747 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Wayso Strategy | EasyFit_Launch_Campaign_v1_4019</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+<style>
+    body { background: #FFFFFF; color: #1A1A1A; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; line-height: 1.6; overflow-x: hidden; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 15px; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 2px solid #000; }
+    .wayso-logo { height: 45px; }
+    .brand-name { font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 1.4em; color: #000; text-transform: uppercase; border-right: 4px solid #FFD700; padding-right: 12px; }
+    
+    .analysis-section { margin: 30px 0; }
+    .card-philosophy { padding: 30px; border-radius: 20px; background: #000; color: #FFF; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+    .card-philosophy h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #FFD700; }
+    
+    .card-why { padding: 30px; border-radius: 20px; background: #F9F9F9; color: #333; margin-bottom: 20px; border: 1px solid #EDECE9; }
+    .card-why h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #000; display: flex; align-items: center; gap: 10px; }
+    .card-why h2::after { content: ''; flex-grow: 1; height: 1px; background: #EDECE9; margin-right: 15px; }
+
+    .hero { margin: 35px 0 20px 0; border-right: 6px solid #FFD700; padding-right: 15px; }
+    .hero h1 { font-size: 2.5em; font-weight: 700; margin: 0; }
+    .table-wrapper { margin-top: 25px; border-radius: 12px; overflow: hidden; border: 1px solid #EDECE9; }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #000; color: #FFF; padding: 15px; text-align: right; font-size: 0.9em; }
+    td { padding: 20px 12px; border-bottom: 1px solid #EDECE9; vertical-align: top; }
+    
+    .code-badge { font-family: 'Montserrat', sans-serif; font-weight: 700; background: #FFD700; color: #000; padding: 5px 12px; border-radius: 6px; font-size: 1.1em; display: inline-block; margin-bottom: 5px; }
+    .type-label { display: block; font-weight: 700; color: #555; font-size: 0.95em; }
+    
+    .hook-pill { background: #000; color: #FFD700; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 1.1em; display: block; border-right: 5px solid #FFD700; }
+    .script-trigger { background: #F8F9FA; border: 1px solid #EDECE9; padding: 15px; border-radius: 10px; cursor: pointer; transition: 0.2s; }
+    .script-trigger:hover { background: #F0F0F0; border-color: #FFD700; }
+    .preview-text { font-size: 0.95em; color: #333; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; white-space: pre-wrap; }
+    
+    .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(8px); }
+    .modal-content { background: #FFF; margin: 5% auto; padding: 30px; border-radius: 20px; width: 88%; max-width: 700px; position: relative; max-height: 85vh; overflow-y: auto; }
+    .close-modal { position: absolute; top: 15px; left: 15px; font-size: 35px; cursor: pointer; color: #999; line-height: 1; }
+    .modal-section { margin-bottom: 25px; padding: 15px; border-radius: 12px; background: #fbfbfa; border: 1px solid #eee; }
+    
+    /* تحديث: تحسين تنسيق النصوص داخل المودال */
+    .modal-body { 
+        font-size: 1.15em; 
+        color: #1A1A1A; 
+        line-height: 1.9; /* زيادة ارتفاع السطر للقراءة */
+        word-wrap: break-word; 
+    }
+    
+    .disclaimer-card { margin: 25px 0; padding: 20px; background: #FFF9E6; border-radius: 12px; border-right: 5px solid #FFC107; font-size: 1.05em; color: #856404; display: flex; align-items: center; gap: 12px; }
+
+    .summary-box { margin-top: 50px; background: #000; color: #FFF; padding: 40px 20px; border-radius: 25px; text-align: center; }
+    .total-amount { font-family: 'Montserrat'; font-size: 3.5em; font-weight: 700; display: block; color: #FFD700; margin: 10px 0; }
+    .cta-btn { display: inline-block; background: #FFD700; color: #000; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.2em; margin-bottom: 25px; }
+    
+    .phones-list { margin-top: 15px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; direction: ltr; } 
+    .phone-item { background: #1A1A1A; padding: 8px 15px; border-radius: 8px; border: 1px solid #333; color: #FFF; font-family: 'Montserrat'; font-weight: 700; font-size: 1.2em; white-space: nowrap; }
+
+    @media (max-width: 768px) {
+        thead { display: none; }
+        tr { display: block; border: 1px solid #EDECE9; border-radius: 15px; margin-bottom: 20px; padding: 15px; background: #FFF; }
+        td { display: block; padding: 8px 0; text-align: right; }
+        td::before { content: attr(data-label); font-weight: 700; color: #BBB; display: block; font-size: 0.75em; margin-bottom: 4px; }
+        .brand-name { font-size: 1.1em; }
+    }
+</style></head><body>
+
+<div class="container">
+    <div class="header">
+        <img src="https://storage.googleapis.com/msgsndr/GwIPQCjstTzxnzDQ1B32/media/68fddb5534bb1597bc934f89.png" class="wayso-logo">
+        <div class="brand-name">Chirurgien Dentiste Babou</div>
+    </div>
+
+    <div class="analysis-section">
+        <div class="card-philosophy"><h2>🎯 فلسفة الاستراتيجية</h2><p>نحن في Wayso، نؤمن بأن استثمارك في ابتسامتك هو استثمار في حضورك وثقتك. لذلك، صممنا هذه الخطة المتكاملة التي تجمع بين قوة الفيديو لترسيخ صورتك الذهنية في أذهان عملائك، والكاروسالات التعليمية التي تزيل أي حواجز معرفية، لضمان تحقيق أهداف نموك بأعلى كفاءة ونتائج طبيعية تعكس قيمتك الحقيقية.</p></div>
+        <div class="card-why"><h2>💡 لماذا هذه الخطة؟</h2><p>بدأنا بـ V1 لخطف الانتباه ومعالجة المخاوف العميقة حول 'التصنع' و'ضياع الوقت' و'عدم عكس النجاح'. ثم تتوالى الكاروسالات والصور التعليمية لتثقيف العميل حول تفاصيل التكنولوجيا والنتائج الطبيعية، وترسيخ الثقة، مما يقوده تدريجياً نحو القرار الحاسم بالحجز.</p></div>
+    </div>
+
+    <div class="hero"><h1>خطة الإنتاج الإبداعي</h1></div>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th style="width: 20%;">الكود والنوع</th><th style="width: 30%;">الهوك (Hook)</th><th style="width: 50%;">المحتوى</th></tr></thead>
+            <tbody><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">STRAT-01</span>
+                <span class="type-label">🎬 SERVICE / خدمة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">-</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('0')">
+                    <div class="preview-text">تحليل السوق، بناء الاستراتيجية، وهندسة رحلة العميل....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-0" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('0')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل STRAT-01</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">تحليل السوق، بناء الاستراتيجية، وهندسة رحلة العميل.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">-</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">-</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V1</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الضحكة لي راك مخبيها... خايف تبدلها بوحدة تبان 'مصطَنعة'؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('1')">
+                    <div class="preview-text">شحال من مرة، حبست ضحكتك في نص الطريق؟
+تحس بلي الابتسامة تاعك ماهيش تعكس شكون نتا صح، و النجاح لي وصل...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-1" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('1')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V1</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">شحال من مرة، حبست ضحكتك في نص الطريق؟<br/><br/>تحس بلي الابتسامة تاعك ماهيش تعكس شكون نتا صح، و النجاح لي وصلت ليه.<br/><br/>تخاف من طبيب السنان التقليدي... من الوجع، من المواعيد لي ما تخلاصش، و الأسوأ: نتيجة تبان ماشي طبيعية قاع.<br/><br/>هذا هو الألم لي يخليك تأجل أحلامك.<br/><br/>بصح، كاين حل.<br/><br/>في عيادة بابو، حنا ماشي برك نعالجو الأسنان... حنا نرسمو تحف فنية.<br/><br/>بالتكنولوجيا الرقمية، كلشي محسوب بالميكرون.<br/><br/>ماكاش أخطاء بشرية. ماكاش مفاجآت.<br/><br/>نتائج طبيعية 100%، تبان تاعك... بصح خير.<br/><br/>في وقت قياسي، ترجع لحياتك المهنية بثقة أكبر.<br/><br/>لأن ضحكتك هي عنوان نجاحك.<br/><br/>هادي ماشي رفاهية، هذا استثمار في قيمتك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">ابتسامتك الحالية... هل تعكس قيمتك الحقيقية؟ <br/><br/> الكثيرون يعيشون بابتسامة لا تمثل نجاحهم وطموحهم، خوفاً من الحلول التقليدية التي قد تمنحهم نتيجة 'مصطنعة' أو تستغرق وقتاً طويلاً.<br/><br/>في عيادة بابو، نؤمن أن ضحكتك هي تحفة فنية يجب رسمها بدقة متناهية. عبر التكنولوجيا الرقمية المتقدمة، نضمن لك ابتسامة طبيعية، راقية، وسريعة التحقيق، تليق بمكانتك.<br/><br/>حان الوقت لتستثمر في الابتسامة التي تستحقها. <br/><br/> اكتشف كيف يمكن للتكنولوجيا أن ترسم ضحكتك المثالية. احجز استشارتك الآن! <br/><br/> #طب_اسنان_رقمي #ابتسامة_هوليود_الجزائر #فينير_الجزائر #عيادة_بابو #تجميل_الاسنان_الجزائر #الجزائر_العاصمة #dzpower</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[المشهد الافتتاحي: لقطات سينمائية بطيئة لرجل أعمال/سيدة أعمال ناجحة في اجتماع، تبتسم ابتسامة متحفظة أو تغطي فمها. إضاءة درامية. نبرة الصوت: هادئة ومتسائلة].<br/>[مشهد الألم: لقطات سريعة بالأبيض والأسود لطبيب أسنان تقليدي، صوت المثقاب، تقويم معدني قديم. إظهار القلق على وجوه المرضى. نبرة الصوت: تصبح أكثر حدة وتصف الألم].<br/>[مشهد التحول: انتقال سلس بالألوان الزاهية إلى عيادة بابو. نظافة، هدوء، تكنولوجيا. لقطات مقربة (Close-up) على شاشة الكومبيوتر تظهر تصميم الابتسامة الرقمي (CAD/CAM). موسيقى ملهمة تبدأ في الخلفية. نبرة الصوت: واثقة ومطمئنة].<br/>[مشهد الحل: لقطات ديناميكية لعملية المسح الرقمي للفم (Scanner intra-oral)، ورسوم متحركة (Motion Graphics) بسيطة توضح دقة التكنولوجيا. المونتاج يظهر مراحل العلاج السريعة].<br/>[مشهد النتيجة: نفس الشخصية من المشهد الأول، لكن الآن تضحك بثقة كاملة في مناسبة اجتماعية راقية. لقطات مقربة على الابتسامة الطبيعية والجذابة. نبرة الصوت: ملهمة وقوية].<br/>[المشهد الختامي: ظهور شعار العيادة 'Chirurgien Dentiste Babou' مع الشعار المكتوب: 'ضحكتك تحفة فنية، مرسومة بالتكنولوجيا'].</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C2</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">غلطة تاع ميليمتر واحد تقدر تكلّفك ضحكتك و دراهمك. كيفاش تضمن بلي هادي ما تصراش؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('2')">
+                    <div class="preview-text">Slide 1: في طب الأسنان، الدقة هي كلش. أي خطأ صغير في القياسات يقدر يسبب مشاكل كبيرة ونتائج غير مرضية...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-2" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('2')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C2</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">Slide 1: في طب الأسنان، الدقة هي كلش. أي خطأ صغير في القياسات يقدر يسبب مشاكل كبيرة ونتائج غير مرضية. راك خايف من هذا السيناريو؟<br/><br/>Slide 2: الحل: تكنولوجيا الـ CAD/CAM. هي نظام تصميم وتصنيع بالكمبيوتر يضمن دقة تصل إلى الميكرون. الخطأ البشري؟ شبه منعدم.<br/><br/>Slide 3: الفوائد ليك: 1. نتائج متوقعة 100% تشوفها قبل ما تبدا. 2. أمان مطلق وراحة بال. 3. جودة ومتانة لا تقارن بالطرق التقليدية.<br/><br/>Slide 4: التكنولوجيا vs التقليدي: جلسات أقل، وقت علاج أقصر، ودقة أعلى بكثير. استثمارك مضمون.<br/><br/>Slide 5: ضحكتك تستاهل ضمان الدقة المطلقة. اكتشف المزيد عن تقنياتنا.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">لا تترك ابتسامتك للصدفة! <br/><br/> في عالم طب الأسنان التجميلي، لا مجال للخطأ. أصغر هفوة يمكن أن تؤثر على النتيجة النهائية وتكلفك الكثير.<br/><br/>لهذا السبب، في عيادة بابو، اعتمدنا على التكنولوجيا الرقمية كضمان أساسي ضد الخطأ البشري. اكتشف في هذا الكاروسال كيف تحمي تقنية CAD/CAM استثمارك وتضمن لك الابتسامة المثالية التي تتوقعها.<br/><br/>مرر لليمين لترى الفرق. <br/><br/> هل لديك أسئلة حول تقنياتنا؟ تواصل معنا مباشرة! <br/><br/> #CADCAM_dentistry #دقة_رقمية #طب_اسنان_حديث #الجزائر #تكنولوجيا_الاسنان #dentiste_alger #بابو_كلينيك</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Slide 1: خلفية داكنة مع صورة ضوئية لمسطرة دقيقة أو فرجار (Caliper) فوق رسم لسن. خط عريض وواضح للسؤال الرئيسي.<br/>Slide 2: رسم بياني (Infographic) يوضح عملية المسح الرقمي للفم، ثم التصميم على الكمبيوتر، ثم التصنيع بالآلة. استخدام أيقونات بسيطة.<br/>Slide 3: تصميم نظيف يستخدم ثلاث أيقونات واضحة (عين، درع، ماسة) مع نص قصير بجانب كل أيقونة.<br/>Slide 4: تصميم مقسوم لجزئين (Split-screen). اليسار يمثل التقليدي (أدوات يدوية، لون باهت). اليمين يمثل التكنولوجيا (شاشة كمبيوتر، ألوان زاهية).<br/>Slide 5: صورة عالية الجودة لابتسامة مثالية مع شعار العيادة و CTA واضح في الأسفل.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P3</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">ضحكتك تستاهل الدقة المطلقة.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('3')">
+                    <div class="preview-text">ضحكتك تحفة فنية، مرسومة بالتكنولوجيا....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-3" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('3')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P3</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">ضحكتك تحفة فنية، مرسومة بالتكنولوجيا.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">الدقة ليست خياراً، بل هي أساس عملنا. <br/><br/> وراء كل ابتسامة مثالية نصنعها، هناك تكنولوجيا متطورة تضمن الدقة المتناهية في كل خطوة. في عيادة بابو، الكمال هو معيارنا الوحيد. <br/><br/> احجز استشارتك وشوف الفرق بنفسك! <br/><br/> #دقة_متناهية #جودة_عالية #طب_اسنان_الجزائر #aestheticdentistry #alger</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">صورة راقية ومقربة جداً (Macro shot) لأداة تكنولوجية حديثة في العيادة (مثل رأس الماسح الرقمي) مع إضاءة سينمائية. النص مكتوب بخط أنيق (Serif) في زاوية من الصورة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V4</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الوقت لي راك تضيّعو في تأجيل ضحكتك... شحال راه يسقاملك؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('4')">
+                    <div class="preview-text">كل يوم تأجل فيه علاج أسنانك... هو فرصة ضايعة.
+فرصة باش تكون عندك ثقة أكبر في اجتماعاتك.
+فرصة باش تضح...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-4" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('4')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V4</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">كل يوم تأجل فيه علاج أسنانك... هو فرصة ضايعة.<br/><br/>فرصة باش تكون عندك ثقة أكبر في اجتماعاتك.<br/><br/>فرصة باش تضحك بلا حساب في صورك.<br/><br/>تقول 'ما عنديش الوقت'. بصح المشكل ماشي في وقتك، المشكل راه في العلاجات التقليدية الطويلة.<br/><br/>الحل؟ طب الأسنان الرقمي.<br/><br/>في عيادة بابو، بفضل التكنولوجيا، نختصر أسابيع من العلاج في جلسات قليلة.<br/><br/>تصميم وتصنيع ابتسامتك يتم في وقت قياسي وبدقة لا تضاهى.<br/><br/>ما تزيدش تضحي بوقتك الثمين.<br/><br/>استثمر في ابتسامة سريعة، فعالة، وتدوم.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">لا تدع 'ضيق الوقت' يسرق منك ابتسامة أحلامك! <br/><br/> نعلم أن وقتك ثمين. الانتظار لأسابيع وأشهر للحصول على ابتسامة جديدة أصبح من الماضي.<br/><br/>بفضل التكنولوجيا المتقدمة في عيادتنا، نقدم لك حلولاً تجميلية سريعة وفعالة تمنحك نتائج مذهلة في وقت قياسي. شاهد الفيديو لتعرف كيف يمكنك توفير وقتك والحصول على الابتسامة التي تستحقها. <br/><br/> اكتشف كيفاش نرجعولك ابتسامتك في وقت قصير وبلا تعقيدات. تواصل معانا درك! <br/><br/> #وقتك_ثمين #علاج_سريع #طب_اسنان_رقمي #ابتسامة_فورية #الجزائر #babou_dentiste</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">الفيديو يعتمد بشكل كبير على الرسوم المتحركة (Motion Graphics).<br/>[المشهد الافتتاحي: رسم متحرك لتقويم (Calendar) تتساقط منه الأيام بسرعة، مع أيقونات تمثل فرص ضائعة (اجتماع، صور، مناسبات). صوت تكتكة ساعة. نبرة الصوت: مباشرة ومستفزة قليلاً].<br/>[مشهد المشكلة: رسم متحرك يظهر شخصية كرتونية تنتظر في عيادة أسنان تقليدية، الوقت يمر ببطء شديد].<br/>[مشهد الحل: انتقال سريع. نفس الشخصية تدخل عيادة بابو. تظهر رسوم متحركة توضح عملية المسح الرقمي السريع والتصنيع الفوري للأسنان (CEREC). إيقاع الفيديو يصبح أسرع والموسيقى أكثر حيوية. نبرة الصوت: حماسية ومقنعة].<br/>[مشهد النتيجة: دمج لقطات UGC سريعة لمرضى حقيقيين يبتسمون بثقة في حياتهم اليومية بعد العلاج. تظهر عبارة 'نتائج سريعة، حياة أفضل'].<br/>[المشهد الختامي: CTA واضح مع معلومات الاتصال].</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C5</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">تكره المواعيد الطويلة عند طبيب السنان؟ ماشي وحدك.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('5')">
+                    <div class="preview-text">Slide 1: هل جدولك مزدحم لدرجة أنك تؤجل صحة وجمال أسنانك؟ مشكلة العلاجات الطويلة هي عائق كبير للكثيري...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-5" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('5')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C5</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">Slide 1: هل جدولك مزدحم لدرجة أنك تؤجل صحة وجمال أسنانك؟ مشكلة العلاجات الطويلة هي عائق كبير للكثيرين.<br/><br/>Slide 2: الحل السريع عندنا: بفضل تقنيات مثل الماسح الرقمي والتصنيع الفوري (CEREC)، نختصر عدة زيارات في جلسة واحدة أو اثنتين.<br/><br/>Slide 3: واش معنتها ليك؟ زيارات أقل للعيادة، إزعاج أقل، وعودة أسرع لحياتك المهنية والاجتماعية وأنت بأجمل ابتسامة.<br/><br/>Slide 4: وقتك أغلى من أن تضيعه في الانتظار. اختر الحل الأسرع والأكثر كفاءة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">حياتك سريعة... علاج أسنانك يجب أن يكون كذلك! <br/><br/> لماذا تضيع أسابيع في علاجات يمكن إنجازها في أيام قليلة؟<br/><br/>في عيادة بابو، نحن نقدر وقتك. لهذا السبب، استثمرنا في أحدث التقنيات التي تضمن لك الحصول على نتائج مذهلة بأقل عدد من الزيارات.<br/><br/>مرر لليمين واكتشف كيف نساعدك على توفير وقتك الثمين. <br/><br/> مستعد لابتسامة سريعة ومثالية؟ احجز استشارتك اليوم! <br/><br/> #علاج_اسنان_سريع #كفاءة #لا_وقت_للانتظار #الجزائر #dentistealgerie #smilemakeover</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Slide 1: صورة لسيدة أعمال تنظر إلى ساعتها بقلق. استخدام خطوط عصرية.<br/>Slide 2: رسم بياني بسيط يوضح الفرق: 'التقليدي: 3-5 زيارات' مقابل 'الرقمي: 1-2 زيارة'. استخدام أيقونات تقويم.<br/>Slide 3: صورة لشخص يضحك بثقة في مكتبه أو مع أصدقائه. التركيز على أسلوب الحياة.<br/>Slide 4: تصميم قوي وأنيق مع ساعة رملية وابتسامة، وشعار العيادة في الأسفل.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P6</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">ابتسامة أحلامك... بلا ما تضيع وقتك.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('6')">
+                    <div class="preview-text">وقتك ثمين. ابتسامتك أيضاً....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-6" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('6')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P6</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">وقتك ثمين. ابتسامتك أيضاً.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">المعادلة المثالية: نتائج مذهلة في وقت قياسي. <br/><br/> في عيادة بابو، نجمع بين الفن والتكنولوجيا لنقدم لك ابتسامة أحلامك دون أن نعطل مسار حياتك السريع. <br/><br/> تواصل معانا وابتسامتك تولي حقيقة في وقت قياسي. <br/><br/> #توفير_الوقت #ابتسامة_سريعة #الجزائر_العاصمة #طب_تجميلي #dz</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم غرافيكي مبتكر يدمج نصف ساعة رملية مع نصف وجه يبتسم بثقة. الألوان المستخدمة هي ألوان العلامة التجارية (راقية وهادئة). النص مكتوب بخط جريء وأنيق.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V7</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">النجاح لي حققتو في حياتك، ضحكتك تعكسو؟ ولا تحسها 'ماشي تاعك'؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('7')">
+                    <div class="preview-text">(صوت بطل القصة، نبرة هادئة وصادقة)
+كنت ديما نحس بلي كاين حاجة ناقصة.
+في خدمتي، كلشي كان يمشي مليح......</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-7" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('7')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V7</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">(صوت بطل القصة، نبرة هادئة وصادقة)<br/><br/>كنت ديما نحس بلي كاين حاجة ناقصة.<br/><br/>في خدمتي، كلشي كان يمشي مليح... بصح قدام المرايا، الضحكة ما كانتش تعجبني.<br/><br/>كنت خايف ندير فينيير ويبانوا بيوضة بزاف... يبانوا ماشي طبيعيين.<br/><br/>حتى اكتشفت عيادة بابو.<br/><br/>فهموا المشكل تاعي. ما هاموش برك على الشكل، هاموش على الإحساس.<br/><br/>صمّمولي ضحكة 'sur-mesure'.<br/><br/>ضحكة تشبهلي، تليق بملامح وجهي... طبيعية.<br/><br/>دوكا، كي نضحك، نحس بلي هادي هي ضحكتي الحقيقية.<br/><br/>الضحكة لي تعكس شكون أنا.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">لا تقبل بابتسامة لا تمثلك. <br/><br/> الكثير من الناجحين يشعرون بأن ابتسامتهم لا تعكس شخصيتهم الحقيقية، ويخافون من الحلول التجميلية التي قد تبدو 'مزيفة'.<br/><br/>شاهد قصة التحول هذه، واكتشف كيف نصمم في عيادة بابو ابتسامات طبيعية وفريدة، مصممة خصيصاً لتليق بك وتعكس نجاحك وأناقتك. <br/><br/> هل أنت مستعد لابتسامة تعبر عنك حقاً؟ اتصل بنا الآن لبداية تحولك! <br/><br/> #قصة_نجاح #ابتسامة_طبيعية #جمال_طبيعي #الجزائر #تحول_ابتسامة #ثقة_بالنفس</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[الفيديو يتبع قصة مريض حقيقي (بعد موافقته) بأسلوب وثائقي راقٍ].<br/>[المشهد الافتتاحي: لقطات سينمائية للبطل في بيئة عمله (مهندس، محامي، فنان). يظهر ناجحاً ولكن متحفظاً في ابتسامته. تعليق صوتي هادئ يبدأ].<br/>[مشهد الاستشارة: لقطات من داخل العيادة، البطل يتحدث مع الطبيب براحة. الطبيب يستمع باهتمام ويشرح على شاشة الكمبيوتر. التركيز على العلاقة الإنسانية والثقة].<br/>[مشهد التحول: لقطات فنية سريعة لعملية التصميم الرقمي. لا نرى تفاصيل مزعجة، فقط الدقة والاحترافية].<br/>[المشهد النهائي: البطل في حياته اليومية، يضحك الآن بثقة مطلقة مع عائلته أو أصدقائه. لقطات مقربة على الابتسامة التي تبدو طبيعية 100%. الموسيقى تصبح ملهمة ومؤثرة].<br/>[الختام: تظهر عبارة 'ابتسامة طبيعية، تعكس هويتك الحقيقية.' ثم شعار العيادة].</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C8</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">شكون قال الضحكة الجميلة لازم تبان 'بلاستيك'؟ غالطين!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('8')">
+                    <div class="preview-text">Slide 1: المشكلة: الخوف الأكبر في تجميل الأسنان هو الحصول على 'ابتسامة مزيفة' بأسنان بيضاء بشكل مبال...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-8" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('8')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C8</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">Slide 1: المشكلة: الخوف الأكبر في تجميل الأسنان هو الحصول على 'ابتسامة مزيفة' بأسنان بيضاء بشكل مبالغ فيه وغير متناسقة.<br/><br/>Slide 2: الحل تاعنا: فن تصميم الابتسامة الطبيعية. نحن لا نصنع ابتسامات متشابهة، بل نصمم ابتسامة فريدة تليق بملامح وجهك ولون بشرتك.<br/><br/>Slide 3: السر في المواد: نستخدم أفضل أنواع السيراميك (مثل E-MAX) التي تحاكي شفافية وملمس الأسنان الطبيعية تماماً.<br/><br/>Slide 4: النتيجة: ابتسامة مشرقة، جذابة، والأهم... تبدو طبيعية 100%. لا أحد سيعرف سرها، سيرون فقط جمالها.<br/><br/>Slide 5: شوف الفرق بنفسك! (صورة قبل/بعد واضحة تظهر تحولاً طبيعياً وراقياً).</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">الجمال الحقيقي يكمن في الطبيعة. <br/><br/> الهدف من تجميل الأسنان ليس تغييرك، بل إبراز أفضل نسخة منك. السر يكمن في التفاصيل الدقيقة واختيار المواد المناسبة التي تحاكي الطبيعة.<br/><br/>في هذا الكاروسال، نكشف لك عن فلسفتنا في تصميم ابتسامات طبيعية تبهر بجمالها لا بتصنعها.<br/><br/>مرر لليمين واكتشف سر الابتسامة الطبيعية. <br/><br/> هل تبحث عن ابتسامة جميلة وطبيعية؟ احجز استشارتك لنتحدث عن التفاصيل. <br/><br/> #ابتسامة_طبيعية #فينير_طبيعي #emax #تجميل_اسنان #الجزائر #natural_smile #dzbeauty</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Slide 1: صورة كاريكاتورية أو مبالغ فيها لابتسامة بيضاء جداً وغير طبيعية مع علامة X حمراء كبيرة فوقها.<br/>Slide 2: صورة لوجه مقسم لخطوط هندسية (Golden Ratio) تظهر كيف يتم تصميم الابتسامة لتناسب الوجه.<br/>Slide 3: صورة مقربة (Macro) عالية الجودة لقطعة فينير من سيراميك E-MAX بجانب سن طبيعي، لإظهار التشابه.<br/>Slide 4: صورة احترافية لوجه شخص يبتسم بثقة. التركيز على المظهر الطبيعي للأسنان.<br/>Slide 5: تصميم احترافي لصورة قبل/بعد، مع خطوط واضحة وفصل أنيق بين الصورتين.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P9</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">ضحكة طبيعية، تعكس نجاحك وأناقتك.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('9')">
+                    <div class="preview-text">الاحترافية هي أن تبدو النتيجة طبيعية تماماً....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-9" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('9')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P9</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">الاحترافية هي أن تبدو النتيجة طبيعية تماماً.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">الأناقة الحقيقية... في ابتسامة طبيعية. <br/><br/> مهمتنا هي أن نصنع لك ابتسامة تندمج مع شخصيتك بسلاسة، لتصبح جزءاً لا يتجزأ من جاذبيتك الطبيعية. <br/><br/> احجز موعد استشارتك المجانية. <br/><br/> #جمال_طبيعي #أناقة #ثقة #ابتسامة_جذابة #dentiste_luxe_alger</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">صورة فوتوغرافية عالية الجودة ومقربة لوجه مودل (ذكر أو أنثى) بابتسامة طبيعية جداً وجذابة. الإضاءة ناعمة ودافئة. التركيز ليس على 'البياض' بل على 'التناسق والشكل الطبيعي'.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V10</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">لو كان نقولك تقدر تبدل ضحكتك كامل في أقل من أسبوع... تآمن؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('10')">
+                    <div class="preview-text">عندك تصبغات؟ فراغات؟ أسنان غير متناسقة؟
+وتحس بلي الحل بعيد ويطلب وقت كبير.
+هذا الشعور يخليك واقف في ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-10" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('10')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V10</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">عندك تصبغات؟ فراغات؟ أسنان غير متناسقة؟<br/><br/>وتحس بلي الحل بعيد ويطلب وقت كبير.<br/><br/>هذا الشعور يخليك واقف في بلاصتك.<br/><br/>بصح، كاين حل سريع وجمالي بشكل لا يصدق: الفينيرز.<br/><br/>الفينيرز هي قشور خزفية رقيقة جداً، تتلصق على أسنانك.<br/><br/>تغير شكلها، لونها، وحجمها.<br/><br/>في عيادة بابو، نصممها لك رقمياً باش تكون مثالية لوجهك.<br/><br/>والنتيجة؟ تحول جذري لابتسامتك في جلستين أو ثلاث فقط.<br/><br/>اسمعوا واش قالوا الناس لي جربوها معانا...</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">الحل السريع والأنيق لابتسامة مثالية! <br/><br/> هل تحلم بابتسامة كابتسامات النجوم ولكنك تظن أن الطريق طويل ومعقد؟<br/><br/>الحل قد يكون أبسط وأسرع مما تتخيل! الفينيرز (القشور الخزفية) هي ثورة في عالم تجميل الأسنان، تمنحك تحولاً مذهلاً في وقت قياسي.<br/><br/>شاهد الفيديو واستمع لشهادات حقيقية من أشخاص تغيرت حياتهم بفضل الفينيرز. <br/><br/> تعرف على حل الفينيرز اللي يغير حياتك في أقل وقت. اتصل بينا درك! <br/><br/> #فينير_الجزائر #veneers #ابتسامة_هوليوود #تجميل_سريع #hollywood_smile_algeria #dz</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[الفيديو يجمع بين شهادات UGC ورسوم متحركة].<br/>[المشهد الافتتاحي: رسوم متحركة (Motion Graphics) تظهر المشاكل الشائعة (تصبغات، فراغات) على رسم لأسنان. نبرة الصوت: تحدد المشكلة بوضوح].<br/>[مشهد التأجيج: تظهر شخصية كرتونية حائرة ومترددة. نبرة الصوت: متعاطفة].<br/>[مشهد الحل: انتقال سريع إلى لقطات UGC لمرضى حقيقيين يتحدثون بحماس عن تجربتهم مع الفينيرز. شهاداتهم تكون قصيرة ومؤثرة ('كانت أسرع مما توقعت'، 'غيرتلي حياتي').<br/>[بين الشهادات، تظهر رسوم متحركة بسيطة تشرح ما هي الفينيرز وكيف يتم تركيبها بسرعة].<br/>[المشهد الختامي: لقطات متعددة وسريعة لابتسامات رائعة لمرضى الفينيرز، مع موسيقى حماسية. ثم يظهر الـCTA].</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C11</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كيفاش تقدر تبدل ضحكتك وتولي سينمائية في وقت قصير بزاف؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('11')">
+                    <div class="preview-text">Slide 1: الفينيرز: الحل السحري لابتسامة مثالية؟ نعم، وهذه هي الخطوات البسيطة.
+Slide 2: الخطوة 1: الا...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-11" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('11')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C11</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">Slide 1: الفينيرز: الحل السحري لابتسامة مثالية؟ نعم، وهذه هي الخطوات البسيطة.<br/><br/>Slide 2: الخطوة 1: الاستشارة والتصميم الرقمي. نسمع لأهدافك، ونقوم بمسح رقمي لفمك، ثم نصمم ابتسامتك الجديدة على الكمبيوتر وتشوفها قبل ما نبداو.<br/><br/>Slide 3: الخطوة 2: تحضير الأسنان. نقوم ببرد طبقة رقيقة جداً (أقل من 0.5 مم) من سطح السن. إجراء بسيط وغير مؤلم.<br/><br/>Slide 4: الخطوة 3: تركيب الفينيرز. بعد تصنيعها بدقة في مختبرنا الرقمي، نقوم بلصق القشور الخزفية الدائمة على أسنانك.<br/><br/>Slide 5: النتيجة: ابتسامة جديدة، مشرقة، ومتناسقة في وقت قياسي لا يتجاوز الأسبوع في معظم الحالات.<br/><br/>Slide 6: مازالت عندك أسئلة على الفينيرز؟ اطرحها علينا في التعليقات أو على الخاص!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">رحلتك نحو ابتسامة هوليوود... في 6 خطوات بسيطة! <br/><br/> الكثيرون يهابون عملية تركيب الفينيرز لأنها تبدو معقدة. في الحقيقة، مع التكنولوجيا الحديثة، أصبحت العملية بسيطة، سريعة، ومريحة جداً.<br/><br/>لقد قمنا بتفكيك العملية لك خطوة بخطوة في هذا الدليل البصري. مرر لليمين واكتشف كم هو سهل الحصول على ابتسامة أحلامك. <br/><br/> هل أنت جاهز للخطوة الأولى؟ احجز استشارتك المجانية اليوم! <br/><br/> #خطوات_الفينير #دليل_تجميل_الاسنان #veneers_process #الجزائر #babou_dentiste #تعليم</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم الكاروسال يكون على شكل دليل إرشادي (How-To Guide) نظيف وواضح.<br/>Slide 1: صورة جذابة لفينيرز موضوعة بشكل فني. العنوان يكون كبيراً وجذاباً.<br/>Slide 2: أيقونة كاميرا رقمية أو شاشة كمبيوتر مع نص وصورة للطبيب وهو يناقش التصميم مع مريض.<br/>Slide 3: رسم بياني يوضح الطبقة الرقيقة التي يتم إزالتها من السن، للتأكيد على أنها طفيفة.<br/>Slide 4: صورة مقربة ليد الطبيب وهو يضع الفينير بدقة. التركيز على الاحترافية.<br/>Slide 5: صورة قبل/بعد رائعة ومقنعة.<br/>Slide 6: تصميم بسيط يحتوي على أيقونة سؤال كبيرة و CTA واضح.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P12</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">ابتسامتك الجديدة تبدأ من هنا.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('12')">
+                    <div class="preview-text">تحول سريع. ثقة دائمة....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-12" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('12')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P12</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">تحول سريع. ثقة دائمة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">في جلستين فقط... حياة جديدة. <br/><br/> قوة الفينيرز لا تكمن فقط في تغيير شكل الأسنان، بل في تغيير الطريقة التي ترى بها نفسك والطريقة التي يراك بها العالم. إنه تحول سريع نحو ثقة تدوم طويلاً. <br/><br/> استشر طبيبنا حول الفينيرز اليوم. <br/><br/> #تحول #transformation #beforeafter #قبل_وبعد #فينير #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">صورة 'قبل وبعد' قوية جداً ومصممة باحترافية. التركيز على التغيير الإيجابي في تعابير الوجه وليس فقط الأسنان. أو يمكن استخدام صورة فنية مقربة جداً لتركيبة فينيرز تظهر جودتها العالية.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V13</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">ماشي حنا لي نشكروا خدمتنا... الزبائن تاعنا هوما لي يهدروا.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('13')">
+                    <div class="preview-text">(لقطة سريعة للطبيبة، تتحدث بهدوء وثقة)
+الطبيبة: 'هدفنا ليس فقط تقديم علاج، بل بناء علاقة ثقة. والتكن...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-13" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('13')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V13</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">(لقطة سريعة للطبيبة، تتحدث بهدوء وثقة)<br/><br/>الطبيبة: 'هدفنا ليس فقط تقديم علاج، بل بناء علاقة ثقة. والتكنولوجيا هي أداتنا لتحقيق هذا الوعد.'<br/><br/>(انتقال إلى شهادات المرضى - UGC)<br/><br/>المريض 1: 'صراحة، الثقة لي حسيتها هنا ما حسيتهاش في بلاصة أخرى. كلشي كان واضح من الأول.'<br/><br/>المريضة 2: 'كنت خايفة بزاف، بصح الفريق كامل كان محترف وخلاني نحس براحة كبيرة. والنتيجة... خير من لي كنت نتخيل.'<br/><br/>المريض 3: 'الدقة في الخدمة... شيئ لا يصدق. أنصح بهم بشدة.'</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">الثقة لا تُشترى... بل تُبنى. <br/><br/> عندما يتعلق الأمر بصحتك وجمالك، فإن اختيار الفريق المناسب هو أهم قرار. في عيادة بابو، نحن نفخر بالثقة التي يضعها فينا مرضانا.<br/><br/>لكن لا تأخذ كلمتنا كدليل، بل استمع مباشرة لقصصهم وتجاربهم معنا. شاهد الفيديو واكتشف لماذا يختارون عيادتنا. <br/><br/> اسمع قصص النجاح من مرضانا الكرام واحجز موعدك لتكون واحداً منهم! <br/><br/> #ثقة #شهادات_عملاء #social_proof #دليل_اجتماعي #الجزائر #dentiste_de_confiance</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[الفيديو يمزج بين الاحترافية والمصداقية].<br/>[المشهد الافتتاحي: لقطة متوسطة (Medium shot) للدكتورة في مكتبها الأنيق. تتحدث مباشرة إلى الكاميرا بنبرة صادقة (25% من مدة الفيديو كحد أقصى)].<br/>[مشاهد الشهادات: لقطات UGC أصيلة وغير مصطنعة للمرضى في بيئتهم الطبيعية أو داخل العيادة بعد العلاج. يجب أن تبدو حقيقية جداً. يمكن إضافة أسمائهم الأولى ومهنتهم كنص على الشاشة لزيادة المصداقية].<br/>[المونتاج: يتم التنقل بين الشهادات بسلاسة، مع موسيقى هادئة ومطمئنة في الخلفية].<br/>[المشهد الختامي: تظهر عبارة 'ثقتكم هي أكبر نجاح لنا' مع شعار العيادة ومعلومات الاتصال].</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C14</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">ثقة مرضانا هي رأس مالنا. شوف بنفسك!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('14')">
+                    <div class="preview-text">Slide 1: الناس راهي تهدر... وهذه بعض من شهادات عائلة بابو السعيدة.
+Slide 2: 'الاحترافية والدقة كانت ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-14" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('14')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C14</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">Slide 1: الناس راهي تهدر... وهذه بعض من شهادات عائلة بابو السعيدة.<br/><br/>Slide 2: 'الاحترافية والدقة كانت فوق توقعاتي. لأول مرة أحصل على نتيجة أفضل مما تخيلت.' - أمين، مهندس معماري.<br/><br/>Slide 3: 'أخيراً أستطيع أن أضحك بكل ثقة في اجتماعاتي. شكراً لفريق عيادة بابو على تغيير حياتي.' - سارة، مديرة تسويق.<br/><br/>Slide 4: انضم إلى مئات العملاء الراضين الذين وثقوا بنا لنرسم ابتسامتهم. دورك الآن!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">كلماتهم هي أفضل إعلان لنا! <br/><br/> لا شيء يضاهي سماع رأي شخص مر بالتجربة قبلك. نحن فخورون جداً بالنتائج التي نحققها لمرضانا، وسعيدون أكثر بالثقة التي يمنحوننا إياها.<br/><br/>اقرأ بعضاً من شهاداتهم الملهمة في هذا المنشور. مرر لليمين. <br/><br/> هل تريد أن تكون قصة النجاح التالية؟ ابدأ رحلتك معنا اليوم! <br/><br/> #شهادات #رضا_العملاء #testimonials #الجزائر #alger #clientlove</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم الكاروسال يجب أن يكون أنيقاً وموثوقاً.<br/>Slide 1: خلفية راقية مع صورة جماعية للفريق أو صورة لواجهة العيادة.<br/>Slide 2 & 3: كل سلايد مخصص لشهادة واحدة. استخدام صورة احترافية للمريض (إن وافق) أو أيقونة تمثل مهنته. الاقتباس يكون بخط واضح وكبير. اسم المريض ومهنته يضيفان مصداقية.<br/>Slide 4: تصميم يحتوي على دعوة للعمل واضحة، مع شعار العيادة وربما صورة مجمعة (Collage) لابتسامات مختلفة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P15</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">ابتسامتك في أيدٍ أمينة وخبيرة.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('15')">
+                    <div class="preview-text">وراء كل ابتسامة عظيمة، فريق من الخبراء يثقون به....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-15" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('15')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P15</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">وراء كل ابتسامة عظيمة، فريق من الخبراء يثقون به.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">الخبرة التي تستحقها. الثقة التي تبحث عنها. <br/><br/> اختيارك لعيادتنا يعني اختيارك لفريق من الخبراء المتفانين في عملهم، والذين يجمعون بين الشغف بالفن والالتزام بأعلى معايير الدقة التكنولوجية. <br/><br/> تعرف على فريقنا الذي سيعتني بابتسامتك. <br/><br/> #فريق_عمل #خبراء #ثقة #مصداقية #عيادة_اسنان_الجزائر #algerie</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">صورة جماعية احترافية للفريق الطبي في العيادة. يجب أن يظهروا بمظهر ودي، واثق، ومحترف. الإضاءة ممتازة والخلفية هي العيادة نفسها. أو صورة فردية للدكتورة بمظهر واثق ومطمئن.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V16</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">ما تزيدش تخمم بزاف... وقت التحول راهو درك!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('16')">
+                    <div class="preview-text">راك في حيرة.
+جزء منك يريد ابتسامة مثالية... والجزء الآخر متردد.
+تخمم في التكلفة، في الوقت، في النتيج...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-16" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('16')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V16</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">راك في حيرة.<br/><br/>جزء منك يريد ابتسامة مثالية... والجزء الآخر متردد.<br/><br/>تخمم في التكلفة، في الوقت، في النتيجة.<br/><br/>شوف كيف كانت حياتك قبل... ابتسامة تخبيها، ثقة ناقصة.<br/><br/>والآن، تخيل حياتك بعد... ضحكة من القلب، فرص جديدة، انطباع أول لا يُنسى.<br/><br/>الجسر بين الحالتين؟ هو قرار واحد.<br/><br/>قرار بأنك تستاهل الأفضل.<br/><br/>استشارتك الأولى عندنا مجانية تماماً.<br/><br/>هي فرصتك باش تطرح كل أسئلتك، وتشوف الخطة لي تليق بيك، بلا أي التزام.<br/><br/>ما عندك واش تخسر.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">التردد هو أكبر سارق للأحلام... وابتسامتك حلم يستحق التحقيق! <br/><br/> نعلم أن اتخاذ قرار بتجميل ابتسامتك هو خطوة كبيرة. لهذا السبب، نريد أن نجعلها سهلة وخالية من المخاطر بالنسبة لك.<br/><br/>نقدم لك استشارة أولى مجانية وشاملة، لتقييم حالتك، والإجابة على كل تساؤلاتك، ووضع خطة علاجية مخصصة لك. كل هذا دون أي التزام من طرفك.<br/><br/>حان وقت التحرك. <br/><br/> اغتنم فرصة الابتسامة اللي تستاهلها. احجز استشارتك المجانية الأولى درك! <br/><br/> #لا_تتردد #حان_الوقت #استشارة_مجانية #الجزائر #تحفيز #actnow</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[الفيديو يعتمد على الرسوم المتحركة السريعة والجذابة].<br/>[مشهد البداية: رسم متحرك لشخصية تقف عند مفترق طرق، مع علامات استفهام حول رأسها. نبرة الصوت: تفهم التردد].<br/>[مشهد 'قبل': شاشة مقسومة. على اليسار، لقطات باللون الرمادي لشخصية حزينة أو متحفظة].<br/>[مشهد 'بعد': على اليمين، نفس الشخصية بألوان زاهية، تضحك وتنجح في مواقف مختلفة. إيقاع الموسيقى يصبح إيجابياً ومحفزاً].<br/>[مشهد الجسر: رسم متحرك لجسر يربط بين الجانبين، وتظهر عليه كلمة 'القرار'].<br/>[مشهد العرض: تظهر عبارة 'استشارة مجانية' بحروف كبيرة وواضحة، مع لقطات سريعة من داخل العيادة تظهر الراحة والنظافة والترحيب الحار].<br/>[الختام: CTA واضح ومباشر للحجز].</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C17</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">رحلة الألف ميل تبدأ بخطوة... وابتسامتك تبدأ باستشارة!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('17')">
+                    <div class="preview-text">Slide 1: راك مستعد لضحكة جديدة؟ الطريق أسهل مما تتخيل. إليك كيف تبدأ.
+Slide 2: الخطوة 1: احجز استشار...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-17" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('17')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C17</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">Slide 1: راك مستعد لضحكة جديدة؟ الطريق أسهل مما تتخيل. إليك كيف تبدأ.<br/><br/>Slide 2: الخطوة 1: احجز استشارتك. اتصل بنا أو أرسل لنا رسالة. فريقنا سيجد لك الموعد المناسب لجدولك المزدحم.<br/><br/>Slide 3: الخطوة 2: خلال استشارتك المجانية، سنقوم بتقييم شامل، ونستمع لأهدافك، ونقدم لك خطتك العلاجية الشفافة والمفصلة.<br/><br/>Slide 4: الخطوة 3: ابدأ رحلة ابتسامتك! بمجرد موافقتك، نبدأ في تحقيق الحلم. الخطوة الأولى هي الأهم، فلا تتردد.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">3 خطوات بسيطة تفصلك عن ابتسامة أحلامك! <br/><br/> قد تبدو عملية تجميل الأسنان معقدة، لكننا قمنا بتبسيطها من أجلك. هدفنا هو أن تكون تجربتك معنا سهلة، مريحة، وشفافة من البداية إلى النهاية.<br/><br/>اكتشف الخطوات البسيطة لبدء رحلتك نحو ابتسامة جديدة. مرر لليمين. <br/><br/> هل أنت جاهز للخطوة الأولى؟ احجز استشارتك المجانية الآن! <br/><br/> #سهل_بسيط #احجز_موعدك #استشارة_اسنان #الجزائر #بداية_جديدة #dz</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم الكاروسال يكون بسيطاً وواضحاً جداً، يركز على سهولة الإجراءات.<br/>Slide 1: صورة جذابة لشخص يبتسم مع سؤال كبير وواضح.<br/>Slide 2: أيقونة هاتف أو تقويم مع شرح بسيط ومباشر لعملية الحجز.<br/>Slide 3: أيقونة وثيقة أو قائمة تحقق (Checklist) مع صورة للطبيب وهو يشرح الخطة للمريض.<br/>Slide 4: تصميم مشجع ومحفز مع سهم يشير إلى الأمام و CTA واضح للحجز.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P18</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">ضحكة أحلامك على بعد مكالمة هاتفية!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('18')">
+                    <div class="preview-text">احجز استشارتك المجانية الآن...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-18" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('18')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P18</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">احجز استشارتك المجانية الآن</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">لا تنتظر أكثر. فرصتك الآن. <br/><br/> لقد رأيت الإمكانيات، وقرأت قصص النجاح، وعرفت أن الحلول موجودة وسريعة. لم يتبق سوى خطوة واحدة.<br/><br/>اتخذ القرار الذي سيغير الطريقة التي تبتسم بها إلى الأبد. <br/><br/> اضغط على الرابط في البايو أو اتصل بنا مباشرة لحجز استشارتك المجانية الآن! <br/><br/> #احجز_الان #calltoaction #cta #الجزائر #فرصتك #ابتسامة_جديدة</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم غرافيكي جذاب ومباشر. صورة عالية الجودة لابتسامة رائعة أو لقطة من العيادة الراقية. في المنتصف، زر 'Call to Action' كبير وواضح بصرياً (مثلاً: 'احجز الآن' أو 'اتصل بنا'). رقم الهاتف ورابط الموقع يكونان مكتوبين بوضوح.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr></tbody></table></div>
+
+    <div class="disclaimer-card">
+        <span style="font-size: 1.2em;">⚠️</span>
+        <span>قد تخضع هذه الاستراتيجية لبعض التعديلات والتحسينات، حسب المواد الإعلامية المتوفرة أو لغرض تحقيق أفضل النتائج.</span>
+    </div>
+
+    <div class="summary-box">
+        <span style="font-weight: 700; color: #FFD700;">الميزانية الإجمالية المعتمدة</span>
+        <span class="total-amount">123000 دج</span>
+        <a href="https://wa.me/213770820431" class="cta-btn">تواصل معنا للاعتماد</a>
+        <div style="border: 1px dashed #FFD700; padding: 25px; border-radius: 15px; margin-top: 20px;">
+            <h3 style="color:#FFD700; margin:0;">الخطوة التالية</h3>
+            <p style="margin:10px 0;">مكالمة قصيرة لنكيّف هذه الاستراتيجية حسب مشروعك ونبدأ العمل فوراً.</p>
+            <div class="phones-list">
+                <div class="phone-item">0770 82 04 31</div>
+                <div class="phone-item">0770 55 01 51</div>
+                <div class="phone-item">0770 82 01 45</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+function openModal(id) { document.getElementById('modal-' + id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
+function closeModal(id) { document.getElementById('modal-' + id).style.display = 'none'; document.body.style.overflow = 'auto'; }
+window.onclick = function(event) { if (event.target.className === 'modal') { event.target.style.display = 'none'; document.body.style.overflow = 'auto'; } }
+</script></body></html>
