@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Wayso Strategy | Wayso_Pastalif_DZ_Campaign_5663</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+<style>
+    body { background: #FFFFFF; color: #1A1A1A; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; line-height: 1.6; overflow-x: hidden; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 15px; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 2px solid #000; }
+    .wayso-logo { height: 45px; }
+    .brand-name { font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 1.4em; color: #000; text-transform: uppercase; border-right: 4px solid #FFD700; padding-right: 12px; }
+    
+    .analysis-section { margin: 30px 0; }
+    .card-philosophy { padding: 30px; border-radius: 20px; background: #000; color: #FFF; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+    .card-philosophy h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #FFD700; }
+    
+    .card-why { padding: 30px; border-radius: 20px; background: #F9F9F9; color: #333; margin-bottom: 20px; border: 1px solid #EDECE9; }
+    .card-why h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #000; display: flex; align-items: center; gap: 10px; }
+    .card-why h2::after { content: ''; flex-grow: 1; height: 1px; background: #EDECE9; margin-right: 15px; }
+
+    .hero { margin: 35px 0 20px 0; border-right: 6px solid #FFD700; padding-right: 15px; }
+    .hero h1 { font-size: 2.5em; font-weight: 700; margin: 0; }
+    .table-wrapper { margin-top: 25px; border-radius: 12px; overflow: hidden; border: 1px solid #EDECE9; }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #000; color: #FFF; padding: 15px; text-align: left; font-size: 0.9em; }
+    td { padding: 20px 12px; border-bottom: 1px solid #EDECE9; vertical-align: top; text-align: left; }
+    
+    .code-badge { font-family: 'Montserrat', sans-serif; font-weight: 700; background: #FFD700; color: #000; padding: 5px 12px; border-radius: 6px; font-size: 1.1em; display: inline-block; margin-bottom: 5px; }
+    .type-label { display: block; font-weight: 700; color: #555; font-size: 0.95em; }
+    
+    .hook-pill { background: #000; color: #FFD700; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 1.1em; display: block; border-left: 5px solid #FFD700; border-right: none; }
+    .script-trigger { background: #F8F9FA; border: 1px solid #EDECE9; padding: 15px; border-radius: 10px; cursor: pointer; }
+    .preview-text { font-size: 0.95em; color: #333; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; white-space: pre-wrap; }
+    
+    .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(8px); }
+    .modal-content { background: #FFF; margin: 5% auto; padding: 30px; border-radius: 20px; width: 88%; max-width: 700px; position: relative; max-height: 85vh; overflow-y: auto; text-align: left; }
+    .close-modal { position: absolute; top: 15px; right: 15px; left: auto; font-size: 35px; cursor: pointer; color: #999; line-height: 1; }
+    .modal-section { margin-bottom: 25px; padding: 15px; border-radius: 12px; background: #fbfbfa; border: 1px solid #eee; }
+    
+    .modal-body { white-space: pre-wrap; font-size: 1.15em; color: #1A1A1A; line-height: 1.8; word-wrap: break-word; }
+    
+    .disclaimer-card { margin: 25px 0; padding: 20px; background: #FFF9E6; border-radius: 12px; border-left: 5px solid #FFC107; font-size: 1.05em; color: #856404; display: flex; align-items: center; gap: 12px; }
+
+    .summary-box { margin-top: 50px; background: #000; color: #FFF; padding: 40px 20px; border-radius: 25px; text-align: center; }
+    .total-amount { font-family: 'Montserrat'; font-size: 3.5em; font-weight: 700; display: block; color: #FFD700; margin: 10px 0; }
+    .cta-btn { display: inline-block; background: #FFD700; color: #000; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.2em; margin-bottom: 25px; }
+    
+    .phones-list { margin-top: 15px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; direction: ltr; } 
+    .phone-item { background: #1A1A1A; padding: 8px 15px; border-radius: 8px; border: 1px solid #333; color: #FFF; font-family: 'Montserrat'; font-weight: 700; font-size: 1.2em; white-space: nowrap; }
+
+    @media (max-width: 768px) {
+        thead { display: none; }
+        tr { display: block; border: 1px solid #EDECE9; border-radius: 15px; margin-bottom: 20px; padding: 15px; background: #FFF; }
+        td { display: block; padding: 8px 0; text-align: left; }
+        td::before { content: attr(data-label); font-weight: 700; color: #BBB; display: block; font-size: 0.75em; margin-bottom: 4px; }
+        .brand-name { font-size: 1.1em; }
+        .hook-pill { border-left: 5px solid #FFD700; border-right: none;}
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <img src="https://storage.googleapis.com/msgsndr/GwIPQCjstTzxnzDQ1B32/media/68fddb5534bb1597bc934f89.png" class="wayso-logo">
+        <div class="brand-name">Pastalif Campaign</div>
+    </div>
+
+    <div class="analysis-section">
+        <div class="card-philosophy">
+            <h2>🎯 Philosophie de la Stratégie</h2>
+            <p>Chez Wayso, nous croyons que le succès de votre projet réside dans notre compréhension profonde de vos défis quotidiens et de votre vision future. C'est pourquoi nous avons conçu cette stratégie qui cible directement les "points de douleur" (Pain Points) des chefs en Algérie. Nous offrons des solutions concrètes pour garantir leur tranquillité d'esprit (Hna l'bal), préserver leur réputation, et propulser leurs restaurants vers l'excellence.</p>
+        </div>
+        <div class="card-why">
+            <h2>💡 Pourquoi ce plan ?</h2>
+            <p>Cette séquence (V, C, P) a été minutieusement conçue pour guider votre audience à travers un parcours de conversion fluide. Les vidéos éveillent la conscience émotionnelle et présentent la solution, les carrousels expliquent les détails techniques et prouvent la valeur, et les images statiques renforcent la confiance et incitent à la décision. C'est le mix parfait pour maximiser le taux de conversion.</p>
+        </div>
+    </div>
+
+    <div class="hero"><h1>Plan de Production Créatif</h1></div>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th style="width: 20%;">Code & Type</th><th style="width: 30%;">Accroche (Hook)</th><th style="width: 50%;">Contenu</th></tr></thead>
+            <tbody>
+            <tr>
+            <td data-label="Code & Type">
+                <span class="code-badge">V1</span>
+                <span class="type-label">🎬 Vidéo</span>
+            </td>
+            <td data-label="Accroche (Hook)"><div class="hook-pill">Chef... 9oli sah, ch7al men fois wja3ek 9albek ki plat t3ebt 3lih khesratou pâte "machi chada rouh'ha" ?</div></td>
+            <td data-label="Contenu">
+                <div class="script-trigger" onclick="openModal('1')">
+                    <div class="preview-text">[Le Fondateur s'adresse à la caméra, ton compréhensif]
+Chef... 3labali beli la réputation ta3 ton resto, c'est tout...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 Détails & Ad Copy</span>
+                </div>
+                <div id="modal-1" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('1')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">Détails V1</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 Script / Contenu</h4>
+                            <div class="modal-body">[Le Fondateur s'adresse à la caméra, ton compréhensif]
+Chef... 3labali beli la réputation ta3 ton resto, c'est tout.
+W 3labali beli ça fait mal au cœur ki tchouf plat t3ebt 3lih... sauce khdemt 3liha des heures... guesatou 7aja simple : Les pâtes.
+[Plan rapide : Pâte qui devient pâteuse (teta3jen) dans la poêle]
+La pâte li teta3jen... li tqeres la sauce... w li tkhali le client ykhemem deux fois 9bel ma yeweli.
+Had le stress... had l'aventure li rak t3ich'ha koul youm... ana tani 3echtou.
+W 3la jal hadchi, dert Pastalif.
+[Transition vers le Fondateur dans l'atelier artisanal]
+Machi juste bach nkhadmou des pâtes... mais bach nkhadmou une "Garantie".
+La garantie beli koul haba tekhroj men 3andna... makhdouma b'recette artisanale riche en œufs... w séchée b'la méthode traditionnelle lente.
+[Gros plan macro : Pâtes en cuisson, fermes et dorées]
+3lach ? Bach teb9a dima "chada rouh'ha".
+Bach techreb la sauce ta3ek w tzid fiha bnina, machi tefsedha.
+W bach le plat li yekhroj men la cuisine ta3ek... ykoun dima chef-d'œuvre teftakher bih.
+[Plan final : Chef servant un plat somptueux à un client satisfait]
+M3a Pastalif, le focus ta3ek yeweli f'la création... machi f'le stress.
+La réputation ta3ek rahi en sécurité... w hna l'bal madmoun.
+[Le fondateur revient face caméra, sourire confiant]
+Pastalif : Charref le plat ta3ek, Ahmi la réputation ta3ek.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 Ad Copy (Texte du post)</h4>
+                            <div class="modal-body">Chef, 3yit mel les pâtes li y'khad3ouk f'noss t'yab ? La solution rahi hna.
+Chaque plat li yekhroj mel cuisine ta3ek houwa la signature dyalek. Mais chhal men merra composant sghir, kima pâte machi "chada rouh'ha", kan gader y'haded tout ton effort ?
+F'Pastalif, ma nbi3ouch juste des pâtes, nbi3ou "Tranquillité d'esprit" (Hna l'bal).
+Na3toulek garantie ta3 qualité et constance li tkhalik créatif bla khouf, w t7afed 3la la réputation li bniteha f'snine.
+Découvri la différence m3a des pâtes artisanales, riches en œufs, conçues spécialement pour les chefs exigeants.
+
+Pastalif : Honorez votre assiette.
+Contactez-nous aujourd'hui pour une vraie collaboration.
+
+#Pastalif #PatesArtisanales #ChefAlgerien #CuisineAlgerienne #RestoDZ #HorecaDZ #QualitéPro #HnaLbal</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ Notes de Réalisation</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Réalisation : Professionnelle, Cinématique, Authentique]
+- [Intro 0-5s] : Gros plan visage Fondateur, sérieux et empathique. Lumière dramatique douce. Fond : Cuisine pro ou atelier.
+- [Problème 5-12s] : B-roll rapide, montage "cut". Pâte pâteuse, chef frustré. Son : Tension légère.
+- [Solution 12-25s] : Transition fluide. Fondateur marche avec confiance dans l'atelier Pastalif. Propreté, artisanat. Musique inspirante monte.
+- [Preuve (HVC) 25-35s] : Macro shots 4K : Œufs frais, semoule dorée, texture. Pâtes dans l'eau bouillante qui restent fermes.
+- [Résultat 35-45s] : Montage élégant. Chef mélange pâtes et sauce (nappage parfait). Client satisfait.
+- [Outro 45-55s] : Fondateur face caméra. Logo Pastalif + Contact. Appel à l'action direct.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td data-label="Code & Type">
+                <span class="code-badge">C2</span>
+                <span class="type-label">📚 Carrousel</span>
+            </td>
+            <td data-label="Accroche (Hook)"><div class="hook-pill">Kache nhar cheft Chef y'risqui b'sa réputation ?</div></td>
+            <td data-label="Contenu">
+                <div class="script-trigger" onclick="openModal('2')">
+                    <div class="preview-text">Slide 1: 3lach Pastalif hiya le secret ta3 les pâtes parfaites ?
+Slide 2: Les pâtes classiques : Après quelques minutes...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 Détails & Ad Copy</span>
+                </div>
+                <div id="modal-2" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('2')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">Détails C2</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 Script / Contenu</h4>
+                            <div class="modal-body">Slide 1: 3lach Pastalif hiya le secret ta3 les pâtes parfaites li ma ykhaybouch ?
+Slide 2: Les pâtes ordinaires : Après quelques minutes de cuisson, tebda teta3jen w tetfatat. Résultat ? Sauce lourd, aspect mkhalet.
+Slide 3: La solution chez Pastalif : Recette artisanale riche en œufs. Texture qwiya w "chada rouh'ha" même f'le coup de feu.
+Slide 4: Le Résultat ? La sauce ta3ek t'laseq m3a chaque haba. Plat fakhme, homogène, li ykhali le client yechfa 3la l'expérience.
+Slide 5: Bach ton resto ykoun la référence f'la qualité, la base lazèm tkoun s'hiha. Khayer Pastalif.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 Ad Copy (Texte du post)</h4>
+                            <div class="modal-body">Le secret machi ghir f'la sauce... Le secret rah f'la BASE !
+Le Chef pro ya3ref beli un plat parfait, c'est une suite de bons choix. W le choix le plus important, c'est la pâte.
+❌ Pâte teta3jen = Sauce gaspillée & Réputation en danger.
+✅ Pâte "Chada rouh'ha" = Plat Luxe & Client Fidèle.
+
+F'had le carrousel, n'khechfoulek le secret ta3 Pastalif w kifach les œufs y'dhomnoulek une texture stable. Glissez pour voir.
+
+Warri l'tes clients la différence. Demandez un échantillon Pastalif aujourd'hui.
+
+#SecretDuChef #QualitéPates #PastalifDZ #MadeInAlgeria #CuisinePro #HorecaAlgerie</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ Notes de Réalisation</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Design : Élégant, Éducatif, Visuel]
+- [Slide 1] : Fond sombre chic (Gris foncé/Noir). Typo Serif élégante Doré/Blanc.
+- [Slide 2] : Photo "Pâte ordinaire" un peu collante/moche avec icône ❌ rouge.
+- [Slide 3] : Photo "Pastalif" dorée, ferme, brillante avec icône ✅ verte. Focus sur mot "ŒUFS".
+- [Slide 4] : Photo pro plat final, sauce nappante parfaite.
+- [Slide 5] : Chef confiant qui dresse l'assiette. CTA clair avec Numéro de téléphone.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td data-label="Code & Type">
+                <span class="code-badge">P3</span>
+                <span class="type-label">🖼️ Image</span>
+            </td>
+            <td data-label="Accroche (Hook)"><div class="hook-pill">Ma 3andekch l'wa9t lel "bricolage" f'la cuisine ?</div></td>
+            <td data-label="Contenu">
+                <div class="script-trigger" onclick="openModal('3')">
+                    <div class="preview-text">La Sécurité... avant la Créativité.
+Pastalif : La Confiance f'koul haba.</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 Détails & Ad Copy</span>
+                </div>
+                <div id="modal-3" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('3')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">Détails P3</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 Script / Contenu</h4>
+                            <div class="modal-body">La Sécurité... avant la Créativité.
+Pastalif : La Confiance f'koul haba.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 Ad Copy (Texte du post)</h4>
+                            <div class="modal-body">F'wa9t le service, la dernière chose li t'7awess 3liha hiya les surprises.
+La cuisine ta3ek temchi 100 à l'heure, les bons ma yahbsouch. F'had les moments, ma tesha9ch composant t'risqui bih, tesha9 partenaire li dir fih confiance.
+Pastalif t'madlek had la sécurité. Qualité stable, texture madmouna. Rakez 3la l'art ta3ek, w khalli l'assurance 3lina.
+
+Une partenariat basée sur la confiance ? Contactez-nous pour nos offres PRO.
+
+#ConfianceChef #SecuriteCuisine #Pastalif #QualitéGarantie #RestoAlger #PartenaireReussite</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ Notes de Réalisation</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Design Minimaliste & Premium. Photo Haute Qualité de pâtes crues Pastalif, disposées artistiquement sur fond sombre (marbre/bois). Texte en Sans-Serif bold au centre. Logo discret. Focus visuel sur les mots "SÉCURITÉ" et "CONFIANCE".</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td data-label="Code & Type">
+                <span class="code-badge">V4</span>
+                <span class="type-label">🎬 Vidéo</span>
+            </td>
+            <td data-label="Accroche (Hook)"><div class="hook-pill">Le secret ta3 la texture li ma tetkhla 3lik, même f'les coups de feu !</div></td>
+            <td data-label="Contenu">
+                <div class="script-trigger" onclick="openModal('4')">
+                    <div class="preview-text">[Voix off Chef, ton passionné et calme (ASMR style)]
+Le service... يبدا.
+L'eau rahi تغلي... hada howa le son li n7ebou...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 Détails & Ad Copy</span>
+                </div>
+                <div id="modal-4" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('4')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">Détails V4</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 Script / Contenu</h4>
+                            <div class="modal-body">[Voix off Chef, ton passionné et calme (ASMR style)]
+Le service... yebda.
+L'ma rah yghli... hada howa le son li n7ebou.
+[Son pâtes tombant dans l'eau]
+Koul haba... t'hafad 3la la forme dyalha... couleur dorée.
+Chouf kifach teb9a chada rouh'ha... ma telseqch, ma teta3jench.
+[Son mélange pâtes dans l'eau]
+Hada howa le corps (la texture) li n7awess 3lih.
+[Son égouttage]
+Riha... rihet semid w lewlad'jaj (les œufs).
+[Son ajout sauce chaude]
+W hna s'sah... tesma3 ? La sauce rahi t'3anaqha... machi tghareqha.
+[Plan silencieux plat final]
+Hada machi plat de pâtes... hada howa L'AMANE (la sécurité).</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 Ad Copy (Texte du post)</h4>
+                            <div class="modal-body">Ghamez 3inik w sma3... hadi hiya la symphonie ta3 la Qualité.
+Les vraies pâtes ma douqhoumch berk, t'hess bihoum b'kamel les sens ta3ek. S'sout, le toucher, w la texture li ma tetbadelch.
+F'had la vidéo, n'3ardouk t3ich l'expérience Pastalif sensorielle, w dekouvri 3lach le "maintien" ta3ha howa le secret des plats inoubliables.
+Monte le son 🔊 et profite.
+
+Chouf la différence b'3inik. Demandez un échantillon gratuit bach t'testi Pastalif f'ta cuisine.
+
+#ExperienceSensorielle #ASMRFood #CuisineChef #PatesArtisanales #Pastalif #Algerie</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ Notes de Réalisation</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Style : UGC / Sensoriel / ASMR]
+- [Caméra] : Macro shots, Handheld stable. Focus détails : Bulles d'eau, vapeur, brillance sauce.
+- [Lumière] : Naturelle chaude, ambiance "Cuisine en service".
+- [Son] : TRÈS IMPORTANT. Micro sensible. Bruit eau, choc pâtes, sauce qui frémit. Voix off calme et profonde.
+- [Montage] : Lent, rythmé par les sons. Pas de musique envahissante.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td data-label="Code & Type">
+                <span class="code-badge">C5</span>
+                <span class="type-label">📚 Carrousel</span>
+            </td>
+            <td data-label="Accroche (Hook)"><div class="hook-pill">La texture ta3 les pâtes, c'est la clé d'un plat réussi... C'est vrai wela lala ?</div></td>
+            <td data-label="Contenu">
+                <div class="script-trigger" onclick="openModal('5')">
+                    <div class="preview-text">Slide 1: Le secret de la texture Pastalif : 3lach teb9a "chada rouh'ha" ?
+Slide 2: Chouf la différence...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 Détails & Ad Copy</span>
+                </div>
+                <div id="modal-5" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('5')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">Détails C5</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 Script / Contenu</h4>
+                            <div class="modal-body">Slide 1: Le secret de la texture Pastalif : 3lach teb9a "chada rouh'ha" ?
+Slide 2: Chouf la différence b'3inik. A droite : Pastalif m'hafda 3la la forme w la couleur dorée après cuisson. A gauche : Pâte standard bdates t'laché w teta3jen.
+Slide 3: Le Secret ? Équation simple et efficace :
+(Icône Œuf) Recette riche en œufs = Plus de Protéines = Structure Solide.
+(Icône Horloge) Séchage lent = Structure compacte qui ne s'effrite pas.
+Slide 4: Résultat ? Des plats toujours Luxe. Pâte li ma tekhda3kch même f'les conditions difficiles ta3 le service. Confiance totale.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 Ad Copy (Texte du post)</h4>
+                            <div class="modal-body">Wacheno howa le secret ta3 les pâtes li ma yeta3jnouch ? La réponse f'deux pages.
+Kamel les chefs ya3rfou le problème, mais qlal li ya3rfou la solution scientifique moraha.
+Machi kamel les pâtes kifkif. La différence rahi f'zoudj hwayej : Les ingrédients & La méthode.
+Glissez bach tdecouvri l'équation Pastalif li t'dmanlek une texture "Al Dente" à chaque fois.
+
+Prêt à tester la différence ? Contactez-nous pour le catalogue technique.
+
+#ScienceCuisine #PatesSolides #QualitéPastalif #ChefPro #FormationCuisine #Algerie</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ Notes de Réalisation</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Design : Éducatif, Comparaison Visuelle]
+- [Slide 1] : Titre accrocheur sur texture zoomée.
+- [Slide 2] : Split-screen (Avant/Après ou Pastalif/Autre). Contraste visuel fort.
+- [Slide 3] : Infographie simple. Icônes (Œuf, Montre). Texte court.
+- [Slide 4] : Chef souriant devant plat final. Message de confiance.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td data-label="Code & Type">
+                <span class="code-badge">P6</span>
+                <span class="type-label">🖼️ Image</span>
+            </td>
+            <td data-label="Accroche (Hook)"><div class="hook-pill">Kayen différance bin pâte t'3amer l'kerch, w pâte t'3amer l'3in.</div></td>
+            <td data-label="Contenu">
+                <div class="script-trigger" onclick="openModal('6')">
+                    <div class="preview-text">Riche en Œufs. Riche en Qualité. Riche en Confiance.</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 Détails & Ad Copy</span>
+                </div>
+                <div id="modal-6" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('6')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">Détails P6</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 Script / Contenu</h4>
+                            <div class="modal-body">Riche en Œufs. Riche en Qualité. Riche en Confiance.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 Ad Copy (Texte du post)</h4>
+                            <div class="modal-body">Le Trio gagnant pour chaque assiette.
+1. **Riche en Œufs :** Pour un goût authentique et une tenue irréprochable.
+2. **Riche en Qualité :** Des standards stricts pour un résultat constant.
+3. **Riche en Confiance :** Pour une tranquillité d'esprit totale.
+
+Pastalif machi juste ingrédient, c'est la base de votre philosophie culinaire.
+Plaisir du goût, Force de la texture. Demandez un échantillon !
+
+#TrioGagnant #OeufsQualiteConfiance #Pastalif_DZ #LuxeCuisine #HorecaAlgerie</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ Notes de Réalisation</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Photo artistique très haut de gamme. Trois pièces de pâtes Pastalif posées sur fond noir brillant. Lumière focalisée. Texte élégant sous chaque pièce. Inspire le Luxe et la Simplicité.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td data-label="Code & Type">
+                <span class="code-badge">V7</span>
+                <span class="type-label">🎬 Vidéo</span>
+            </td>
+            <td data-label="Accroche (Hook)"><div class="hook-pill">Ki un Grand Chef yahder 3la l'expérience ta3ou m3a Pastalif, lazèm tesma3 !</div></td>
+            <td data-label="Contenu">
+                <div class="script-trigger" onclick="openModal('7')">
+                    <div class="preview-text">[Le Chef assis dans son resto, parle sincèrement à la caméra]
+Ana en tant que Chef, ma réputation hiya rasse mali...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 Détails & Ad Copy</span>
+                </div>
+                <div id="modal-7" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('7')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">Détails V7</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 Script / Contenu</h4>
+                            <div class="modal-body">[Le Chef assis dans son resto, parle sincèrement à la caméra]
+Ana en tant que Chef, ma réputation hiya rasse mali. Koul plat yekhroj men had la cuisine lazèm ykoun parfait.
+Zman, kount n'souffri m3a les pâtes... merra mliha, merra teta3jen w tekhserli koulch.
+Kount dima 3ayech f'le stress.
+[B-roll rapide : Le Chef en action, concentré]
+Hata d'kouvrit Pastalif.
+F'le début kount hésitant... produit local ?
+Mais men awel test, f'hamt la différence.
+[Gros plan : Pâtes en cuisson parfaite]
+La texture... chada rouh'ha. La couleur dorée. Le goût... authentique.
+[Retour Chef face caméra, sourire]
+Lyoum, ma neqderch nestghna 3liha. Pastalif 3tatni la confiance w hna l'bal.
+Khatni n'rèjezz 3la la création... machi n'3ass les pâtes. Pastalif machi juste fournisseur... c'est un partenaire li yahmi sam3ti.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 Ad Copy (Texte du post)</h4>
+                            <div class="modal-body">Témoignage du cœur de la cuisine : Le Chef [Nom] dévoile le secret de sa sérénité.
+La réputation ma tetb'nach f'nhar, mais teqder t'rib f'un seul plat.
+3la biha, les meilleurs Chefs en Algérie y'khayrou leurs partenaires b'3inaya. Sma3 direct l'expérience ta3 Chef [Nom] w kifach welat Pastalif partie indispensable men najeh ta3ou.
+Témoignage réel, de Pro à Pro.
+
+Rejoignez l'élite des Chefs. Demandez une consultation avec un expert Pastalif.
+
+#TemoignageChef #SocialProof #ConfiancePro #Pastalif #SuccessStory #RestoDZ</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ Notes de Réalisation</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Style : Storytelling / Témoignage Authentique]
+- [Lieu] : Vrai restaurant ou studio pro. Cadre élégant.
+- [Chef] : À l'aise, sincère, pas de lecture de script robotique.
+- [Montage] : Alternance Interview / Action en cuisine avec produit Pastalif.
+- [Fin] : Nom du Chef + Restaurant + Logo Pastalif.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td data-label="Code & Type">
+                <span class="code-badge">C8</span>
+                <span class="type-label">📚 Carrousel</span>
+            </td>
+            <td data-label="Accroche (Hook)"><div class="hook-pill">Wech galou les Chefs li seyaw Pastalif ?</div></td>
+            <td data-label="Contenu">
+                <div class="script-trigger" onclick="openModal('8')">
+                    <div class="preview-text">Slide 1: Les Grands Chefs font confiance à Pastalif : Success Stories.
+Slide 2: [Photo Chef Souriant]...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 Détails & Ad Copy</span>
+                </div>
+                <div id="modal-8" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('8')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">Détails C8</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 Script / Contenu</h4>
+                            <div class="modal-body">Slide 1: Les Grands Chefs font confiance à Pastalif : Success Stories men qalb la cuisine.
+Slide 2: [Photo Chef X - Restaurant Y] : "Pastalif reynhatni men ham la qualité. Dorka neqder n'garanti le même plat luxe pour mes clients chaque jour."
+Slide 3: 3lach hadi la confiance mliha ? Parce que constance = focus 3la création machi 3la l'qlaq. Wa9tek ghalia, Pastalif t'hafad 3lih.
+Slide 4: Le secret de la réussite commence par le bon choix. Rejoignez les chefs qui ont choisi Pastalif.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 Ad Copy (Texte du post)</h4>
+                            <div class="modal-body">Les Experts ont parlé.
+Ki yetfahmlou les meilleurs cerveaux f'la cuisine 3la un seul produit, lazèm tesma3.
+Glissez bach tdecouvri 3lach les Chefs leaders f'Dzaïr khayrou Pastalif bla ma ykhamou, w kifach welat leur partenaire clé.
+Des vrais témoignages pour de vrais résultats.
+
+Lisez plus de témoignages sur notre site !
+
+#ConfianceChefs #SuccessStoriesDZ #Pastalif_Partners #SocialProof #HorecaAlgeria</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ Notes de Réalisation</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Design : Preuve Sociale]
+- [Slide 1] : Collage photos chefs pro. Titre fort.
+- [Slide 2] : Citation claire, photo chef HD. Nom & Resto bien visibles.
+- [Slide 3] : Focus valeur (Temps / Créativité). Icônes cerveau/bouclier.
+- [Slide 4] : Logos restaurants (si possible) ou groupe de chefs. CTA clair.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td data-label="Code & Type">
+                <span class="code-badge">P9</span>
+                <span class="type-label">🖼️ Image</span>
+            </td>
+            <td data-label="Accroche (Hook)"><div class="hook-pill">Le Chef 'X' yekchef le secret ta3 ses plats de luxe...</div></td>
+            <td data-label="Contenu">
+                <div class="script-trigger" onclick="openModal('9')">
+                    <div class="preview-text">"Avec Pastalif, je ne cuisine pas des pâtes, je sers de la Confiance dans une assiette." - Chef [Nom]</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 Détails & Ad Copy</span>
+                </div>
+                <div id="modal-9" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('9')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">Détails P9</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 Script / Contenu</h4>
+                            <div class="modal-body">"Avec Pastalif, je ne cuisine pas des pâtes, je sers de la Confiance dans une assiette."
+- Chef [Nom]</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 Ad Copy (Texte du post)</h4>
+                            <div class="modal-body">Ki l'kbar yahdrou, les créatifs lazèm yesm3ou.
+Le Chef [Nom], ma3rouf b'les plats exceptionnels ta3ou li yjem3ou bin l'authenticité w créativité, y'partagi m3ana un secret : Le choix ta3 Pastalif.
+Machi juste un ingrédient, mais une base stable li yebni 3liha les créations ta3ou, w y'garanti biha la satisfaction client.
+Hadi hiya la "Certification de Confiance" li t'madha Pastalif l'les meilleures cuisines f'Dzaïr.
+
+Elevez le niveau de votre cuisine kima les grands. Demandez le catalogue PRO.
+
+#RecommandationChef #SecretReussite #Pastalif #CuisineLuxe #ChefDZ #Endorsement</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ Notes de Réalisation</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Photo portrait pro du Chef 'X', regard confiant, bras croisés ou tenant un plat. Citation élégante en bas. Signature visuelle. Inspire l'autorité.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td data-label="Code & Type">
+                <span class="code-badge">V10</span>
+                <span class="type-label">🎬 Vidéo</span>
+            </td>
+            <td data-label="Accroche (Hook)"><div class="hook-pill">3yit mel les pâtes "merra ça va, merra cata" ? Lyoum ngoulou STOP !</div></td>
+            <td data-label="Contenu">
+                <div class="script-trigger" onclick="openModal('10')">
+                    <div class="preview-text">[Voix off rapide et dynamique]
+[Problème] Cuisine ta3ek temchi kima l'mengala... hatta tossel stock jdid...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 Détails & Ad Copy</span>
+                </div>
+                <div id="modal-10" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('10')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">Détails V10</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 Script / Contenu</h4>
+                            <div class="modal-body">[Voix off rapide et dynamique]
+[Problème] Cuisine ta3ek temchi kima l'mengala... hatta tossel stock jdid ta3 les pâtes.
+Faj'atan ! La texture machi kima l'3ada.
+T'yab yedi wa9t ktar... wela 9el.
+Résultat ? Plat imprévisible... w client machi radi.
+[Agitation] Hada t'debdeb (instabilité) f'la qualité y'kelfek wa9t, drahem, w l'ahem... Som3tek.
+[Solution] M3a Pastalif, ngoulou STOP l'had l'qlaq !
+Système de production sarem y'dmanlek nafs la qualité, nafs la texture, w nafs le résultat WoW... f'koul haba, f'koul boîte, f'koul livraison.
+Pâte teqder tebni 3liha l'art ta3ek w nta mrayeh.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 Ad Copy (Texte du post)</h4>
+                            <div class="modal-body">Le problème N°1 f'les cuisines pro... w l'hel f'20 secondes.
+L'instabilité ta3 les ingrédients howa le cauchemar silencieux ta3 koul chef. Yoqtol l'créativité, ytala3 les coûts, w y'haded la réputation.
+Chouf kifach Pastalif t'qademlek la solution finale l'had le problème b'garantie ta3 qualité li ma t'bougich, bach ta3tik la stabilité li teshaqha.
+Wada3an lel surprises !
+
+Qoul Bye Bye lel Qlaq, Bienvenue la Confiance. Contactez Pastalif.
+
+#SolutionCuisine #QualitéConstante #Pastalif_Solutions #StopInstabilité #PartenaireFiable #Algerie</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ Notes de Réalisation</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Style : Motion Graphic Dynamique]
+- [Problème] : Graphique instable. Icônes : Chef stressé, horloge rapide, plat avec "?".
+- [Agitation] : Pièces de monnaie qui disparaissent. Étoile (réputation) qui se fissure. Mots clés : TEMPS, ARGENT, RÉPUTATION.
+- [Solution] : Logo Pastalif comme bouclier. Ligne graphique devient droite et verte. Icônes Qualité.
+- [Outro] : CTA clair + Musique positive.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td data-label="Code & Type">
+                <span class="code-badge">C11</span>
+                <span class="type-label">📚 Carrousel</span>
+            </td>
+            <td data-label="Accroche (Hook)"><div class="hook-pill">Ch7al raki m'khalfatek la mauvaise qualité ta3 les pâtes ?</div></td>
+            <td data-label="Contenu">
+                <div class="script-trigger" onclick="openModal('11')">
+                    <div class="preview-text">Slide 1: La Facture de la mauvaise qualité : Khssara kbir 3la juste un plat... C'est réputation et argent.
+Slide 2: ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 Détails & Ad Copy</span>
+                </div>
+                <div id="modal-11" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('11')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">Détails C11</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 Script / Contenu</h4>
+                            <div class="modal-body">Slide 1: La Facture de la mauvaise qualité : Khssara kbir 3la juste un plat... C'est réputation et argent.
+Slide 2: [Photo client mécontent sur téléphone] Perte 1 : Ta Réputation. Un client mécontent yeqder ykelfek des dizaines de clients potentiels.
+Slide 3: [Photo gaspillage] Perte 2 : Drahmek. Koul plat raté = Sauce jetée, temps équipe perdu, ingrédients chers rahou batel.
+Slide 4: [Graphique profits montants + "Investissement"] Solution : Ton investissement f'Pastalif machi charge, c'est une économie. Qualité stable = 0 Gaspillage, Clients fidèles, Réputation Top.
+Slide 5: Ma tzidch tkhales la facture ta3 le médiocre. Protège ta cuisine et ton argent. Choisis Pastalif.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 Ad Copy (Texte du post)</h4>
+                            <div class="modal-body">Kache nhar hsabt le vrai coût ta3 les pâtes r'khas ?
+Balak t'economisi chwiya dinars f'le kilo, mais chhal la facture finale ?
+Client kherj w ma walach ? Sauce luxe rmitha ? Réputation bniytha f'snine thazet b'plat wahed ?
+Glissez bach t'chouf les coûts cachés ta3 la mauvaise qualité, w kifach l'investissement f'Pastalif howa la décision financière l'aktar daka'ane (intelligente).
+
+Arrêtez les pertes, commencez les gains. Découvrez les tarifs Pro Pastalif.
+
+#CoutQualite #InvestissementIntelligent #ZeroGaspillage #Pastalif_Business #RestoRentable #Algerie</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ Notes de Réalisation</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Design : Douleur financière & Solutions]
+- [Slide 1] : Titre alarmant sur fond sombre. Image calculatrice.
+- [Slide 2] : Client réel mécontent. Mot clé "RÉPUTATION".
+- [Slide 3] : Image gaspillage alimentaire explicite. Mot clé "ARGENT".
+- [Slide 4] : Infographie verte positive. Mot clé "INVESTISSEMENT".
+- [Slide 5] : CTA fort avec Logo Pastalif.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td data-label="Code & Type">
+                <span class="code-badge">P12</span>
+                <span class="type-label">🖼️ Image</span>
+            </td>
+            <td data-label="Accroche (Hook)"><div class="hook-pill">La stabilité f'la cuisine hiya secret l'créativité.</div></td>
+            <td data-label="Contenu">
+                <div class="script-trigger" onclick="openModal('12')">
+                    <div class="preview-text">Pastalif. Même Qualité. Même Résultat. À chaque fois.</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 Détails & Ad Copy</span>
+                </div>
+                <div id="modal-12" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('12')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">Détails P12</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 Script / Contenu</h4>
+                            <div class="modal-body">Pastalif.
+Même Qualité. Même Résultat. À chaque fois.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 Ad Copy (Texte du post)</h4>
+                            <div class="modal-body">La créativité teshaq base stable.
+Ma teqderch tebni plat artistique 3la sasse mhazouz. Ki tkoun wafeq 100% men la qualité ta3 les ingrédients ta3ek, 3aqlek yetharer bach yebda3.
+Pastalif t'madlek had la base. Qualité teqder t'compter 3liha b'3inik mghamdin, bach tebqa la touche ta3ek hiya la star ta3 l'assiette.
+
+Pour la tranquillité d'esprit li testahalha, khayer Pastalif.
+
+#QualiteConstante #BaseCreativite #Pastalif_Consistency #HnaLbal #CuisineInnovante #Algerie</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ Notes de Réalisation</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Design simple et puissant. Trois photos identiques du même plat Pastalif côte à côte. Répétition visuelle = Constance. Texte clean en bas.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td data-label="Code & Type">
+                <span class="code-badge">V13</span>
+                <span class="type-label">🎬 Vidéo</span>
+            </td>
+            <td data-label="Accroche (Hook)"><div class="hook-pill">Lazèm l'importation bach tekhdem plat luxe ? Pastalif ra7 tbadellek rayek !</div></td>
+            <td data-label="Contenu">
+                <div class="script-trigger" onclick="openModal('13')">
+                    <div class="preview-text">[Voix off confiante]
+Bezaf chefs y'porsiw beli Haute Qualité = "Importation". Mais... est-ce que c'est toujours vrai ?</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 Détails & Ad Copy</span>
+                </div>
+                <div id="modal-13" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('13')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">Détails V13</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 Script / Contenu</h4>
+                            <div class="modal-body">[Voix off confiante]
+Bezaf chefs y'porsiw beli Haute Qualité = "Importation". Mais... est-ce que c'est toujours vrai ?
+[Icônes problèmes import : Bateau, $$, "?", Retard]
+Produit importé ye3ni : Coûts tala3in, Retard f'livraison, w difficulté bach tahder m3a le fournisseur.
+[Icônes Pastalif : Usine locale, Camion rapide, Poignée de main]
+M3a Pastalif, t'edi Qualité Mondiale... b'les avantages Locaux.
+Les recettes artisanales ta3na riches en œufs w séchage lent y'nafsou les plus grandes marques.
+W l'ahem : Hna f'Dzaïr. Ye3ni Disponibilité h24, Livraison rapide, w Support direct.
+La qualité luxe rahi bin yedik.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 Ad Copy (Texte du post)</h4>
+                            <div class="modal-body">L'Importé machi dima howa le meilleur choix. W ha 3lach.
+Pendant longtemps, le luxe kan lié b'les produits importés. Mais l'wa9t tbadal, w la vraie qualité welat tetkhdem hna f'Dzaïr.
+F'had la vidéo qssira, n'qarnou bin la réalité ta3 l'importation w les avantages ta3 partenariat m3a Pastalif.
+Découvri kifach t'edi qualité mondiale, m3a support local, w coût intelligent. Le choix rah bayen.
+
+Découvrez la qualité internationale avec une touche algérienne. Demandez un comparatif.
+
+#LocalVsImport #MadeInAlgeria #Pastalif #ChoixIntelligent #SupportLocal #HorecaDZ</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ Notes de Réalisation</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Style : Motion Graphic Comparatif]
+- [Visuel] : Split screen. Côté Import (Gris, icônes négatives). Côté Pastalif (Couleurs vives, icônes positives).
+- [Animation] : Texte synchronisé avec la voix.
+- [Son] : Voix off Pro. Musique moderne.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td data-label="Code & Type">
+                <span class="code-badge">C14</span>
+                <span class="type-label">📚 Carrousel</span>
+            </td>
+            <td data-label="Accroche (Hook)"><div class="hook-pill">Chkoune gal les pâtes lazèm ykounou importées bach ykounou mlah ?</div></td>
+            <td data-label="Contenu">
+                <div class="script-trigger" onclick="openModal('14')">
+                    <div class="preview-text">Slide 1: Pastalif : Quand la Qualité Locale dépasse l'Importé. Industrie DZ, Standards Monde.
+Slide 2: ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 Détails & Ad Copy</span>
+                </div>
+                <div id="modal-14" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('14')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">Détails C14</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 Script / Contenu</h4>
+                            <div class="modal-body">Slide 1: Pastalif : Quand la Qualité Locale dépasse l'Importé. Industrie DZ, Standards Monde.
+Slide 2: [Photo main artisan] 1. Rak t'soutenir l'économie locale w t'hafad 3la la continuité ta3 des artisans passionnés.
+Slide 3: 2. T'profiti men des avantages li ma ymadhoumch l'importateur : Stock dima kayen, Réponse rapide, w Qualité stable li ma tet2atarche b'les retards ta3 port.
+Slide 4: Choisis l'Intelligence, la Fierté, et la Qualité. Choisis un partenaire li yefhem tes besoins 3lah khatar rah qrib lik. Choisis Pastalif.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 Ad Copy (Texte du post)</h4>
+                            <div class="modal-body">Plus que des pâtes... C'est une décision stratégique pour votre cuisine.
+Le choix ta3 fournisseur y'ather 3la qualité ta3 les plats, la stabilité ta3 stock, w même 3la l'économie locale.
+B'choix ta3ek l'Pastalif, ma rakch tkhayer juste produit top qualité li y'naffes l'importé, rak tkhayer Partenaire Stratégique li y'dmanlek Disponibilité, Rapidité, et Support.
+Glissez bach t'chouf 3lach Pastalif hiya le choix le plus intelligent pour le Chef moderne.
+
+Optez pour la fierté, Optez pour la qualité. Contactez Pastalif.
+
+#FierteAlgerienne #QualiteLocale #Pastalif #ChoixStrategique #MadeInBladi #Algerie</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ Notes de Réalisation</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Design : Patriotique & Business]
+- [Slide 1] : Titre fort avec touche drapeau DZ subtile.
+- [Slide 2] : Photo émotive artisanat local. Mot clé "SOUTIEN".
+- [Slide 3] : Comparatif icônes (Bateau ❌ vs Camion ✅).
+- [Slide 4] : Logo Pastalif + "Partenaire Local pour Succès Global".</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td data-label="Code & Type">
+                <span class="code-badge">P15</span>
+                <span class="type-label">🖼️ Image</span>
+            </td>
+            <td data-label="Accroche (Hook)"><div class="hook-pill">Wajed bach tbaddel el concept ta3ek 3la les pâtes f'ta cuisine ?</div></td>
+            <td data-label="Contenu">
+                <div class="script-trigger" onclick="openModal('15')">
+                    <div class="preview-text">La Qualité qui protège ta réputation.
+La Constance qui t'offre la paix d'esprit.
+Le Partenaire qui soutient ton succès.
+Pastalif : Le Choix...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 Détails & Ad Copy</span>
+                </div>
+                <div id="modal-15" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('15')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">Détails P15</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 Script / Contenu</h4>
+                            <div class="modal-body">La Qualité qui protège ta réputation.
+La Constance qui t'offre la paix d'esprit.
+Le Partenaire qui soutient ton succès.
+Pastalif : Le Choix Intelligent pour le Chef Moderne.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 Ad Copy (Texte du post)</h4>
+                            <div class="modal-body">Conclusion ? Ton succès commence par un seul bon choix.
+Hderna 3la la qualité, la texture, la constance, et la tranquillité d'esprit. F'l'fin, koul hadchi ysob f'hadf wahed : Le succès ta3 resto ta3ek et ton excellence en tant que Chef.
+Pastalif machi juste produit, c'est un système complet masnou3 bach ykoun la base de ce succès.
+C'est le choix intelligent li yjem3 bin qualité mondiale w support local.
+C'est le moment de décider pour le meilleur de ta cuisine.
+
+Découvrez Pastalif. Remplissez le formulaire de contact sur notre site.
+
+#ChoixIntelligent #PartenaireSucces #Pastalif_Official #ChefModerne #AvenirCuisine #Algerie</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ Notes de Réalisation</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Design final fort. Chef confiant bras croisés, sourire, cuisine propre en fond. Texte en bullet points clairs à côté. Logo et CTA en bas. Inspire la décision.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="disclaimer-card">
+        <span style="font-size: 1.2em;">⚠️</span>
+        <span>Cette stratégie peut faire l'objet de modifications et d'améliorations, selon les supports médiatiques disponibles ou dans le but d'obtenir les meilleurs résultats.</span>
+    </div>
+
+    <div class="summary-box">
+        <span style="font-weight: 700; color: #FFD700;">Budget Total Approuvé</span>
+        <span class="total-amount">105 000 DA</span>
+        <a href="https://wa.me/213770820431" class="cta-btn">Contactez-nous pour valider</a>
+        <div style="border: 1px dashed #FFD700; padding: 25px; border-radius: 15px; margin-top: 20px;">
+            <h3 style="color:#FFD700; margin:0;">Prochaine Étape</h3>
+            <p style="margin:10px 0;">Un court appel pour adapter cette stratégie à votre projet et commencer le travail immédiatement.</p>
+            <div class="phones-list">
+                <div class="phone-item">0770 82 04 31</div>
+                <div class="phone-item">0770 55 01 51</div>
+                <div class="phone-item">0770 82 01 45</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function openModal(id) { document.getElementById('modal-' + id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
+function closeModal(id) { document.getElementById('modal-' + id).style.display = 'none'; document.body.style.overflow = 'auto'; }
+window.onclick = function(event) { if (event.target.className === 'modal') { event.target.style.display = 'none'; document.body.style.overflow = 'auto'; } }
+</script>
+</body>
+</html>
