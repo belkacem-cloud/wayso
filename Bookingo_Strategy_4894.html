@@ -1,0 +1,624 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Bookingo Strategy</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+<style>
+    body { background: #FFFFFF; color: #1A1A1A; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; line-height: 1.6; overflow-x: hidden; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 15px; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 2px solid #000; }
+    .wayso-logo { height: 45px; }
+    .brand-name { font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 1.4em; color: #000; text-transform: uppercase; border-right: 4px solid #FFD700; padding-right: 12px; }
+    
+    .analysis-section { margin: 30px 0; }
+    .card-philosophy { padding: 30px; border-radius: 20px; background: #000; color: #FFF; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+    .card-philosophy h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #FFD700; }
+    
+    .card-why { padding: 30px; border-radius: 20px; background: #F9F9F9; color: #333; margin-bottom: 20px; border: 1px solid #EDECE9; }
+    .card-why h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #000; display: flex; align-items: center; gap: 10px; }
+    .card-why h2::after { content: ''; flex-grow: 1; height: 1px; background: #EDECE9; margin-right: 15px; }
+
+    .hero { margin: 35px 0 20px 0; border-right: 6px solid #FFD700; padding-right: 15px; }
+    .hero h1 { font-size: 2.5em; font-weight: 700; margin: 0; }
+    .table-wrapper { margin-top: 25px; border-radius: 12px; overflow: hidden; border: 1px solid #EDECE9; }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #000; color: #FFF; padding: 15px; text-align: right; font-size: 0.9em; }
+    td { padding: 20px 12px; border-bottom: 1px solid #EDECE9; vertical-align: top; }
+    
+    .code-badge { font-family: 'Montserrat', sans-serif; font-weight: 700; background: #FFD700; color: #000; padding: 5px 12px; border-radius: 6px; font-size: 1.1em; display: inline-block; margin-bottom: 5px; }
+    .type-label { display: block; font-weight: 700; color: #555; font-size: 0.95em; }
+    
+    .hook-pill { background: #000; color: #FFD700; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 1.1em; display: block; border-right: 5px solid #FFD700; }
+    
+    /* تحسين زر المودال */
+    .script-trigger { background: #F8F9FA; border: 1px solid #EDECE9; padding: 15px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; }
+    .script-trigger:hover { background: #FFF; border-color: #FFD700; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+    
+    .preview-text { font-size: 0.95em; color: #333; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; white-space: pre-wrap; }
+    
+    .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(8px); }
+    .modal-content { background: #FFF; margin: 5% auto; padding: 30px; border-radius: 20px; width: 88%; max-width: 700px; position: relative; max-height: 85vh; overflow-y: auto; }
+    .close-modal { position: absolute; top: 15px; left: 15px; font-size: 35px; cursor: pointer; color: #999; line-height: 1; }
+    .modal-section { margin-bottom: 25px; padding: 15px; border-radius: 12px; background: #fbfbfa; border: 1px solid #eee; }
+    
+    /* تحسين تنسيق القراءة */
+    .modal-body { font-size: 1.15em; color: #1A1A1A; line-height: 1.9; word-wrap: break-word; }
+    
+    .disclaimer-card { margin: 25px 0; padding: 20px; background: #FFF9E6; border-radius: 12px; border-right: 5px solid #FFC107; font-size: 1.05em; color: #856404; display: flex; align-items: center; gap: 12px; }
+    .summary-box { margin-top: 50px; background: #000; color: #FFF; padding: 40px 20px; border-radius: 25px; text-align: center; }
+    .total-amount { font-family: 'Montserrat'; font-size: 3.5em; font-weight: 700; display: block; color: #FFD700; margin: 10px 0; }
+    .cta-btn { display: inline-block; background: #FFD700; color: #000; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.2em; margin-bottom: 25px; }
+    .phones-list { margin-top: 15px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; direction: ltr; } 
+    .phone-item { background: #1A1A1A; padding: 8px 15px; border-radius: 8px; border: 1px solid #333; color: #FFF; font-family: 'Montserrat'; font-weight: 700; font-size: 1.2em; white-space: nowrap; }
+
+    @media (max-width: 768px) {
+        thead { display: none; }
+        tr { display: block; border: 1px solid #EDECE9; border-radius: 15px; margin-bottom: 20px; padding: 15px; background: #FFF; }
+        td { display: block; padding: 8px 0; text-align: right; }
+        td::before { content: attr(data-label); font-weight: 700; color: #BBB; display: block; font-size: 0.75em; margin-bottom: 4px; }
+        .brand-name { font-size: 1.1em; }
+    }
+</style></head><body>
+
+<div class="container">
+    <div class="header">
+        <img src="https://storage.googleapis.com/msgsndr/GwIPQCjstTzxnzDQ1B32/media/68fddb5534bb1597bc934f89.png" class="wayso-logo">
+        <div class="brand-name">Bookingo</div>
+    </div>
+
+    <div class="analysis-section">
+        <div class="card-philosophy"><h2>🎯 فلسفة الاستراتيجية</h2><p>نحن في Wayso، نفخر بتقديم هذه الاستراتيجية المتكاملة لـ Bookingo، المصممة خصيصًا لتسريع نموكم في السوق الجزائري. هذا المزيج من الفيديو الرئيسي والكاروسالات التعليمية ليس مجرد محتوى، بل هو استثمار ذكي يضمن بناء الثقة، تبسيط رحلة العميل، وتحقيق تحويلات قوية ومستدامة.</p></div>
+        <div class="card-why"><h2>💡 لماذا هذه الخطة؟</h2><p>بدأنا بـ V1 لخطف الانتباه وتأسيس هويتنا كـ 'الصديق الموثوق'، ثم انتقلنا إلى C2 لتعليم العميل حول المشاكل الشائعة وكيف يحلها Bookingo. هذا التسلسل النفسي يقود المستخدم من الإدراك للألم، إلى فهم الحل، فالثقة بالمنتج، مما يمهد الطريق لقرار الشراء.</p></div>
+    </div>
+
+    <div class="hero"><h1>خطة الإنتاج الإبداعي</h1></div>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th style="width: 20%;">الكود والنوع</th><th style="width: 30%;">الهوك (Hook)</th><th style="width: 50%;">المحتوى</th></tr></thead>
+            <tbody><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V1</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الدراهم لي خدمت عليهم بعرقك... قادرين يروحو في دقيقة على جال غلطة صغيرة في حجز السفرة تاعك!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('1')">
+                    <div class="preview-text">شحال من مرة كنت تخطط لسفرة أحلامك، وفي قلبك هذاك الخوف؟
+خوف من المواقع لي ماشي موثوقة... وين دراهمك ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-1" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('1')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V1</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">شحال من مرة كنت تخطط لسفرة أحلامك، وفي قلبك هذاك الخوف؟<br/><br/>خوف من المواقع لي ماشي موثوقة... وين دراهمك قادر يضيعو في لحظة.<br/><br/>خوف من غلطة صغيرة في الحجز... تفسدلك كلشي.<br/><br/>ولا الإحساس هذاك تاع الضياع... كي متلقاش شكون يعاونك كي تصرالك مشكلة.<br/><br/>حنا في بوكينڨو، نعرفو هذا الشعور مليح.<br/><br/>على بيها بنينا ماشي مجرد تطبيق... بنينا صاحبك لي يوقف معاك.<br/><br/>صاحب مدعوم من أكبر المؤسسات... باش يضمنلك كل دينار تصرفو.<br/><br/>صاحب يمدلك منصة ساهلة بزاف... وين تحجز رحلتك في دقائق بلا ما تخاف تغلط.<br/><br/>صاحب يجيبلك عروض حصرية... متلقاها في حتى بلاصة أخرى.<br/><br/>هذا هو الوعد تاعنا: سفرة هانية، مضمونة، وبأحسن سعر.<br/><br/>بوكينڨو راهو جاي... باش تولي تسافر وأنت مرتاح البال.<br/><br/>تابعنا... باش تكون أول واحد يتعرف على صاحبك الجديد في السفر.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">خايف دراهمك يضيعو في حجز سفرتك؟ 😟 الحل راهو هنا! <br/><br/> كل واحد فينا يحلم يسافر، بصح الخوف من الاحتيال، الأخطاء التقنية، وضياع الوقت يخلينا نترددو بزاف.<br/><br/>واش لوكان نقولك بلي كاين صاحب جديد تقدر تثق فيه؟ صديق يضمنلك دراهمك، يسهل عليك الحجز، ويجيبلك عروض متتصورهاش.<br/><br/>بوكينڨو ماشي مجرد تطبيق، هو شريكك الموثوق لسفرة هانية ومضمونة من كل النواحي. <br/><br/> تابع الصفحة باش تكون أول واحد يكتشف بوكينڨو، صاحبك لي يضمنلك السفرة! <br/><br/> #بوكينڨو #سافر_بأمان #السفر_في_الجزائر #حجوزات #الجزائر #BookingoDZ #الثقة_أولا</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Master Video - إطار هجين StoryBrand/PAS/BAB]<br/><br/>[0-5s] (Pain/Agitation): لقطات سريعة ومقلقة. يد ترتجف فوق زر 'تأكيد الدفع'. وجه شخص قلق ينظر لشاشة كمبيوتر. رسالة خطأ 'Error'. مونتاج سريع يوحي بالتوتر. موسيقى تصويرية متوترة.<br/><br/>[6-15s] (Voiceover - نبرة متعاطفة): الوجه الإعلامي يظهر، ينظر مباشرة للكاميرا بنظرة تفهم. الخلفية دافئة ومريحة (مكتبة أو ديكور منزلي أنيق). يتحدث بهدوء وثقة.<br/><br/>[16-25s] (Authority/StoryBrand): لقطات B-roll تظهر شعار Bookingo بجانب شعارات شركاء مؤسساتيين (يتم إخفاؤها جزئياً لإثارة الفضول). لقطات مصافحة بين رجال أعمال. لقطات لفريق يعمل في مكتب عصري. هذا يبني الثقة.<br/><br/>[26-35s] (Solution/Simplicity): لقطات مقربة جداً وواضحة لشخص يستخدم تطبيق Bookingo على الهاتف. واجهة التطبيق تبدو سهلة وبديهية. حركات سلسة وسريعة. إظهار 3 خطوات بسيطة على الشاشة (اختر، قارن، أكّد).<br/><br/>[36-42s] (Value/BAB - Before/After/Bridge): لقطات B-roll لناس سعداء في وجهات سفر مختلفة (شاطئ، جبال، مدن عالمية). الشعور بالراحة والبهجة. موسيقى ملهمة ومحفزة تبدأ في التصاعد.<br/><br/>[43-50s] (CTA/Tease): الوجه الإعلامي يعود للظهور. يبتسم بثقة. يظهر شعار Bookingo بوضوح في نهاية الفيديو مع الشعار النصي. دعوة للمتابعة تظهر مكتوبة على الشاشة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C2</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">3 مخاوف قادرة تفسدلك أي سفرة... بصح كاين الحل!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('2')">
+                    <div class="preview-text">Slide 1: 3 حوايج تخلّيك تخاف تسافر... وتضيّع عليك متعة الرحلة!
+Slide 2: 1. الحيلة والسرقة الإلكتروني...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-2" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('2')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C2</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">Slide 1: 3 حوايج تخلّيك تخاف تسافر... وتضيّع عليك متعة الرحلة!<br/><br/>Slide 2: 1. الحيلة والسرقة الإلكترونية:<br/><br/>الخوف الأكبر هو تمد دراهمك في موقع ماشي آمن. كيفاش تتأكد بلي حجزك حقيقي ودراهمك في أمان؟<br/><br/>Slide 3: 2. غلطة صغيرة تكلّفك غالي:<br/><br/>غلطة في تاريخ، ولا حرف في اسم... مشاكل صغيرة قادرة تلغيلك الرحلة كاملة. شكون يضمنلك بلي كلشي صحيح؟<br/><br/>Slide 4: 3. المشاكل التقنية المفاجئة:<br/><br/>تخيل التطبيق يتبلوكا في وسط عملية الدفع، ولا متقدرش تفتح التذكرة تاعك! واش دير في هاد اللحظة؟<br/><br/>Slide 5: الحل بسيط واسمه بوكينڨو!<br/><br/>صمّمنا منصة تجمعلك: الأمان المطلق، السهولة المتناهية، والدعم الحقيقي. <br/><br/>مع بوكينڨو، سافر وأنت هاني.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">واش هي أكبر حاجة تخوفك كي تجي تسافر؟ 🤔 <br/><br/> الخوف من السرقة؟ القلق من الأخطاء؟ ولا المشاكل التقنية؟<br/><br/>كلنا مرينا على هذا التفكير لي يفسد علينا حماس السفر. في هذا الكاروسال، حلّلنا أكبر 3 مخاوف تواجه المسافر الجزائري... وقدّمنا الحل النهائي لكل مشكلة.<br/><br/>مع بوكينڨو، القلق يولي من الماضي. <br/><br/> اقلب الصفحات واكتشف كيفاش تسافر براحة بال تامة! <br/><br/> #مخاوف_السفر #نصائح_سفر #الأمان_أولا #بوكينڨو #حلول_السفر #الجزائر #BookingoTips</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم تعليمي وقصصي (عبد الرحمن):<br/>- Slide 1: خلفية جذابة لصورة سفر (طائرة، حقيبة سفر). عنوان كبير وواضح. استخدام أيقونة 'تحذير' ⚠️.<br/>- Slide 2-4: كل سلايد يستخدم أيقونة بسيطة تمثل المشكلة (قفل مكسور، علامة X، شاشة هاتف مكسورة). النص يكون مقروء وسهل الهضم. الخلفية تكون صورة معتمة قليلاً لتركيز الانتباه على النص.<br/>- Slide 5: ظهور شعار Bookingo بوضوح على خلفية مشرقة وإيجابية (شخص مبتسم، منظر طبيعي جميل). استخدام خط عريض وواثق لكلمة 'الحل'.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P3</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">مع بوكينڨو، كل دينار تصرفو راه مضمون. سافر وأنت هاني!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('3')">
+                    <div class="preview-text">دراهمك في أمان تام.
+رحلتك مضمونة معانا.
+#بوكينڨو_ثقة...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-3" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('3')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P3</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">دراهمك في أمان تام.<br/><br/>رحلتك مضمونة معانا.<br/><br/>#بوكينڨو_ثقة</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">الثقة المالية هي أساس كل رحلة ناجحة. ✅ <br/><br/> أكبر هم عند التخطيط للسفر هو مصير أموالك. هل هي في مكان آمن؟ هل الحجز حقيقي؟<br/><br/>مع بوكينڨو، هذا السؤال مايطرحش أصلا. الأمان المالي لمستخدمينا هو أولويتنا المطلقة.<br/><br/>استثمر في راحة بالك، ماشي غير في تذكرتك. <br/><br/> ترقبوا إطلاق التطبيق لي راح يغير مفهوم الثقة في عالم السفر. #بوكينڨو <br/><br/> #الأمان_المالي #الثقة #سفر_آمن #بوكينڨو #الجزائر #BookingoTrust #اطمئن</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم مركز (عبد الرحمن):<br/>- صورة عالية الجودة ترمز للأمان المالي (يد تضع قطعة نقدية في حصالة على شكل طائرة، أو قفل قوي على حقيبة سفر).<br/>- النص مكتوب بخط واضح وقوي في منتصف الصورة.<br/>- شعار Bookingo في زاوية التصميم بشكل أنيق.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V4</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">ماشي أي واحد تقدر دير فيه الثقة كي يتعلق الأمر بسفرتك... بصح حنا نورولك علاش حنا مختلفين.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('4')">
+                    <div class="preview-text">(نص يظهر على الشاشة مع تعليق صوتي واثق)
+وراء كل حجز ناجح... كاين أساس متين.
+وراء كل رحلة هانية... كا...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-4" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('4')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V4</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">(نص يظهر على الشاشة مع تعليق صوتي واثق)<br/><br/>وراء كل حجز ناجح... كاين أساس متين.<br/><br/>وراء كل رحلة هانية... كاين ضمان حقيقي.<br/><br/>وراء اسم 'بوكينڨو'... كاين دعم مؤسسات كبرى تثقون فيها.<br/><br/>حنا ماشي مجرد تطبيق.<br/><br/>حنا شريك مبني على الثقة.<br/><br/>بوكينڨو. الأمان لي كنت تحوس عليه.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">الثقة لا تُشترى، بل تُبنى. 🏛️ <br/><br/> في عالم الحجوزات عبر الإنترنت، كيف تعرف فيمن تضع ثقتك؟<br/><br/>الجواب يكمن في الأساس: الشركاء، الدعم، والضمانات الحقيقية.<br/><br/>بوكينڨو مبني على شراكات قوية مع مؤسسات رائدة لنوفر لك راحة بال مطلقة. لأن سفرتك أغلى من أن تضعها في أيادي غير أمينة. <br/><br/> اكتشف المزيد عن شركائنا قريباً! تابعنا للمزيد من التفاصيل. <br/><br/> #الثقة #شراكة #بوكينڨو #سفر_مضمون #الجزائر #BookingoPartners #الجودة</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Motion Graphics (أحمد/إسلام) - إطار StoryBrand:<br/>- فيديو قصير وسريع (15-20 ثانية).<br/>- خلفية احترافية بألوان العلامة التجارية (أزرق، أبيض).<br/>- تبدأ الرسوم المتحركة ببناء هرم أو أساس قوي، كلمة 'الثقة' تظهر في القاعدة.<br/>- تظهر أيقونات ترمز للمؤسسات الكبرى (مبنى بنك، شعار حكومي مبسط) تتصل بشعار Bookingo في المنتصف.<br/>- النص يظهر ويتلاشى بشكل متزامن مع التعليق الصوتي.<br/>- موسيقى تصويرية توحي بالقوة والاستقرار (Corporate and inspiring).</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C5</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">ما بني على أساس متين، لا ينهار. هكذا بنينا ثقة بوكينڨو.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('5')">
+                    <div class="preview-text">Slide 1: قصة الثقة: علاش بوكينڨو هو الأمان الجديد لسفرك؟
+Slide 2: البداية: كل مسافر في الجزائر كان ي...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-5" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('5')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C5</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">Slide 1: قصة الثقة: علاش بوكينڨو هو الأمان الجديد لسفرك؟<br/><br/>Slide 2: البداية: كل مسافر في الجزائر كان يعاني من نفس المشكلة... الخوف من المجهول وانعدام الثقة في المنصات الرقمية.<br/><br/>Slide 3: الحل المؤسسي: قبل ما نطلقو التطبيق، بنينا شراكات استراتيجية مع كبرى المؤسسات المالية والخدماتية لضمان كل خطوة في رحلتك.<br/><br/>Slide 4: النتيجة: مع بوكينڨو، أنت لا تحجز فقط، بل تستثمر في راحة البال. سافر وأنت مطمئن... ثقتك هي أساس وجودنا.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">قصة كل رحلة ناجحة تبدأ بكلمة واحدة: الثقة. ✨ <br/><br/> قبل أن نكون تطبيقاً، كنا فكرة مبنية على حل مشكلة حقيقية: كيف نسافر بأمان وثقة تامة من الجزائر؟<br/><br/>هذا الكاروسال يحكي قصة بناء بوكينڨو، من تحديد المشكلة إلى إيجاد الحلول المؤسسية التي تجعلنا اليوم شريكك الأكثر أماناً في السفر. <br/><br/> اقلب الصفحات واكتشف أساس الثقة الذي بنينا عليه علامتنا! <br/><br/> #قصة_نجاح #بناء_الثقة #بوكينڨو #ريادة_الأعمال #الجزائر #BookingoStory #الأمان</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Carousel قصصي (عبد الرحمن):<br/>- Slide 1: صورة رمزية لبناء جسر أو أساسات مبنى. عنوان واضح وجذاب.<br/>- Slide 2: صورة بالأبيض والأسود لشخص قلق أمام شاشة كمبيوتر، لتعكس 'الألم'.<br/>- Slide 3: صورة ملونة ومشرقة لمصافحة أيادي أو اجتماع عمل احترافي. استخدام أيقونات 'الدرع' و'الضمان'.<br/>- Slide 4: صورة بانورامية رائعة لوجهة سفر، مع ظهور شعار Bookingo وعبارة 'ثقة بلا حدود' بخط أنيق.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P6</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">وراء بوكينڨو، كاين فريق وخبرة سنين باش يضمنولك كلشي. سافر بلا هموم!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('6')">
+                    <div class="preview-text">مدعوم من الأفضل،
+لخدمة الأفضل.
+بوكينڨو. ثقة، خبرة، وأمان....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-6" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('6')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P6</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">مدعوم من الأفضل،<br/><br/>لخدمة الأفضل.<br/><br/>بوكينڨو. ثقة، خبرة، وأمان.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">الخبرة تصنع الفارق. 🤝 <br/><br/> في بوكينڨو، كل تفصيل مدروس بعناية من طرف فريق من الخبراء في مجال السفر والتكنولوجيا والأمان المالي.<br/><br/>دعم شركائنا الكبار وخبرة فريقنا هي ضمانك لرحلة خالية من الهموم والمفاجآت غير السارة. <br/><br/> بوكينڨو: صاحبك لي يضمنلك السفرة. استعدوا للإطلاق! <br/><br/> #خبرة #احترافية #بوكينڨو #الجودة_أولا #سفر #الجزائر #BookingoExpertise</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Single Post مركز (عبد الرحمن):<br/>- تصميم بسيط وراقٍ جداً.<br/>- خلفية بلون موحد من ألوان العلامة التجارية.<br/>- النص مكتوب في المنتصف بخط 'Serif' أنيق يوحي بالجدية والاحترافية.<br/>- في الأسفل، شعار Bookingo مع أيقونات صغيرة ترمز للثقة (درع)، الخبرة (شهادة)، والأمان (قفل).</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V7</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كرهت التطبيقات المعقدة لي تضيّعلك وقتك وتزيد عليك ستراس؟ شوف هذا!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('7')">
+                    <div class="preview-text">(شخص يصور شاشة هاتفه ويتحدث بحماس)
+يا جماعة، شوفو شحال ساهل تحجز مع بوكينڨو!
+تدخل، تختار وين حاب ترو...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-7" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('7')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V7</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">(شخص يصور شاشة هاتفه ويتحدث بحماس)<br/><br/>يا جماعة، شوفو شحال ساهل تحجز مع بوكينڨو!<br/><br/>تدخل، تختار وين حاب تروح... هكذا.<br/><br/>تخير التواريخ لي تساعدك... فوالا.<br/><br/>تشوف العروض، تقارن، وتخير لي عجبتك... بوم!<br/><br/>تكليكي على تأكيد... وصايي! حجزك راهو مضمون.<br/><br/>والله غير في أقل من دقيقة! خلاص وقت التعقيدات.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">الحجز في أقل من دقيقة... حقيقة ماشي خيال! ⏱️ <br/><br/> وداعاً للصفحات التي لا تنتهي، والأزرار غير المفهومة، والقلق من ارتكاب خطأ!<br/><br/>صممنا بوكينڨو ليكون أسهل وأسرع تطبيق حجز على الإطلاق. لأن وقتك ثمين، وراحة بالك هي أولويتنا.<br/><br/>شاهد الفيديو لترى بنفسك كيف يمكنك حجز رحلة أحلامك في 3 خطوات بسيطة. <br/><br/> جرب السهولة بنفسك! كن مستعداً لتحميل تطبيق بوكينڨو فور إطلاقه! <br/><br/> #سهل_وسريع #تجربة_المستخدم #بوكينڨو #تكنولوجيا #الجزائر #BookingoEasy #حجز_سريع</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">UGC (أحمد/إسلام) - إطار AIDA:<br/>- تصوير عمودي (Reels/Shorts/TikTok style).<br/>- جودة الفيديو تكون جيدة لكن ليست احترافية 100%، لتبدو حقيقية (Authentic).<br/>- الشخص يتحدث بدارجة عفوية وسريعة، كأنه يشارك اكتشافاً مع أصدقائه.<br/>- استخدام 'Screen Recording' لواجهة التطبيق ليكون الشرح عملي وواضح.<br/>- إضافة نصوص متحركة بسيطة (Captions) على الشاشة لتسهيل المتابعة.<br/>- في النهاية، الشخص يرفع رأسه من الهاتف ويبتسم للكاميرا.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C8</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">تحجز رحلتك كاملة في الوقت لي تشرب فيه قهوتك؟ نعم، ممكن!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('8')">
+                    <div class="preview-text">Slide 1: 3 خطوات ساهلة ماهلة باش تحجز سفرتك مع بوكينڨو!
+Slide 2: الخطوة 1: اختر وجهتك والتواريخ.
+واج...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-8" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('8')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C8</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">Slide 1: 3 خطوات ساهلة ماهلة باش تحجز سفرتك مع بوكينڨو!<br/><br/>Slide 2: الخطوة 1: اختر وجهتك والتواريخ.<br/><br/>واجهة بسيطة وذكية تساعدك تحدد وين ومتى حاب تسافر في ثواني.<br/><br/>Slide 3: الخطوة 2: قارن العروض وخيّر.<br/><br/>نعرضولك كل الخيارات بوضوح باش تختار الأنسب لميزانيتك وراحتك.<br/><br/>Slide 4: الخطوة 3: أكّد حجزك بضغطة زر.<br/><br/>معلوماتك محفوظة بأمان، وبضغطة واحدة، رحلتك تكون مؤكدة ومضمونة. مبروك عليك!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">دليلك المصور للحجز مع بوكينڨو في 3 خطوات فقط! 📸 <br/><br/> السهولة هي وعدنا الأساسي.<br/><br/>في هذا الدليل البسيط، نوضح لك خطوة بخطوة كيف أن عملية الحجز التي كانت تبدو معقدة، أصبحت الآن أسهل من شرب الماء.<br/><br/>مع بوكينڨو، لا تحتاج إلى دليل استخدام أصلاً! <br/><br/> اقلب الصفحات واحفظ هذا المنشور! ستحتاجه قريباً جداً. <br/><br/> #دليل_المستخدم #كيفية #سهولة #بوكينڨو #تطبيق #الجزائر #BookingoHowTo</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Carousel تعليمي (عبد الرحمن):<br/>- تصميم نظيف ومينيماليست.<br/>- كل سلايد يحمل رقم الخطوة (1, 2, 3) بحجم كبير.<br/>- استخدام لقطات شاشة (Screenshots) حقيقية من التطبيق لتوضيح كل خطوة.<br/>- استخدام أيقونات بسيطة (تقويم، عدسة مكبرة، علامة صح) لتعزيز المعنى بصرياً.<br/>- الألوان هادئة ومريحة للعين.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P9</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">مع بوكينڨو، حجزك مضمون ومستحيل تغلط. تطبيق مصمم لراحتك!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('9')">
+                    <div class="preview-text">وداعاً لرسائل الخطأ!
+تطبيقنا الذكي يمنع الأخطاء قبل حدوثها.
+#سافر_بلا_قلق...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-9" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('9')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P9</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">وداعاً لرسائل الخطأ!<br/><br/>تطبيقنا الذكي يمنع الأخطاء قبل حدوثها.<br/><br/>#سافر_بلا_قلق</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">أكثر شيء مقلق في الحجز؟ الخوف من 'الزر الخطأ'. 😟 <br/><br/> كلنا نعرف هذا الشعور... الخوف من تأكيد الحجز بتاريخ خاطئ أو اسم غير صحيح.<br/><br/>في بوكينڨو، قضينا على هذا القلق. صممنا تطبيقاً ذكياً يتحقق من كل شيء ويساعدك على تجنب الأخطاء الشائعة، ليكون حجزك صحيحاً 100% من المرة الأولى. <br/><br/> انسى القلق التقني واستعد لتحميل تطبيق بوكينڨو! <br/><br/> #راحة_البال #بدون_أخطاء #تصميم_ذكي #بوكينڨو #تكنولوجيا #الجزائر #BookingoSmart</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Single Post مركز (عبد الرحمن):<br/>- تصميم ذكي يظهر رسالة خطأ حمراء مشطوب عليها بعلامة X كبيرة وخضراء.<br/>- أو صورة لعقل مرتاح (شخص يبتسم وعيناه مغمضتان) مع أيقونة 'تحميل' بجانبه.<br/>- النص يكون واضحاً ومباشراً، يركز على 'منع الأخطاء' و 'راحة البال'.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V10</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">واش لوكان نقولك بلي أحسن عروض السفر... متلقاهاش كامل على الإنترنت؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('10')">
+                    <div class="preview-text">(تعليق صوتي هادئ ومثير للفضول على لقطات سفر سينمائية)
+كاين عالم من الفرص... بعيد عن أعين الجميع.
+عرو...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-10" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('10')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V10</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">(تعليق صوتي هادئ ومثير للفضول على لقطات سفر سينمائية)<br/><br/>كاين عالم من الفرص... بعيد عن أعين الجميع.<br/><br/>عروض خاصة جداً... لدرجة أنها لا تُعرض للعامة.<br/><br/>هذه هي قوة شبكة بوكينڨو.<br/><br/>بفضل شراكاتنا الحصرية، نصل إلى صفقات فريدة.<br/><br/>أسعار خاصة... ومزايا إضافية... مصممة خصيصاً لمستخدمينا.<br/><br/>هل تريد أن تكون جزءاً من هذه الدائرة الخاصة؟</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">هناك أسرار في عالم السفر لا يعرفها إلا القليلون...🤫 <br/><br/> هل تعلم أن أفضل الصفقات والأسعار لا تكون متاحة للجميع؟<br/><br/>بفضل شبكة علاقاتنا القوية، بوكينڨو يفتح لك الباب لعالم من العروض الحصرية التي لن تجدها في أي مكان آخر.<br/><br/>هذه ليست مجرد تخفيضات، بل هي قيمة حقيقية مصممة خصيصاً لك. <br/><br/> كن أول من يعرف! اشترك في قائمتنا البريدية (الرابط في البايو) لتصلك عروضنا الحصرية قبل الجميع! <br/><br/> #عروض_حصرية #صفقات #سفر_ذكي #بوكينڨو #VIP #الجزائر #BookingoDeals</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Storytelling بدون وجه إعلامي (أحمد/إسلام) - إطار QUEST:<br/>- استخدام لقطات سفر عالية الجودة جداً (Stock Footage سينمائي) لوجهات فاخرة وغير مألوفة.<br/>- مونتاج بطيء وإحترافي مع موسيقى غامضة ومثيرة للفضول.<br/>- النص يظهر على الشاشة بخط أنيق ومتزامن مع الصوت.<br/>- لا يتم إظهار أي سعر أو عرض محدد، فقط التلميح لوجود شيء 'حصري' و 'خاص'.<br/>- في النهاية، يظهر حقل لإدخال البريد الإلكتروني مع دعوة للاشتراك.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C11</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">هل تساءلت يوماً كيف نحصل على عروض سفر لا تصدق؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('11')">
+                    <div class="preview-text">Slide 1: 'العروض الحصرية' من بوكينڨو: ما هو السر؟
+Slide 2: السؤال: علاش بوكينڨو يقدر يقدّم عروض مختل...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-11" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('11')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C11</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">Slide 1: 'العروض الحصرية' من بوكينڨو: ما هو السر؟<br/><br/>Slide 2: السؤال: علاش بوكينڨو يقدر يقدّم عروض مختلفة وأسعار أفضل؟<br/><br/>الجواب ليس سحراً!<br/><br/>Slide 3: السر يكمن في الشراكات القوية والعقود المباشرة مع الفنادق وشركات الطيران. نتفاوض بالنيابة عنك لنحصل على الأفضل.<br/><br/>Slide 4: الخلاصة: مع بوكينڨو، أنت لا تبحث فقط، بل تستفيد من قوة تفاوضية كبيرة. <br/><br/>سافر بذكاء، سافر بأقل تكلفة!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">السر وراء أسعارنا الحصرية... مكشوف! 💡 <br/><br/> الكثير يسأل: كيف تتمكنون من تقديم عروض بهذه القوة؟<br/><br/>الأمر ليس سحراً، بل هو نتاج عمل جاد وشراكات استراتيجية. في هذا الكاروسال، نكشف لكم عن الآلية التي تسمح لنا بتقديم قيمة حقيقية لمستخدمينا.<br/><br/>مع بوكينڨو، الذكاء المالي جزء من الرحلة. <br/><br/> اقلب الصفحات واكتشف كيف يمكنك السفر أكثر وبميزانية أقل! <br/><br/> #كيف_نعمل #نموذج_العمل #سفر_اقتصادي #بوكينڨو #الجزائر #BookingoValue #وفر_أموالك</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Carousel قصصي/تثقيفي (عبد الرحمن):<br/>- Slide 1: تصميم على شكل ملف سري أو لغز، مع علامة استفهام كبيرة.<br/>- Slide 2: سلايد مقسوم نصفين، نصف فيه السؤال بخط كبير، والنصف الآخر فيه أيقونة 'مصباح' أو 'عقل'.<br/>- Slide 3: رسم بياني بسيط يوضح العلاقة (بوكينڨو -> شراكات -> عروض حصرية -> أنت).<br/>- Slide 4: صورة لشخص سعيد وهو يحمل لافتة عليها علامة '%' أو '€'. رسالة واضحة ومباشرة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P12</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">ما تضيعش الفرصة! عروض بوكينڨو الحصرية راح تغير طريقة سفرك للأبد.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('12')">
+                    <div class="preview-text">رحلتك القادمة بأفضل سعر.
+هذا ليس وعداً، بل ضمان.
+#عروض_بوكينڨو...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-12" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('12')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P12</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">رحلتك القادمة بأفضل سعر.<br/><br/>هذا ليس وعداً، بل ضمان.<br/><br/>#عروض_بوكينڨو</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">تنبيه: فرصة لا تعوض قادمة! 🚨 <br/><br/> تخيل أن تحجز رحلة أحلامك بسعر لم تكن تحلم به؟<br/><br/>مع بوكينڨو، هذا سيصبح واقعك. عروضنا الحصرية ليست مجرد تخفيضات بسيطة، بل هي فرصة حقيقية لتغيير مفهومك عن تكاليف السفر.<br/><br/>استعد لتكون أول من يقتنص هذه الفرص. <br/><br/> تأكد من تفعيل إشعارات صفحتنا! العروض الأولى ستكون محدودة جداً! <br/><br/> #لا_تفوت #فرصة #عروض_خاصة #بوكينڨو #ترقب #الجزائر #BookingoAlert</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Single Post مركز (عبد الرحمن):<br/>- تصميم جريء وبسيط. خلفية ملونة زاهية.<br/>- صورة 'بطاقة سعر' كبيرة في المنتصف، لكن بدلاً من السعر، مكتوب عليها 'أفضل قيمة مضمونة'.<br/>- استخدام خط عريض وواثق جداً.<br/>- شعار Bookingo في الأسفل.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V13</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">حاب تعرف الصاحب لي راح يغيرلك مفهوم السفر في الجزائر؟ جا وقت تتعرف عليه!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('13')">
+                    <div class="preview-text">(الوجه الإعلامي يتحدث مباشرة للكاميرا بحماس ودفء)
+السلام عليكم!
+بعد أسابيع من التشويق، اللحظة لي كنت...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-13" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('13')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V13</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">(الوجه الإعلامي يتحدث مباشرة للكاميرا بحماس ودفء)<br/><br/>السلام عليكم!<br/><br/>بعد أسابيع من التشويق، اللحظة لي كنتو كامل تسناو فيها راهي لحقت.<br/><br/>هدرنا على الثقة... هدرنا على السهولة... وهدرنا على العروض الحصرية.<br/><br/>دوكا جا الوقت باش تقابلو الصديق لي راح يجمعكم بهاد الشي كامل.<br/><br/>بوكينڨو ماشي مجرد اسم، هو صاحبك الموثوق لي راح يوقف معاك في كل خطوة من رحلتك.<br/><br/>أنا وفريق العمل كامل متحمسين بزاف باش نطلقو هاد التجربة الجديدة.<br/><br/>كونو في الموعد!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">اللقاء المنتظر... موعدك مع صديق سفرك الجديد! 🤝 <br/><br/> لقد تحدثنا كثيراً عن الوعود، والآن حان وقت الوفاء بها.<br/><br/>في هذا الفيديو، نوجه لكم دعوة شخصية لتكونوا أول من يرحب بـ 'بوكينڨو'، الصديق الموثوق الذي عملنا بجد لتقديمه لكم.<br/><br/>هذه ليست مجرد بداية تطبيق، بل هي بداية علاقة جديدة بيننا وبين كل مسافر في الجزائر. <br/><br/> تابعنا عن كثب... اللحظة الكبرى أصبحت قريبة جداً! <br/><br/> #الإطلاق_الكبير #بوكينڨو #صديق_السفر #موعد #الجزائر #BookingoLaunch #ترقبوا</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Host (أحمد/إسلام) - إطار HVC:<br/>- تصوير احترافي للوجه الإعلامي في استوديو أو مكان أنيق.<br/>- إضاءة دافئة وودودة.<br/>- الوجه الإعلامي يرتدي ملابس 'Smart Casual' ليعكس الثقة والود.<br/>- يتحدث بنبرة شخصية ومباشرة، كأنه يكلم صديقاً.<br/>- في الخلفية، يظهر شعار Bookingo بشكل غير مباشر (على شاشة، أو كجزء من الديكور).<br/>- في نهاية الفيديو، يظهر تاريخ أو عبارة 'قريباً جداً' على الشاشة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C14</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">3 وعود... 1 صديق موثوق... 0 قلق. هل أنت مستعد؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('14')">
+                    <div class="preview-text">Slide 1: اللحظة المنتظرة... بوكينڨو راه قريب أكثر من أي وقت مضى!
+Slide 2: نذكركم بوعودنا:
+- ثقة مطلق...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-14" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('14')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C14</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">Slide 1: اللحظة المنتظرة... بوكينڨو راه قريب أكثر من أي وقت مضى!<br/><br/>Slide 2: نذكركم بوعودنا:<br/><br/>- ثقة مطلقة في كل حجز.<br/><br/>- سهولة تامة في الاستخدام.<br/><br/>- عروض حصرية لا تضاهى.<br/><br/>Slide 3: استعد لتكتشف عالماً جديداً من السفر، حيث راحة بالك هي وجهتنا الأولى.<br/><br/>Slide 4: بوكينڨو.<br/><br/>صاحبك لي يضمنلك السفرة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">العد التنازلي الأخير قد بدأ! ⏳ <br/><br/> لقد قطعنا وعداً بتغيير تجربة السفر في الجزائر.<br/><br/>وعد بالثقة، السهولة، والقيمة.<br/><br/>الآن، نحن على بعد خطوات قليلة من تحقيق هذا الوعد. هل أنتم مستعدون لتكونوا جزءاً من هذه الثورة؟ <br/><br/> اقلب الصفحات لتتذكر لماذا بوكينڨو هو شريكك القادم في السفر! <br/><br/> #العد_التنازلي #قريبا #ترقب #بوكينڨو #ثورة_السفر #الجزائر #BookingoCountdown</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Carousel إعلاني/تشويقي (عبد الرحمن):<br/>- تصميم سينمائي ومثير. استخدام صور قوية ومعبرة.<br/>- Slide 1: صورة ساعة رملية أو عد تنازلي. النص بحجم كبير.<br/>- Slide 2: سلايد مقسم إلى 3 أقسام، كل قسم بأيقونة (درع، صاروخ، بطاقة VIP) مع النص الخاص به.<br/>- Slide 3: صورة بانورامية رائعة لشخص ينظر إلى الأفق من قمة جبل أو شرفة فندق.<br/>- Slide 4: سلايد بسيط جداً، فقط شعار Bookingo وسلوغان العلامة على خلفية نظيفة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P15</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">قريباً جداً، بوكينڨو راح يكون متوفر. استعد لرفيق سفرك الجديد!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('15')">
+                    <div class="preview-text">رفيق سفرك الجديد
+قادم قريباً جداً.
+#بوكينڨو...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-15" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('15')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P15</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">رفيق سفرك الجديد<br/><br/>قادم قريباً جداً.<br/><br/>#بوكينڨو</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">جهزوا حقائبكم... وهواتفكم! 📱✈️ <br/><br/> الانتظار على وشك الانتهاء.<br/><br/>صديقك الموثوق في السفر، بوكينڨو، يستعد للقائك.<br/><br/>هذه ليست النهاية، بل هي البداية الحقيقية لمغامراتكم القادمة. <br/><br/> تأكد من تفعيل الإشعارات! لا تريد أن تفوت لحظة الإطلاق الكبرى! <br/><br/> #قريبا_جدا #استعد #الإطلاق #بوكينڨو #السفر #الجزائر #BookingoIsComing</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Single Post مركز (عبد الرحمن):<br/>- تصميم بسيط وأنيق جداً.<br/>- صورة ظلية لحقيبة سفر بجانب هاتف يظهر عليه شعار Bookingo بشكل مضيء.<br/>- النص يكون قصيراً جداً ومباشراً ومكتوباً بخط حديث.<br/>- التركيز البصري الكامل يكون على 'قريباً جداً'.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr></tbody></table></div>
+
+    <div class="disclaimer-card">
+        <span style="font-size: 1.2em;">⚠️</span>
+        <span>قد تخضع هذه الاستراتيجية لبعض التعديلات والتحسينات، حسب المواد الإعلامية المتوفرة أو لغرض تحقيق أفضل النتائج.</span>
+    </div>
+
+    <div class="summary-box">
+        <span style="font-weight: 700; color: #FFD700;">الميزانية الإجمالية المعتمدة</span>
+        <span class="total-amount">110000 دج</span>
+        <a href="https://wa.me/213770820431" class="cta-btn">تواصل معنا للاعتماد</a>
+        <div style="border: 1px dashed #FFD700; padding: 25px; border-radius: 15px; margin-top: 20px;">
+            <h3 style="color:#FFD700; margin:0;">الخطوة التالية</h3>
+            <p style="margin:10px 0;">مكالمة قصيرة لنكيّف هذه الاستراتيجية حسب مشروعك ونبدأ العمل فوراً.</p>
+            <div class="phones-list">
+                <div class="phone-item">0770 82 04 31</div>
+                <div class="phone-item">0770 55 01 51</div>
+                <div class="phone-item">0770 82 01 45</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+function openModal(id) { document.getElementById('modal-' + id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
+function closeModal(id) { document.getElementById('modal-' + id).style.display = 'none'; document.body.style.overflow = 'auto'; }
+window.onclick = function(event) { if (event.target.className === 'modal') { event.target.style.display = 'none'; document.body.style.overflow = 'auto'; } }
+</script></body></html>
