@@ -1,0 +1,626 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>وكالة "الكوثر فواياج" Strategy</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+<style>
+    body { background: #FFFFFF; color: #1A1A1A; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; line-height: 1.6; overflow-x: hidden; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 15px; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 2px solid #000; }
+    .wayso-logo { height: 45px; }
+    .brand-name { font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 1.4em; color: #000; text-transform: uppercase; border-right: 4px solid #FFD700; padding-right: 12px; }
+    
+    .analysis-section { margin: 30px 0; }
+    .card-philosophy { padding: 30px; border-radius: 20px; background: #000; color: #FFF; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+    .card-philosophy h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #FFD700; }
+    
+    .card-why { padding: 30px; border-radius: 20px; background: #F9F9F9; color: #333; margin-bottom: 20px; border: 1px solid #EDECE9; }
+    .card-why h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #000; display: flex; align-items: center; gap: 10px; }
+    .card-why h2::after { content: ''; flex-grow: 1; height: 1px; background: #EDECE9; margin-right: 15px; }
+
+    .hero { margin: 35px 0 20px 0; border-right: 6px solid #FFD700; padding-right: 15px; }
+    .hero h1 { font-size: 2.5em; font-weight: 700; margin: 0; }
+    .table-wrapper { margin-top: 25px; border-radius: 12px; overflow: hidden; border: 1px solid #EDECE9; }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #000; color: #FFF; padding: 15px; text-align: right; font-size: 0.9em; }
+    td { padding: 20px 12px; border-bottom: 1px solid #EDECE9; vertical-align: top; }
+    
+    .code-badge { font-family: 'Montserrat', sans-serif; font-weight: 700; background: #FFD700; color: #000; padding: 5px 12px; border-radius: 6px; font-size: 1.1em; display: inline-block; margin-bottom: 5px; }
+    .type-label { display: block; font-weight: 700; color: #555; font-size: 0.95em; }
+    
+    .hook-pill { background: #000; color: #FFD700; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 1.1em; display: block; border-right: 5px solid #FFD700; }
+    
+    /* تحسين زر المودال */
+    .script-trigger { background: #F8F9FA; border: 1px solid #EDECE9; padding: 15px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; }
+    .script-trigger:hover { background: #FFF; border-color: #FFD700; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+    
+    .preview-text { font-size: 0.95em; color: #333; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; white-space: pre-wrap; }
+    
+    .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(8px); }
+    .modal-content { background: #FFF; margin: 5% auto; padding: 30px; border-radius: 20px; width: 88%; max-width: 700px; position: relative; max-height: 85vh; overflow-y: auto; }
+    .close-modal { position: absolute; top: 15px; left: 15px; font-size: 35px; cursor: pointer; color: #999; line-height: 1; }
+    .modal-section { margin-bottom: 25px; padding: 15px; border-radius: 12px; background: #fbfbfa; border: 1px solid #eee; }
+    
+    /* تحسين تنسيق القراءة */
+    .modal-body { font-size: 1.15em; color: #1A1A1A; line-height: 1.9; word-wrap: break-word; }
+    
+    .disclaimer-card { margin: 25px 0; padding: 20px; background: #FFF9E6; border-radius: 12px; border-right: 5px solid #FFC107; font-size: 1.05em; color: #856404; display: flex; align-items: center; gap: 12px; }
+    .summary-box { margin-top: 50px; background: #000; color: #FFF; padding: 40px 20px; border-radius: 25px; text-align: center; }
+    .total-amount { font-family: 'Montserrat'; font-size: 3.5em; font-weight: 700; display: block; color: #FFD700; margin: 10px 0; }
+    .cta-btn { display: inline-block; background: #FFD700; color: #000; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.2em; margin-bottom: 25px; }
+    .phones-list { margin-top: 15px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; direction: ltr; } 
+    .phone-item { background: #1A1A1A; padding: 8px 15px; border-radius: 8px; border: 1px solid #333; color: #FFF; font-family: 'Montserrat'; font-weight: 700; font-size: 1.2em; white-space: nowrap; }
+
+    @media (max-width: 768px) {
+        thead { display: none; }
+        tr { display: block; border: 1px solid #EDECE9; border-radius: 15px; margin-bottom: 20px; padding: 15px; background: #FFF; }
+        td { display: block; padding: 8px 0; text-align: right; }
+        td::before { content: attr(data-label); font-weight: 700; color: #BBB; display: block; font-size: 0.75em; margin-bottom: 4px; }
+        .brand-name { font-size: 1.1em; }
+    }
+</style></head><body>
+
+<div class="container">
+    <div class="header">
+        <img src="https://storage.googleapis.com/msgsndr/GwIPQCjstTzxnzDQ1B32/media/68fddb5534bb1597bc934f89.png" class="wayso-logo">
+        <div class="brand-name">وكالة "الكوثر فواياج"</div>
+    </div>
+
+    <div class="analysis-section">
+        <div class="card-philosophy"><h2>🎯 فلسفة الاستراتيجية</h2><p>نحن في Wayso، نفخر بكوننا شريككم الاستراتيجي وليس مجرد مورد خدمة. هذه الخطة مصممة بعناية فائقة لتركز على جوهر احتياجات عملائكم: راحة البال التامة لذويهم الكبار في رحلة العمرة، وتحريرهم من هموم التنظيم. من خلال مزيج مبتكر من الفيديو الرئيسي الشامل والكاروسالات التعليمية، نضمن ليس فقط توصيل رسالتكم بفعالية، بل بناء جسر من الثقة يمتد لسنوات، محققين بذلك استثماراً مستداماً في نمو علامتكم التجارية وولاء عملائكم.</p></div>
+        <div class="card-why"><h2>💡 لماذا هذه الخطة؟</h2><p>بدأنا بـ V1 لخطف الانتباه ومعالجة القلق الأساسي بأسلوب شامل ومؤثر، حيث يعمل كأداة بيع متكاملة. ثم انتقلنا إلى الكاروسالات (C2) لتقديم حلول مفصلة وبناء الثقة خطوة بخطوة، بينما ترسخ الصور الثابتة (P3) الرسائل العاطفية الرئيسية. هذا التسلسل السيكولوجي يقود العميل من الانتباه، إلى الاهتمام، فالثقة، ثم القرار، مما يضمن رحلة عميل سلسة وفعالة نحو التحويل.</p></div>
+    </div>
+
+    <div class="hero"><h1>خطة الإنتاج الإبداعي</h1></div>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th style="width: 20%;">الكود والنوع</th><th style="width: 30%;">الهوك (Hook)</th><th style="width: 50%;">المحتوى</th></tr></thead>
+            <tbody><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V1</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كي تبعث والديك للعمرة، قلبك يروح معاهم؟ وتخاف القلق ما يخليكش ترتاح؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('1')">
+                    <div class="preview-text">كل عام تقول نبعث الوالدين... بصح يغلبك التخمام.
+يا درا راهم ملاح؟ شكون يوقف معاهم؟
+فالزحمة... فالمطا...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-1" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('1')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V1</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">كل عام تقول نبعث الوالدين... بصح يغلبك التخمام.<br/><br/>يا درا راهم ملاح؟ شكون يوقف معاهم؟<br/><br/>فالزحمة... فالمطار... لو كان يمرضو... ألف سؤال وسؤال يخليك ماشي هاني.<br/><br/>حنا في 'الكوثر فواياج'، هاد القلق نعرفوه مليح، وخدمتنا هي نحيوه من بالك.<br/><br/>تخيل والديك يمشيو مرتاحين... واحد شادهم من يدهم... يتصلو بيك بالفيديو وهوما فرحانين، يدعولك من قدام الكعبة.<br/><br/>هادي هي الطمأنينة اللي نضمنوهالك.<br/><br/>هادي هي خدمتنا لأكثر من 20 سنة.<br/><br/>مع 'الكوثر فواياج'، ركّز في خدمتك وعبادتك، وخلي الباقي علينا.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">راحة بالك أغلى ما تملك... وراحة والديك أمانة في أعناقنا. <br/><br/> القلق على الوالدين في رحلة العمر قادر يفسد عليك راحتك وعليهم روحانية الرحلة. في 'الكوثر فواياج'، مهمتنا نحولو هاد القلق إلى طمأنينة تامة، ليك وليهم.<br/>خبرتنا الطويلة هي ضمانك لرحلة منظمة، آمنة، ومريحة تخلي والديك يركزو في الأهم: العبادة. <br/><br/> ركّز في عبادتك، والباقي علينا. احجز رحلة الطمأنينة لوالديك الآن! <br/><br/> #عمرة_الجزائر #حج_الجزائر #الكوثر_فواياج #راحة_الوالدين #سفر #الجزائر #وهران #قسنطينة #عنابة</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو بانورامي شامل. يبدأ بمشاهد سريعة ومقلقة: ابن(ة) في مكتبه(ا) شارد الذهن، لقطات سريعة لزحام، أيادي مسنة تبحث عن مساعدة (بشكل فني). يتغير الإيقاع والموسيقى إلى الهدوء والطمأنينة مع ظهور شعار 'الكوثر فواياج'. لقطات UGC حقيقية أو مشابهة لمعتمرين كبار في السن يتم الاعتناء بهم من طرف مرشدين، يبتسمون للكاميرا، لقطة مقربة على يد مرشد تساعد معتمر على النهوض. تعليق صوتي 'أبوي' دافئ وموثوق. ينتهي الفيديو بلقطة واسعة للحرم مع ظهور الـCTA على الشاشة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C2</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">سرّ راحة بالك وراحة والديك في العمرة... في 7 خطوات بسيطة.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('2')">
+                    <div class="preview-text">Slide 1: رحلتك للسكينة تبدأ من هنا.
+كيفاش نحولو قلقك على والديك لطمأنينة تامة.
+
+Slide 2: (قبل) القلق...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-2" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('2')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C2</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">Slide 1: رحلتك للسكينة تبدأ من هنا.<br/><br/>كيفاش نحولو قلقك على والديك لطمأنينة تامة.<br/><br/><br/><br/>Slide 2: (قبل) القلق سيد الموقف.<br/><br/>تبقى تخمم ليل ونهار... "يا درا والديا راهم ملاح؟ كاش ما خصهم؟" قلبك نصه معاهم.<br/><br/><br/><br/>Slide 3: (أثناء) رعايتنا الدقيقة لكل تفاصيل رحلتك.<br/><br/>من المطار للمطار، فريقنا عينو عليهم. رعاية شخصية، اهتمام بأدق التفاصيل، ومرافقة في كل خطوة.<br/><br/><br/><br/>Slide 4: (بعد) راحة بال تامة وعبادة خالصة.<br/><br/>تستقبل مكالماتهم وهما فرحانين ومرتاحين. هاد الشعور ما عندوش ثمن. يركزو في عبادتهم، وأنت تركز في حياتك.<br/><br/><br/><br/>Slide 5: شهادة من القلب.<br/><br/>"والله ما كنت نآمن حتى شفت بعيني الراحة اللي كانوا فيها والديا. شكراً الكوثر فواياج." - ابن معتمر.<br/><br/><br/><br/>Slide 6: خدماتنا في نقاط:<br/><br/>• مرافقة من خبراء.<br/><br/>• سكن مريح وقريب.<br/><br/>• نقل مضمون.<br/><br/>• رعاية صحية.<br/><br/><br/><br/>Slide 7: انضم لعائلة الكوثر.<br/><br/>مهمتك تنوي، ومهمتنا نكونو في المستوى. راحتك وراحة والديك هي أولويتنا.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">من القلق إلى الطمأنينة... خطوة بخطوة! <br/><br/> تعرف على الرحلة اللي نضمنولك فيها راحة البال التامة ليك ولوالديك. في 'الكوثر فواياج'، كل خطوة مدروسة باش تكون النتيجة النهائية هي عبادتهم الصافية وراحتك النفسية.<br/>مرر الشاشات واكتشف كيفاش نقدرو نكونو سندك في رحلة العمر. <br/><br/> مرر الشاشات واكتشف سر الطمأنينة! أو اتصل بنا مباشرة. <br/><br/> #رحلة_العمر #عمرة_مطمئنة #الكوثر_فواياج #خطوة_بخطوة #خدمات_الحج_والعمرة #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم كاروسال هادئ وأنيق. Slide 1: عنوان كبير فوق صورة للكعبة. Slide 2: صورة مع فلتر داكن لابن قلق. Slide 3-4: صور مشرقة لمرشدين يساعدون كبار السن. Slide 5: اقتباس بخط يدوي أنيق فوق خلفية هادئة. Slide 6: أيقونات بسيطة لكل خدمة. Slide 7: صورة جماعية لفريق العمل مع المعتمرين، مع وضع الشعار والـCTA بوضوح.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P3</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كي يكون هدفك الوحيد هو العبادة... لازم طريقك تكون معبدة.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('3')">
+                    <div class="preview-text">هدفك الوحيد هو العبادة الخالصة؟
+خلينا نكونو طريقك للسكينة.
+الكوثر فواياج: رحلتك الروحانية، أمانة في ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-3" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('3')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P3</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">هدفك الوحيد هو العبادة الخالصة؟<br/><br/>خلينا نكونو طريقك للسكينة.<br/><br/>الكوثر فواياج: رحلتك الروحانية، أمانة في أيدينا.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">عندما تصبح العبادة هي همّك الوحيد. <br/><br/> في رحلة العمر، كل دقيقة ثمينة. لهذا في 'الكوثر فواياج' نرفع عنك كل هموم الدنيا والتنظيم، باش يكون تركيزك الوحيد هو القرب من الله.<br/>نحن لا نبيع رحلات، بل نمهد لك طريق السكينة. <br/><br/> الكوثر فواياج: رحلتك الروحانية، أمانة في أيدينا. تواصل معنا اليوم. <br/><br/> #عبادة_خالصة #سكينة_الروح #عمرة #حج #الكوثر_فواياج #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم راقي وبسيط. صورة عالية الجودة لمعتمر في حالة خشوع داخل الحرم. النص مكتوب بخط عربي أنيق وواضح في زاوية من الصورة. شعار 'الكوثر فواياج' في الأسفل.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V4</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">اللي والديه كبار وعزاز عليه... ويخاف يبعثهم وحدهم... هاد الفيديو ليك!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('4')">
+                    <div class="preview-text">(صوت ابن/ابنة يحكي)
+الوالدة كانت كل يوم تقولي "وقتاش ربي يكتبلي ونروح؟" وأنا نموت بالخوف.
+كبيرة فالس...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-4" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('4')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V4</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">(صوت ابن/ابنة يحكي)<br/><br/>الوالدة كانت كل يوم تقولي "وقتاش ربي يكتبلي ونروح؟" وأنا نموت بالخوف.<br/><br/>كبيرة فالسن، السكر، وما تعرف حتى واحد تماك... كيفاش ندير؟<br/><br/>بقيت نأجل كل عام... حتى سمعت بـ 'الكوثر فواياج'.<br/><br/>في الأول ترددت، بصح من أول اتصال حسيت باللي هوما الحل.<br/><br/>الوالدة راحت ورجعت فرحانة، تدعيلي وتدعيلهم... تقولي "حطوني فوق راسهم".<br/><br/>هاديك الراحة اللي حسيتها كي شفتها مرتاحة... ما تتباع ما تتشرى.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">قصة كل ابن يخاف على والديه... <br/><br/> الخوف والقلق شعور طبيعي كي يتعلق الأمر بأغلى الناس. لكن لا تجعل هذا الشعور يحرمهم من تحقيق حلمهم، ويحرمك من برّهم.<br/>شاهد هذه القصة الحقيقية واكتشف كيف يمكن لـ 'الكوثر فواياج' أن تكون الحل الذي يريح قلبك. <br/><br/> ما تخليش القلق يحرمك من فرحة والديك. تواصل مع الكوثر فواياج الآن! <br/><br/> #بر_الوالدين #عمرة_الأم #قصص_حقيقية #الكوثر_فواياج #UGC #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو بأسلوب UGC (User-Generated Content). شاب أو شابة تتحدث للكاميرا بصدق وعفوية (يمكن أن يكون ممثل). تدمج لقطات 'أرشيف' للوالدة وهي تستعد للسفر، ثم لقطات فيديو قصيرة أرسلتها من العمرة وهي تبتسم. التركيز على العاطفة والصدق. موسيقى خلفية هادئة ومؤثرة. في النهاية تظهر معلومات الاتصال بالوكالة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C5</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">حلمك تشوف والديك هكذا؟ مرتاحين، فرحانين، ويدعولك من أطهر بقاع الأرض.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('5')">
+                    <div class="preview-text">Slide 1: "ما كنتش متوقع هاد الراحة لوالديا!"
+قصة حقيقية عن تحويل القلق إلى طمأنينة.
+
+Slide 2: (قبل) ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-5" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('5')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C5</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">Slide 1: "ما كنتش متوقع هاد الراحة لوالديا!"<br/><br/>قصة حقيقية عن تحويل القلق إلى طمأنينة.<br/><br/><br/><br/>Slide 2: (قبل) قصة الحاجة 'فاطمة'.<br/><br/>ابنها 'كريم' كان خايف عليها بزاف من الزحمة والتعب. كان كل عام يأجل الفكرة.<br/><br/><br/><br/>Slide 3: (الرحلة مع الكوثر) كل شيء ساهل ومضمون.<br/><br/>من أول خطوة، كريم كان يتابع كلش بالتليفون. فريقنا كان عينو على الحاجة فاطمة، من الدوا للماكلة للراحة.<br/><br/><br/><br/>Slide 4: (بعد) الطمأنينة في قلوبهم.<br/><br/>الحاجة فاطمة رجعت بصحتها وفرحانة، وكريم حس براحة ما حسهاش من قبل. "حسيت روحي بعثتها مع خوها ماشي مع وكالة".<br/><br/><br/><br/>Slide 5: تجربتك الناجحة تبدأ هنا.<br/><br/>قصة الحاجة فاطمة تقدر تكون قصة والديك. اختر لهم الراحة، واختر لقلبك الطمأنينة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">من الخوف إلى الفرحة... هكذا تبدو رحلاتنا. <br/><br/> كل عائلة عندها قصة خوف وقلق قبل ما تبعث والديها للعمرة. ومهمتنا في 'الكوثر فواياج' هي تغيير نهاية كل قصة إلى فرحة وطمأنينة.<br/>مرر الشاشات واقرأ قصة كريم ووالدته، وكيف تحولت مخاوفهم إلى أجمل الذكريات. <br/><br/> مرر الشاشات لترى كيف نحول القلق إلى راحة. للمزيد، زر موقعنا. <br/><br/> #قصص_نجاح #عمرة_2024 #راحة_البال #الكوثر_فواياج #شهادات_حقيقية #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">كاروسال قصصي وعاطفي. Slide 1: عنوان جذاب مع صورة معبرة لوالدين يبتسمان في الحرم. Slide 2: صورة بالأبيض والأسود للحاجة فاطمة وابنها يبدوان قلقين. Slide 3-4: صور ملونة ومشرقة للحاجة فاطمة مع مرشد من الوكالة، وصورة لمحادثة واتساب مطمئنة بين كريم والمرشد. Slide 5: دعوة للعمل واضحة مع شعار الوكالة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P6</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">ما هي أفضل هدية تقدر تمدها لوالديك؟ ماشي الذهب، ماشي المال...</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('6')">
+                    <div class="preview-text">أحسن هدية تقدر تهديها لوالديك؟
+هي راحة البال في رحلة العمر....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-6" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('6')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P6</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">أحسن هدية تقدر تهديها لوالديك؟<br/><br/>هي راحة البال في رحلة العمر.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">استثمر في أغلى شعور: راحة بالهم. <br/><br/> في مرحلة معينة، يصبح السلام الداخلي والطمأنينة أغلى من كل كنوز الدنيا. عندما تهدي لوالديك رحلة عمرة مع 'الكوثر فواياج'، أنت لا تهديهم رحلة فقط، بل تهديهم السكينة وراحة البال التي يستحقونها.<br/>إنها الهدية التي تدوم. <br/><br/> امنح والديك الطمأنينة اللي يستاهلوها. استفسر عن برامجنا الآن. <br/><br/> #هدية_العمر #بر_الوالدين #راحة_البال #الكوثر_فواياج #استثمار_عاطفي #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">صورة مؤثرة ليد ابن شاب تمسك بيد والده المسن، مع خلفية غير واضحة للحرم المكي. النص مكتوب بشكل أنيق ومركزي. الألوان دافئة وحنونة. التركيز على رمزية الصورة وقوة النص.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V7</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">تأشيرة، طيارة، لوطيل، تنقلات، ماكلة... راسك حبس؟ تخيل عمرة بلا هاد الوجع.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('7')">
+                    <div class="preview-text">(صوت ديناميكي وموسيقى سريعة)
+باش تروح للعمرة، لازمك: دوسي، فيزا، بيي، ريزرفاسيون، ترونسبور، مرشد... ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-7" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('7')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V7</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">(صوت ديناميكي وموسيقى سريعة)<br/><br/>باش تروح للعمرة، لازمك: دوسي، فيزا، بيي، ريزرفاسيون، ترونسبور، مرشد... والقائمة طويلة!<br/><br/>(تتغير الموسيقى إلى الهدوء)<br/><br/>ومع 'الكوثر فواياج'؟ لازمك حاجة وحدة: النية.<br/><br/>حنا نتكفلو بكل هاد التفاصيل المعقدة، من باب دارك حتى ترجع ليها.<br/><br/>مهمتك الوحيدة؟ تركز في عبادتك.<br/><br/>والباقي؟ خليه على خبراء التنظيم.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">وجع الراس تاع الأوراق خليه علينا! <br/><br/> التفكير في الإجراءات المعقدة وحدو قادر يعييك قبل ما تبدأ الرحلة. 'الكوثر فواياج' هي الحل باش تتخلص من كل الفوضى اللوجستية.<br/>حنا نترجمو التعقيد إلى بساطة، باش رحلتك تكون صافية لروحك وعقلك. <br/><br/> خليك مركز في عبادتك، وحنا نتكفلو بالباقي! اتصل بنا ونسقسيك على كلش. <br/><br/> #عمرة_بلا_هم #تنظيم_رحلات #لوجستيك #الكوثر_فواياج #خدمة_احترافية #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو Motion Graphics سريع وجذاب. في الجزء الأول، تظهر أيقونات ورسوم متحركة تمثل الإجراءات المعقدة (أوراق تتطاير، طائرة تدور، أيقونة تحميل) بشكل فوضوي. مع تغير الموسيقى، تمسح شاشة بيضاء كل الفوضى ويظهر شعار 'الكوثر فواياج'. ثم تظهر أيقونات بسيطة ومنظمة تمثل الخدمات (تأشيرة عليها علامة صح، فندق، حافلة). الفيديو قصير، مباشر، ويحل مشكلة محددة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C8</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">شحال من خطوة لازم ديرها باش توصل لبيت ربي؟ حنا نختصروهالك في خطوة وحدة: اتصل بينا.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('8')">
+                    <div class="preview-text">Slide 1: طريقك للبيت الحرام: ساهل، منظم، ومضمون.
+اكتشف كيفاش نحولو التعقيد إلى بساطة.
+
+Slide 2: التأ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-8" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('8')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C8</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">Slide 1: طريقك للبيت الحرام: ساهل، منظم، ومضمون.<br/><br/>اكتشف كيفاش نحولو التعقيد إلى بساطة.<br/><br/><br/><br/>Slide 2: التأشيرات والإجراءات.<br/><br/>نسا الدوسي ووجع الراس. فريقنا يتابع كلش من الألف إلى الياء.<br/><br/><br/><br/>Slide 3: الإقامة الراقية.<br/><br/>نختارولك أفضل الفنادق القريبة من الحرم لضمان راحتك وسهولة تنقلك.<br/><br/><br/><br/>Slide 4: المواصلات المريحة.<br/><br/>من المطار للفندق، وبين المشاعر... حافلات مكيفة ومريحة في انتظارك. بلا زحمة بلا انتظار.<br/><br/><br/><br/>Slide 5: الإرشاد والتوجيه.<br/><br/>مرشدون أكفاء معاك في كل وقت وكل مكان، للإجابة على أسئلتك الدينية والتنظيمية.<br/><br/><br/><br/>Slide 6: التجربة المثالية بانتظارك.<br/><br/>كل هاد الخدمات وأكثر... باش تكون رحلتك تجربة روحانية صافية.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">رحلتك إلى مكة... أبسط مما تتخيل! <br/><br/> التنظيم لرحلة العمرة أو الحج ممكن يكون معقد، لكن ماشي مع 'الكوثر فواياج'. حنا نبسطو كل خطوة باش نضمنولك رحلة سلسة ومريحة.<br/>مرر الشاشات واكتشف كيفاش نتكفلو بكل التفاصيل عنك. <br/><br/> اكتشف كيف نجعل رحلتك سلسة. تواصل لبرنامجك الخاص. <br/><br/> #عمرة_منظمة #خدمات_متكاملة #حج_مريح #الكوثر_فواياج #تفاصيل_الرحلة #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">كاروسال تعليمي ومنظم. كل سلايد يركز على خدمة واحدة مع أيقونة مميزة وصورة عالية الجودة (صورة جواز سفر وتأشيرة، غرفة فندق فاخرة، حافلة حديثة، مرشد مع مجموعة). استخدام ألوان البراند بشكل ثابت ومريح للعين.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P9</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">في قاموس رحلتك الروحانية، كلمة "فوضى" لازم ما تكونش موجودة.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('9')">
+                    <div class="preview-text">مع 'الكوثر فواياج'،
+الفوضى كلمة ما تعرفهاش في قاموس الرحلة.
+خبرة سنين تخدم راحتك....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-9" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('9')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P9</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">مع 'الكوثر فواياج'،<br/><br/>الفوضى كلمة ما تعرفهاش في قاموس الرحلة.<br/><br/>خبرة سنين تخدم راحتك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">النظام هو أساس الطمأنينة. <br/><br/> الفوضى تسرق منك التركيز وتزيد من التوتر. لهذا، في 'الكوثر فواياج'، بنينا سمعتنا على التنظيم الدقيق والخبرة اللي تزيل أي احتمال للفوضى.<br/>اختر النظام، اختر راحة البال. <br/><br/> خبرة سنين تخدم راحتك. احجز عمرتك أو حجك المنظم الآن! <br/><br/> #لا_للفوضى #تنظيم_دقيق #خبرة_موثوقة #الكوثر_فواياج #رحلة_منظمة #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم قوي يعتمد على الطباعة (Typography). كلمة 'الفوضى' مكتوبة بخط مشوش ومقطّع، بينما اسم 'الكوثر فواياج' والعبارة الثانية مكتوبة بخط واضح، أنيق وقوي. الخلفية بسيطة ومحايدة للتركيز على النص. يمكن إضافة عنصر بصري بسيط مثل بوصلة أو خط مستقيم يرمز للنظام.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V10</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">أكثر من 20 سنة وحنا نخدمو ضيوف الرحمان... واش تعلمنا؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('10')">
+                    <div class="preview-text">(شخصية مؤسس الوكالة أو مديرها يتحدث للكاميرا بثقة وهدوء)
+السلام عليكم. في 20 سنة تاع خدمة في مجال ال...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-10" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('10')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V10</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">(شخصية مؤسس الوكالة أو مديرها يتحدث للكاميرا بثقة وهدوء)<br/><br/>السلام عليكم. في 20 سنة تاع خدمة في مجال الحج والعمرة، تعلمنا حاجة مهمة بزاف.<br/><br/>تعلمنا باللي المعتمر ماشي كليون... هو أمانة.<br/><br/>تعلمنا أنو القلق تاع ولادو في البلاد هو أكبر عدو للرحلة الروحانية.<br/><br/>وتعلمنا أنو التفاصيل الصغيرة هي اللي دير الفرق بين رحلة عادية ورحلة ما تتنساش.<br/><br/>خبرتنا ماشي مجرد رقم. هي ضمان ليكم باللي كل مشكل ممكن يصرى، حنا ديجا وجدنالو الحل.<br/><br/>في الكوثر فواياج، ما نبيعوش رحلات. حنا نبيعو الثقة والطمأنينة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">20 سنة من الخبرة... في خدمة ضيوف الرحمن. <br/><br/> الخبرة لا تُشترى، بل تُبنى على مدار السنين، رحلة برحلة، وعائلة بعائلة. استمعوا لرسالة من قلب 'الكوثر فواياج' واكتشفوا لماذا خبرتنا هي أفضل ضمان لرحلتكم.<br/>الثقة هي أساس كل شيء. <br/><br/> الكوثر فواياج: خبرة الأجداد لراحة الأحفاد. تفضل بزيارتنا أو اتصل بنا. <br/><br/> #خبرة #ثقة #عشرون_عاما #الكوثر_فواياج #تاريخنا_يشهد #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو Host-style. شخصية موثوقة (المدير) في مكتب أنيق، يتحدث مباشرة إلى الكاميرا. لقطات B-roll مدمجة تظهر فريق العمل في اجتماعات، مرشدين في الميدان، لقطات أرشيفية قديمة للوكالة. الحديث يجب أن يكون طبيعيا، ليس مقروءا. الإضاءة دافئة والجو احترافي ومطمئن. في النهاية يظهر شعار الوكالة ومعلومات الاتصال.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C11</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">وراء كل اسم كبير... حكاية ثقة وتاريخ.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('11')">
+                    <div class="preview-text">Slide 1: 'الكوثر فواياج': تاريخ من الثقة والتميز.
+حكاية بدات من 20 سنة و مازالت مستمرة.
+
+Slide 2: ال...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-11" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('11')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C11</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">Slide 1: 'الكوثر فواياج': تاريخ من الثقة والتميز.<br/><br/>حكاية بدات من 20 سنة و مازالت مستمرة.<br/><br/><br/><br/>Slide 2: البداية (منذ 2000).<br/><br/>بدينا بمكتب صغير وحلم كبير: خدمة ضيوف الرحمان بإخلاص وأمانة. كانت كل رحلة تحدي، وكل معتمر عائلة جديدة.<br/><br/><br/><br/>Slide 3: مئات الرحلات الناجحة.<br/><br/>من هذاك اليوم، نظمنا مئات الرحلات، ورسمنا البسمة على وجوه الآلاف من المعتمرين والحجاج. (صورة كولاج لرحلات قديمة).<br/><br/><br/><br/>Slide 4: شهادات عملائنا.<br/><br/>"ثقتهم هي رأسمالنا الحقيقي". (عدة اقتباسات قصيرة من عملاء).<br/><br/><br/><br/>Slide 5: فريقنا: قلوب قبل الكفاءات.<br/><br/>وراء نجاحنا فريق يعمل بشغف. هدفهم راحتكم قبل كل شيء. (صورة جماعية للفريق).<br/><br/><br/><br/>Slide 6: استمرارية التميز.<br/><br/>20 سنة كانت البداية فقط. نعدكم بأن نبقى شريككم الموثوق لرحلة العمر.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">تاريخنا هو شهادة ضمانكم. <br/><br/> الثقة لا تُبنى في يوم وليلة. إنها حصاد سنوات من العمل الدؤوب، الأمانة، ورضا الآلاف من العائلات. ندعوكم لتصفح تاريخ 'الكوثر فواياج' الذي نفخر به.<br/>مرر الشاشات واكتشف لماذا نحن الخيار الموثوق لأجيال. <br/><br/> اكتشف تاريخنا اللي خلى آلاف العائلات تثق فينا. زر موقعنا للمزيد. <br/><br/> #تاريخنا #قصة_نجاح #ثقة_الأجيال #الكوثر_فواياج #منذ_2000 #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">كاروسال يحكي قصة البراند. استخدام صور أرشيفية حقيقية إن وجدت. Slide 2: صورة قديمة للمكتب الأول. Slide 3: كولاج صور يظهر تطور الوكالة. Slide 4: تصميم جرافيكي أنيق لعرض الاقتباسات. Slide 5: صورة حديثة واحترافية للفريق. استخدام خط زمني بصري يربط بين السلايدات.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P12</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">في رحلة العمر، هل تخاطر بالمبتدئ... أم تختار الخبير الذي رأى كل شيء؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('12')">
+                    <div class="preview-text">في رحلة العمر، الاختيار واضح.
+الخبرة هي حصانتك ضد المفاجآت....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-12" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('12')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P12</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">في رحلة العمر، الاختيار واضح.<br/><br/>الخبرة هي حصانتك ضد المفاجآت.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">لا مجال للمخاطرة في رحلة لا تتكرر. <br/><br/> عندما يتعلق الأمر برحلة روحانية بهذا الحجم، فإن الخبرة ليست مجرد ميزة، بل هي ضرورة قصوى. خبرة 'الكوثر فواياج' تعني أننا مستعدون لأي طارئ، ونتوقع المشاكل قبل حدوثها.<br/>اختر الأمان، اختر الخبرة. <br/><br/> الكوثر فواياج: خبرة سنين لضمان رحلتك. اتصل الآن. <br/><br/> #الخبرة_أولا #لا_للمخاطرة #أمان_تام #الكوثر_فواياج #اختيار_حكيم #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم مقارنة بصرية ذكية. شاشة مقسومة: جهة تمثل 'المبتدئ' بصورة ضبابية وفوضوية (طريق متعرج)، وجهة تمثل 'الخبير' بصورة واضحة ومنظمة (طريق مستقيم وسريع). النص يوضع في المنتصف. التركيز على التباين البصري.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V13</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">تغمض عينيك... وتنسى كل هموم الدنيا. مستعد تعيش هذا الشعور؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('13')">
+                    <div class="preview-text">(لا يوجد تعليق صوتي في البداية. فقط أصوات طبيعية من الحرم: صوت الأذان، دعاء، حركة الناس الهادئة. موس...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-13" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('13')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V13</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">(لا يوجد تعليق صوتي في البداية. فقط أصوات طبيعية من الحرم: صوت الأذان، دعاء، حركة الناس الهادئة. موسيقى روحانية خافتة جدا تبدأ بالصعود تدريجيا)<br/><br/>(يظهر نص على الشاشة)<br/><br/>هناك لحظات... لا تقدر بثمن.<br/><br/>لحظات من السكينة... حيث تتصل روحك بالخالق.<br/><br/>بعيدا عن ضجيج الدنيا... وهموم التنظيم.<br/><br/>هذه اللحظات هي جوهر رحلتك.<br/><br/>ومهمتنا... هي أن نوصلك إليها بسلام.<br/><br/>(في النهاية فقط، صوت هادئ يقول: الكوثر فواياج. ركز في عبادتك، والباقي علينا.)</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">تجربتك الروحانية الصافية... تبدأ من هنا. <br/><br/> ما هو هدفك الأسمى من رحلة العمر؟ هو تلك اللحظات من الصفاء الروحي الخالص. في 'الكوثر فواياج'، نعمل في الكواليس لنضمن أن لا شيء، لا شيء أبدا، يعكر صفو هذه اللحظات.<br/>شاهد الفيديو واشعر بالسكينة التي نعدك بها. <br/><br/> اجعل عبادتك الأولوية الوحيدة. احجز رحلة العمرة مع الكوثر فواياج. <br/><br/> #سكينة #روحانيات #صفاء_القلب #لحظات_لا_تنسى #الكوثر_فواياج #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو سينمائي وعاطفي جدا. لقطات عالية الجودة وبطيئة (Slow-motion) لأشخاص في حالة خشوع في الحرم: يدعون، يقرأون القرآن، ينظرون إلى الكعبة بدموع الفرح. التركيز على تعابير الوجه المليئة بالسكينة. لا يوجد حديث، فقط أصوات المكان وموسيقى روحانية. استخدام النصوص على الشاشة لإيصال الرسالة. فيديو قصير لكنه قوي التأثير.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C14</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">تخيل روحك في الحرم، ما تخمم في والو... غير في علاقتك مع ربي.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('14')">
+                    <div class="preview-text">Slide 1: قلبك مرتاح... وروحك صافية.
+هكذا نوفر لك السكينة الروحانية التي تبحث عنها.
+
+Slide 2: التفرغ ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-14" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('14')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C14</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">Slide 1: قلبك مرتاح... وروحك صافية.<br/><br/>هكذا نوفر لك السكينة الروحانية التي تبحث عنها.<br/><br/><br/><br/>Slide 2: التفرغ التام للعبادة.<br/><br/>برامجنا مصممة لتمنحك أقصى وقت ممكن في الحرمين الشريفين، بعيدا عن أي مشتتات.<br/><br/><br/><br/>Slide 3: أجواء إيمانية.<br/><br/>نسكنك في فنادق قريبة ومريحة، ونوفر لك مرشدين يساعدونك على تعميق تجربتك الروحانية.<br/><br/><br/><br/>Slide 4: لحظات خاصة لن تنساها.<br/><br/>ننظم زيارات للمشاعر والأماكن المقدسة في أوقات مدروسة لتجنب الزحام، مما يمنحك فرصة للتأمل والدعاء.<br/><br/><br/><br/>Slide 5: انغمس في الروحانية.<br/><br/>هدفنا ليس فقط إيصالك للبقاع المقدسة، بل مساعدتك على عيش أعمق تجربة إيمانية ممكنة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">كيف نجعل تجربتك الروحانية في أوجها؟ <br/><br/> السكينة لا تأتي بالصدفة، بل هي نتيجة تخطيط دقيق يهدف إلى إزالة كل العوائق بينك وبين عبادتك. في 'الكوثر فواياج'، كل تفصيل في رحلتك مصمم لخدمة هذا الهدف الأسمى.<br/>مرر الشاشات واكتشف أسرارنا لرحلة روحانية صافية. <br/><br/> مرر الشاشات واكتشف كيف نجعل روحانيتك في أوجها. زر موقعنا. <br/><br/> #تجربة_روحانية #خشوع #عبادة #تأمل #الكوثر_فواياج #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم كاروسال بصور ملهمة وروحانية. صور عالية الجودة لأشخاص يتعبدون بخشوع، صور للمسجد النبوي عند الفجر، صور بانورامية للكعبة. استخدام خطوط عربية جميلة وهادئة. الألوان مستوحاة من ألوان الشفق والغروب.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P15</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">هناك مكان... حيث الأرض تلامس السماء، والروح تعانق الخالق.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('15')">
+                    <div class="preview-text">هناك مكان... حيث الروح تعانق السماء.
+هل أنت مستعد للرحلة؟...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-15" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('15')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P15</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">هناك مكان... حيث الروح تعانق السماء.<br/><br/>هل أنت مستعد للرحلة؟</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">النداء الذي لا يقاوم... <br/><br/> لكل روح توّاقة، ولكل قلب مشتاق. 'الكوثر فواياج' هي بوابتك لتلبية هذا النداء الأبدي. نحن نمهد لك الطريق، لتركز فقط على هدفك الأسمى: القرب من الله. <br/><br/> دع الكوثر فواياج تأخذك إلى أعمق تجربة روحانية. اتصل بنا الآن. <br/><br/> #نداء_الروح #شوق_للكعبة #رحلة_إلى_الله #الكوثر_فواياج #مكة #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">صورة فنية رائعة للكعبة من زاوية منخفضة تنظر إلى السماء ليلا والنجوم واضحة. يجب أن تكون الصورة ملهمة وتثير الرهبة والخشوع. النص مكتوب بخط صغير وأنيق في الأسفل، لا ينافس جمال الصورة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr></tbody></table></div>
+
+    <div class="disclaimer-card">
+        <span style="font-size: 1.2em;">⚠️</span>
+        <span>قد تخضع هذه الاستراتيجية لبعض التعديلات والتحسينات، حسب المواد الإعلامية المتوفرة أو لغرض تحقيق أفضل النتائج.</span>
+    </div>
+
+    <div class="summary-box">
+        <span style="font-weight: 700; color: #FFD700;">الميزانية الإجمالية المعتمدة</span>
+        <span class="total-amount">105000 دج</span>
+        <a href="https://wa.me/213770820431" class="cta-btn">تواصل معنا للاعتماد</a>
+        <div style="border: 1px dashed #FFD700; padding: 25px; border-radius: 15px; margin-top: 20px;">
+            <h3 style="color:#FFD700; margin:0;">الخطوة التالية</h3>
+            <p style="margin:10px 0;">مكالمة قصيرة لنكيّف هذه الاستراتيجية حسب مشروعك ونبدأ العمل فوراً.</p>
+            <div class="phones-list">
+                <div class="phone-item">0770 82 04 31</div>
+                <div class="phone-item">0770 55 01 51</div>
+                <div class="phone-item">0770 82 01 45</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+function openModal(id) { document.getElementById('modal-' + id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
+function closeModal(id) { document.getElementById('modal-' + id).style.display = 'none'; document.body.style.overflow = 'auto'; }
+window.onclick = function(event) { if (event.target.className === 'modal') { event.target.style.display = 'none'; document.body.style.overflow = 'auto'; } }
+</script></body></html>
