@@ -1,0 +1,517 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>وكالة الكوثر للأسفار Strategy</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+<style>
+    body { background: #FFFFFF; color: #1A1A1A; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; line-height: 1.6; overflow-x: hidden; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 15px; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 2px solid #000; }
+    .wayso-logo { height: 45px; }
+    .brand-name { font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 1.4em; color: #000; text-transform: uppercase; border-right: 4px solid #FFD700; padding-right: 12px; }
+    
+    .analysis-section { margin: 30px 0; }
+    .card-philosophy { padding: 30px; border-radius: 20px; background: #000; color: #FFF; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+    .card-philosophy h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #FFD700; }
+    
+    .card-why { padding: 30px; border-radius: 20px; background: #F9F9F9; color: #333; margin-bottom: 20px; border: 1px solid #EDECE9; }
+    .card-why h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #000; display: flex; align-items: center; gap: 10px; }
+    .card-why h2::after { content: ''; flex-grow: 1; height: 1px; background: #EDECE9; margin-right: 15px; }
+
+    .hero { margin: 35px 0 20px 0; border-right: 6px solid #FFD700; padding-right: 15px; }
+    .hero h1 { font-size: 2.5em; font-weight: 700; margin: 0; }
+    .table-wrapper { margin-top: 25px; border-radius: 12px; overflow: hidden; border: 1px solid #EDECE9; }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #000; color: #FFF; padding: 15px; text-align: right; font-size: 0.9em; }
+    td { padding: 20px 12px; border-bottom: 1px solid #EDECE9; vertical-align: top; }
+    
+    .code-badge { font-family: 'Montserrat', sans-serif; font-weight: 700; background: #FFD700; color: #000; padding: 5px 12px; border-radius: 6px; font-size: 1.1em; display: inline-block; margin-bottom: 5px; }
+    .type-label { display: block; font-weight: 700; color: #555; font-size: 0.95em; }
+    
+    .hook-pill { background: #000; color: #FFD700; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 1.1em; display: block; border-right: 5px solid #FFD700; }
+    
+    /* تحسين زر المودال */
+    .script-trigger { background: #F8F9FA; border: 1px solid #EDECE9; padding: 15px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; }
+    .script-trigger:hover { background: #FFF; border-color: #FFD700; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+    
+    .preview-text { font-size: 0.95em; color: #333; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; white-space: pre-wrap; }
+    
+    .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(8px); }
+    .modal-content { background: #FFF; margin: 5% auto; padding: 30px; border-radius: 20px; width: 88%; max-width: 700px; position: relative; max-height: 85vh; overflow-y: auto; }
+    .close-modal { position: absolute; top: 15px; left: 15px; font-size: 35px; cursor: pointer; color: #999; line-height: 1; }
+    .modal-section { margin-bottom: 25px; padding: 15px; border-radius: 12px; background: #fbfbfa; border: 1px solid #eee; }
+    
+    /* تحسين تنسيق القراءة */
+    .modal-body { font-size: 1.15em; color: #1A1A1A; line-height: 1.9; word-wrap: break-word; }
+    
+    .disclaimer-card { margin: 25px 0; padding: 20px; background: #FFF9E6; border-radius: 12px; border-right: 5px solid #FFC107; font-size: 1.05em; color: #856404; display: flex; align-items: center; gap: 12px; }
+    .summary-box { margin-top: 50px; background: #000; color: #FFF; padding: 40px 20px; border-radius: 25px; text-align: center; }
+    .total-amount { font-family: 'Montserrat'; font-size: 3.5em; font-weight: 700; display: block; color: #FFD700; margin: 10px 0; }
+    .cta-btn { display: inline-block; background: #FFD700; color: #000; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.2em; margin-bottom: 25px; }
+    .phones-list { margin-top: 15px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; direction: ltr; } 
+    .phone-item { background: #1A1A1A; padding: 8px 15px; border-radius: 8px; border: 1px solid #333; color: #FFF; font-family: 'Montserrat'; font-weight: 700; font-size: 1.2em; white-space: nowrap; }
+
+    @media (max-width: 768px) {
+        thead { display: none; }
+        tr { display: block; border: 1px solid #EDECE9; border-radius: 15px; margin-bottom: 20px; padding: 15px; background: #FFF; }
+        td { display: block; padding: 8px 0; text-align: right; }
+        td::before { content: attr(data-label); font-weight: 700; color: #BBB; display: block; font-size: 0.75em; margin-bottom: 4px; }
+        .brand-name { font-size: 1.1em; }
+    }
+</style></head><body>
+
+<div class="container">
+    <div class="header">
+        <img src="https://storage.googleapis.com/msgsndr/GwIPQCjstTzxnzDQ1B32/media/68fddb5534bb1597bc934f89.png" class="wayso-logo">
+        <div class="brand-name">وكالة الكوثر للأسفار</div>
+    </div>
+
+    <div class="analysis-section">
+        <div class="card-philosophy"><h2>🎯 فلسفة الاستراتيجية</h2><p>نحن نؤمن بأن شراكتنا تتجاوز مجرد تقديم الخدمات؛ إنها استثمار في رؤيتكم. هذه الخطة الشاملة، التي تجمع بين قوة الفيديو الرئيسي الجذاب وسلاسة الكاروسالات التعليمية، مصممة لتحقيق أقصى تأثير لنموكم. إنها تهدف إلى بناء جسر من الثقة مع جمهوركم، وتقديم قيمة ملموسة تحولهم من مجرد مهتمين إلى عملاء أوفياء، مما يضمن لكم عائداً استراتيجياً حقيقياً.</p></div>
+        <div class="card-why"><h2>💡 لماذا هذه الخطة؟</h2><p>بدأنا بـ V1 لخطف الانتباه ومعالجة نقطة الألم الرئيسية، ثم انتقلنا إلى C2 لتعليم الجمهور تفاصيل الحل وبناء الثقة، ثم P3 لترسيخ المصداقية. هذا التسلسل النفسي يقود العميل تدريجياً من الوعي بالمشكلة إلى الثقة بالحل، مما يسهل اتخاذ قرار الشراء.</p></div>
+    </div>
+
+    <div class="hero"><h1>خطة الإنتاج الإبداعي</h1></div>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th style="width: 20%;">الكود والنوع</th><th style="width: 30%;">الهوك (Hook)</th><th style="width: 50%;">المحتوى</th></tr></thead>
+            <tbody><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V1</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">تخدم شهر باش تريح سمانة، و تزيد تخدم سمانة باش تخطط لهذيك السمانة؟ معادلة خاسرة!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('1')">
+                    <div class="preview-text">راك تجري العام كامل... تستنى في هذيك العطلة بفارغ الصبر.
+لكن قبل ما تبدا الراحة... يبدا التعب.
+بحث ع...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-1" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('1')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V1</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">راك تجري العام كامل... تستنى في هذيك العطلة بفارغ الصبر.<br/><br/>لكن قبل ما تبدا الراحة... يبدا التعب.<br/><br/>بحث على تذاكر الطيران... مقارنة الفنادق... إجراءات الفيزا...<br/><br/>القلق من كل تفصيلة صغيرة يقدر يفسدلك متعة السفر قبل حتى ما يبدا.<br/><br/>من 1989، وحنا في الكوثر للأسفار على بالنا بلي راحتك هي الصح.<br/><br/>مهمتنا ماشي غير نحجزولك بلاصة، مهمتنا نصنعولك تجربة كاملة.<br/><br/>تجربة تبدا من أول اتصال، ماشي من المطار.<br/><br/>نخططولك... ننسقو... و نضمنولك كلش يكون مثالي.<br/><br/>باش أنت... تركز على حاجة وحدة برك.<br/><br/>تستمتع بكل لحظة.<br/><br/>مع الكوثر للأسفار، عطلتك تبدا من عندنا.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">عطلتك لازم تكون راحة... ماشي خدمة زايدة!<br/><br/>علاش تخلي تعقيدات التخطيط تسرقلك فرحة السفر؟ من 1989، وكالة الكوثر للأسفار تتكفل بكل التفاصيل باش أنت تتفرغ للمتعة فقط. من حجز التذاكر للفنادق الفاخرة، وحتى إجراءات التأشيرة، حنا معاك خطوة بخطوة. راحتك تبدا من اللحظة لي تتصل فينا بيها.<br/><br/>ابدا عطلتك من اليوم بلا تعب! اتصل بينا في الكوTثر للأسفار وخلينا نتكفلو بكلش.<br/><br/>#الكوثر_للأسفار #سفر_مريح #عطلة_بلا_تعب #سياحة_الجزائر #وكالة_اسفار #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[المشهد 1 - الألم]: لقطات سريعة ومتقطعة. شخص يبدو عليه التوتر أمام شاشة لابتوب مفتوحة على 10 نوافذ (مقارنة أسعار، تقييمات فنادق). أوراق متناثرة. إضاءة باردة. موسيقى سريعة ومقلقة.<br/>[المشهد 2 - التحول]: يظهر شعار 'الكوثر للأسفار' بحركة انسيابية. تتغير الموسيقى إلى لحن راقٍ ومطمئن. الإضاءة تصبح دافئة. تظهر عبارة 'منذ 1989' بخط أنيق.<br/>[المشهد 3 - الحل]: لقطات سينمائية عالية الجودة (Aspirational Shots). عائلة تضحك في فندق فخم. زوجان يستمتعان بمنظر غروب الشمس. لقطات نظيفة لمستشار من الوكالة يتحدث مع عميل بابتسامة وثقة.<br/>[المشهد 4 - النتيجة]: لقطات بطيئة وجميلة للمسافرين وهم يعيشون التجربة (عمرة، شاطئ، مدينة سياحية)، بدون أي مظهر من مظاهر القلق. التركيز على تعابير وجوههم المرتاحة.<br/>[الختام]: يظهر الشعار مع الشعار المكتوب بوضوح: 'مع الكوثر للأسفار، عطلتك تبدا من عندنا ماشي من المطار'. ثم تظهر معلومات الاتصال.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C2</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">عطلتك لازم تبدا بالراحة من أول دقيقة. شوف كيفاش نضمنوهالك.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('2')">
+                    <div class="preview-text">Slide 1: كيفاش تخلي عطلتك تبدا بالراحة التامة، ماشي بالقلق؟ مع الكوثر للأسفار، السر في التفاصيل.
+Sli...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-2" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('2')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C2</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">Slide 1: كيفاش تخلي عطلتك تبدا بالراحة التامة، ماشي بالقلق؟ مع الكوثر للأسفار، السر في التفاصيل.<br/><br/>Slide 2: 1. مستشار سفر خاص بيك: ماشي روبوت، إنسان خبير يسمعلك ويفهم واش تحتاج بالضبط باش يصمملك الرحلة لي تليق بيك.<br/><br/>Slide 3: 2. حجوزات مدروسة ومضمونة: نختارولك أفضل الفنادق وشركات الطيران لي تضمنلك الراحة والأمان. كلش محجوز ومؤكد مسبقًا.<br/><br/>Slide 4: 3. ملف تأشيرة بلا تعقيدات: نتكفلو بالجزء الممل ونوجهوك خطوة بخطوة باش تكون عندك أكبر حظوظ القبول.<br/><br/>Slide 5: 4. دعم فوري 24/7: فريقنا يبقى على اتصال معاك أثناء رحلتك. أي مشكل يصرالك، حنا هنا باش نحلوه.<br/><br/>Slide 6: النتيجة؟ أنت تسافر مرتاح البال، ومركز 100% على الاستمتاع بتجربتك. مع الكوثر، الراحة ماشي خيار، هي وعد.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">الراحة ماشي صدفة، الراحة خدمة نتقنوها.<br/><br/>باش تكون عطلتك مثالية، لازم كل خطوة تكون مدروسة. في الكوثر للأسفار، بنينا نظام كامل يضمنلك راحة البال من أول مكالمة حتى ترجع لبلادك. اكتشف في هذا الكاروسال كيفاش نحولو عملية السفر المعقدة إلى تجربة سلسة وممتعة.<br/><br/>اكتشف خدماتنا اللي تخلي سفرك حلم. زور موقعنا!<br/><br/>#راحة_البال #سفر_منظم #خدمات_سياحية #الكوثر_للأسفار #سياحة #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم إنفوجرافيك أنيق وراقٍ. كل سلايد يستخدم أيقونة مميزة (أيقونة شخص للمستشار، طائرة للحجوزات، وثيقة للتأشيرة، ساعة للدعم). استخدام ألوان العلامة التجارية (الذهبي، الأزرق الداكن، الأبيض). خط واضح وسهل القراءة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P3</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">34 سنة من الثقة والراحة. هذه ماشي غير أرقام، هذه وعود محققة.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('3')">
+                    <div class="preview-text">34 سنة من الثقة والراحة.
+هذه ماشي غير أرقام، هذه وعود محققة.
+الكوثر للأسفار | منذ 1989...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-3" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('3')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P3</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">34 سنة من الثقة والراحة.<br/><br/>هذه ماشي غير أرقام، هذه وعود محققة.<br/><br/>الكوثر للأسفار | منذ 1989</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">الخبرة هي أفضل ضمان لسفرك.<br/><br/>على مدار 34 عامًا، بنينا سمعتنا على الثقة وتحقيق الوعود. كل رحلة نظمناها كانت قصة نجاح، وكل عميل كان جزء من عائلتنا. كي تختار الكوثر للأسفار، أنت ماكش تختار مجرد وكالة، راك تختار عقود من الخبرة وراحة البال.<br/><br/>حقق حلم سفرك اليوم. راسلنا على الخاص.<br/><br/>#ثقة #خبرة #مصداقية #الكوثر_للأسفار #سفر_آمن #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم بصري قوي ومركز. الرقم '34' أو عبارة 'منذ 1989' مكتوبة بخط كبير وأنيق. الخلفية تكون صورة راقية جداً أو لون موحد فاخر. شعار الوكالة وشعار IATA يوضعان بشكل أنيق في الأسفل.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V4</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">شحال من ساعة ضيعتها قدام ليكرون تخطط لعطلتك؟ هذاك الوقت نقدر نرجعوهولك.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('4')">
+                    <div class="preview-text">الساعة الأولى: تقارن في أسعار الطيران.
+الساعة الثالثة: تقرا في تعليقات الناس على الفنادق.
+الساعة الس...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-4" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('4')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V4</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">الساعة الأولى: تقارن في أسعار الطيران.<br/><br/>الساعة الثالثة: تقرا في تعليقات الناس على الفنادق.<br/><br/>الساعة السادسة: مازالك حاير بين زوج وجهات.<br/><br/>يومين من بعد: راك حاصل في أوراق الفيزا.<br/><br/>هذا كامل وقت من حياتك، وقت ثمين تقدر تقضيه مع عايلتك ولا في راحتك.<br/><br/>في الكوثر للأسفار، خدمتنا هي نرجعولك وقتك.<br/><br/>حنا نديرو البحث، المقارنة، والحجوزات.<br/><br/>وأنت؟ استمتع بوقتك.<br/><br/>وقتك أغلى من أنك تضيعو في التخطيط.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">وقتك هو أثمن ما تملك. علاش تضيعو؟<br/><br/>عملية التخطيط لرحلة تقدر تسرق منك عشرات الساعات الثمينة. في الكوثر للأسفار، نعطوك هذيك الساعات كهدية. فريقنا المتخصص يقوم بكل العمل الشاق، باش أنت تركز على الاستمتاع باللحظة. شاهد الفيديو واكتشف كيفاش تقدر تربح الوقت وراحة البال.<br/><br/>ما تخليش التخطيط يسرق متعتك! اطلب استشارة مجانية اليوم.<br/><br/>#توفير_الوقت #سفر_ذكي #عطلة #الجزائر #الكوثر_للأسفار #راحة</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو سريع يعتمد على Motion Graphics. تظهر ساعة رقمية في زاوية الشاشة تعد الساعات بسرعة. مشاهد غرافيكية لشخص غارق في الأوراق والبيانات. ثم انتقال سلس لمشاهد UGC (مقدمة من عملاء حقيقيين) لناس يستمتعون بوقتهم بفضل الوكالة. الموسيقى تبدأ متوترة وتتحول إلى إيقاع مريح وإيجابي.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C5</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">وقتك أغلى من أنك تضيّعو في التخطيط. شوف كيفاش نرجعوهولك.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('5')">
+                    <div class="preview-text">Slide 1: من الألف إلى الياء: هكذا نوفر عليك ساعات من التخطيط والبحث.
+Slide 2: المشكل: ضياع ساعات في ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-5" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('5')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C5</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">Slide 1: من الألف إلى الياء: هكذا نوفر عليك ساعات من التخطيط والبحث.<br/><br/>Slide 2: المشكل: ضياع ساعات في البحث عن الوجهة المثالية والبرنامج المناسب. الحل ديالنا: مستشار خبير يقترح عليك أفضل الخيارات بناءً على ميزانيتك وذوقك في دقائق.<br/><br/>Slide 3: المشكل: تعقيدات حجز تذاكر الطيران والإقامة بأفضل سعر. الحل ديالنا: نظامنا المتقدم يضمن لك أفضل الصفقات المؤكدة بدون عناء البحث.<br/><br/>Slide 4: المشكل: متاهة متطلبات وإجراءات التأشيرة. الحل ديالنا: نجهزلك القائمة الكاملة ونوجهك خطوة بخطوة لتسهيل العملية.<br/><br/>Slide 5: النتيجة: تربح وقتك، تتفادى القلق، وتضمن رحلة منظمة بإتقان. أنت ماعليك غير توجد الشنطة ديالك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">4 خطوات بسيطة تخليك تربح وقتك وتضمن راحتك.<br/><br/>التخطيط للسفر ما لازمش يكون مهمة متعبة. اكتشف في هذا الكاروسال كيفاش نحولو كل خطوة معقدة إلى حل بسيط وسريع، ونرجعولك وقتك الثمين باش تستمتع بيه في التحضير لرحلتك.<br/><br/>شاهد كيف نجعل سفرك أسهل. رابط خدماتنا في البايو.<br/><br/>#كفاءة #حلول_سفر #سياحة #الجزائر #الكوثر_للأسفار #تنظيم_رحلات</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم يعتمد على مقارنة 'المشكل/الحل'. كل سلايد مقسوم إلى قسمين. قسم 'المشكل' بخلفية رمادية وأيقونة تدل على التعقيد. قسم 'الحل' بخلفية زاهية من ألوان العلامة وأيقونة تدل على البساطة والفعالية. خط عصري وواضح.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P6</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">تخيل عطلة تبدا وأنت مرتاح البال.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('6')">
+                    <div class="preview-text">تخيل عطلة... تبدأ قبل أن تبدأ.
+عطلة تبدأ وأنت مرتاح البال....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-6" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('6')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P6</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">تخيل عطلة... تبدأ قبل أن تبدأ.<br/><br/>عطلة تبدأ وأنت مرتاح البال.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">الرفاهية الحقيقية هي راحة البال.<br/><br/>قبل الفنادق الفخمة والطائرات المريحة، تجي راحة البال. هذا هو المنتج الأساسي اللي نقدموه في الكوثر للأسفار. نضمنولك تجربة تبدا بالسكينة وتنتهي بذكريات جميلة.<br/><br/>راحتك أولويتنا. تواصل معنا لمعرفة المزيد.<br/><br/>#راحة_البال #رفاهية #استرخاء #عطلة_أحلام #الكوثر_للأسفار #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">صورة عالية الجودة وموحية بالراحة المطلقة: شخص يقرأ كتاباً في شرفة تطل على منظر طبيعي خلاب، أو أقدام مسترخية أمام مسبح هادئ. النص مكتوب فوق الصورة بخط أنيق وغير مزعج. التركيز الكلي على الشعور بالسكينة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V7</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">حاب تسافر وأنت مهنّي؟ لازم تعرف الفرق بين وكالة، و 'وكالة معتمدة'.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('7')">
+                    <div class="preview-text">(الوجه الإعلامي يتحدث مباشرة للكاميرا بجدية وثقة)
+السلام عليكم.
+كي تقرر تسافر، خاصة لرحلة مهمة كيما ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-7" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('7')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V7</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">(الوجه الإعلامي يتحدث مباشرة للكاميرا بجدية وثقة)<br/><br/>السلام عليكم.<br/><br/>كي تقرر تسافر، خاصة لرحلة مهمة كيما العمرة، أكبر هم عندك هو الثقة.<br/><br/>كيفاش تتأكد بلي أموالك في أمان؟ وبلي الخدمة راح تكون في المستوى؟<br/><br/>الفرق كامل يكمن في زوج حوايج: الخبرة، والاعتماد الرسمي.<br/><br/>في الكوثر للأسفار، عندنا أكثر من 34 سنة في الميدان. شفنا كلش وتعلمنا كلش.<br/><br/>والأهم، حنا وكالة معتمدة من طرف 'IATA'، المنظمة العالمية للنقل الجوي.<br/><br/>هذا الاعتماد ماشي مجرد شهادة تتعلق في الحيط. هذا ضمان.<br/><br/>ضمان لمعايير عالمية في الخدمة، ضمان لحماية أموالك، وضمان لجودة التجربة.<br/><br/>كي تختارنا، ماكش تختار مجرد منظم رحلات. راك تختار الأمان، الثقة، وراحة البال.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">سفرك أمانة. اختر من تأتمنه عليها.<br/><br/>الثقة لا تُبنى في يوم وليلة. في الكوثر للأسفار، بنيناها على مدار 34 عامًا من الخدمة المتميزة، وعززناها بالاعتماد العالمي IATA. شاهد الفيديو لتعرف كيف تترجم هذه الضمانات إلى أمان حقيقي لرحلتك، خاصة للوجهات الروحانية كالعمرة.<br/><br/>ثقتك هي رأس مالنا. زر فرعنا الأقرب إليك وتحدث معنا.<br/><br/>#أمان #ثقة #IATA #عمرة #سفر_آمن #الكوثر_للأسفار #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">الوجه الإعلامي (Host) يقف أو يجلس في مكتب أنيق ومهني. خلفه يظهر شعار الوكالة بشكل خفي وربما شهادة IATA مؤطرة. يتحدث بنبرة واثقة، هادئة، ومباشرة. يتم إدراج رسوم بيانية بسيطة (Motion Graphics) عند ذكر '34 سنة' و 'IATA' لتوضيح الفكرة. الإضاءة احترافية والكاميرا ثابتة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C8</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كي تشوف لوغو IATA، واش معنتها ليك كمسافر؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('8')">
+                    <div class="preview-text">Slide 1: تشوف هذا الشعار بزاف، بصح هل علابالك واش يعني ليك أنت؟ شعار IATA هو ضمان لرحلتك.
+Slide 2: 1...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-8" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('8')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C8</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">Slide 1: تشوف هذا الشعار بزاف، بصح هل علابالك واش يعني ليك أنت؟ شعار IATA هو ضمان لرحلتك.<br/><br/>Slide 2: 1. حماية مالية: الوكالات المعتمدة تلتزم بمعايير مالية صارمة. يعني أموالك في أمان من لحظة الدفع.<br/><br/>Slide 3: 2. معايير خدمة عالمية: الاعتماد يفرض علينا تطبيق أفضل الممارسات العالمية في كل تفاصيل رحلتك، من الحجز إلى العودة.<br/><br/>Slide 4: 3. احترافية مضمونة: موظفونا مدربون وفقاً لمعايير IATA، ما يضمن لك استشارة خبيرة وخدمة عملاء ممتازة.<br/><br/>Slide 5: باختصار، IATA ماشي غير كلمة. هي ختم جودة يضمنلك سفر آمن، منظم، ومريح. لا تقبل بأقل من ذلك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">IATA: ضمانك لرحلة بدون مفاجآت سيئة.<br/><br/>اعتماد IATA هو أكثر من مجرد شعار؛ إنه التزام بالجودة والأمان. في هذا الكاروسال، نشرح لك ببساطة كيف يحميك هذا الاعتماد ويضمن لك تجربة سفر عالمية المستوى مع الكوثر للأسفار.<br/><br/>تأكد من اختيارك الصحيح. اعرف المزيد عن ضماناتنا.<br/><br/>#IATA #ضمان #جودة #سفر_احترافي #الكوثر_للأسفار #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم إنفوجرافيك توضيحي. السلايد الأول يبرز شعار IATA مع علامة استفهام. كل سلايد لاحق يستخدم أيقونة معبرة (درع للحماية المالية، نجمة للجودة، قبعة تخرج للاحترافية). الألوان رسمية وموحية بالثقة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P9</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">أكثر من 3 عقود من الخبرة، وثقة عالمية.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('9')">
+                    <div class="preview-text">34 سنة خبرة.
+اعتماد عالمي IATA.
+الثقة التي تستحقها....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-9" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('9')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P9</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">34 سنة خبرة.<br/><br/>اعتماد عالمي IATA.<br/><br/>الثقة التي تستحقها.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">خبرتنا المحلية... بمعايير عالمية.<br/><br/>نجمع بين فهمنا العميق لاحتياجات المسافر الجزائري والتزامنا بأعلى معايير الجودة العالمية. أكثر من 3 عقود من الخبرة واعتماد IATA هما شهادتنا التي نقدمها لك.<br/><br/>سافر بأمان. استكشف عروضنا.<br/><br/>#مصداقية #خبرة #جودة_عالمية #سفر #الجزائر #الكوثر_للأسفار</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم بصري يركز على السلطة والمصداقية. مثل شارة أو ختم جودة. يدمج بين عبارة 'منذ 1989'، وشعار IATA، وشعار الكوثر للأسفار في تركيبة بصرية متوازنة وأنيقة. الألوان ذهبية أو فضية لتعزيز الشعور بالجودة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V10</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">ماشي مجرد سفر. تجربة فاخرة وين كل تفصيل مدروس على جالك.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('10')">
+                    <div class="preview-text">(صوت هادئ وراقٍ مع موسيقى سينمائية ملهمة)
+تخيل... أن تستيقظ في فندق يطل على أجمل منظر حلمت به.
+تخيل....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-10" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('10')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V10</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">(صوت هادئ وراقٍ مع موسيقى سينمائية ملهمة)<br/><br/>تخيل... أن تستيقظ في فندق يطل على أجمل منظر حلمت به.<br/><br/>تخيل... أن يكون يومك منظماً بالكامل، بدون أن تفكر في أي تفصيل.<br/><br/>من السيارة الفاخرة التي تنتظرك في المطار...<br/><br/>إلى حجز العشاء في أفضل مطعم في المدينة...<br/><br/>كل لحظة... مصممة خصيصاً لك.<br/><br/>هذه ليست مجرد رحلة.<br/><br/>هذه هي تجربة الكوثر للأسفار.<br/><br/>حيث تتحول أحلامك إلى ذكريات لا تُنسى.<br/><br/>نعتقد أنك تستحق الأفضل. ونحن هنا لتقديمه لك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">رحلتك القادمة... تحفة فنية من صنعنا.<br/><br/>السفر معنا يتجاوز مجرد الوصول إلى وجهة. إنه فن الاهتمام بالتفاصيل، وشغف خلق تجارب استثنائية. نحن نرسم لك لوحة رحلتك المثالية، حيث كل لمسة مدروسة لتوفر لك قمة الرفاهية والراحة. شاهد الفيديو واستلهم رحلتك القادمة.<br/><br/>خلينا نصنعلك ذكرى ما تتنساش. احجز رحلتك الفاخرة الآن!<br/><br/>#سفر_فاخر #تجربة_فريدة #رفاهية #عطلة_أحلام #الكوثر_للأسفار #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو سينمائي بالكامل. لقطات بطيئة (Slow-motion) عالية الجودة لوجهات فاخرة وتجارب فريدة. التركيز على التفاصيل الصغيرة التي تصنع الفخامة (يد تفتح ستارة غرفة فندق، نادل يقدم طبقاً شهياً، الخ). لا يظهر أشخاص متوترون أبداً. الألوان غنية والضوء طبيعي وجميل. الفيديو يبيع الحلم والشعور.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C11</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">ماشي حنا لي نقولو... الزبائن تاعنا هوما لي يحكيو.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('11')">
+                    <div class="preview-text">Slide 1: شاهد كيف تبدو الرحلة المثالية مع الكوثر للأسفار... بعيون عملائنا.
+Slide 2: (صورة رائعة من ا...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-11" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('11')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C11</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">Slide 1: شاهد كيف تبدو الرحلة المثالية مع الكوثر للأسفار... بعيون عملائنا.<br/><br/>Slide 2: (صورة رائعة من المالديف) 'كانت رحلة العمر! كل شي كان منظم بإتقان، تفوقوا على كل توقعاتي.' - فاطمة ز.<br/><br/>Slide 3: (صورة مهيبة من الحرم المكي) 'تجربة العمرة كانت روحانية وسلسة. حسيت براحة بال كبيرة بفضل تنظيمهم المحكم.' - محمد ع.<br/><br/>Slide 4: (صورة عائلة سعيدة في ديزني لاند) 'الأولاد فرحوا بزاف والتعب كان صفر. الكوثر تكفلت بكلش، شكراً لكم.' - عائلة ب.<br/><br/>Slide 5: (صورة لزوجين في سانتوريني) 'أفضل هدية في ذكرى زواجنا. كل التفاصيل كانت رومانسية ومثالية.' - أمين و سارة.<br/><br/>Slide 6: قصتك القادمة تنتظر من يكتبها. هل أنت مستعد؟</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">أجمل رحلاتنا هي التي نراها في عيون عملائنا.<br/><br/>أكبر فخر لنا هو رضا عملائنا وسعادتهم. في هذا المنشور، نشارككم بعض اللحظات التي عاشوها والكلمات التي عبروا بها عن تجربتهم مع الكوثر للأسفار. قصصهم هي أفضل دليل على وعدنا بالجودة والراحة.<br/><br/>ابدأ رحلتك الفاخرة اليوم. تصفح برامجنا السياحية.<br/><br/>#شهادات_عملاء #زبائن_سعداء #دليل_اجتماعي #الكوثر_للأسفار #ثقة #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم يركز على الصور القوية. كل سلايد يحتوي على صورة جذابة وعالية الجودة من وجهة سياحية. شهادة العميل مكتوبة بخط أنيق وواضح في مساحة مخصصة. استخدام علامات الاقتباس لإبراز النص. السلايد الأخير هو دعوة للعمل.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P12</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">خلي متعة السفر تبدا معاك من أول لحظة.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('12')">
+                    <div class="preview-text">متعة السفر... تبدأ من أول لحظة.
+الكوثر للأسفار...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-12" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('12')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P12</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">متعة السفر... تبدأ من أول لحظة.<br/><br/>الكوثر للأسفار</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">لا تنتظر الوصول للاستمتاع. ابدأ الآن.<br/><br/>لماذا يجب أن تكون متعة السفر محصورة في أيام العطلة فقط؟ مع الكوثر للأسفار، تبدأ التجربة الممتعة من لحظة الحجز. وداعاً للقلق، ومرحباً بالترقب السعيد.<br/><br/>لا تنتظر أكثر! استعلم عن عروضنا الخاصة.<br/><br/>#متعة_السفر #بداية_الرحلة #الكوثر_للأسفار #سياحة #الجزائر #عطلة</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">صورة مؤثرة وملهمة، تعبر عن بداية شيء جميل. مثلاً: يد شخص وهو يغلق حقيبة السفر بابتسامة، أو صورة جواز سفر وتذكرة موضوعة بشكل أنيق بجانب فنجان قهوة. النص (USP Slogan) مكتوب بشكل بارز وواضح. التصميم بسيط ومركز على الرسالة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr></tbody></table></div>
+
+    <div class="disclaimer-card">
+        <span style="font-size: 1.2em;">⚠️</span>
+        <span>قد تخضع هذه الاستراتيجية لبعض التعديلات والتحسينات، حسب المواد الإعلامية المتوفرة أو لغرض تحقيق أفضل النتائج.</span>
+    </div>
+
+    <div class="summary-box">
+        <span style="font-weight: 700; color: #FFD700;">الميزانية الإجمالية المعتمدة</span>
+        <span class="total-amount">87000 دج</span>
+        <a href="https://wa.me/213770820431" class="cta-btn">تواصل معنا للاعتماد</a>
+        <div style="border: 1px dashed #FFD700; padding: 25px; border-radius: 15px; margin-top: 20px;">
+            <h3 style="color:#FFD700; margin:0;">الخطوة التالية</h3>
+            <p style="margin:10px 0;">مكالمة قصيرة لنكيّف هذه الاستراتيجية حسب مشروعك ونبدأ العمل فوراً.</p>
+            <div class="phones-list">
+                <div class="phone-item">0770 82 04 31</div>
+                <div class="phone-item">0770 55 01 51</div>
+                <div class="phone-item">0770 82 01 45</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+function openModal(id) { document.getElementById('modal-' + id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
+function closeModal(id) { document.getElementById('modal-' + id).style.display = 'none'; document.body.style.overflow = 'auto'; }
+window.onclick = function(event) { if (event.target.className === 'modal') { event.target.style.display = 'none'; document.body.style.overflow = 'auto'; } }
+</script></body></html>
