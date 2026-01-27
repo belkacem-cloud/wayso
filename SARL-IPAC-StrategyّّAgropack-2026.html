@@ -1,0 +1,140 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>SARL IPAC Strategy - Agropack 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+<style>
+body { background: #FFFFFF; color: #1A1A1A; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; line-height: 1.6; overflow-x: hidden; }
+.container { max-width: 1100px; margin: 0 auto; padding: 15px; }
+.header { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 2px solid #000; }
+.wayso-logo { height: 45px; }
+.brand-name { font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 1.4em; color: #000; text-transform: uppercase; border-right: 4px solid #FFD700; padding-right: 12px; }
+.analysis-section { margin: 30px 0; }
+.card-philosophy { padding: 30px; border-radius: 20px; background: #000; color: #FFF; margin-bottom: 20px; }
+.card-philosophy h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #FFD700; }
+.card-why { padding: 30px; border-radius: 20px; background: #F9F9F9; color: #333; margin-bottom: 20px; border: 1px solid #EDECE9; }
+.card-why h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #000; display: flex; align-items: center; gap: 10px; }
+.hero { margin: 35px 0 20px 0; border-right: 6px solid #FFD700; padding-right: 15px; }
+.hero h1 { font-size: 2.5em; font-weight: 700; margin: 0; }
+.table-wrapper { margin-top: 25px; border-radius: 12px; overflow: hidden; border: 1px solid #EDECE9; }
+table { width: 100%; border-collapse: collapse; }
+th { background: #000; color: #FFF; padding: 15px; text-align: right; font-size: 0.9em; }
+td { padding: 20px 12px; border-bottom: 1px solid #EDECE9; vertical-align: top; }
+.code-badge { font-family: 'Montserrat', sans-serif; font-weight: 700; background: #FFD700; color: #000; padding: 5px 12px; border-radius: 6px; font-size: 1.1em; display: inline-block; margin-bottom: 5px; }
+.type-label { display: block; font-weight: 700; color: #555; font-size: 0.95em; }
+.hook-pill { background: #000; color: #FFD700; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 1.1em; display: block; border-right: 5px solid #FFD700; }
+.script-trigger { background: #F8F9FA; border: 1px solid #EDECE9; padding: 15px; border-radius: 10px; cursor: pointer; }
+.preview-text { font-size: 0.95em; color: #333; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; white-space: pre-wrap; }
+.modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(8px); }
+.modal-content { background: #FFF; margin: 5% auto; padding: 30px; border-radius: 20px; width: 88%; max-width: 700px; position: relative; max-height: 85vh; overflow-y: auto; }
+.close-modal { position: absolute; top: 15px; left: 15px; font-size: 35px; cursor: pointer; color: #999; line-height: 1; }
+.modal-section { margin-bottom: 25px; padding: 15px; border-radius: 12px; background: #fbfbfa; border: 1px solid #eee; }
+.modal-body { font-size: 1.15em; color: #1A1A1A; line-height: 1.9; word-wrap: break-word; }
+.disclaimer-card { margin: 25px 0; padding: 20px; background: #FFF9E6; border-radius: 12px; border-right: 5px solid #FFC107; font-size: 1.05em; color: #856404; display: flex; align-items: center; gap: 12px; }
+.summary-box { margin-top: 50px; background: #000; color: #FFF; padding: 40px 20px; border-radius: 25px; text-align: center; }
+.total-amount { font-family: 'Montserrat'; font-size: 3.5em; font-weight: 700; display: block; color: #FFD700; margin: 10px 0; }
+.cta-btn { display: inline-block; background: #FFD700; color: #000; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.2em; margin-bottom: 25px; }
+.phones-list { margin-top: 15px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; direction: ltr; }
+.phone-item { background: #1A1A1A; padding: 8px 15px; border-radius: 8px; border: 1px solid #333; color: #FFF; font-family: 'Montserrat'; font-weight: 700; font-size: 1.2em; white-space: nowrap; }
+@media (max-width: 768px) {
+thead { display: none; }
+tr { display: block; border: 1px solid #EDECE9; border-radius: 15px; margin-bottom: 20px; padding: 15px; background: #FFF; }
+td { display: block; padding: 8px 0; text-align: right; }
+td::before { content: attr(data-label); font-weight: 700; color: #BBB; display: block; font-size: 0.75em; margin-bottom: 4px; }
+.brand-name { font-size: 1.1em; }
+}
+</style></head><body>
+
+<div class="container">
+<div class="header">
+<img src="https://storage.googleapis.com/msgsndr/GwIPQCjstTzxnzDQ1B32/media/68fddb5534bb1597bc934f89.png" class="wayso-logo">
+<div class="brand-name">SARL IPAC</div>
+</div>
+
+<div class="analysis-section">
+<div class="card-philosophy">
+<h2>🎯 فلسفة الاستراتيجية</h2>
+<p>مع اقتراب معرض Agropack 2026، تعتمد IPAC على التشويق وبناء صورة علامة صناعية متكاملة. الهدف هو خلق رغبة فورية لزيارة الجناح واكتشاف منظومة حلول الأشرطة الصناعية في مكان واحد.</p>
+</div>
+<div class="card-why">
+<h2>💡 لماذا هذا الإطار؟</h2>
+<p>لأن IPAC علامة راسخة في السوق، ولأن المعرض حدث قوي بحد ذاته. فيديو محوري شامل يبني الصورة الذهنية، وبقية المحتوى يعمّق الفضول ويدفع قرار الزيارة.</p>
+</div>
+</div>
+
+<div class="hero"><h1>خطة الإنتاج الإبداعي</h1></div>
+
+<div class="table-wrapper">
+<table>
+<thead><tr><th style="width:20%">الكود والنوع</th><th style="width:30%">الهوك</th><th style="width:50%">المحتوى</th></tr></thead>
+<tbody>
+
+<tr>
+<td data-label="الهوية والنوع"><span class="code-badge">V1</span><span class="type-label">🎬 فيديو محوري</span></td>
+<td data-label="الهوك"><div class="hook-pill">IPAC في Agropack 2026… عالم حلول صناعية في جناح واحد</div></td>
+<td data-label="المحتوى">
+<div class="script-trigger" onclick="openModal('1')">
+<div class="preview-text">فيديو شامل (60 ثانية) يعرّف بـ IPAC، تنوع منتجاتها، ويعلن مشاركتها في Agropack بأسلوب تشويقي قوي...</div>
+<span style="font-size:0.8em;color:#000;font-weight:700;margin-top:8px;display:inline-block;background:#FFD700;padding:2px 10px;border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+</div>
+<div id="modal-1" class="modal">
+<div class="modal-content">
+<span class="close-modal" onclick="closeModal('1')">&times;</span>
+<h2 style="border-bottom:3px solid #FFD700;padding-bottom:10px;font-size:1.5em;margin-top:0;">تفاصيل V1</h2>
+<div class="modal-section">
+<h4>🎬 السكربت</h4>
+<div class="modal-body">
+منذ 1984، وIPAC ترافق الصناعة الجزائرية بحلول موثوقة في عالم الأشرطة الصناعية.<br/><br/>
+من Rubans d’emballage إلى Rubans techniques، تشكيلة متكاملة جاهزة لتلبية مختلف الاحتياجات الصناعية.<br/><br/>
+في Agropack 2026، تفتح IPAC أبواب جناحها لاكتشاف هذا العالم عن قرب.<br/><br/>
+📍 SAFEX – من 2 إلى 5 فيفري – جناح IPAC.
+</div>
+</div>
+<div class="modal-section" style="background:#FFF9E6;border:1px solid #FFE69C;">
+<h4>📝 Ad Copy</h4>
+<div class="modal-body">
+🔴 IPAC حاضرة في Agropack 2026!<br/><br/>
+اكتشف عالم الأشرطة الصناعية وحلول التغليف في جناح واحد. خبرة، تنوع، وجاهزية لخدمة الصناعيين.<br/><br/>
+📍 SAFEX – جناح IPAC.
+</div>
+</div>
+<div class="modal-section" style="border:none;background:none;">
+<h4>⚙️ ملاحظات التنفيذ</h4>
+<div class="modal-body">مونتاج ديناميكي، لقطات منتجات، لقطات فريق، مع إبراز معلومات المعرض في النهاية.</div>
+</div>
+</div>
+</div>
+</td>
+</tr>
+
+</tbody>
+</table>
+</div>
+
+<div class="disclaimer-card">
+<span style="font-size:1.2em;">⚠️</span>
+<span>قد تخضع هذه الاستراتيجية لبعض التعديلات حسب المواد الإعلامية المتوفرة.</span>
+</div>
+
+<div class="summary-box">
+<span style="font-weight:700;color:#FFD700;">الميزانية الإجمالية المعتمدة</span>
+<span class="total-amount">64000 دج</span>
+<a href="https://wa.me/213770820431" class="cta-btn">تواصل معنا للاعتماد</a>
+<div style="border:1px dashed #FFD700;padding:25px;border-radius:15px;margin-top:20px;">
+<h3 style="color:#FFD700;margin:0;">الخطوة التالية</h3>
+<p style="margin:10px 0;">مكالمة قصيرة لتكييف الاستراتيجية والانطلاق في التنفيذ.</p>
+<div class="phones-list">
+<div class="phone-item">0770 82 04 31</div>
+<div class="phone-item">0770 55 01 51</div>
+<div class="phone-item">0770 82 01 45</div>
+</div>
+</div>
+</div>
+</div>
+
+<script>
+function openModal(id){document.getElementById('modal-'+id).style.display='block';document.body.style.overflow='hidden';}
+function closeModal(id){document.getElementById('modal-'+id).style.display='none';document.body.style.overflow='auto';}
+window.onclick=function(event){if(event.target.className==='modal'){event.target.style.display='none';document.body.style.overflow='auto';}}
+</script>
+
+</body></html>
