@@ -1,0 +1,624 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>SARL IPAC Strategy</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+<style>
+    body { background: #FFFFFF; color: #1A1A1A; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; line-height: 1.6; overflow-x: hidden; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 15px; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 2px solid #000; }
+    .wayso-logo { height: 45px; }
+    .brand-name { font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 1.4em; color: #000; text-transform: uppercase; border-right: 4px solid #FFD700; padding-right: 12px; }
+    
+    .analysis-section { margin: 30px 0; }
+    .card-philosophy { padding: 30px; border-radius: 20px; background: #000; color: #FFF; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+    .card-philosophy h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #FFD700; }
+    
+    .card-why { padding: 30px; border-radius: 20px; background: #F9F9F9; color: #333; margin-bottom: 20px; border: 1px solid #EDECE9; }
+    .card-why h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #000; display: flex; align-items: center; gap: 10px; }
+    .card-why h2::after { content: ''; flex-grow: 1; height: 1px; background: #EDECE9; margin-right: 15px; }
+
+    .hero { margin: 35px 0 20px 0; border-right: 6px solid #FFD700; padding-right: 15px; }
+    .hero h1 { font-size: 2.5em; font-weight: 700; margin: 0; }
+    .table-wrapper { margin-top: 25px; border-radius: 12px; overflow: hidden; border: 1px solid #EDECE9; }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #000; color: #FFF; padding: 15px; text-align: right; font-size: 0.9em; }
+    td { padding: 20px 12px; border-bottom: 1px solid #EDECE9; vertical-align: top; }
+    
+    .code-badge { font-family: 'Montserrat', sans-serif; font-weight: 700; background: #FFD700; color: #000; padding: 5px 12px; border-radius: 6px; font-size: 1.1em; display: inline-block; margin-bottom: 5px; }
+    .type-label { display: block; font-weight: 700; color: #555; font-size: 0.95em; }
+    
+    .hook-pill { background: #000; color: #FFD700; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 1.1em; display: block; border-right: 5px solid #FFD700; }
+    
+    /* تحسين زر المودال */
+    .script-trigger { background: #F8F9FA; border: 1px solid #EDECE9; padding: 15px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; }
+    .script-trigger:hover { background: #FFF; border-color: #FFD700; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+    
+    .preview-text { font-size: 0.95em; color: #333; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; white-space: pre-wrap; }
+    
+    .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(8px); }
+    .modal-content { background: #FFF; margin: 5% auto; padding: 30px; border-radius: 20px; width: 88%; max-width: 700px; position: relative; max-height: 85vh; overflow-y: auto; }
+    .close-modal { position: absolute; top: 15px; left: 15px; font-size: 35px; cursor: pointer; color: #999; line-height: 1; }
+    .modal-section { margin-bottom: 25px; padding: 15px; border-radius: 12px; background: #fbfbfa; border: 1px solid #eee; }
+    
+    /* تحسين تنسيق القراءة */
+    .modal-body { font-size: 1.15em; color: #1A1A1A; line-height: 1.9; word-wrap: break-word; }
+    
+    .disclaimer-card { margin: 25px 0; padding: 20px; background: #FFF9E6; border-radius: 12px; border-right: 5px solid #FFC107; font-size: 1.05em; color: #856404; display: flex; align-items: center; gap: 12px; }
+    .summary-box { margin-top: 50px; background: #000; color: #FFF; padding: 40px 20px; border-radius: 25px; text-align: center; }
+    .total-amount { font-family: 'Montserrat'; font-size: 3.5em; font-weight: 700; display: block; color: #FFD700; margin: 10px 0; }
+    .cta-btn { display: inline-block; background: #FFD700; color: #000; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.2em; margin-bottom: 25px; }
+    .phones-list { margin-top: 15px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; direction: ltr; } 
+    .phone-item { background: #1A1A1A; padding: 8px 15px; border-radius: 8px; border: 1px solid #333; color: #FFF; font-family: 'Montserrat'; font-weight: 700; font-size: 1.2em; white-space: nowrap; }
+
+    @media (max-width: 768px) {
+        thead { display: none; }
+        tr { display: block; border: 1px solid #EDECE9; border-radius: 15px; margin-bottom: 20px; padding: 15px; background: #FFF; }
+        td { display: block; padding: 8px 0; text-align: right; }
+        td::before { content: attr(data-label); font-weight: 700; color: #BBB; display: block; font-size: 0.75em; margin-bottom: 4px; }
+        .brand-name { font-size: 1.1em; }
+    }
+</style></head><body>
+
+<div class="container">
+    <div class="header">
+        <img src="https://storage.googleapis.com/msgsndr/GwIPQCjstTzxnzDQ1B32/media/68fddb5534bb1597bc934f89.png" class="wayso-logo">
+        <div class="brand-name">SARL IPAC</div>
+    </div>
+
+    <div class="analysis-section">
+        <div class="card-philosophy"><h2>🎯 فلسفة الاستراتيجية</h2><p>As your strategic partners, we've meticulously crafted this campaign to not just meet but exceed your growth objectives. By strategically blending comprehensive master videos with targeted educational carousels, we ensure your message resonates deeply, builds unwavering trust, and positions you as the undeniable leader in your industry. This approach is a direct investment in your sustained success and market dominance.</p></div>
+        <div class="card-why"><h2>💡 لماذا هذه الخطة؟</h2><p>The campaign begins with V1 to immediately capture attention and establish authority, followed by C2 for deeper education and trust-building. This psychological sequencing ensures a seamless customer journey, guiding prospects from initial awareness to profound understanding, ultimately converting interest into solid partnerships by addressing their pain points and reinforcing IPAC's unparalleled value.</p></div>
+    </div>
+
+    <div class="hero"><h1>خطة الإنتاج الإبداعي</h1></div>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th style="width: 20%;">الكود والنوع</th><th style="width: 30%;">الهوك (Hook)</th><th style="width: 50%;">المحتوى</th></tr></thead>
+            <tbody><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V1</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">دقيقة توقف في خط الإنتاج ديالك شحال تسقاملك؟ أغلب الظن، أكثر بزاف من ثمن شريط لاصق مضمون.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('1')">
+                    <div class="preview-text">كل مصنّع كبير في الجزائر يعرف هاد الصوت... صوت توقف خط الإنتاج.
+كل دقيقة تمر هي خسارة مالية، ضغط نفس...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-1" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('1')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V1</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">كل مصنّع كبير في الجزائر يعرف هاد الصوت... صوت توقف خط الإنتاج.<br/><br/>كل دقيقة تمر هي خسارة مالية، ضغط نفسي، وتأخير في التسليم.<br/><br/>والسبب؟ تفصيل صغير قادر يحبّس كلش: شريط لاصق رديء يتقطع، ما يلصقش مليح، ولا يوصل روطار.<br/><br/>هذا هو الكابوس لي يهدد سمعة لامارك تاعك ويضرب استقرارك في السوق.<br/><br/>بصح، تخيل لوكان خط الإنتاج تاعك ما يحبسش... أبدا.<br/><br/>تخيل منتجاتك توصل للزبون مغلفة بطريقة احترافية تعكس القيمة الحقيقية ديالها.<br/><br/>تخيل راحة البال كي تعرف بلي عندك شريك استراتيجي يفهمك، وعندو مخزون ضخم جاهز في أي لحظة.<br/><br/>هذا هو الوعد اللي تقدمهولك IPAC.<br/><br/>على مدار 40 عاماً، بنينا خبرتنا في قلب الصناعة الجزائرية. ماشي غير نبيعو، حنا نقدّمو حلول.<br/><br/>نفهمو تأثير الحرارة والرطوبة وطبيعة الطرقات على التغليف، ونوفرو الـ Rubans d’emballage المناسب لي يصمُد.<br/><br/>المخزون الضخم ديالنا معناه: لا انتظار، لا توقف. طلبك يوصلك في وقتو.<br/><br/>IPAC ماشي مجرد مورد، حنا الشريك الموثوق لكبار المصنعين في الجزائر.<br/><br/>حنا بوليصة التأمين ديالك ضد توقف الإنتاج.<br/><br/>تغليف متين، لعلامة تجارية لا تنقطع.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">🚨 توقف خط الإنتاج ديالك؟ ماشي لازم يكون هذا هو الواقع! <br/><br/> كل دقيقة توقف تكلفك الكثير من المال والضغط. والسبب غالباً ما يكون تفصيل صغير يمكن تجنبه: شريط لاصق غير موثوق.<br/><br/>في IPAC، نفهم هذا الألم بعمق. على مدار 40 عاماً، كنا الشريك الاستراتيجي لكبار المصنعين في الجزائر، نوفر لهم ليس فقط منتجات، بل 'راحة البال'.<br/><br/>✅ مخزون ضخم وجاهز للتسليم الفوري.<br/>✅ جودة دولية تتحمل أصعب الظروف.<br/>✅ خبرة تقنية تضمن لك الاختيار الأمثل.<br/><br/>لا تترك إنتاجك وسمعتك رهينة تفصيل صغير. اختر الشريك الذي يضمن لك الاستمرارية. <br/><br/> اكتشف كيف IPAC تضمنلك استمرارية الإنتاج و راحة البال، تواصل معانا اليوم! <br/><br/> #IPAC_DZ #صناعة_جزائرية #تغليف_صناعي #حلول_التغليف #انتاج_الجزائر #شركات_جزائرية #الجودة_والأمان</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[المشهد الافتتاحي - BAB/Before]: لقطات درامية سريعة داخل مصنع. آلة تتوقف فجأة بصوت حاد. كلوز آب على شريط لاصق مقطوع. لقطة لمدير إنتاج متوتر ينظر لساعته. إضاءة خافتة وألوان باردة. نبرة الصوت في البداية قلقة وعميقة.<br/>[مرحلة المشكلة]: عرض صور لعلب ممزقة ومنتجات متضررة. استخدام مؤثرات صوتية تعبر عن الخسارة (صوت آلة حاسبة، هاتف يرن).<br/>[الانتقال - The Bridge]: شاشة سوداء للحظة، ثم يظهر شعار IPAC بإضاءة ساطعة. تغيير الموسيقى إلى نغمة واثقة ومطمئنة. تغيير نبرة الصوت إلى سلطوية وواثقة.<br/>[مرحلة الحل - BAB/After]: لقطات سينمائية لخطوط إنتاج تعمل بسلاسة. زاوية واسعة تظهر المخازن الضخمة لـ IPAC المليئة بالمنتجات. لقطات كلوز آب عالية الجودة لأنواع مختلفة من الأشرطة اللاصقة وهي تُستخدم بكفاءة على آلات التغليف.<br/>[ترسيخ السلطة - HVC]: عرض سريع لأرقام (40 عاماً خبرة، +X عميل كبير). لقطات لمصانع معروفة (بدون إظهار الاسم بوضوح) تعمل بمنتجات IPAC. ظهور نص على الشاشة: 'الجودة الدولية. الأمان. راحة البال'.<br/>[الختام]: لقطة أخيرة لشاحنة IPAC تغادر المستودع. الوجه الإعلامي (إن وجد) أو صوت الراوي يقول الجملة الأخيرة بنبرة حاسمة. يظهر CTA على الشاشة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C2</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">40 عاماً في خدمة الصناعة الجزائرية... ليست مجرد أرقام، بل هي ضمان.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('2')">
+                    <div class="preview-text">Slide 1: العنوان: 40 عاماً من الثقة في قلب الصناعة الجزائرية.
+النص: منذ 1984، IPAC ليست مجرد اسم، بل...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-2" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('2')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C2</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">Slide 1: العنوان: 40 عاماً من الثقة في قلب الصناعة الجزائرية.<br/><br/>النص: منذ 1984، IPAC ليست مجرد اسم، بل شريك بنى نجاحه على نجاح عملائه من كبار المصنعين.<br/><br/><br/><br/>Slide 2: العنوان: نفهم تحدياتكم المحلية.<br/><br/>النص: الحرارة، الرطوبة، النقل لمسافات طويلة... حلولنا مصممة خصيصاً لتصمد في وجه الظروف الجزائرية القاسية وتضمن وصول منتجك بأمان.<br/><br/><br/><br/>Slide 3: العنوان: وداعاً لانتظار التسليم!<br/><br/>النص: بفضل مخزوننا الضخم، كل منتجاتنا، من Rubans d’emballage إلى Rubans de masquage، جاهزة للتسليم الفوري. لا مزيد من التوقف بسبب نقص المواد.<br/><br/><br/><br/>Slide 4: العنوان: قدرة إنتاجية تلبي أكبر الطلبات.<br/><br/>النص: سواء كنت تحتاج لكمية صغيرة أو آلاف الوحدات، قدراتنا الإنتاجية والتخزينية تضمن تلبية احتياجاتك فورياً، مهما كان حجمها.<br/><br/><br/><br/>Slide 5: العنوان: اختيار الشركات الكبرى هو شهادتنا.<br/><br/>النص: ثقة عمالقة الصناعة في الجزائر هي أكبر دليل على جودتنا وموثوقيتنا. نحن نضمن لك نفس المستوى من الأمان والاحترافية.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">خبرة 40 عاماً... جاهزة لخدمتك اليوم! <br/><br/> لماذا يختار كبار المصنعين في الجزائر IPAC منذ أربعة عقود؟<br/><br/>لأننا لا نقدم مجرد منتج، بل نقدم حلاً متكاملاً مبنياً على:<br/>🔹 فهم عميق للسوق الجزائري.<br/>🔹 مخزون ضخم يضمن التسليم الفوري.<br/>🔹 قدرة على تلبية أضخم الطلبات دون تأخير.<br/>🔹 جودة أثبتت فعاليتها لدى عمالقة الصناعة.<br/><br/>اكتشف الإرث الذي يمكنك الاعتماد عليه. <br/><br/> اكتشف إرثنا ومخزوننا الجاهز، زور موقعنا للمزيد. <br/><br/> #خبرة_جزائرية #40_عاما_من_الثقة #IPAC_DZ #صناعة_الجزائر #مخزون_جاهز #شريك_استراتيجي</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Slide 1: خلفية قوية تجمع بين صورة أرشيفية قديمة لمصنع وصورة حديثة. خط عريض وواثق للرقم '40'.<br/>Slide 2: صورة مقسومة: نصف يظهر شاحنة على طريق جزائري حار، والنصف الآخر يظهر علبة مغلقة بإحكام. استخدام أيقونات (شمس، قطرة ماء).<br/>Slide 3: صورة لمستودع IPAC الضخم والمنظم. إبراز كلمة 'فوري' بلون مختلف وقوي.<br/>Slide 4: لقطة 'موشن' أو رسم بياني بسيط يوضح القدرة على تلبية الطلبات من الصغيرة إلى الكبيرة جداً.<br/>Slide 5: عرض شعارات لقطاعات صناعية مختلفة (أغذية، إلكترونيات، أدوية) بشكل عام، مع وضع شعار IPAC في المنتصف كـ 'الشريك الموثوق'.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P3</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">IPAC: تغليفك مضمون، واسمك مصيون.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('3')">
+                    <div class="preview-text">IPAC
+تغليفك مضمون، واسمك مصيون....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-3" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('3')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P3</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">IPAC<br/><br/>تغليفك مضمون، واسمك مصيون.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">أكثر من مجرد تغليف... إنه حماية لسمعتك. <br/><br/> كل علبة تخرج من مصنعك تحمل اسمك وعلامتك التجارية. التغليف الرديء يضر بهذه السمعة التي بنيتها لسنوات.<br/><br/>مع IPAC، أنت لا تشتري شريطاً لاصقاً، بل تستثمر في أمان منتجك وصورة علامتك التجارية.<br/><br/>اختر الشريك الذي يفهم قيمة اسمك في السوق. <br/><br/> احمِ إنتاجك وسمعتك بشريك موثوق، اتصل بنا الآن! <br/><br/> #حماية_العلامة_التجارية #الجودة_أولا #IPAC_DZ #تغليف_احترافي #صنع_في_الجزائر #سمعة_تجارية</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم بصري قوي جداً ونظيف. صورة عالية الجودة لمنتج معبأ بشكل مثالي، يظهر عليه شريط IPAC اللاصق بوضوح. التركيز على زاوية العلبة المغلقة بإحكام. إضاءة احترافية تعكس الجودة. شعار IPAC والنص مكتوبان بخط أنيق وسلطوي في زاوية التصميم. الألوان يجب أن تكون متوافقة مع هوية IPAC البصرية.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V4</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">صوت توقف الآلات... هو صوت أموالك وهي تضيع. وكل هذا بسبب شريط لاصق!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('4')">
+                    <div class="preview-text">[Problem] صوت آلة حادة تتوقف. الشاشة حمراء.
+نص يظهر: 'توقف خط الإنتاج'.
+كل ثانية تمر، هي تكلفة إضافي...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-4" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('4')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V4</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">[Problem] صوت آلة حادة تتوقف. الشاشة حمراء.<br/><br/>نص يظهر: 'توقف خط الإنتاج'.<br/><br/>كل ثانية تمر، هي تكلفة إضافية: أجور عمال متوقفين، كهرباء مهدرة، تأخير في التسليم... وخسائر مالية مباشرة.<br/><br/><br/><br/>[Agitate] والمشكلة تكبر... عميل غير راضٍ، سمعة تتأثر، وضغط نفسي عليك كمسؤول.<br/><br/>كل هذا بسبب شريط لاصق يتقطع بسهولة أو لا يلتصق بقوة.<br/><br/>هل هذا التفصيل الصغير يستحق كل هذه الخسائر؟<br/><br/><br/><br/>[Solution] بالطبع لا. الحل في اختيار الجودة المضمونة من البداية.<br/><br/>حلول IPAC مصممة خصيصاً للصناعات الثقيلة.<br/><br/>أشرطة بقوة تحمل قصوى، لا تتقطع.<br/><br/>التصاق فوري وموثوق يضمن أمان منتجاتك.<br/><br/>ومع مخزوننا الجاهز، مشكل التأخير في التسليم لن يتكرر.<br/><br/>IPAC: استمرارية إنتاجك هي أولويتنا.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">ما هي التكلفة الحقيقية لتوقف خط إنتاجك بسبب شريط لاصق؟ <br/><br/> توقف الإنتاج هو أكبر كابوس لكل مصنع، والخسائر تتراكم بسرعة.<br/><br/>لا تترك شريطاً لاصقاً رديئاً يتحكم في مصير أرباحك.<br/>حلول IPAC التقنية تضمن لك:<br/><br/>✔️ قوة تحمل قصوى مصممة للآلات الصناعية.<br/>✔️ التصاق مضمون يحمي بضاعتك.<br/>✔️ تسليم فوري ينهي مشكلة التأخير.<br/><br/>استثمر في راحة بالك وفي استمرارية إنتاجك. <br/><br/> لا تدع شريطاً لاصقاً يوقف إنتاجك! اكتشف حلول IPAC التي تضمن الاستمرارية. <br/><br/> #توقف_الانتاج #خسائر_مالية #IPAC_DZ #حلول_صناعية #انتاجية #فعالية #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو موشن جرافيكس سريع وإيقاعي.<br/>[Problem]: استخدام رسوم متحركة بسيطة تظهر خط إنتاج يتوقف. أرقام المال تتصاعد باللون الأحمر. أيقونات ترمز للخسارة (ساعة رملية، علامة دولار حمراء).<br/>[Agitate]: رسم شخصية مدير مصنع تحت الضغط (يتصبب عرقاً، هاتفه لا يتوقف عن الرنين). تكبير الصورة على شريط لاصق ضعيف وهو يتمزق.<br/>[Solution]: انتقال مفاجئ إلى ألوان IPAC (الأزرق والأبيض مثلاً) مع موسيقى إيجابية. ظهور رسوم متحركة تظهر شريط IPAC القوي وهو يغلق الصناديق بكفاءة. عرض أيقونات القوة والجودة (درع، علامة صح خضراء). عرض رسم لمستودع IPAC وشاحنة تسليم سريعة. الختام بشعار IPAC.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C5</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كل مشكلة في خط الإنتاج تاعك عندها حل... وحلول IPAC مضمونة.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('5')">
+                    <div class="preview-text">Slide 1: المشكلة 1: 'الشريط اللاصق يتقطع ويوقف خط الإنتاج'.
+النص: شريط لاصق ضعيف لا يتحمل سرعة وضغط ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-5" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('5')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C5</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">Slide 1: المشكلة 1: 'الشريط اللاصق يتقطع ويوقف خط الإنتاج'.<br/><br/>النص: شريط لاصق ضعيف لا يتحمل سرعة وضغط آلات التغليف، مما يسبب توقفاً متكرراً وخسارة للوقت والمال.<br/><br/><br/><br/>Slide 2: حل IPAC:<br/><br/>النص: نقدم Rubans d’emballage بقوة شد (Tensile Strength) عالية، مصممة خصيصاً للعمل الشاق والآلي. النتيجة: 0 توقف، 100% فعالية.<br/><br/><br/><br/>Slide 3: المشكلة 2: 'المورد يتأخر في التسليم'.<br/><br/>النص: الاعتماد على موردين بمهل تسليم طويلة يعرض إنتاجك لخطر التوقف بسبب نفاد المخزون.<br/><br/><br/><br/>Slide 4: حل IPAC:<br/><br/>النص: بفضل مخزوننا الضخم والدائم، نضمن لك تسليماً فورياً. اطلب اليوم، استلم في أقرب وقت. إنتاجك لن يتوقف أبداً معنا.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">توقف الإنتاج هو أكبر كابوس! حلول IPAC تنهي معاناتك. <br/><br/> مشاكل مثل تقطع الشريط اللاصق أو تأخر التسليم لم تعد قدراً محتوماً.<br/><br/>في IPAC، درسنا كل التحديات التي تواجه المصنعين في الجزائر وطورنا حلولاً تقنية مباشرة:<br/><br/>- أشرطة لاصقة فائقة القوة للآلات.<br/>- مخزون استراتيجي للتسليم الفوري.<br/><br/>تصفح الكاروسال لترى كيف نحل هذه المشاكل بشكل نهائي. <br/><br/> استشر خبراؤنا لاختيار الشريط الأنسب لخط إنتاجك. <br/><br/> #حلول_تقنية #مشاكل_الانتاج #IPAC_DZ #صناعة #جودة #موثوقية #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم يعتمد على المقارنة الواضحة (مشكلة مقابل حل).<br/>Slide 1 & 3: استخدام خلفية بألوان داكنة أو حمراء. أيقونة X كبيرة أو علامة تعجب. خط عريض وواضح للمشكلة.<br/>Slide 2 & 4: استخدام خلفية بألوان IPAC المشرقة (أزرق/أخضر). أيقونة درع أو علامة صح V. صورة للمنتج (الشريط اللاصق) بوضوح. التركيز على الكلمات المفتاحية مثل 'قوة شد عالية' و 'تسليم فوري'.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P6</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">تكلفة دقيقة توقف واحدة قد تتجاوز تكلفة إمدادك السنوي من الأشرطة اللاصقة. المعادلة واضحة.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('6')">
+                    <div class="preview-text">تكلفة دقيقة توقف واحدة، قد تفوق تكلفة جودة عام كامل.
+
+لا تضحِ بالكبير من أجل الصغير.
+IPAC - استثمارك...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-6" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('6')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P6</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">تكلفة دقيقة توقف واحدة، قد تفوق تكلفة جودة عام كامل.<br/><br/><br/><br/>لا تضحِ بالكبير من أجل الصغير.<br/><br/>IPAC - استثمارك في الاستمرارية.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">تخسر الآلاف بسبب تفصيل صغير؟ IPAC لديها الحل. <br/><br/> هل فكرت يوماً في التكلفة الحقيقية لاستخدام مواد رديئة؟ إنها ليست فقط ثمن المنتج، بل تكلفة الأعطال، التوقفات، والخسائر التي تسببها.<br/><br/>الاستثمار في جودة IPAC هو استثمار مباشر في ربحية مصنعك واستمرارية عملك.<br/><br/>المعادلة بسيطة. الاختيار لك. <br/><br/> لا تدع شريطاً لاصقاً يوقف عملك. اكتشف الجودة الآن! <br/><br/> #تكلفة_الجودة #استثمار_ذكي #IPAC_DZ #صناعة_جزائرية #انتاجية #ربحية</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم بصري صادم ومباشر. خلفية داكنة. في الأعلى، رقم كبير وجريء '1 دقيقة توقف' باللون الأحمر. في الأسفل، صورة لفة شريط لاصق IPAC عالية الجودة باللون الأخضر. النص مكتوب بخط واضح وسهل القراءة. شعار IPAC في النهاية. الفكرة هي المقارنة البصرية بين حجم الخسارة وتكلفة الحل.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V7</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">عميلك لا يرى خط إنتاجك... أول ما يراه هو التغليف. ماذا تعرض له؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('7')">
+                    <div class="preview-text">تبدأ القصة هنا... ليس في مصنعك، بل في يد عميلك.
+هذه هي اللحظة التي يحكم فيها على منتجك، على علامتك ا...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-7" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('7')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V7</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">تبدأ القصة هنا... ليس في مصنعك، بل في يد عميلك.<br/><br/>هذه هي اللحظة التي يحكم فيها على منتجك، على علامتك التجارية بأكملها.<br/><br/>علبة ممزقة؟ شريط لاصق مفتوح؟ مظهر غير احترافي؟<br/><br/>هذه ليست مجرد مشكلة تغليف، هذه رسالة تقول: 'نحن لا نهتم بالتفاصيل'.<br/><br/>وهي رسالة تدمر الثقة التي بنيتها لسنوات.<br/><br/>سمعة علامتك التجارية هي أثمن أصولك.<br/><br/>(يظهر الوجه الإعلامي 20% من الفيديو، يتحدث بثقة)<br/><br/>'في IPAC، نؤمن أن التغليف هو خط الدفاع الأول عن سمعتك. منتجاتنا، مثل Rubans d’emballage، ليست مجرد أشرطة لاصقة. إنها ختم الجودة الذي ترسله لعملائك. إنها الوعد بأن ما بالداخل هو بنفس جودة ما بالخارج'.<br/><br/>نحن نساعدك على إرسال الرسالة الصحيحة في كل مرة.<br/><br/>تغليف احترافي، متين، وآمن.<br/><br/>IPAC. علامتك التجارية في أيدٍ أمينة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">تغليفك يعكس جودة منتجك. هل تحمي سمعة علامتك التجارية؟ <br/><br/> أول انطباع يدوم. وفي عالم التجارة، التغليف هو أول انطباع يراه عميلك.<br/><br/>تغليف رديء = انطباع سيء، حتى لو كان منتجك هو الأفضل في السوق. هذا هو الخطر الذي يهدد سمعة علامتك التجارية بصمت.<br/><br/>في IPAC، نقدم لك الحلول التي تحمي منتجك وتعزز علامتك التجارية، بتغليف احترافي وآمن يعكس جودتك الحقيقية. <br/><br/> اسمك مصيون مع IPAC. اكتشف منتجاتنا التي تحمي علامتك التجارية، تفضل بزيارة معرضنا! <br/><br/> #سمعة_العلامة_التجارية #جودة_التغليف #IPAC_DZ #الانطباع_الأول #صورة_العلامة #تسويق #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو بنمط سرد القصص (Storytelling).<br/>[بداية - المشكلة]: لقطات من وجهة نظر العميل. يد تمسك بعلبة ذات تغليف سيء (ممزق، غير نظيف). تعابير وجه العميل تظهر خيبة الأمل. موسيقى هادئة ومحبطة.<br/>[تصعيد]: لقطات سريعة لمنتجات مختلفة بتغليف رديء في متاجر أو مستودعات. إظهار كيف يؤثر ذلك سلباً على صورة العلامة التجارية.<br/>[الحل - ظهور الوجه الإعلامي]: انتقال سلس إلى لقطة احترافية للوجه الإعلامي في بيئة صناعية نظيفة. يتحدث مباشرة إلى الكاميرا بثقة وهدوء. الإضاءة دافئة ومطمئنة.<br/>[البرهان]: عرض لقطات سينمائية لمنتجات مغلفة بشكل مثالي باستخدام أشرطة IPAC. كلوز آب على ملمس وجودة الشريط. إظهار منتجات لعلامات تجارية معروفة (بشكل غير مباشر) وهي مغلفة بجودة عالية.<br/>[الختام]: لقطة أخيرة للوجه الإعلامي أو صوت الراوي مع ظهور شعار IPAC والنص: 'اسمك مصيون'.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C8</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">صورة واحدة تساوي ألف كلمة. شاهد الفرق الذي يصنعه التغليف الاحترافي.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('8')">
+                    <div class="preview-text">Slide 1: قبل (Before)
+العنوان: تغليف باهت وممزق: رسالة خاطئة لعميلك.
+(صورة لعلبة بتغليف رديء، شريط ل...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-8" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('8')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C8</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">Slide 1: قبل (Before)<br/><br/>العنوان: تغليف باهت وممزق: رسالة خاطئة لعميلك.<br/><br/>(صورة لعلبة بتغليف رديء، شريط لاصق شبه مفتوح، مظهر غير احترافي).<br/><br/><br/><br/>Slide 2: بعد (After)<br/><br/>العنوان: تغليف احترافي: يعكس الجودة ويبني الثقة.<br/><br/>(نفس العلبة والمنتج، لكن بتغليف مثالي باستخدام شريط IPAC، مظهر نظيف وآمن).<br/><br/><br/><br/>Slide 3: كيف تحمي IPAC علامتك التجارية؟<br/><br/>النص: أشرطتنا اللاصقة تضمن إغلاقاً محكماً، تحافظ على نظافة العلبة، وتمنح منتجك المظهر الاحترافي الذي يستحقه. إنها تحمي من الفتح غير المقصود والتلف أثناء النقل.<br/><br/><br/><br/>Slide 4: الجودة تبدأ من أصغر التفاصيل.<br/><br/>النص: لا تستهن أبداً بقوة الشريط اللاصق. إنه اللمسة النهائية التي إما تعزز علامتك التجارية أو تضعفها. اختر IPAC لتضمن أن رسالتك دائماً إيجابية.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">علامتك التجارية لا تقدر بثمن، هل تحميها جيداً؟ <br/><br/> شاهد بنفسك كيف يمكن لتفصيل صغير مثل الشريط اللاصق أن يغير بالكامل من صورة منتجك في عين العميل.<br/><br/>من مظهر غير موثوق إلى رمز للجودة والاحترافية. هذا هو تحول IPAC.<br/><br/>اسحب لترى الفرق. <br/><br/> شاهد كيف يمكن لتغليف IPAC أن يحول منتجك. <br/><br/> #قبل_بعد #تغليف #جودة #IPAC_DZ #صورة_المنتج #تسويق_بصري #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم بصري يعتمد بشكل كبير على قوة الصور.<br/>Slide 1: استخدام فلتر لوني باهت أو رمادي للصورة. التركيز على العيوب في التغليف.<br/>Slide 2: صورة مشرقة، بألوان زاهية وواضحة. إضاءة ممتازة تبرز جودة التغليف وشريط IPAC.<br/>Slide 3: تصميم إنفوجرافيك بسيط. أيقونات تمثل 'الحماية'، 'النظافة'، 'الاحترافية'. عرض صورة مقربة للشريط اللاصق وهو يلتصق بقوة.<br/>Slide 4: صورة فنية لمنتج مغلف بشكل مثالي على خلفية نظيفة، مع التركيز على الشريط اللاصق. النص يكون موجزاً وقوياً.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P9</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">لا تدع التغليف يكون نقطة ضعف منتجك القوي.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('9')">
+                    <div class="preview-text">منتجك يستحق تغليفاً يعكس قيمته الحقيقية.
+
+IPAC - ختم الجودة على علامتك التجارية....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-9" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('9')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P9</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">منتجك يستحق تغليفاً يعكس قيمته الحقيقية.<br/><br/><br/><br/>IPAC - ختم الجودة على علامتك التجارية.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">منتجك ممتاز؟ اجعل تغليفك يقول ذلك أيضاً! <br/><br/> الجودة لا تتجزأ. من المنتج الأساسي إلى أصغر تفاصيل التغليف، كل شيء يساهم في بناء صورة علامتك التجارية.<br/><br/>أشرطة IPAC الموثوقة تضمن أن تكون اللمسة الأخيرة على منتجك هي لمسة من الجودة والأمان، وليس نقطة ضعف.<br/><br/>ارفع من قيمة منتجك بصرياً. <br/><br/> ارفع قيمة علامتك التجارية مع أشرطة IPAC الموثوقة. <br/><br/> #قيمة_العلامة_التجارية #تفاصيل_الجودة #IPAC_DZ #تغليف_فاخر #احترافية #صناعة</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">صورة راقية جداً. منتج فاخر (أو يبدو فاخراً) مغلف بعناية فائقة. التركيز على الشريط اللاصق الشفاف والنظيف من IPAC الذي يغلق العلبة بإحكام دون أن يفسد جمالية التصميم. الإضاءة ناعمة. النص مكتوب بخط أنيق وفاخر. الرسالة هي أن جودة IPAC تليق حتى بأرقى المنتجات.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V10</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">تحتاج Rubans d'emballage اليوم؟ وليس غداً؟ IPAC لديها الحل جاهزاً.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('10')">
+                    <div class="preview-text">[Attention] (لقطات سريعة جداً ومونتاج إيقاعي)
+هل تحتاج شريط تغليف صناعي؟ عندنا.
+شريط يتحمل الحرارة ا...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-10" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('10')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V10</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">[Attention] (لقطات سريعة جداً ومونتاج إيقاعي)<br/><br/>هل تحتاج شريط تغليف صناعي؟ عندنا.<br/><br/>شريط يتحمل الحرارة العالية؟ موجود.<br/><br/>حلول للتغليف اليدوي؟ طبعاً.<br/><br/>حلول للآلات الأوتوماتيكية؟ أكيد.<br/><br/><br/><br/>[Interest] كل ما قد يحتاجه مصنعك من حلول الأشرطة اللاصقة، جمعناه لك في مكان واحد.<br/><br/>وبالأهم من ذلك... كل شيء متوفر في المخزون الآن.<br/><br/>لا داعي للانتظار لأسابيع.<br/><br/><br/><br/>[Desire] تخيل أنك ترفع الهاتف اليوم، وطلبك يكون عندك في أقرب وقت ممكن.<br/><br/>تخيل المرونة التي يمنحها لك هذا الأمر في تسيير إنتاجك.<br/><br/>هذه هي قوة شريك يملك مخزوناً ضخماً وجاهزاً.<br/><br/><br/><br/>[Action] لا تدع نقص المواد يوقف عملك.<br/><br/>تشكيلتنا الواسعة من Rubans d'emballage و Rubans de masquage وغيرها متوفرة للتسليم الفوري.<br/><br/>اتصل بنا الآن واكتشف كيف يمكننا تلبية احتياجاتك اليوم.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">تحتاج حلول تغليف الآن؟ IPAC لديها كل شيء جاهز! <br/><br/> وداعاً للانتظار الطويل ومشاكل نفاد المخزون!<br/><br/>في IPAC، نملك أحد أكبر المخزونات من حلول الأشرطة اللاصقة الصناعية في الجزائر، وكلها جاهزة للتسليم الفوري.<br/><br/>مهما كان طلبك، ومهما كانت الكمية، نحن جاهزون لتلبيته بسرعة وكفاءة.<br/><br/>شاهد الفيديو لتكتشف جزءاً من تشكيلتنا الواسعة. <br/><br/> اكتشف تشكيلتنا الواسعة المتوفرة للتسليم الفوري، اتصل بنا الآن! <br/><br/> #تسليم_فوري #مخزون_جاهز #IPAC_DZ #حلول_سريعة #صناعة_الجزائر #مورد_موثوق</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو بأسلوب UGC (User-Generated Content) أو استعراض منتجات سريع وحيوي.<br/>[Attention]: مونتاج سريع جداً. لقطات بالهاتف (بجودة عالية) داخل مستودع IPAC. شخص يستعرض أنواعاً مختلفة من الأشرطة اللاصقة بسرعة، ويشير إلى الأرفف المليئة. موسيقى حماسية.<br/>[Interest]: لقطات أوسع تظهر ضخامة المخزون. يمكن استخدام تقنية الـ 'Hyperlapse' لإظهار الحركة في المستودع. ظهور نصوص على الشاشة تسلط الضوء على الكلمات 'متوفر' و 'جاهز'.<br/>[Desire]: لقطة هادئة لشخص (مدير مشتريات) يتحدث على الهاتف ويبتسم بارتياح. الفكرة هي نقل شعور 'راحة البال'.<br/>[Action]: لقطة أخيرة لمنتجات IPAC وهي تُحمّل على شاحنة. ظهور رقم الهاتف ومعلومات الاتصال بشكل واضح وكبير على الشاشة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C11</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">مهما كان تحدي التغليف الذي تواجهه، IPAC لديها الحل في مخزونها.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('11')">
+                    <div class="preview-text">Slide 1: تشكيلة IPAC: لكل احتياج، حل جاهز.
+(صورة لمجموعة متنوعة من منتجات IPAC).
+
+Slide 2: أشرطة الت...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-11" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('11')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C11</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">Slide 1: تشكيلة IPAC: لكل احتياج، حل جاهز.<br/><br/>(صورة لمجموعة متنوعة من منتجات IPAC).<br/><br/><br/><br/>Slide 2: أشرطة التغليف الصناعي (Rubans d’emballage).<br/><br/>النص: قوة تحمل استثنائية للعلب الثقيلة والآلات السريعة. متوفرة بعدة سماكات وعروض.<br/><br/>(صورة مقربة لشريط تغليف بني أو شفاف عالي الجودة).<br/><br/><br/><br/>Slide 3: أشرطة خاصة (Rubans Techniques).<br/><br/>النص: حلول مصممة لتحمل درجات الحرارة القصوى، الرطوبة العالية، أو للتطبيقات التي تتطلب إزالة نظيفة مثل Rubans de masquage.<br/><br/>(صورة لشريط لاصق خاص على سطح معدني أو في بيئة صعبة).<br/><br/><br/><br/>Slide 4: حلول التعبئة اليدوية والآلية.<br/><br/>النص: سواء كان التغليف في مصنعك يتم يدوياً أو عبر آلات أوتوماتيكية بالكامل، لدينا المنتج المتوافق الذي يضمن لك الكفاءة.<br/><br/>(صورة مقسومة: يد تستخدم موزع شريط، وآلة تغليف حديثة).<br/><br/><br/><br/>Slide 5: كل هذا وأكثر... جاهز للتسليم الفوري!<br/><br/>النص: مخزوننا الضخم يعني أنك لن تضطر للانتظار. اطلب اليوم واحصل على حلولك بسرعة.<br/><br/>(صورة لمستودع IPAC المليء بالبضائع).</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">مهما كانت احتياجاتك، IPAC لديها الحلول الجاهزة. <br/><br/> هل تبحث عن شريط لاصق قياسي؟ أو ربما حل تقني لتطبيق معين؟<br/><br/>تصفح هذا الكتالوج المصغر لتكتشف لمحة عن تنوع حلولنا الجاهزة، من الـ Rubans d’emballage الصناعية إلى الأشرطة التقنية المتخصصة.<br/><br/>والأفضل من كل هذا؟ كلها متوفرة للتسليم الفوري. <br/><br/> تصفح كتالوجنا الكامل وتواصل معنا لطلبك. <br/><br/> #كتالوج_IPAC #منتجات_صناعية #تغليف #اشرطة_لاصقة #جودة_جزائرية #تسليم_سريع</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم على شكل كتالوج مصغر، نظيف ومرتب.<br/>كل سلايد يجب أن يحتوي على صورة عالية الجودة للمنتج المذكور. استخدام خطوط واضحة وتقنية. يمكن إضافة أيقونات صغيرة لكل سلايد ترمز إلى ميزة المنتج (قوة، حرارة، سرعة). الحفاظ على هوية بصرية موحدة عبر جميع السلايدات. السلايد الأخير يجب أن يكون له تأثير قوي، مع التركيز على عبارة 'تسليم فوري' بلون بارز.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P12</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الوقت هو المال. لا تضيعه في الانتظار.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('12')">
+                    <div class="preview-text">لا تنتظر. لا تتوقف.
+
+مخزون IPAC الضخم جاهز لخدمتك فوراً....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-12" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('12')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P12</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">لا تنتظر. لا تتوقف.<br/><br/><br/><br/>مخزون IPAC الضخم جاهز لخدمتك فوراً.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">لا تنتظر! كل ما تحتاجه متوفر لدينا الآن. <br/><br/> في عالم الصناعة، التأخير يعني خسارة. لهذا السبب، جعلنا من الجاهزية الفورية حجر الزاوية في خدمتنا.<br/><br/>عندما تتعامل مع IPAC، أنت تتعامل مع مخزون حقيقي وجاهز، وليس مجرد وعود بالتسليم.<br/><br/>احصل على ما تحتاجه، عندما تحتاجه. <br/><br/> وفر وقتك واحصل على طلبك فوراً، اتصل بـ IPAC. <br/><br/> #لا_تنتظر #جاهزية_فورية #IPAC_DZ #سرعة #فعالية #صناعة_الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم ديناميكي جداً. صورة ضخمة لمستودعات IPAC مع تأثير 'motion blur' خفيف لإعطاء إحساس بالسرعة والحركة. النص يكون كبيراً، جريئاً، ومباشراً. استخدام كلمات مثل 'فوراً' و 'الآن' بشكل بارز. الفكرة هي نقل طاقة السرعة والجاهزية.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V13</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">في 40 عاماً، تتغير الأسواق، تتغير التكنولوجيا، لكن شيء واحد يبقى ثابتاً: الثقة.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('13')">
+                    <div class="preview-text">عام 1984. السوق الجزائري كان مختلفاً.
+التحديات كانت مختلفة.
+لكن الحاجة إلى شريك موثوق كانت موجودة دا...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-13" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('13')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V13</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">عام 1984. السوق الجزائري كان مختلفاً.<br/><br/>التحديات كانت مختلفة.<br/><br/>لكن الحاجة إلى شريك موثوق كانت موجودة دائماً.<br/><br/>(لقطات أرشيفية سريعة للجزائر في الثمانينات)<br/><br/>منذ ذلك اليوم، وعلى مدار 40 عاماً، كبرنا مع الصناعة الجزائرية.<br/><br/>واجهنا معها التحديات، واحتفلنا معها بالنجاحات.<br/><br/>طورنا منتجاتنا لتواكب كل تغيير تكنولوجي.<br/><br/>وسعنا مخزوننا لنلبي كل طلب متزايد.<br/><br/>خبرة 40 عاماً ليست مجرد رقم في شعارنا.<br/><br/>إنها 40 عاماً من فهم مشاكل عملائنا وحلها.<br/><br/>40 عاماً من بناء الثقة، طلبية بطلبية.<br/><br/>هذه الخبرة، هي اليوم بين يديك.<br/><br/>IPAC. إرث من الثقة، لضمان مستقبلك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">40 عاماً من الخدمة والثقة في السوق الجزائري، هذا ليس بالأمر السهل. <br/><br/> الاستمرارية لأربعة عقود في سوق مليء بالتحديات هي أكبر دليل على الالتزام، الجودة، والثقة.<br/><br/>في IPAC، تاريخنا هو قصتنا، وخبرتنا هي ضماننا لكم.<br/><br/>نحن لم نكن مجرد شاهد على تطور الصناعة الجزائرية، بل كنا شريكاً فاعلاً في هذا التطور.<br/><br/>دع خبرتنا الطويلة تخدم أهدافك. <br/><br/> ثق في خبرة 40 عاماً! تواصل مع IPAC اليوم ودع خبرتنا تخدمك. <br/><br/> #40_عاما_من_الخبرة #تاريخ_الثقة #IPAC_DZ #ارث_جزائري #صناعة #موثوقية #خبرة</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو موشن جرافيكس يدمج لقطات أرشيفية.<br/>[البداية]: يبدأ الفيديو بتاريخ '1984' يظهر على الشاشة. استخدام لقطات أرشيفية بالأبيض والأسود أو بألوان باهتة للصناعة في الجزائر. موسيقى كلاسيكية أو ذات طابع تاريخي.<br/>[التطور]: إنشاء خط زمني متحرك (Timeline) يظهر التواريخ الهامة (1990، 2000، 2010، 2024). مع كل تاريخ، تظهر أيقونات ورسوم متحركة تمثل التطور (مصانع أكبر، تكنولوجيا أحدث، شاحنات أسرع).<br/>[الدمج]: دمج لقطات حديثة ملونة وعالية الجودة للمصنع والمستودعات الحالية لـ IPAC مع الخط الزمني لإظهار التباين والتطور.<br/>[الرسالة]: ظهور نصوص قوية على الشاشة مثل '40 عاماً من الحلول'، 'إرث من الثقة'. يتحدث الراوي بنبرة صوت عميقة، حكيمة، وواثقة جداً.<br/>[الختام]: ينتهي الفيديو بشعار IPAC مع عبارة 'منذ 1984'.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C14</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">إرث من الثقة والابتكار يمتد لأربعة عقود... هذه قصة IPAC.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('14')">
+                    <div class="preview-text">Slide 1: IPAC: قصة 40 عامًا من الريادة في الجزائر.
+(صورة تجمع بين شعار قديم وشعار حديث لـ IPAC، مع خ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-14" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('14')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C14</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">Slide 1: IPAC: قصة 40 عامًا من الريادة في الجزائر.<br/><br/>(صورة تجمع بين شعار قديم وشعار حديث لـ IPAC، مع خط زمني بسيط).<br/><br/><br/><br/>Slide 2: من مورد محلي إلى شريك استراتيجي.<br/><br/>النص: لم نكتفِ بالبيع، بل تطورنا لنصبح خبراء يقدمون الاستشارة والحلول التي تضمن لعملائنا أفضل أداء واستمرارية.<br/><br/>(مقارنة بين صورة قديمة لمكتب بسيط وصورة حديثة لفريق عمل محترف في اجتماع).<br/><br/><br/><br/>Slide 3: استثمارات مستمرة في التكنولوجيا والمخزون.<br/><br/>النص: إيماننا بالمستقبل يدفعنا للاستثمار الدائم في أحدث التقنيات وأضخم المخزونات لضمان خدمة لا مثيل لها في السوق.<br/><br/>(صورة لمعدات حديثة أو لمستودع ضخم ومنظم).<br/><br/><br/><br/>Slide 4: شهادة عمالقة الصناعة.<br/><br/>النص: على مدار 40 عاماً، خدمنا بفخر أكبر الأسماء في الصناعة الجزائرية. ثقتهم المستمرة هي شهادتنا الأغلى.<br/><br/>(تصميم جرافيكي يظهر قطاعات مختلفة مع اقتباس عام: 'الشريك الموثوق الذي نعتمد عليه').<br/><br/><br/><br/>Slide 5: جيل جديد يحمل إرث الثقة.<br/><br/>النص: بنفس الالتزام والخبرة، وبطاقة متجددة، نواصل المسيرة لخدمة الصناعة الجزائرية لعقود قادمة. الالتزام بالجودة لا يتغير.<br/><br/>(صورة تجمع بين جيلين من فريق العمل، تعبر عن نقل الخبرة).</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">إرث من الثقة والابتكار يمتد لأربعة عقود، IPAC هي الضمان. <br/><br/> تاريخنا ليس مجرد ذكريات، بل هو سجل حافل بالالتزام، التطور، وبناء الثقة مع عمالقة الصناعة في الجزائر.<br/><br/>اكتشف في هذا الكاروسال المحطات الرئيسية في مسيرة IPAC، وكيف تحولنا من مورد محلي إلى شريك استراتيجي لا غنى عنه.<br/><br/>قصتنا هي ضمان جودتنا. <br/><br/> تعرف على قصتنا الملهمة وكيف نصنع الفرق. <br/><br/> #قصة_نجاح #تاريخ_شركة #IPAC_DZ #صناعة_جزائرية #ارث #ثقة #ابتكار</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم الكاروسال يجب أن يكون على شكل قصة تاريخية بصرية (Visual Storytelling).<br/>استخدام فلتر 'sepia' أو أبيض وأسود للصور القديمة في السلايدات الأولى. استخدام صور حديثة بألوان زاهية في السلايدات الأخيرة لإظهار التطور. استخدام خطوط أنيقة وكلاسيكية. كل سلايد يمثل فصلاً في قصة الشركة. التصميم يجب أن يوحي بالثقل، التاريخ، والموثوقية.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P15</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">40 سنة خبرة، ليست في الكتب، بل في خدمة مصنعك.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('15')">
+                    <div class="preview-text">40 عاماً من الخبرة.
+
+بين يديك....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-15" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('15')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P15</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">40 عاماً من الخبرة.<br/><br/><br/><br/>بين يديك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">40 سنة خبرة بين يديك. مع IPAC، أنت في أمان. <br/><br/> عندما تختار IPAC، أنت لا تختار منتجاً فقط، بل تختار خلاصة 40 عاماً من التجارب، الحلول، والخبرة في أصعب تحديات السوق الجزائري.<br/><br/>هذه الخبرة هي التي تمنحك الأمان، الثقة، وراحة البال.<br/><br/>دع خبرتنا تعمل من أجلك. <br/><br/> اجعل خبرتنا الممتدة تعمل لصالحك، اتصل بـ IPAC. <br/><br/> #خبرة_تعتمد_عليها #40_عاما #IPAC_DZ #امان #ثقة #صناعة #شريكك_الاستراتيجي</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم بسيط، قوي، وواثق. صورة مقربة ليد خبير (يرتدي قفاز عمل نظيف) وهو يمرر يده على لفة شريط لاصق من IPAC، كأنه يتفحص الجودة. الخلفية تكون لمصنع أو مستودع بشكل غير واضح (blur). النص '40 عاماً من الخبرة' يكون كبيراً وواضحاً، وعبارة 'بين يديك' تكون أصغر قليلاً وأسفلها. الرسالة هي أن هذه الخبرة الهائلة ملموسة ومتاحة للعميل.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr></tbody></table></div>
+
+    <div class="disclaimer-card">
+        <span style="font-size: 1.2em;">⚠️</span>
+        <span>قد تخضع هذه الاستراتيجية لبعض التعديلات والتحسينات، حسب المواد الإعلامية المتوفرة أو لغرض تحقيق أفضل النتائج.</span>
+    </div>
+
+    <div class="summary-box">
+        <span style="font-weight: 700; color: #FFD700;">الميزانية الإجمالية المعتمدة</span>
+        <span class="total-amount">105000 دج</span>
+        <a href="https://wa.me/213770820431" class="cta-btn">تواصل معنا للاعتماد</a>
+        <div style="border: 1px dashed #FFD700; padding: 25px; border-radius: 15px; margin-top: 20px;">
+            <h3 style="color:#FFD700; margin:0;">الخطوة التالية</h3>
+            <p style="margin:10px 0;">مكالمة قصيرة لنكيّف هذه الاستراتيجية حسب مشروعك ونبدأ العمل فوراً.</p>
+            <div class="phones-list">
+                <div class="phone-item">0770 82 04 31</div>
+                <div class="phone-item">0770 55 01 51</div>
+                <div class="phone-item">0770 82 01 45</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+function openModal(id) { document.getElementById('modal-' + id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
+function closeModal(id) { document.getElementById('modal-' + id).style.display = 'none'; document.body.style.overflow = 'auto'; }
+window.onclick = function(event) { if (event.target.className === 'modal') { event.target.style.display = 'none'; document.body.style.overflow = 'auto'; } }
+</script></body></html>
