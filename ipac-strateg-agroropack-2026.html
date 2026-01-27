@@ -1,140 +1,159 @@
 <!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>SARL IPAC Strategy - Agropack 2026</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>حملة إطلاق EasyFit | Wayso Strategy</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
 <style>
-body { background: #FFFFFF; color: #1A1A1A; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; line-height: 1.6; overflow-x: hidden; }
-.container { max-width: 1100px; margin: 0 auto; padding: 15px; }
-.header { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 2px solid #000; }
-.wayso-logo { height: 45px; }
-.brand-name { font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 1.4em; color: #000; text-transform: uppercase; border-right: 4px solid #FFD700; padding-right: 12px; }
-.analysis-section { margin: 30px 0; }
-.card-philosophy { padding: 30px; border-radius: 20px; background: #000; color: #FFF; margin-bottom: 20px; }
-.card-philosophy h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #FFD700; }
-.card-why { padding: 30px; border-radius: 20px; background: #F9F9F9; color: #333; margin-bottom: 20px; border: 1px solid #EDECE9; }
-.card-why h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #000; display: flex; align-items: center; gap: 10px; }
-.hero { margin: 35px 0 20px 0; border-right: 6px solid #FFD700; padding-right: 15px; }
-.hero h1 { font-size: 2.5em; font-weight: 700; margin: 0; }
-.table-wrapper { margin-top: 25px; border-radius: 12px; overflow: hidden; border: 1px solid #EDECE9; }
-table { width: 100%; border-collapse: collapse; }
-th { background: #000; color: #FFF; padding: 15px; text-align: right; font-size: 0.9em; }
-td { padding: 20px 12px; border-bottom: 1px solid #EDECE9; vertical-align: top; }
-.code-badge { font-family: 'Montserrat', sans-serif; font-weight: 700; background: #FFD700; color: #000; padding: 5px 12px; border-radius: 6px; font-size: 1.1em; display: inline-block; margin-bottom: 5px; }
-.type-label { display: block; font-weight: 700; color: #555; font-size: 0.95em; }
-.hook-pill { background: #000; color: #FFD700; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 1.1em; display: block; border-right: 5px solid #FFD700; }
-.script-trigger { background: #F8F9FA; border: 1px solid #EDECE9; padding: 15px; border-radius: 10px; cursor: pointer; }
-.preview-text { font-size: 0.95em; color: #333; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; white-space: pre-wrap; }
-.modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(8px); }
-.modal-content { background: #FFF; margin: 5% auto; padding: 30px; border-radius: 20px; width: 88%; max-width: 700px; position: relative; max-height: 85vh; overflow-y: auto; }
-.close-modal { position: absolute; top: 15px; left: 15px; font-size: 35px; cursor: pointer; color: #999; line-height: 1; }
-.modal-section { margin-bottom: 25px; padding: 15px; border-radius: 12px; background: #fbfbfa; border: 1px solid #eee; }
-.modal-body { font-size: 1.15em; color: #1A1A1A; line-height: 1.9; word-wrap: break-word; }
-.disclaimer-card { margin: 25px 0; padding: 20px; background: #FFF9E6; border-radius: 12px; border-right: 5px solid #FFC107; font-size: 1.05em; color: #856404; display: flex; align-items: center; gap: 12px; }
-.summary-box { margin-top: 50px; background: #000; color: #FFF; padding: 40px 20px; border-radius: 25px; text-align: center; }
-.total-amount { font-family: 'Montserrat'; font-size: 3.5em; font-weight: 700; display: block; color: #FFD700; margin: 10px 0; }
-.cta-btn { display: inline-block; background: #FFD700; color: #000; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.2em; margin-bottom: 25px; }
-.phones-list { margin-top: 15px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; direction: ltr; }
-.phone-item { background: #1A1A1A; padding: 8px 15px; border-radius: 8px; border: 1px solid #333; color: #FFF; font-family: 'Montserrat'; font-weight: 700; font-size: 1.2em; white-space: nowrap; }
-@media (max-width: 768px) {
-thead { display: none; }
-tr { display: block; border: 1px solid #EDECE9; border-radius: 15px; margin-bottom: 20px; padding: 15px; background: #FFF; }
-td { display: block; padding: 8px 0; text-align: right; }
-td::before { content: attr(data-label); font-weight: 700; color: #BBB; display: block; font-size: 0.75em; margin-bottom: 4px; }
-.brand-name { font-size: 1.1em; }
-}
+    body { background: #FFFFFF; color: #1A1A1A; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; line-height: 1.6; }
+    .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 2px solid #000; }
+    .wayso-logo { height: 40px; }
+    .card { background: #000; color: #FFF; padding: 25px; border-radius: 15px; margin-bottom: 20px; }
+    .card h2 { color: #FFD700; margin-top: 0; }
+    .strategy-table { width: 100%; border-collapse: collapse; margin-top: 30px; }
+    .strategy-table th { background: #000; color: #FFF; padding: 12px; text-align: right; }
+    .strategy-table td { padding: 15px; border-bottom: 1px solid #EDECE9; vertical-align: top; }
+    .badge { background: #FFD700; color: #000; padding: 4px 10px; border-radius: 5px; font-weight: bold; font-size: 0.9em; }
+    .hook-box { background: #f9f9f9; padding: 10px; border-right: 4px solid #FFD700; font-weight: bold; margin-bottom: 10px; }
+    .script-text { white-space: pre-wrap; font-size: 0.95em; color: #444; }
+    .footer-box { background: #000; color: #FFF; padding: 30px; border-radius: 15px; text-align: center; margin-top: 40px; }
+    .total-price { font-size: 2.5em; color: #FFD700; font-weight: bold; display: block; }
 </style></head><body>
 
 <div class="container">
-<div class="header">
-<img src="https://storage.googleapis.com/msgsndr/GwIPQCjstTzxnzDQ1B32/media/68fddb5534bb1597bc934f89.png" class="wayso-logo">
-<div class="brand-name">SARL IPAC</div>
-</div>
+    <div class="header">
+        <img src="https://storage.googleapis.com/msgsndr/GwIPQCjstTzxnzDQ1B32/media/68fddb5534bb1597bc934f89.png" class="wayso-logo">
+        <div style="font-weight: bold; font-size: 1.2em;">حملة إطلاق EasyFit</div>
+    </div>
 
-<div class="analysis-section">
-<div class="card-philosophy">
-<h2>🎯 فلسفة الاستراتيجية</h2>
-<p>مع اقتراب معرض Agropack 2026، تعتمد IPAC على التشويق وبناء صورة علامة صناعية متكاملة. الهدف هو خلق رغبة فورية لزيارة الجناح واكتشاف منظومة حلول الأشرطة الصناعية في مكان واحد.</p>
-</div>
-<div class="card-why">
-<h2>💡 لماذا هذا الإطار؟</h2>
-<p>لأن IPAC علامة راسخة في السوق، ولأن المعرض حدث قوي بحد ذاته. فيديو محوري شامل يبني الصورة الذهنية، وبقية المحتوى يعمّق الفضول ويدفع قرار الزيارة.</p>
-</div>
-</div>
+    <div class="card">
+        <h2>🎯 فلسفة الاستراتيجية</h2>
+        <p>نؤمن في Wayso بأن النجاح يبدأ بفهم عميق لاحتياجات جمهورك. لهذا، قمنا بصياغة مزيج استراتيجي يجمع بين قوة الفيديو لسرد القصص الملهمة وجاذبية الكاروسالات التعليمية لتفكيك المعلومات المعقدة.
 
-<div class="hero"><h1>خطة الإنتاج الإبداعي</h1></div>
+هذا المزيج لا يخاطب فقط العواطف، بل يغذي العقل أيضاً، مما يضمن بناء علاقة قوية ودائمة مع عملائك المحتملين.
 
-<div class="table-wrapper">
-<table>
-<thead><tr><th style="width:20%">الكود والنوع</th><th style="width:30%">الهوك</th><th style="width:50%">المحتوى</th></tr></thead>
-<tbody>
+إن استثمارك في هذه الاستراتيجية هو استثمار في نمو مستدام ومكانة رائدة في السوق.</p>
+    </div>
 
-<tr>
-<td data-label="الهوية والنوع"><span class="code-badge">V1</span><span class="type-label">🎬 فيديو محوري</span></td>
-<td data-label="الهوك"><div class="hook-pill">IPAC في Agropack 2026… عالم حلول صناعية في جناح واحد</div></td>
-<td data-label="المحتوى">
-<div class="script-trigger" onclick="openModal('1')">
-<div class="preview-text">فيديو شامل (60 ثانية) يعرّف بـ IPAC، تنوع منتجاتها، ويعلن مشاركتها في Agropack بأسلوب تشويقي قوي...</div>
-<span style="font-size:0.8em;color:#000;font-weight:700;margin-top:8px;display:inline-block;background:#FFD700;padding:2px 10px;border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
-</div>
-<div id="modal-1" class="modal">
-<div class="modal-content">
-<span class="close-modal" onclick="closeModal('1')">&times;</span>
-<h2 style="border-bottom:3px solid #FFD700;padding-bottom:10px;font-size:1.5em;margin-top:0;">تفاصيل V1</h2>
-<div class="modal-section">
-<h4>🎬 السكربت</h4>
-<div class="modal-body">
-منذ 1984، وIPAC ترافق الصناعة الجزائرية بحلول موثوقة في عالم الأشرطة الصناعية.<br/><br/>
-من Rubans d’emballage إلى Rubans techniques، تشكيلة متكاملة جاهزة لتلبية مختلف الاحتياجات الصناعية.<br/><br/>
-في Agropack 2026، تفتح IPAC أبواب جناحها لاكتشاف هذا العالم عن قرب.<br/><br/>
-📍 SAFEX – من 2 إلى 5 فيفري – جناح IPAC.
-</div>
-</div>
-<div class="modal-section" style="background:#FFF9E6;border:1px solid #FFE69C;">
-<h4>📝 Ad Copy</h4>
-<div class="modal-body">
-🔴 IPAC حاضرة في Agropack 2026!<br/><br/>
-اكتشف عالم الأشرطة الصناعية وحلول التغليف في جناح واحد. خبرة، تنوع، وجاهزية لخدمة الصناعيين.<br/><br/>
-📍 SAFEX – جناح IPAC.
-</div>
-</div>
-<div class="modal-section" style="border:none;background:none;">
-<h4>⚙️ ملاحظات التنفيذ</h4>
-<div class="modal-body">مونتاج ديناميكي، لقطات منتجات، لقطات فريق، مع إبراز معلومات المعرض في النهاية.</div>
-</div>
-</div>
-</div>
-</td>
-</tr>
+    <div style="padding: 20px; background: #F9F9F9; border-radius: 15px; border: 1px solid #EEE;">
+        <h3 style="margin-top:0;">💡 لماذا هذه الخطة؟</h3>
+        <p>بدأنا بـ V1 لخطف الانتباه فوراً وإثارة الفضول حول 'EasyFit'، ثم انتقلنا إلى C1 و C2 لتعليم الجمهور وتوضيح القيمة الفريدة للمنتج بشكل تدريجي ومقنع.
 
-</tbody>
-</table>
-</div>
+هذا التسلسل النفسي يضمن ترسيخ المفهوم في أذهانهم قبل الانتقال إلى V2 و V3 التي تعمق الثقة عبر إظهار النتائج الحقيقية وقصص التحول، مما يدفعهم لاتخاذ القرار بثقة.</p>
+    </div>
 
-<div class="disclaimer-card">
-<span style="font-size:1.2em;">⚠️</span>
-<span>قد تخضع هذه الاستراتيجية لبعض التعديلات حسب المواد الإعلامية المتوفرة.</span>
-</div>
+    <table class="strategy-table">
+        <thead>
+            <tr>
+                <th style="width:150px;">العنصر</th>
+                <th>التفاصيل الإبداعية</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <span class="badge">V1</span><br>
+                <small style="color: #666;">Video</small>
+            </td>
+            <td>
+                <div class="hook-box">هل سئمت من الطرق المعقدة لفقدان الوزن؟ اكتشف EasyFit!</div>
+                <div class="script-text"><b>السكربت:</b><br>صوت: (موسيقى حيوية)
+المشهد: شخص يعاني من التمارين الصعبة ثم ينتقل بسلاسة لاستخدام EasyFit مبتسماً.
+الراوي: "في عالم مليء بوعود اللياقة البدنية المعقدة، نقدم لك EasyFit – الحل البسيط والفعال للوصول إلى جسم أحلامك دون عناء."
+المشهد: لقطات سريعة لأشخاص مختلفين يمارسون تمارين خفيفة وممتعة باستخدام EasyFit.
+الراوي: "وداعاً للتمارين المملة والأنظمة الغذائية القاسية. EasyFit يجمع بين العلم والتكنولوجيا ليمنحك تجربة لياقة بدنية ممتعة ونتائج حقيقية."
+المشهد: شخص ينظر إلى المرآة بفرح بعد استخدام EasyFit.
+الراوي: "ابدأ رحلتك نحو الأفضل اليوم مع EasyFit. استثمر في صحتك، استثمر في سعادتك!"</div>
+                <div style="margin-top:10px; font-size: 0.85em; color: #888;"><b>المكلف:</b> بن صايبي</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span class="badge">C1</span><br>
+                <small style="color: #666;">Carousel</small>
+            </td>
+            <td>
+                <div class="hook-box">3 أسرار لتحويل جسمك بدون حرمان!</div>
+                <div class="script-text"><b>السكربت:</b><br>شريحة 1: مشكلة: التمارين الصعبة لا تناسب الجميع.
+شريحة 2: تحريك: هل تشعر بالإحباط من عدم رؤية النتائج رغم مجهودك؟
+شريحة 3: حل: EasyFit يغير المعادلة: تمرين ممتع ونتائج مضمونة!
+شريحة 4: كيف: 1. برنامج شخصي. 2. دعم مجتمعي. 3. أجهزة مبتكرة.
+شريحة 5: النتيجة: جسم أحلامك أقرب مما تتخيل.
+شريحة 6: دعوة لاتخاذ إجراء: اكتشف المزيد حول EasyFit الآن!</div>
+                <div style="margin-top:10px; font-size: 0.85em; color: #888;"><b>المكلف:</b> سارة</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span class="badge">V2</span><br>
+                <small style="color: #666;">Video</small>
+            </td>
+            <td>
+                <div class="hook-box">شاهد كيف يعمل EasyFit في أقل من دقيقة!</div>
+                <div class="script-text"><b>السكربت:</b><br>صوت: (موسيقى هادئة ثم تتصاعد تدريجياً)
+المشهد: عرض سريع ومبسط لمكونات EasyFit الرئيسية.
+الراوي: "EasyFit ليس مجرد جهاز، بل هو نظام متكامل مصمم ليتناسب مع إيقاع حياتك."
+المشهد: لقطات مقربة لشخص يستخدم EasyFit ويشرح الميزات الأساسية (مثل التطبيق، التمارين الموجهة).
+الراوي: "من خلال تطبيقنا سهل الاستخدام، يمكنك اختيار تمارينك المفضلة، تتبع تقدمك، والحصول على نصائح مخصصة."
+المشهد: عرض رسوم بيانية بسيطة توضح سرعة تحقيق النتائج.
+الراوي: "تصميمه المريح والمبتكر يجعله مثالياً للاستخدام في أي مكان وزمان. لا مزيد من الأعذار!"
+المشهد: دعوة واضحة لزيارة الموقع.
+الراوي: "جاهز لتبدأ؟ تفضل بزيارة موقعنا الآن واحصل على EasyFit الخاص بك!"</div>
+                <div style="margin-top:10px; font-size: 0.85em; color: #888;"><b>المكلف:</b> عبد الرحمن</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span class="badge">C2</span><br>
+                <small style="color: #666;">Carousel</small>
+            </td>
+            <td>
+                <div class="hook-box">5 خرافات شائعة عن فقدان الوزن (وحقائقها مع EasyFit!)</div>
+                <div class="script-text"><b>السكربت:</b><br>شريحة 1: العنوان: 5 خرافات شائعة عن فقدان الوزن.
+شريحة 2: خرافة 1: يجب أن تتمرن لساعات طويلة. حقيقة: جودة التمرين أهم من كميته.
+شريحة 3: خرافة 2: الحرمان هو الحل الوحيد. حقيقة: التوازن هو المفتاح مع خطط EasyFit.
+شريحة 4: خرافة 3: المكملات السحرية تفعل كل شيء. حقيقة: EasyFit يعتمد على العلم والجهد.
+شريحة 5: خرافة 4: فقدان الوزن سريعاً هو الأفضل. حقيقة: EasyFit يركز على النتائج المستدامة.
+شريحة 6: خرافة 5: لا وقت لدي للتمرين. حقيقة: EasyFit مصمم ليتناسب مع جدولك المزدحم.</div>
+                <div style="margin-top:10px; font-size: 0.85em; color: #888;"><b>المكلف:</b> خالد</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span class="badge">V3</span><br>
+                <small style="color: #666;">Video</small>
+            </td>
+            <td>
+                <div class="hook-box">شاهد قصص نجاح حقيقية غيّرتها EasyFit!</div>
+                <div class="script-text"><b>السكربت:</b><br>صوت: (موسيقى هادئة ودافئة)
+المشهد: مقابلة مع 'ليلى' قبل استخدام EasyFit، تبدو مرهقة ومحبطة.
+ليلى: "كنت أعاني من قلة الثقة بالنفس بسبب وزني، وجربت كل شيء بدون فائدة."
+المشهد: لقطات لليلى وهي تستخدم EasyFit بسعادة ونشاط.
+ليلى: "ثم اكتشفت EasyFit. كان الأمر بسيطاً وممتعاً. لم أشعر وكأنني أقوم بتمرين، بل كنت ألعب!"
+المشهد: لقطات لليلى بعد استخدام EasyFit لفترة، تبدو نشيطة وسعيدة، ترتدي ملابس جديدة.
+ليلى: "في بضعة أشهر، لم أفقد الوزن فقط، بل استعدت طاقتي وثقتي بنفسي. EasyFit لم يغير جسمي فحسب، بل غير حياتي!"
+المشهد: لقطة ختامية لليلى وهي تبتسم وتقول: "شكراً EasyFit!"</div>
+                <div style="margin-top:10px; font-size: 0.85em; color: #888;"><b>المكلف:</b> ليلى</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span class="badge">P1</span><br>
+                <small style="color: #666;">Photo</small>
+            </td>
+            <td>
+                <div class="hook-box">اشعر بالحيوية والانتعاش كل يوم!</div>
+                <div class="script-text"><b>السكربت:</b><br>صورة عالية الجودة لشخص مبتسم ونشيط يمارس نشاطاً يومياً (مثل المشي في الحديقة أو تحضير وجبة صحية) مرتدياً ملابس رياضية خفيفة، مع إيحاء بأنه يستخدم EasyFit في الخلفية أو بتأثير خفيف.
+التركيز على نمط الحياة الصحي والسعيد الذي يوفره المنتج.</div>
+                <div style="margin-top:10px; font-size: 0.85em; color: #888;"><b>المكلف:</b> بن صايبي</div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 
-<div class="summary-box">
-<span style="font-weight:700;color:#FFD700;">الميزانية الإجمالية المعتمدة</span>
-<span class="total-amount">64000 دج</span>
-<a href="https://wa.me/213770820431" class="cta-btn">تواصل معنا للاعتماد</a>
-<div style="border:1px dashed #FFD700;padding:25px;border-radius:15px;margin-top:20px;">
-<h3 style="color:#FFD700;margin:0;">الخطوة التالية</h3>
-<p style="margin:10px 0;">مكالمة قصيرة لتكييف الاستراتيجية والانطلاق في التنفيذ.</p>
-<div class="phones-list">
-<div class="phone-item">0770 82 04 31</div>
-<div class="phone-item">0770 55 01 51</div>
-<div class="phone-item">0770 82 01 45</div>
+    <div class="footer-box">
+        <span>الميزانية الإجمالية المعتمدة</span>
+        <span class="total-price">يحدد لاحقاً دج</span>
+        <p>جاهز للانطلاق؟ تواصل مع مندوبك لاعتماد الخطة والبدء في التنفيذ.</p>
+    </div>
 </div>
-</div>
-</div>
-</div>
-
-<script>
-function openModal(id){document.getElementById('modal-'+id).style.display='block';document.body.style.overflow='hidden';}
-function closeModal(id){document.getElementById('modal-'+id).style.display='none';document.body.style.overflow='auto';}
-window.onclick=function(event){if(event.target.className==='modal'){event.target.style.display='none';document.body.style.overflow='auto';}}
-</script>
-
 </body></html>
