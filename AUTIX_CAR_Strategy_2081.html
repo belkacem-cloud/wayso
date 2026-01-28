@@ -1,0 +1,312 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>AUTIX CAR Strategy</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+<style>
+    body { background: #FFFFFF; color: #1A1A1A; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; line-height: 1.6; overflow-x: hidden; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 15px; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 2px solid #000; }
+    .wayso-logo { height: 45px; }
+    .brand-name { font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 1.4em; color: #000; text-transform: uppercase; border-right: 4px solid #FFD700; padding-right: 12px; }
+    
+    .analysis-section { margin: 30px 0; }
+    .card-philosophy { padding: 30px; border-radius: 20px; background: #000; color: #FFF; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+    .card-philosophy h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #FFD700; }
+    
+    .card-why { padding: 30px; border-radius: 20px; background: #F9F9F9; color: #333; margin-bottom: 20px; border: 1px solid #EDECE9; }
+    .card-why h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #000; display: flex; align-items: center; gap: 10px; }
+    .card-why h2::after { content: ''; flex-grow: 1; height: 1px; background: #EDECE9; margin-right: 15px; }
+
+    .hero { margin: 35px 0 20px 0; border-right: 6px solid #FFD700; padding-right: 15px; }
+    .hero h1 { font-size: 2.5em; font-weight: 700; margin: 0; }
+    .table-wrapper { margin-top: 25px; border-radius: 12px; overflow: hidden; border: 1px solid #EDECE9; }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #000; color: #FFF; padding: 15px; text-align: right; font-size: 0.9em; }
+    td { padding: 20px 12px; border-bottom: 1px solid #EDECE9; vertical-align: top; }
+    
+    .code-badge { font-family: 'Montserrat', sans-serif; font-weight: 700; background: #FFD700; color: #000; padding: 5px 12px; border-radius: 6px; font-size: 1.1em; display: inline-block; margin-bottom: 5px; }
+    .type-label { display: block; font-weight: 700; color: #555; font-size: 0.95em; }
+    
+    .hook-pill { background: #000; color: #FFD700; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 1.1em; display: block; border-right: 5px solid #FFD700; }
+    
+    /* تحسين زر المودال */
+    .script-trigger { background: #F8F9FA; border: 1px solid #EDECE9; padding: 15px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; }
+    .script-trigger:hover { background: #FFF; border-color: #FFD700; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+    
+    .preview-text { font-size: 0.95em; color: #333; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; white-space: pre-wrap; }
+    
+    .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(8px); }
+    .modal-content { background: #FFF; margin: 5% auto; padding: 30px; border-radius: 20px; width: 88%; max-width: 700px; position: relative; max-height: 85vh; overflow-y: auto; }
+    .close-modal { position: absolute; top: 15px; left: 15px; font-size: 35px; cursor: pointer; color: #999; line-height: 1; }
+    .modal-section { margin-bottom: 25px; padding: 15px; border-radius: 12px; background: #fbfbfa; border: 1px solid #eee; }
+    
+    /* تحسين تنسيق القراءة */
+    .modal-body { font-size: 1.15em; color: #1A1A1A; line-height: 1.9; word-wrap: break-word; }
+    
+    .disclaimer-card { margin: 25px 0; padding: 20px; background: #FFF9E6; border-radius: 12px; border-right: 5px solid #FFC107; font-size: 1.05em; color: #856404; display: flex; align-items: center; gap: 12px; }
+    .summary-box { margin-top: 50px; background: #000; color: #FFF; padding: 40px 20px; border-radius: 25px; text-align: center; }
+    .total-amount { font-family: 'Montserrat'; font-size: 3.5em; font-weight: 700; display: block; color: #FFD700; margin: 10px 0; }
+    .cta-btn { display: inline-block; background: #FFD700; color: #000; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.2em; margin-bottom: 25px; }
+    .phones-list { margin-top: 15px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; direction: ltr; } 
+    .phone-item { background: #1A1A1A; padding: 8px 15px; border-radius: 8px; border: 1px solid #333; color: #FFF; font-family: 'Montserrat'; font-weight: 700; font-size: 1.2em; white-space: nowrap; }
+
+    @media (max-width: 768px) {
+        thead { display: none; }
+        tr { display: block; border: 1px solid #EDECE9; border-radius: 15px; margin-bottom: 20px; padding: 15px; background: #FFF; }
+        td { display: block; padding: 8px 0; text-align: right; }
+        td::before { content: attr(data-label); font-weight: 700; color: #BBB; display: block; font-size: 0.75em; margin-bottom: 4px; }
+        .brand-name { font-size: 1.1em; }
+    }
+</style></head><body>
+
+<div class="container">
+    <div class="header">
+        <img src="https://storage.googleapis.com/msgsndr/GwIPQCjstTzxnzDQ1B32/media/68fddb5534bb1597bc934f89.png" class="wayso-logo">
+        <div class="brand-name">AUTIX CAR</div>
+    </div>
+
+    <div class="analysis-section">
+        <div class="card-philosophy"><h2>🎯 فلسفة الاستراتيجية</h2><p>في Wayso، نؤمن بأن استثمارك في المحتوى يجب أن يكون استثمارًا في نموك المستدام. لقد صممنا هذه الخطة لتتجاوز مجرد 'إعلانات' لتصبح جسرًا يربط عملائك المحتملين بقيمتك الفريدة. بتركيزنا على الفيديو الرئيسي المتكامل والكاروسالات التعليمية، نضمن ليس فقط جذب الانتباه، بل بناء الثقة وترسيخ الولاء الذي يمهد الطريق لنجاح لا يتزعزع.</p></div>
+        <div class="card-why"><h2>💡 لماذا هذه الخطة؟</h2><p>بدأنا بـ V1 لخطف الانتباه وإثارة نقاط الألم، ثم C2 للتعليم العميق وبناء القيمة، و P3 لترسيخ الثقة وحل المشاكل البيروقراطية. هذا التسلسل المدروس يوجه العميل عاطفيًا ومنطقيًا نحو قرار الشراء، محولًا إياه من مهتم إلى عميل مقتنع.</p></div>
+    </div>
+
+    <div class="hero"><h1>خطة الإنتاج الإبداعي</h1></div>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th style="width: 20%;">الكود والنوع</th><th style="width: 30%;">الهوك (Hook)</th><th style="width: 50%;">المحتوى</th></tr></thead>
+            <tbody><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V1</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">شريت طوموبيل و بعد عام خسرت فيها 20 مليون؟ هذي هي الحكاية لي تتعاود كل يوم في سوقنا... بصح ماشي عليك.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('1')">
+                    <div class="preview-text">راك تشوف دراهمك يروحو في سوق تاع سيارات ما يرحمش.
+كل يوم الأسعار تتبدل، و الصفقات المليحة تروح للناس...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-1" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('1')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V1</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">راك تشوف دراهمك يروحو في سوق تاع سيارات ما يرحمش.<br/><br/>كل يوم الأسعار تتبدل، و الصفقات المليحة تروح للناس لي عندها المعلومة قبل أي واحد.<br/><br/>و أنت تبقى تستنى، تشوف غير واش خلاولك... و تخاف تشري سيارة اليوم، وغدوة قيمتها تطيح في الأرض.<br/><br/>هذا الإحساس تاع ضياع الفرصة... و القلق تاع البيروقراطية... خلاص.<br/><br/>في AUTIX CAR، حنا ماشي مجرد وسطاء. حنا هوما الجسر الآمن ديالك للصين.<br/><br/>المهمة تاعنا ماشي نبيعولك سيارة... المهمة تاعنا هي نحولوها لاستثمار رابح.<br/><br/>كيفاش؟ عندنا وصول مباشر وحصري لصفقات ما تلحقش للسوق اصلا.<br/><br/>نخيرو معاك السيارة لي قيمتها تزيد، ماشي تنقص.<br/><br/>نتكلفو بكل الإجراءات، من الصين حتى لباب دارك، بشفافية تامة وسرعة قياسية.<br/><br/>مع AUTIX، ما راكش تشري في سيارة... راك تسبق في السوق بخطوة.<br/><br/>حاب تعرف الصفقات الحصرية تاع هذا الأسبوع؟</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">🚨 استثمارك القادم ماشي عقار... سيارة! <br/><br/> علاش تخلي قيمة سيارتك تنقص مع الوقت، كي تقدر تكون أصل يزيد في قيمته؟ <br/><br/> في AUTIX CAR، غيّرنا قواعد اللعبة. ما رانا نبيعولك سيارة برك، رانا نفتحولك الباب لصفقات استثمارية حصرية مباشرة من الصين، قبل ما يسمع بيها السوق. <br/><br/> ✅ وصول مباشر لأفضل الصفقات. <br/> ✅ شفافية تامة في كل الإجراءات. <br/> ✅ راحة بال من البيروقراطية. <br/><br/> حوّل عملية الشراء إلى ربح مضمون. <br/><br/> ماتفوتش الفرصة! تواصل معانا درك تشوف صفقات الأسبوع الحصرية اللي ماتلقاهاش في بلاصة أخرى! <br/><br/> #AUTIX_CAR #سيارات_الجزائر #استيراد_سيارات #استثمار_ذكي #الجزائر #سوق_السيارات #صفقات_حصرية #dzpower</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[المشهد الافتتاحي - 0-3 ثواني]: لقطات سريعة ومتقطعة (Fast cuts) لسوق سيارات شعبي مزدحم، أشخاص يتفاوضون، ثم لقطة لرجل ينظر لهاتفه بقلق. صوت عداد نقود ينخفض بسرعة. إضاءة طبيعية قاسية.<br/>[مرحلة المشكلة - 4-10 ثواني]: ظهور الوجه الإعلامي (Host) في مكتب أنيق. يتكلم بنبرة حاسمة وخبير. خلفه شاشة تعرض رسوم بيانية لأسعار سيارات تنخفض. زاوية تصوير متوسطة (Medium Shot).<br/>[تقديم الحل - 11-20 ثانية]: انتقال سلس إلى Motion Graphics. يظهر جسر ثلاثي الأبعاد يربط خريطة الجزائر بالصين، مع ظهور لوغو AUTIX CAR في المنتصف. النبرة تصبح موثوقة ومطمئنة.<br/>[شرح القيمة - 21-30 ثانية]: لقطات B-roll احترافية لسيارات فخمة وجديدة يتم شحنها في حاويات. تراكبات نصية (Text Overlays) تظهر عبارات مثل 'وصول حصري' و 'قيمة استثمارية'.<br/>[بناء الثقة - 31-38 ثانية]: لقطات لعملاء سعداء يستلمون سياراتهم. مصافحة بين عميل وممثل AUTIX CAR. الوجه الإعلامي يعود للظهور ويتكلم مباشرة للكاميرا بنبرة واثقة.<br/>[الدعوة للإجراء - 39-45 ثانية]: لقطة مقربة (Close-up) على الوجه الإعلامي. ثم تظهر شاشة النهاية بوضوح مع لوغو AUTIX CAR، رقم الهاتف، ورابط الموقع، مع دعوة واضحة للتواصل.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C2</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">راك تخلص في "ضريبة الجهل" بالسوق... بلا ما تفيق!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('2')">
+                    <div class="preview-text">Slide 1: العنوان الرئيسي: راك تخلص في "ضريبة الجهل" بالسوق... بلا ما تفيق! 
+(تحته سؤال صغير): هل تعل...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-2" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('2')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C2</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">Slide 1: العنوان الرئيسي: راك تخلص في "ضريبة الجهل" بالسوق... بلا ما تفيق! <br/><br/>(تحته سؤال صغير): هل تعلم أن سعر سيارتك يمكن أن يكون استثمارًا... أو خسارة؟<br/><br/>Slide 2: مقارنة بالأرقام: كيفاش تخسر دراهمك؟<br/><br/>سيارة (مثال: Chery Tiggo 8 Pro) <br/><br/>- السعر في السوق المحلي: ~480 مليون سنتيم.<br/><br/>- سعرها عبر AUTIX (من المصدر): ~410 مليون سنتيم.<br/><br/>(تصميم إنفوجرافيك يوضح الفرق بسهم أحمر كبير يشير للخسارة).<br/><br/>Slide 3: من مجرد سيارة... إلى أصل استثماري.<br/><br/>مع AUTIX، أنت لا تشتري بسعر السوق، بل بسعر المصدر. هذا يعني أن قيمة سيارتك تبدأ من نقطة قوة، مما يمنحها فرصة للنمو أو الحفاظ على قيمتها.<br/><br/>(رسم بياني يوضح منحنى قيمة السيارة مع AUTIX يبقى مستقرًا أو يرتفع، بينما منحنى السوق المحلي ينخفض).<br/><br/>Slide 4: ضماناتنا: جسرك الآمن للصين.<br/><br/>1. شفافية التكاليف 100%.<br/><br/>2. تتبع مباشر للشحنة.<br/><br/>3. تكفّل كامل بالإجراءات الجمركية.<br/><br/>4. فريق خبراء تحت تصرفك.<br/><br/>Slide 5: قرارك اليوم يحدد قيمة أموالك غدًا.<br/><br/>هل ستختار دفع المزيد مقابل قيمة أقل، أم ستستثمر بذكاء مع الخبراء؟</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">الأرقام لا تكذب... وأنت؟ هل تعرف القيمة الحقيقية لسيارتك؟ <br/><br/> كل يوم، يتم دفع أموال إضافية في سوق السيارات كان يمكن استثمارها بشكل أفضل. <br/><br/> في هذا الكاروسال، نكشف لك بالدليل كيف أن الشراء بالطريقة التقليدية قد يكلفك أكثر من مجرد سعر السيارة. إنه يكلفك فرصة استثمارية حقيقية. <br/><br/> اكتشف كيف يمكنك قلب المعادلة مع AUTIX CAR. <br/><br/> اكتشف كيف تولي سيارتك استثمار رابح مع AUTIX. ابعثلنا ميساج دوك! <br/><br/> #قيمة_استثمارية #تحليل_السوق #AUTIX_CAR #سيارات_الجزائر #نصائح_استثمار #الجزائر #dz</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم إنفوجرافيك احترافي ونظيف. استخدام ألوان الهوية البصرية لـ AUTIX CAR. الخطوط يجب أن تكون واضحة وسهلة القراءة. في Slide 2 و 3، يجب التركيز على الرسوم البيانية والأرقام الكبيرة لجعل المعلومة سهلة الهضم بصريًا. في Slide 4، استخدام أيقونات بسيطة لكل ضمان. الخلفية موحدة في كل السلايدات للحفاظ على التناسق.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P3</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">هذا الكابوس تاع الأوراق و "أرجع غدوة"… حنا نحّيناه عليك.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('3')">
+                    <div class="preview-text">قبل AUTIX: قلق، بيروقراطية، وضياع وقت.
+بعد AUTIX: راحة بال، ثقة، ومفتاح سيارتك في يدك....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-3" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('3')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P3</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">قبل AUTIX: قلق، بيروقراطية، وضياع وقت.<br/><br/>بعد AUTIX: راحة بال، ثقة، ومفتاح سيارتك في يدك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">مهمتك تختار السيارة... ومهمتنا كل الباقي. <br/><br/> صداع الأوراق، تعقيدات الجمارك، والانتظار الطويل... هذي كامل مشاكل الماضي. <br/><br/> مع AUTIX CAR، نضمن لك تجربة شراء سلسة ومريحة. فريقنا يتكفل بكل التفاصيل البيروقراطية لكي تركز على الأهم: الاستمتاع بسيارتك الجديدة. <br/><br/> راحة البال... هي أول ميزة نقدمها لك. <br/><br/> إلى بغيت تشري بالراحة و بلا صداع راس، تواصل مع AUTIX. <br/><br/> #راحة_البال #AUTIX_CAR #بيروقراطية_أقل #ثقة #خدمة_VIP #الجزائر #سيارات</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم يعتمد على مبدأ الصورة المقسومة (Split Image). الجهة اليسرى (قبل): بالأبيض والأسود، تظهر يد شخص غارقة في كومة من الأوراق الإدارية والطوابع، مع تعابير وجه مرهقة في الخلفية. الجهة اليمنى (بعد): بالألوان الزاهية، تظهر نفس اليد وهي تمسك بمفتاح سيارة حديث عليه شعار AUTIX بشكل أنيق، مع خلفية سيارة جديدة ولامعة. شعار AUTIX يكون كالجسر الفاصل بين الصورتين.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V4</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">شهر… شهرين… ست شهور… سيارتك مازال ما لحقتش؟ كاين حل أسرع.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('4')">
+                    <div class="preview-text">ملّيت من الوعود الفارغة والتأخير لي ما يخلصش؟
+الوقت هو أثمن حاجة عندك، و حنا في AUTIX CAR نقدّروه.
+ل...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-4" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('4')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V4</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">ملّيت من الوعود الفارغة والتأخير لي ما يخلصش؟<br/><br/>الوقت هو أثمن حاجة عندك، و حنا في AUTIX CAR نقدّروه.<br/><br/>لهذا السبب بنينا عملية استيراد هي الأكثر كفاءة وسرعة في السوق.<br/><br/>شوف كيفاش:<br/><br/>الخطوة 1: نحدد معاك الصفقة الحصرية في أقل من 48 ساعة.<br/><br/>الخطوة 2: نبدأ إجراءات الشراء والشحن الفوري.<br/><br/>الخطوة 3: نتكفّل بالتخليص الجمركي بسرعة بفضل خبرتنا.<br/><br/>الخطوة 4: سيارتك توصلك في وقت قياسي.<br/><br/>مع AUTIX، كل يوم انتظار هو فرصة ضائعة. معانا، كل يوم هو خطوة أقرب لصفقتك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">الوقت يساوي المال. علاش تضيّعهم في زوج؟ <br/><br/> كل تأخير في وصول سيارتك هو تكلفة إضافية وفرصة استثمارية تضيع. <br/><br/> شاهد في هذا الفيديو كيف حولت AUTIX CAR عملية الاستيراد المعقدة إلى مسار سريع وفعال من 4 خطوات فقط. الكفاءة ليست مجرد كلمة، بل هي نظام عملنا. <br/><br/> استرجع وقتك، واغتنم فرصتك. <br/><br/> شوف كيفاش AUTIX يوصلك صفقتك في وقت قياسي. اضغط على الرابط! <br/><br/> #السرعة_هي_كل_شيء #كفاءة #AUTIX_CAR #وقتك_ثمين #استيراد_سريع #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو Motion Graphics 100%. سريع الإيقاع. استخدام أيقونات متحركة ورسوم توضيحية بسيطة لكل خطوة. إظهار خريطة بين الصين والجزائر مع خط متحرك يمثل مسار الشحنة، ويتوقف عند كل مرحلة مع ظهور علامة صح (✓). استخدام ألوان AUTIX الأساسية. التعليق الصوتي يجب أن يكون سريعًا وحاسمًا ومليئًا بالطاقة ليعكس فكرة السرعة والكفاءة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C5</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">ممنوع على الوسطاء. هذا المخزون لعملاء AUTIX CAR فقط.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('5')">
+                    <div class="preview-text">Slide 1: العنوان: وصول VIP.
+(تحته جملة): هذه السيارات لن تجدها في أي مكان آخر في السوق الجزائري.
+Sli...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-5" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('5')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C5</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">Slide 1: العنوان: وصول VIP.<br/><br/>(تحته جملة): هذه السيارات لن تجدها في أي مكان آخر في السوق الجزائري.<br/><br/>Slide 2: عرض حصري 1: [اسم السيارة X]<br/><br/>(صورة احترافية للسيارة من عدة زوايا).<br/><br/>- المحرك: [مواصفات]<br/><br/>- الميزات: [أهم 3 ميزات]<br/><br/>- السعر الحصري: إتصل بنا.<br/><br/>(شعار 'حصري' في زاوية الصورة).<br/><br/>Slide 3: عرض حصري 2: [اسم السيارة Y]<br/><br/>(صورة احترافية للسيارة من عدة زوايا).<br/><br/>- المحرك: [مواصفات]<br/><br/>- الميزات: [أهم 3 ميزات]<br/><br/>- السعر الحصري: إتصل بنا.<br/><br/>(شعار 'حصري' في زاوية الصورة).<br/><br/>Slide 4: عرض حصري 3: [اسم السيارة Z]<br/><br/>(صورة احترافية للسيارة من عدة زوايا).<br/><br/>- المحرك: [مواصفات]<br/><br/>- الميزات: [أهم 3 ميزات]<br/><br/>- السعر الحصري: إتصل بنا.<br/><br/>(شعار 'حصري' في زاوية الصورة).<br/><br/>Slide 5: تحذير: الكمية محدودة جداً.<br/><br/>هذه الصفقات الحصرية متوفرة بأعداد قليلة. الطلب يزداد بسرعة والأولوية لمن يتواصل أولاً.<br/><br/>Slide 6: كن أنت السّباق.<br/><br/>لا تنتظر حتى تصبح هذه السيارات حديث السوق. امتلكها الآن.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">قبل أن يراها أي شخص آخر... تراها أنت. <br/><br/> نقدم لك لمحة عن مخزوننا الخاص والحصري، صفقات يتم التفاوض عليها مباشرة من المصدر وهي مخصصة لعملاء AUTIX CAR المميزين فقط. <br/><br/> هذه ليست مجرد سيارات، بل هي فرص استثمارية نادرة. <br/><br/> تصفح العروض... واختر فرصتك قبل أن تختفي. <br/><br/> ماتضيعش الفرصة! أكتشف المخزون الحصري لـ AUTIX دوك! <br/><br/> #حصري #سيارات_نادرة #AUTIX_CAR #كن_الأول #فرص_ذهبية #الجزائر #VIP</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم فاخر وراقي. استخدام خلفيات داكنة لإبراز جمال السيارات. الصور يجب أن تكون عالية الجودة. استخدام خط أنيق للمواصفات. شعار 'حصري' أو 'Exclusive' يجب أن يكون بارزًا على صور السيارات. في Slide 5، يمكن استخدام أيقونة ساعة رملية أو عداد تنازلي لإضافة إحساس بالاستعجال.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P6</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">AUTIX CAR: صفقتك في الصين، توصلك قبل ما يسمعوا بيها.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('6')">
+                    <div class="preview-text">العنوان الرئيسي: AUTIX CAR
+الشعار: صفقتك في الصين، توصلك قبل ما يسمعوا بيها.
+
+- استثمار مضمون
+- سرعة...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-6" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('6')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P6</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">العنوان الرئيسي: AUTIX CAR<br/><br/>الشعار: صفقتك في الصين، توصلك قبل ما يسمعوا بيها.<br/><br/><br/><br/>- استثمار مضمون<br/><br/>- سرعة قياسية<br/><br/>- ثقة مطلقة</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">هل أنت مستعد لاستثمارك الذكي القادم؟ <br/><br/> في سوق متغير وسريع، أنت لا تحتاج إلى بائع سيارات، بل تحتاج إلى شريك استراتيجي. <br/><br/> AUTIX CAR تمنحك الاهتمام الذي تستحقه، والوصول الذي تحتاجه، والفرص التي تضمن لك التفوق. <br/><br/> حان الوقت لتجعل أموالك تعمل لصالحك. <br/><br/> إبدأ رحلة استثمارك الذكي. اتصل بـ AUTIX اليوم! <br/><br/> #AUTIX_CAR #استثمار_السيارات #شريكك_الاستراتيجي #الجزائر #AIDA #سيارات_2024</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم غرافيكي بسيط ومركز. لوغو AUTIX CAR كبير وواضح في الأعلى. تحته الشعار (Slogan) بخط جريء وأنيق. في الأسفل، المزايا الثلاث الرئيسية على شكل نقاط (bullet points) مع أيقونات بسيطة بجانب كل ميزة (أيقونة سهم للأعلى للاستثمار، أيقونة صاروخ للسرعة، أيقونة درع للثقة). الخلفية تستخدم ألوان الهوية البصرية للعلامة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr></tbody></table></div>
+
+    <div class="disclaimer-card">
+        <span style="font-size: 1.2em;">⚠️</span>
+        <span>قد تخضع هذه الاستراتيجية لبعض التعديلات والتحسينات، حسب المواد الإعلامية المتوفرة أو لغرض تحقيق أفضل النتائج.</span>
+    </div>
+
+    <div class="summary-box">
+        <span style="font-weight: 700; color: #FFD700;">الميزانية الإجمالية المعتمدة</span>
+        <span class="total-amount">51000 دج</span>
+        <a href="https://wa.me/213770820431" class="cta-btn">تواصل معنا للاعتماد</a>
+        <div style="border: 1px dashed #FFD700; padding: 25px; border-radius: 15px; margin-top: 20px;">
+            <h3 style="color:#FFD700; margin:0;">الخطوة التالية</h3>
+            <p style="margin:10px 0;">مكالمة قصيرة لنكيّف هذه الاستراتيجية حسب مشروعك ونبدأ العمل فوراً.</p>
+            <div class="phones-list">
+                <div class="phone-item">0770 82 04 31</div>
+                <div class="phone-item">0770 55 01 51</div>
+                <div class="phone-item">0770 82 01 45</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+function openModal(id) { document.getElementById('modal-' + id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
+function closeModal(id) { document.getElementById('modal-' + id).style.display = 'none'; document.body.style.overflow = 'auto'; }
+window.onclick = function(event) { if (event.target.className === 'modal') { event.target.style.display = 'none'; document.body.style.overflow = 'auto'; } }
+</script></body></html>
