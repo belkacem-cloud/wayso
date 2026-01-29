@@ -1,0 +1,512 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>DS Strategy</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+<style>
+    body { background: #FFFFFF; color: #1A1A1A; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; line-height: 1.6; overflow-x: hidden; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 15px; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 2px solid #000; }
+    .wayso-logo { height: 45px; }
+    .brand-name { font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 1.4em; color: #000; text-transform: uppercase; border-right: 4px solid #FFD700; padding-right: 12px; }
+    
+    .analysis-section { margin: 30px 0; }
+    .card-philosophy { padding: 30px; border-radius: 20px; background: #000; color: #FFF; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+    .card-philosophy h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #FFD700; }
+    
+    .card-why { padding: 30px; border-radius: 20px; background: #F9F9F9; color: #333; margin-bottom: 20px; border: 1px solid #EDECE9; }
+    .card-why h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #000; display: flex; align-items: center; gap: 10px; }
+    .card-why h2::after { content: ''; flex-grow: 1; height: 1px; background: #EDECE9; margin-right: 15px; }
+
+    .hero { margin: 35px 0 20px 0; border-right: 6px solid #FFD700; padding-right: 15px; }
+    .hero h1 { font-size: 2.5em; font-weight: 700; margin: 0; }
+    .table-wrapper { margin-top: 25px; border-radius: 12px; overflow: hidden; border: 1px solid #EDECE9; }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #000; color: #FFF; padding: 15px; text-align: right; font-size: 0.9em; }
+    td { padding: 20px 12px; border-bottom: 1px solid #EDECE9; vertical-align: top; }
+    
+    .code-badge { font-family: 'Montserrat', sans-serif; font-weight: 700; background: #FFD700; color: #000; padding: 5px 12px; border-radius: 6px; font-size: 1.1em; display: inline-block; margin-bottom: 5px; }
+    .type-label { display: block; font-weight: 700; color: #555; font-size: 0.95em; }
+    
+    .hook-pill { background: #000; color: #FFD700; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 1.1em; display: block; border-right: 5px solid #FFD700; }
+    
+    /* تحسين زر المودال */
+    .script-trigger { background: #F8F9FA; border: 1px solid #EDECE9; padding: 15px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; }
+    .script-trigger:hover { background: #FFF; border-color: #FFD700; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+    
+    .preview-text { font-size: 0.95em; color: #333; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; white-space: pre-wrap; }
+    
+    .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(8px); }
+    .modal-content { background: #FFF; margin: 5% auto; padding: 30px; border-radius: 20px; width: 88%; max-width: 700px; position: relative; max-height: 85vh; overflow-y: auto; }
+    .close-modal { position: absolute; top: 15px; left: 15px; font-size: 35px; cursor: pointer; color: #999; line-height: 1; }
+    .modal-section { margin-bottom: 25px; padding: 15px; border-radius: 12px; background: #fbfbfa; border: 1px solid #eee; }
+    
+    /* تحسين تنسيق القراءة */
+    .modal-body { font-size: 1.15em; color: #1A1A1A; line-height: 1.9; word-wrap: break-word; }
+    
+    .disclaimer-card { margin: 25px 0; padding: 20px; background: #FFF9E6; border-radius: 12px; border-right: 5px solid #FFC107; font-size: 1.05em; color: #856404; display: flex; align-items: center; gap: 12px; }
+    .summary-box { margin-top: 50px; background: #000; color: #FFF; padding: 40px 20px; border-radius: 25px; text-align: center; }
+    .total-amount { font-family: 'Montserrat'; font-size: 3.5em; font-weight: 700; display: block; color: #FFD700; margin: 10px 0; }
+    .cta-btn { display: inline-block; background: #FFD700; color: #000; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.2em; margin-bottom: 25px; }
+    .phones-list { margin-top: 15px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; direction: ltr; } 
+    .phone-item { background: #1A1A1A; padding: 8px 15px; border-radius: 8px; border: 1px solid #333; color: #FFF; font-family: 'Montserrat'; font-weight: 700; font-size: 1.2em; white-space: nowrap; }
+
+    @media (max-width: 768px) {
+        thead { display: none; }
+        tr { display: block; border: 1px solid #EDECE9; border-radius: 15px; margin-bottom: 20px; padding: 15px; background: #FFF; }
+        td { display: block; padding: 8px 0; text-align: right; }
+        td::before { content: attr(data-label); font-weight: 700; color: #BBB; display: block; font-size: 0.75em; margin-bottom: 4px; }
+        .brand-name { font-size: 1.1em; }
+    }
+</style></head><body>
+
+<div class="container">
+    <div class="header">
+        <img src="https://storage.googleapis.com/msgsndr/GwIPQCjstTzxnzDQ1B32/media/68fddb5534bb1597bc934f89.png" class="wayso-logo">
+        <div class="brand-name">DS</div>
+    </div>
+
+    <div class="analysis-section">
+        <div class="card-philosophy"><h2>🎯 فلسفة الاستراتيجية</h2><p>نحن في Wayso ندرك أن استثمارك في التسويق يجب أن يكون استثمارًا حقيقيًا في نموك. لذا، صممنا لك هذه الخطة المتكاملة التي تجمع بين قوة الفيديو الرئيسي لبناء الثقة العميقة وسلسلة الكاروسالات التعليمية لتبسيط رحلة العميل. هذا المزيج المتقن يضمن لك ليس فقط الوصول إلى جمهور أوسع، بل بناء ولاء راسخ وتحقيق تحويلات مستدامة، مما يضعك في صدارة المنافسة.</p></div>
+        <div class="card-why"><h2>💡 لماذا هذه الخطة؟</h2><p>بدأنا بـ V1 لخطف الانتباه ومعالجة المخاوف الأساسية ببناء ثقة قوية، ثم انتقلنا إلى C2 لتقديم التعليم المباشر والموثوق. هذا التسلسل المدروس يقود العميل تدريجياً من مجرد اهتمام عابر إلى قناعة عميقة، مما يسهل عملية اتخاذ القرار ويقود إلى التحويل الفعال.</p></div>
+    </div>
+
+    <div class="hero"><h1>خطة الإنتاج الإبداعي</h1></div>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th style="width: 20%;">الكود والنوع</th><th style="width: 30%;">الهوك (Hook)</th><th style="width: 50%;">المحتوى</th></tr></thead>
+            <tbody><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V1</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">شريت سلعة بملاين... و فاللخر طلعت 'شينوا' و لا لقيت روحك حاير مع بريكولور يفسدلك فيها؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('1')">
+                    <div class="preview-text">في DS، تخمامك يكمل عند الباب.
+عارفين بلي أكبر خوف هوما زوج: سلعة ماشي دوريجين... و تركيب ماشي بروفيس...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-1" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('1')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V1</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">في DS، تخمامك يكمل عند الباب.<br/><br/>عارفين بلي أكبر خوف هوما زوج: سلعة ماشي دوريجين... و تركيب ماشي بروفيسيونال.<br/><br/>على بيها وفرنالك أكبر ستوك تاع الماركات العالمية الأصلية... تشوفها بعينك وتخير.<br/><br/>كل قطعة مضمونة المصدر، باش ترقد مهني.<br/><br/>والتركيب؟ ماشي حكاية خلاص.<br/><br/>فريقنا التقني يركبلك كلش كيما يقول الكتاب... خدمة نقية ومضمونة.<br/><br/>لأنو في DS، السلعة والخدمة مسؤوليتنا.<br/><br/>نقطة اتصال وحدة، وضمان واحد.<br/><br/>وباش نزيدو نريحوك، اكتشف 'باقة التوفير والراحة'... أمانك كامل في حل واحد.<br/><br/>DS: السلعة كاينة، والخدمة مضمونة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">🛑 قبل ما تضيع دراهمك في سلعة مقلدة وتركيب عشوائي... <br/><br/> في DS، قضينا على مشكلتك من الجذر. ماشي غير نبيعولك المنتج الأصلي اللي تحوس عليه من أكبر الماركات العالمية، بل نوفرولك فريق تركيب محترف يضمنلك خدمة تريحلك بالك.<br/><br/>من اليوم، عندك مسؤول واحد على أمانك: DS.<br/><br/>✅ منتجات أصلية 100% تشوفها بعينك في محلنا.<br/>✅ فريق تركيب خبير يخدم خدمة نقية ومضمونة.<br/>✅ ضمان شامل على السلعة والخدمة.<br/><br/>راحتك تبدا من عندنا. <br/><br/> 📍 زرونا اليوم في محلنا في [اسم المنطقة] أو تواصلوا معنا على الواتساب واكتشفوا حلول الأمان المتكاملة! <br/><br/> #DS_Algeria #أمان #أتمتة_المنازل #كاميرات_مراقبة #محركات_الأبواب #حلول_ذكية #الجودة_والضمان #الجزائر #وهران #قسنطينة</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[بداية الفيديو: ظهور شعار الدرع الأصفر لـ DS مع صوت 'تكة' قفل آمن]<br/>[مشهد 1: لقطة بانورامية واسعة (Wide shot) داخل محل DS تظهر الأرفف الممتلئة بالبضاعة والماركات العالمية. حركة كاميرا بطيئة وسلسة.]<br/>[مشهد 2: لقطات مقربة (Close-up) على صناديق منتجات أصلية (Nice, BFT, Came). ظهور نصوص متحركة (Animated Text) على الشاشة: 'Made in Italy', 'ضمان 24 شهر'.]<br/>[مشهد 3: انتقال لمشهد تركيب. فني يرتدي زي DS الرسمي يقوم بتركيب محرك باب أو كاميرا بدقة ونظافة. زاوية تصوير تركز على احترافية العمل والأدوات المنظمة.]<br/>[مشهد 4: لقطة ASMR مقربة جداً لصوت محرك الباب وهو يعمل بهدوء تام، أو صوت قفل الباب الذكي وهو يُغلق بـ 'كليك' مطمئن.]<br/>[مشهد 5: لقطة أخيرة للعميل وهو يستخدم تطبيق الهاتف للتحكم في النظام بسهولة، مع ابتسامة رضا.]<br/>[الصوت: Voiceover بنبرة احترافية، هادئة، ومطمئنة. موسيقى خلفية راقية وغير مزعجة.]</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C2</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">ما بين سلعة مغشوشة و تركيب عيّان... راحت بالك وين راهي؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('2')">
+                    <div class="preview-text">Slide 1: DS: السلعة كاينة والخدمة مضمونة. راحتك هي الصح.
+Slide 2: علاش تخيّر DS وتريح راسك؟
+Slide 3:...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-2" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('2')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C2</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">Slide 1: DS: السلعة كاينة والخدمة مضمونة. راحتك هي الصح.<br/><br/>Slide 2: علاش تخيّر DS وتريح راسك؟<br/><br/>Slide 3: ✅ منتجات أصلية 100% ومخزون حقيقي تشوفو بعينك. ماشي مجرد صور في الأنترنت.<br/><br/>Slide 4: ✅ فريق تركيب محترف وخبير تابع لينا. ماشي فني هاوي يخدم بالقطعة.<br/><br/>Slide 5: ✅ ضمان شامل وحقيقي. حنا مسؤولين على كلش، من المنتج للخدمة.<br/><br/>Slide 6: ✅ وقتك وراحتك أهم. حل واحد متكامل من الألف للياء.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">🤯 ملّيت من التخمام؟ الحل في مكان واحد! <br/><br/> السوق معمر باللي يبيعلك سلعة ما تعرفش مصدرها، ويزيد يخليك حاير مع التركيب.<br/><br/>في DS، حبسنا هاد الدوامة. نقدم لك منظومة متكاملة تضمنلك راحة البال التامة.<br/><br/>اسحب لليمين واكتشف 4 أسباب تخليك تختار DS وعينيك مغمضين. <br/><br/> اسحب وشوف كيفاش DS يضمنلك الأمان والراحة التامة! <br/><br/> #الثقة #المصداقية #ضمان_حقيقي #خدمة_احترافية #DS_Solutions #راحة_البال #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[التصميم العام: جرافيك ديزاين احترافي بألوان العلامة (الأصفر، الأسود/الرمادي الداكن). خط واضح وسهل القراءة.]<br/>[Slide 1: عنوان الكاروسال على صورة عالية الجودة للمحل من الداخل.]<br/>[Slide 2: سؤال بصيغة كبيرة وجذابة.]<br/>[Slides 3-6: كل سلايد يحتوي على أيقونة معبرة (علامة صح، ترس، درع) بجانب النص. الخلفية تكون صور حقيقية عالية الجودة للمخزون، فريق العمل، شهادة ضمان، إلخ.]</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P3</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كي نقولولك 'أمانك أولويتنا'، ماشي مجرد شعار.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('3')">
+                    <div class="preview-text">في DS، المسؤولية عندها معنى واحد: راحتك مضمونة....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-3" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('3')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P3</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">في DS، المسؤولية عندها معنى واحد: راحتك مضمونة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">في DS... المسؤولية ماشي كلمة. <br/><br/> الكثير يعدون بالجودة، لكن القليل من يتحمل المسؤولية الكاملة من المنتج إلى التركيب وما بعد البيع.<br/><br/>نحن في DS، نعتبر أنفسنا شركاءك في الأمان، ولهذا ضماننا يشمل كل خطوة في العملية.<br/><br/>أمانك هو مسؤوليتنا الأولى والأخيرة. <br/><br/> تواصل معنا الآن واستفسر عن ضماناتنا الحصرية التي تحمي استثمارك! <br/><br/> #مسؤولية #ضمان #ثقة #احترافية #DS_Algeria #خدمة_العملاء #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[التصميم: تصميم جرافيكي بسيط وقوي. النص مكتوب بخط عريض وواضح في المنتصف. في الخلفية، صورة عالية الجودة ومهنية لأحد فنيي DS وهو يصافح عميلاً مبتسماً. شعار الدرع الأصفر لـ DS في زاوية التصميم بشكل بارز.]</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V4</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">تخيل ترجع لدارك... كلش مريقل، آمن، ويخدم بضغطة زر؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('4')">
+                    <div class="preview-text">حياتك معمرة بالضغط... على الأقل دارك لازم تكون مصدر راحة.
+هذا ماشي مجرد حلم.
+مع حلول DS للأتمتة والأ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-4" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('4')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V4</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">حياتك معمرة بالضغط... على الأقل دارك لازم تكون مصدر راحة.<br/><br/>هذا ماشي مجرد حلم.<br/><br/>مع حلول DS للأتمتة والأمان...<br/><br/>تقدر تتحكم في كلش من تليفونك، وين ما كنت.<br/><br/>تضمن بلي دارك محمية 24/7 بكاميرات ذكية.<br/><br/>وتعيش حياتك بلا قلق تاع السرقة ولا الأعطال المفاجئة.<br/><br/>DS... خلي حياتك أسهل وأكثر أمان.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">🏡 دارك تقدر تكون أذكى وأكثر أماناً! <br/><br/> ما تخليش القلق اليومي يسرق منك راحة بالك حتى في دارك. مع حلول DS الذكية، تقدر تحول منزلك لمكان آمن ومريح، تتحكم فيه بلمسة زر.<br/><br/>شاهد الفيديو واكتشف كيفاش التكنولوجيا تقدر تبدلك حياتك للأفضل. <br/><br/> اكتشف كيفاش منتجات DS تخليك تعيش بأمان وراحة. زور موقعنا أو تواصل معنا! <br/><br/> #منزل_ذكي #أتمتة #راحة_البال #تكنولوجيا #SmartHome #DS_Tech #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[النوع: Motion Graphics احترافي وسلس.]<br/>[مشهد 1: أيقونات ورسوم متحركة بسيطة تصور ضغوطات الحياة اليومية (ساعة، أوراق عمل، زحمة مرور).]<br/>[مشهد 2: انتقال سلس إلى رسم متحرك لمنزل أنيق. تظهر أيقونات (قفل، كاميرا، ضوء) حول المنزل.]<br/>[مشهد 3: ظهور رسم لهاتف ذكي في اليد، وبنقرة واحدة، تظهر علامات 'صح' خضراء على الأيقونات حول المنزل.]<br/>[مشهد 4: عرض متحرك للميزات الرئيسية للمنتج (مثال: 'رؤية ليلية ملونة'، 'تنبيهات فورية على الهاتف').]<br/>[الصوت: Voiceover بنبرة حيوية وإيجابية. مؤثرات صوتية خفيفة لكل حركة (نقرة، ظهور أيقونة).]</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C5</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">هل راحة بالك تستاهل منتج أصلي وتركيب محترف؟ الجواب واضح.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('5')">
+                    <div class="preview-text">Slide 1: عيش حياتك بأمان وراحة: 4 أسباب تخليك تختار منتجات DS.
+Slide 2: 🛡️ جودة لا تُضاهى: أجهزة أص...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-5" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('5')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C5</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">Slide 1: عيش حياتك بأمان وراحة: 4 أسباب تخليك تختار منتجات DS.<br/><br/>Slide 2: 🛡️ جودة لا تُضاهى: أجهزة أصلية مصنوعة باش تدوم، ماشي باش تتعطل.<br/><br/>Slide 3: 🔧 تركيب احترافي: كفاءة وخبرة تضمن الأداء المثالي للنظام تاعك.<br/><br/>Slide 4: 📱 تحكم ذكي: راقب وتحكم في دارك بضغطة زر من أي مكان في العالم.<br/><br/>Slide 5: 😌 راحة بال تامة: استثمر مرة وحدة صح، وارتاح على طول.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">🤔 ماشي مجرد كاميرا أو محرك... إنه استثمار في راحة بالك! <br/><br/> لما تختار حلول الأمان من DS، أنت لا تشتري مجرد جهاز. أنت تستثمر في الجودة التي تدوم، التركيب الذي يضمن الأداء، والتكنولوجيا التي تمنحك التحكم والراحة.<br/><br/>اسحب لليمين وتعرف على الفوائد المباشرة اللي راح تغير حياتك. <br/><br/> اسحب لتعرف المزيد عن منتجات الأمان الذكية من DS! <br/><br/> #جودة #احترافية #تحكم_ذكي #راحة_البال #استثمار_ذكي #DS_Algeria #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[التصميم: جرافيك ديزاين جذاب يعتمد على الأيقونات التوضيحية الكبيرة والواضحة.]<br/>[Slide 1: عنوان جذاب على خلفية صورة لأسرة سعيدة في منزل آمن.]<br/>[Slides 2-5: كل سلايد يركز على فائدة واحدة. أيقونة كبيرة في الأعلى (درع، مفتاح ربط، هاتف، شخص مسترخي)، ونص قصير ومباشر في الأسفل. استخدام الألوان بذكاء لتمييز كل فائدة.]</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P6</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">دارك ذكية... يعني حياتك أسهل، وقتك ليك، وبالك مرتاح.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('6')">
+                    <div class="preview-text">الأتمتة الذكية من DS: استثمر في راحتك اليومية....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-6" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('6')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P6</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">الأتمتة الذكية من DS: استثمر في راحتك اليومية.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">✨ اجعل حياتك أسهل. اجعل منزلك أذكى. <br/><br/> الأتمتة لم تعد رفاهية، بل هي الحل الذكي لحياة عصرية ومريحة. من التحكم في الإضاءة إلى تأمين منزلك بلمسة زر، DS تقدم لك أحدث التقنيات لتبسيط يومك.<br/><br/>استمتع بوقتك أكثر، ودع التكنولوجيا تهتم بالباقي. <br/><br/> اضغط للتعرف على أحدث حلول الأتمتة الذكية من DS! <br/><br/> #المنزل_الذكي #الحياة_العصرية #راحة #أمان #تكنولوجيا_ذكية #DS_Automation #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[التصميم: صورة جذابة ومشرقة لغرفة معيشة عصرية وأنيقة، مع تلميحات للتكنولوجيا الذكية (مثلاً إضاءة ذكية، مساعد صوتي). النص مكتوب فوق الصورة بخط أنيق. شعار DS في الزاوية.]</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V7</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">شكون فينا ما عاشش كابوس 'ماشي أنا، هو الغالط' بين البائع والفني؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('7')">
+                    <div class="preview-text">[مشهد قبل - عميل متوتر]: يا خويا، الموتور اللي بعتهولي ما يمشيش!
+[مشهد قبل - البائع عبر الهاتف]: الم...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-7" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('7')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V7</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">[مشهد قبل - عميل متوتر]: يا خويا، الموتور اللي بعتهولي ما يمشيش!<br/><br/>[مشهد قبل - البائع عبر الهاتف]: المشكل راهو فالفني اللي ركبهولك، ماشي فالسلعة!<br/><br/>[مشهد قبل - الفني في الموقع]: السلعة هي اللي عيانة يا خويا، خدمتي نقية!<br/><br/>[صوت الراوي]: هاد السيناريو... خلاص وقتو.<br/><br/>[مشهد بعد - عميل مرتاح مع فني DS]: يعطيكم الصحة، خدمة ماشاء الله. كلش يمشي كيما يلزم.<br/><br/>[مشهد بعد - فني DS مبتسماً]: هادي هي خدمتنا سيدي. أي حاجة، عيطلنا وحنا نجو.<br/><br/>[صوت الراوي]: مع DS، نقطة اتصال وحدة، مسؤولية كاملة، وراحة بال مضمونة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">🤯 هذا الكابوس لازم يكمل! <br/><br/> مشكل 'هو الغالط' بين بائع السلعة والفني ضيعلك وقتك، دراهمك، وراحة بالك.<br/><br/>في DS، تحملنا المسؤولية كاملة باش نريحوك. شاهد الفيديو وتعرف على الحل النهائي اللي يضمنلك حقك وراحتك. <br/><br/> مع DS، نقطة اتصال وحدة، مسؤولية كاملة، وراحة بال مضمونة! تواصل معنا! <br/><br/> #حل_المشاكل #مسؤولية #خدمة_متكاملة #راحة_البال #DS_Promise #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[الأسلوب: Storytelling/UGC Style، تصوير واقعي يشبه ما يصوره الناس بهواتفهم لكن بجودة أعلى.]<br/>[مشهد 'قبل': إضاءة خافتة، ألوان باهتة. العميل يبدو متوتراً وغاضباً. استخدام كاميرا مهتزة قليلاً لإظهار الفوضى.]<br/>[مشهد 'بعد': انتقال مفاجئ إلى إضاءة مشرقة وألوان زاهية. العميل مبتسم ومرتاح. الكاميرا ثابتة واحترافية. التركيز على نظافة العمل والمنتج وهو يعمل بسلاسة.]<br/>[النهاية: عرض شعار DS مع عبارة 'نقطة اتصال وحدة. مسؤولية كاملة.']</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C8</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">مستعد تتخلص من صداع 'شكون المسؤول'؟ الحل هنا.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('8')">
+                    <div class="preview-text">Slide 1: الفرق واضح: الفوضى... ضد الحلول الذكية من DS!
+Slide 2: ❌ قبل DS: البائع يلوم الفني، والفني ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-8" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('8')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C8</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">Slide 1: الفرق واضح: الفوضى... ضد الحلول الذكية من DS!<br/><br/>Slide 2: ❌ قبل DS: البائع يلوم الفني، والفني يلوم البائع... وأنت الضحية في الوسط.<br/><br/>Slide 3: ❌ قبل DS: تضيع وقتك وفلوسك في محاولة فهم المشكل، بلا نتيجة.<br/><br/>Slide 4: ✅ مع DS: نقطة اتصال وحدة ومسؤول واحد. المشكل تاعنا ماشي تاعك.<br/><br/>Slide 5: ✅ مع DS: حل 'مفتاح في اليد' يضمنلك الجودة من السلعة للتركيب للضمان.<br/><br/>Slide 6: 💬 زبائننا يشهدون: 'أخيراً شركة تتحمل مسؤوليتها وتريحك صح.'</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">↔️ كاين زوج طرق لتأمين دارك... طريقة تزيدلك الصداع، وطريقة DS. <br/><br/> الاختيار بين نظام مجزأ وغير مضمون، وحل متكامل ومسؤول يمكن أن يغير تجربتك تماماً.<br/><br/>اسحب لليمين وشوف المقارنة الواضحة بين 'قبل' و 'بعد' اختيار DS. <br/><br/> اسحب لتعرف كيفاش DS يغير قواعد اللعبة! <br/><br/> #مقارنة #الحل_النهائي #قبل_وبعد #DS_Difference #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[التصميم: كاروسال مقارنة.]<br/>[Slides 2 & 3: استخدام أيقونة X حمراء كبيرة، وألوان داكنة وباهتة، وربما رسم بياني يوضح الفوضى.]<br/>[Slides 4 & 5: استخدام أيقونة V خضراء كبيرة، وألوان مشرقة وواضحة (أصفر DS)، ورسم بياني يوضح العملية السلسة.]<br/>[Slide 6: تصميم بسيط يعرض اقتباس من شهادة عميل بخط أنيق، مع صورته أو اسمه الأول.]</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P9</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">مع DS، ماكانش كلمة 'ماشي خدمتي'. كاين غير 'تم حل المشكل'.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('9')">
+                    <div class="preview-text">مع DS، مكانش 'هو اللي غالط'.
+كاين غير الحل....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-9" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('9')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P9</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">مع DS، مكانش 'هو اللي غالط'.<br/><br/>كاين غير الحل.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">❌ انتهى زمن رمي المسؤولية. <br/><br/> عندما تتعامل معنا، أنت تتعامل مع كيان واحد مسؤول عن كل شيء. لا أعذار، لا تأخير، فقط حلول.<br/><br/>لأن راحتك تبدأ عندما تنتهي مشاكلك. <br/><br/> قل وداعاً لمشاكل التنسيق للأبد. ابدأ تجربتك مع DS اليوم! <br/><br/> #الحل #لا_للأعذار #مسؤولية_كاملة #احتراف #DS_Commitment #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[التصميم: تصميم جرافيكي جريء ومباشر. النص مكتوب بخط كبير جداً وواضح على خلفية بلون واحد قوي (مثلاً أسود أو أصفر DS). كلمة 'الحل' مكتوبة بلون مغاير ومميز. شعار DS في الأسفل بشكل واضح.]</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V10</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">واش راك تستنى باش تأمن دارك وتربح راحتك؟ بالاك تستنى في هاد الفرصة!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('10')">
+                    <div class="preview-text">[مشهد عميل سعيد يتحدث للكاميرا]:
+'صراحة، كنت حاير بين السلعة والتركيب... مع DS لقيت كلش في بلاصة وحد...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-10" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('10')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V10</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">[مشهد عميل سعيد يتحدث للكاميرا]:<br/><br/>'صراحة، كنت حاير بين السلعة والتركيب... مع DS لقيت كلش في بلاصة وحدة. خدمة بروفيسيونال وناس ثقة. والله غير تهنيت.'<br/><br/>[انتقال مفاجئ وموسيقى حماسية]:<br/><br/>ولأن راحتك تهمنا...<br/><br/>قررنا نقدملك عرض ما يتعاودش!<br/><br/>استفد من خصم 20% على التركيب عند شراء أي نظام حماية ذكي أو طقم محرك كامل.<br/><br/>مع ضمان وبرمجة مجانية لتطبيق الهاتف!<br/><br/>انتبه! العرض صالح لمدة أسبوع فقط ولأول 10 زبائن.<br/><br/>ما تخليش الفرصة تروحلك!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">🚨 عرض خاص لمدة أسبوع فقط! 🚨 <br/><br/> زبائننا راهم مرتاحين، وحبينا نزيدو نريحو ناس وحدوخرين!<br/><br/>لهذا السبب، أطلقنا عرض حصري: استفد من خصم 20% فوري على خدمة التركيب عند شرائك لنظام حماية متكامل أو طقم محرك.<br/><br/>واش فيها ثاني؟<br/>✅ برمجة تطبيق الهاتف مجاناً.<br/>✅ ضمان شامل على كلش.<br/><br/>هذا العرض صالح لأول 10 طلبات فقط وينتهي خلال أسبوع! <br/><br/> ما تضيعش الفرصة! اطلب باقة الأمان المتكاملة تاعك الآن قبل ما يخلص العرض! <br/><br/> #عرض_خاص #تخفيضات #فرصة #محدود #DS_Offer #أمن_دارك #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[الأسلوب: UGC Style/شهادة حقيقية.]<br/>[الجزء 1: تصوير واقعي للعميل في منزله، يتحدث بشكل عفوي وطبيعي. التركيز على صدق التجربة.]<br/>[الجزء 2: قطع مفاجئ، ظهور نصوص متحركة كبيرة وجذابة بألوان DS (أصفر وأسود) توضح تفاصيل العرض. إيقاع سريع وموسيقى حماسية لخلق الإثارة.]<br/>[النهاية: عرض تفاصيل العرض بشكل واضح على الشاشة مع مؤقت بصري يلمح إلى محدودية الوقت.]</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C11</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">فرصتك الذهبية لتأمين منزلك بأقل التكاليف وأعلى جودة! التفاصيل هنا.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('11')">
+                    <div class="preview-text">Slide 1: 🔥 عرض DS الحصري: أمانك بلمسة زر وبسعر ما يتفوتش!
+Slide 2: واش تستفاد من العرض؟
+خصم 20% على...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-11" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('11')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C11</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">Slide 1: 🔥 عرض DS الحصري: أمانك بلمسة زر وبسعر ما يتفوتش!<br/><br/>Slide 2: واش تستفاد من العرض؟<br/><br/>خصم 20% على التركيب + برمجة مجانية للتطبيق + ضمان شامل.<br/><br/>Slide 3: كيفاش تستفاد؟<br/><br/>اشري أي طقم محرك كامل (Portail, Rideau...) أو نظام حماية ذكي (Caméras, Alarme...).<br/><br/>Slide 4: علاش دوكا؟<br/><br/>لأن العرض هذا محدود لأول 10 زبائن فقط وصالح لمدة أسبوع واحد لا غير!<br/><br/>Slide 5: راحتك تستاهل هاد الاستثمار. اتصل الآن واحجز مكانك!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">⏳ الوقت يمشي... والكمية محدودة! <br/><br/> هذه ليست مجرد تخفيضات، بل هي فرصتك للحصول على منظومة أمان متكاملة واحترافية بسعر استثنائي.<br/><br/>✅ جودة أصلية<br/>✅ تركيب احترافي<br/>✅ سعر مخفض<br/>✅ ضمان كامل<br/><br/>كل التفاصيل اللي تحتاجها باش تاخذ قرارك راهي هنا. اسحب لليمين! <br/><br/> اسحب باش تشوف تفاصيل العرض الحصري من DS قبل ما يفوت الأوان! <br/><br/> #تفاصيل_العرض #عرض_محدود #لا_تفوت_الفرصة #DS_Promo #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[التصميم: إنفوجرافيك واضح وجذاب.]<br/>[Slide 1: استخدام أيقونات اللهب أو النجوم لإبراز كلمة 'عرض حصري'. ألوان قوية وجذابة.]<br/>[Slide 2 & 3: تقسيم المحتوى بشكل واضح باستخدام أيقونات ورسومات توضيحية للمنتجات والخدمات (مفتاح ربط، هاتف، درع).]<br/>[Slide 4: استخدام أيقونة ساعة رملية أو تقويم لإظهار محدودية الوقت. كتابة 'لأول 10 زبائن' بحجم كبير.]<br/>[Slide 5: دعوة للعمل واضحة مع أرقام الهواتف أو زر 'تواصل معنا'.]</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P12</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">بقات أماكن قليلة... والعرض قريب يكمل!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('12')">
+                    <div class="preview-text">آخر فرصة! 
+عرض -20% على التركيب ينتهي قريباً....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-12" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('12')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P12</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">آخر فرصة! <br/><br/>عرض -20% على التركيب ينتهي قريباً.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">⏰ Tic-Toc... لا تترك الفرصة تضيع! <br/><br/> هذا هو تذكيرك الأخير للاستفادة من عرضنا الاستثنائي. خصم 20% على التركيب الاحترافي، برمجة مجانية، وضمان شامل... كلها في انتظارك.<br/><br/>الكمية محدودة جداً والوقت يمر بسرعة. قرار اليوم هو أمان وراحة لسنوات قادمة. <br/><br/> اتصل بنا الآن على [رقم الهاتف] أو اضغط على الرابط في البيو لحجز مكانك فوراً! <br/><br/> #آخر_فرصة #إلحاح #ينتهي_قريبا #اغتنم_الفرصة #DS_LastCall #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[التصميم: تصميم جرافيكي يركز على الإلحاح (Urgency). استخدام عبارة 'آخر فرصة' بخط ضخم وجريء. يمكن إضافة مؤقت عد تنازلي بصري (Sticker أو GIF في الستوري) أو عبارة 'بقي X أيام فقط!'. الألوان تكون قوية مثل الأحمر والأصفر لجذب الانتباه الفوري.]</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr></tbody></table></div>
+
+    <div class="disclaimer-card">
+        <span style="font-size: 1.2em;">⚠️</span>
+        <span>قد تخضع هذه الاستراتيجية لبعض التعديلات والتحسينات، حسب المواد الإعلامية المتوفرة أو لغرض تحقيق أفضل النتائج.</span>
+    </div>
+
+    <div class="summary-box">
+        <span style="font-weight: 700; color: #FFD700;">الميزانية الإجمالية المعتمدة</span>
+        <span class="total-amount">92000 دج</span>
+        <a href="https://wa.me/213770820431" class="cta-btn">تواصل معنا للاعتماد</a>
+        <div style="border: 1px dashed #FFD700; padding: 25px; border-radius: 15px; margin-top: 20px;">
+            <h3 style="color:#FFD700; margin:0;">الخطوة التالية</h3>
+            <p style="margin:10px 0;">مكالمة قصيرة لنكيّف هذه الاستراتيجية حسب مشروعك ونبدأ العمل فوراً.</p>
+            <div class="phones-list">
+                <div class="phone-item">0770 82 04 31</div>
+                <div class="phone-item">0770 55 01 51</div>
+                <div class="phone-item">0770 82 01 45</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+function openModal(id) { document.getElementById('modal-' + id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
+function closeModal(id) { document.getElementById('modal-' + id).style.display = 'none'; document.body.style.overflow = 'auto'; }
+window.onclick = function(event) { if (event.target.className === 'modal') { event.target.style.display = 'none'; document.body.style.overflow = 'auto'; } }
+</script></body></html>
