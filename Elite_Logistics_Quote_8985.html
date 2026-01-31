@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --accent: #FFD400; --dark: #0F172A; --slate: #64748B; --bg: #F8FAFC; --success: #10B981; }
+        * { box-sizing: border-box; }
+        body { font-family: 'Tajawal', sans-serif; background: var(--bg); margin: 0; padding: 15px; color: #334155; line-height: 1.6; }
+        .container { max-width: 850px; margin: 20px auto; background: #fff; border-radius: 24px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.08); overflow: hidden; }
+        .top-strip { height: 12px; background: linear-gradient(90deg, var(--accent), #FFB800); }
+        .padding { padding: 40px; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+        .quote-meta { text-align: left; font-family: 'Montserrat'; font-size: 12px; color: var(--dark); background: #f1f5f9; padding: 12px 18px; border-radius: 12px; border-left: 4px solid var(--accent); }
+        h2 { font-weight: 800; font-size: 18px; color: var(--dark); margin: 30px 0 15px; display: flex; align-items: center; gap: 10px; }
+        h2::after { content: ''; flex-grow: 1; height: 1px; background: #e2e8f0; }
+        .card { background: #fff; padding: 20px; border-radius: 16px; border: 1px solid #e2e8f0; margin-bottom: 20px; }
+        table { width: 100%; border-collapse: separate; border-spacing: 0; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; }
+        th { text-align: right; padding: 12px; background: var(--dark); color: var(--accent); font-size: 13px; font-weight: 700; }
+        td { padding: 15px; border-bottom: 1px solid #e2e8f0; background: #fff; }
+        .service-name { font-weight: 700; color: var(--dark); }
+        .service-desc { font-size: 0.85rem; color: var(--slate); }
+        .service-price { text-align: left; font-weight: 800; font-family: 'Montserrat'; color: var(--dark); }
+        .total-container { background: var(--dark); color: white; padding: 25px; border-radius: 18px; margin-top: 20px; }
+        .final-price { font-size: 28px; font-weight: 800; color: var(--accent); font-family: 'Montserrat'; border-top: 1px solid #374151; margin-top: 10px; padding-top: 10px; width: 100%; display: flex; justify-content: space-between; align-items: center; }
+        .roadmap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 15px; }
+        .step { padding: 15px; background: #f8fafc; border-radius: 12px; border: 1px solid #e2e8f0; text-align: center; }
+        .step-num { width: 30px; height: 30px; background: var(--accent); color: var(--dark); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-weight: 800; }
+        .btn { display: inline-block; background: var(--accent); color: var(--dark); padding: 15px 30px; border-radius: 12px; text-decoration: none; font-weight: 800; cursor: pointer; border: none; font-family: inherit; margin: 5px; }
+        
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); }
+        .modal-content { background: #fff; margin: 8% auto; padding: 40px; border-radius: 28px; width: 92%; max-width: 550px; box-shadow: 0 20px 60px rgba(0,0,0,0.4); position: relative; text-align: right; }
+        .close { position: absolute; left: 25px; top: 20px; font-size: 32px; font-weight: bold; color: #cbd5e1; cursor: pointer; transition: 0.2s; }
+        .close:hover { color: var(--dark); }
+        .payment-row { border-bottom: 1px solid #f1f5f9; padding: 20px 0; }
+        .payment-value { font-family: 'Montserrat'; font-weight: 800; font-size: 1.8rem; color: var(--success); }
+
+        @media print {
+            @page { size: A4; margin: 0; }
+            body { background: white !important; padding: 0 !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+            .container { width: 100% !important; max-width: 100% !important; margin: 0 !important; box-shadow: none !important; border-radius: 0 !important; transform: scale(0.96); transform-origin: top center; }
+            .cta-area, .btn, .top-strip, .modal { display: none !important; }
+            .padding { padding: 30px !important; }
+            .card, .step, table, .total-container { page-break-inside: avoid !important; }
+        }
+    </style>
+</head>
+<body>
+<div class="container" id="proposal-content">
+    <div class="top-strip"></div>
+    <div class="padding">
+        <div class="header">
+            <img src="https://storage.googleapis.com/msgsndr/GwIPQCjstTzxnzDQ1B32/media/68fddb5534bb1597bc934f89.png" height="60">
+            <div class="quote-meta">PROPOSAL: WQ-8985<br>31/01/2026<br>EXP: 05/02/2026</div>
+        </div>
+
+        <section><h2>بيانات العميل</h2><div class="card"><b>الشركة:</b> Elite Logistics | <b>المسؤول:</b> سامي الحسن | <b>الهاتف:</b> <span dir="ltr">0661223344</span></div></section>
+
+        <section><h2>الرؤية الاستراتيجية</h2><div class="card" style="border-right: 6px solid var(--accent); font-size:0.95rem;">مرحباً سيد سامي، إدراكاً منا بأن الثقة والاحترافية هما حجر الأساس في قطاع الخدمات اللوجستية، صممنا في Wayso هذا العرض الاستراتيجي لشركة 'Elite Logistics' ليس فقط كخدمات رقمية، بل كخارطة طريق لتحويل تفوقكم التشغيلي إلى علامة تجارية رائدة تسيطر على الفضاء الرقمي وتجذب كبار العملاء.</div></section>
+
+        <section>
+            <h2>الاستثمار المالي</h2>
+            <table><thead><tr><th>الخدمة والوصف</th><th style="text-align:center">الكمية</th><th style="text-align:left">الإجمالي</th></tr></thead><tbody><tr><td><div class="service-name">Social Media Management</div><div class="service-desc">نحوّل صفحاتكم إلى منصة تفاعلية تجذب الشركاء والعملاء المحتملين، من خلال محتوى استراتيجي يبرز موثوقية 'Elite Logistics' كشريك لوجستي لا غنى عنه، ويبني مجتمعاً قوياً حول علامتكم التجارية.</div></td><td style="text-align:center; font-weight:700;">1</td><td class="service-price">42,000 <span class="currency">DZD</span></td></tr><tr><td><div class="service-name">Professional Photography</div><div class="service-desc">سنقوم بتوثيق قوة عملياتكم من خلال 30 صورة عالية الجودة لمستودعاتكم وأسطولكم. كل صورة ستكون دليلاً بصرياً على احترافيتكم، مما يبني ثقة العملاء المحتملين قبل أول تواصل معكم.</div></td><td style="text-align:center; font-weight:700;">30</td><td class="service-price">75,000 <span class="currency">DZD</span></td></tr><tr><td><div class="service-name">Google Ads</div><div class="service-desc">نضع علامتكم التجارية في صدارة نتائج البحث عندما يبحث عملاؤكم المستهدفون عن حلول لوجستية. هذه الخدمة هي الجسر المباشر الذي يحوّل نية البحث لدى العميل إلى فرصة عمل حقيقية لكم.</div></td><td style="text-align:center; font-weight:700;">1</td><td class="service-price">0 <span class="currency">DZD</span></td></tr></tbody></table>
+            <div class="total-container">
+                <div style="display:flex; justify-content:space-between"><span>المجموع الفرعي</span><span>117,000 DZD</span></div>
+                <div style="display:flex; justify-content:space-between; color:#FF8A8A"><span>خصم خاص</span><span>-17,550 DZD</span></div>
+                <div class="final-price"><span>صافي الاستثمار</span><span>99,450 DZD</span></div>
+            </div>
+        </section>
+
+        <section>
+            <h2>خارطة الطريق التنفيذية</h2>
+            <div class="roadmap">
+                <div class="step"><div class="step-num">1</div><b>الاعتماد</b><br><small>دفع العربون</small></div>
+                <div class="step"><div class="step-num">2</div><b>النتائج</b><br><small>10-15 Days</small></div>
+                <div class="step"><div class="step-num">3</div><b>التسليم</b><br><small>دفع المتبقي</small></div>
+            </div>
+        </section>
+
+        <section><h2>ملاحظات الدفع والصلاحية</h2><div class="card" style="background:#FFFBEB; border-color:#FEF3C7; color:#92400E;"><b>5 أيام صلاحية</b><br>تقديراً لشراكتنا طويلة الأمد، تم الاتفاق على تسهيلات خاصة في الدفع: دفعة أولية بقيمة 20% فقط لبدء العمل، مع جدولة المبالغ المتبقية على مراحل التنفيذ المتفق عليها. يسري هذا العرض الحصري لمدة 5 أيام.</div></section>
+
+        <div class="cta-area" style="text-align:center; margin-top:40px;">
+            <button onclick="openModal()" class="btn" style="background:var(--success); color:white;">💳 تفاصيل الدفع (CCP)</button>
+            <button onclick="window.print()" class="btn" style="background:var(--dark); color:white;">📄 طباعة العرض</button>
+            <a href="https://wa.me/213770820431" class="btn">تأكيد عبر واتساب</a>
+        </div>
+        <div class="footer" style="text-align:center; margin-top:40px; color:var(--slate); font-size:11px;">WAYSO DIGITAL AGENCY | BLIDA, ALGERIA | WWW.WAYSO.AGENCY</div>
+    </div>
+</div>
+
+<div id="paymentModal" class="modal">
+    <div class="modal-content">
+        <span onclick="closeModal()" class="close">&times;</span>
+        <h2 style="margin-bottom:20px; border-bottom:3px solid var(--accent); padding-bottom:15px; display:inline-block;">تفاصيل الدفع (CCP)</h2>
+        
+        <div class="payment-row">
+            <div style="color:var(--slate); font-weight:500;">العربون (50%)</div>
+            <div class="payment-value">49,725 DZD</div>
+        </div>
+        
+        <div class="payment-row">
+            <div style="color:var(--slate); font-weight:500;">صافي الاستثمار</div>
+            <div class="payment-value" style="color:var(--dark); font-size:1.4rem;">99,450 DZD</div>
+        </div>
+        
+        <div style="background:#f8fafc; padding:20px; border-radius:16px; margin-top:20px; border:1px dashed #e2e8f0;">
+            <b>Name:</b> WAYSO DIGITAL AGENCY<br>
+            <b>CCP:</b> <span style="font-family:Montserrat">0021458763</span> / <b>KEY:</b> <span style="font-family:Montserrat">88</span>
+            <br><p style="margin-top:10px; font-size:0.85rem; color:var(--slate);">* يرجى إرسال وصل التحويل للمندوب لمباشرة التنفيذ.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openModal() { document.getElementById("paymentModal").style.display = "block"; }
+    function closeModal() { document.getElementById("paymentModal").style.display = "none"; }
+    window.onclick = function(e) { if(e.target == document.getElementById("paymentModal")) closeModal(); }
+</script>
+</body></html>
