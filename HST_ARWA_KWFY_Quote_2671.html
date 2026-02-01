@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800;900&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root { --accent: #FFD400; --dark: #0F172A; --slate: #64748B; --bg: #F8FAFC; --success: #10B981; --baridi: #0066cc; }
+        * { box-sizing: border-box; }
+        body { font-family: 'Cairo', sans-serif; background: var(--bg); margin: 0; padding: 15px; color: #334155; line-height: 1.4; }
+        .container { max-width: 850px; margin: 10px auto; background: #fff; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); overflow: hidden; }
+        .top-strip { height: 12px; background: linear-gradient(90deg, var(--accent), #FFB800); }
+        .padding { padding: 40px; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+        .quote-meta { text-align: left; font-family: 'Montserrat'; font-size: 11px; background: #f1f5f9; padding: 10px 15px; border-radius: 10px; border-left: 4px solid var(--accent); }
+        h2 { font-weight: 900; font-size: 1.1rem; color: var(--dark); margin: 25px 0 12px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid #f1f5f9; padding-bottom: 8px; }
+        .card { background: #fff; padding: 15px; border-radius: 16px; border: 1px solid #e2e8f0; margin-bottom: 15px; }
+        table { width: 100%; border-collapse: separate; border-spacing: 0; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; }
+        th { text-align: right; padding: 10px; background: var(--dark); color: var(--accent); font-size: 12px; }
+        td { padding: 12px; border-bottom: 1px solid #e2e8f0; }
+        
+        /* Service Display Improved (v11) */
+        .service-name { font-weight: 900; font-size: 1.25rem; color: var(--dark); margin-bottom: 4px; display: block; }
+        .service-desc { font-size: 0.82rem; color: var(--slate); line-height: 1.5; }
+        .service-price { text-align: left; font-weight: 800; font-family: 'Montserrat'; color: var(--dark); }
+        
+        .total-container { background: var(--dark); color: white; padding: 20px; border-radius: 18px; margin-top: 15px; }
+        .final-price { font-size: 26px; font-weight: 900; color: var(--accent); font-family: 'Montserrat'; display: flex; justify-content: space-between; border-top: 1px solid #374151; margin-top: 5px; padding-top: 5px; }
+        
+        /* Roadmap Persuasive View */
+        .roadmap { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 15px; }
+        @media (min-width: 600px) { .roadmap { grid-template-columns: repeat(4, 1fr); } }
+        .step { padding: 15px; background: #f8fafc; border-radius: 12px; border: 1px solid #e2e8f0; text-align: center; }
+        .step b { display: block; font-size: 0.85rem; margin-bottom: 6px; color: var(--dark); font-weight: 800; line-height: 1.3; }
+        .step small { font-size: 0.65rem; color: var(--slate); line-height: 1.4; display: block; }
+
+        .btn { display: inline-block; background: var(--accent); color: var(--dark); padding: 12px 20px; border-radius: 10px; text-decoration: none; font-weight: 800; cursor: pointer; border: none; margin: 4px; font-size: 13px; }
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); }
+        .modal-content { background: #fff; margin: 5% auto; padding: 35px; border-radius: 28px; width: 90%; max-width: 450px; position: relative; text-align: right; }
+        .close { position: absolute; left: 20px; top: 15px; font-size: 28px; cursor: pointer; }
+        
+        /* Baridi Mob RIP Flip Fix (v11) */
+        .baridi-section { background: #f0f7ff; border: 1.5px solid #cce3ff; padding: 12px; border-radius: 12px; margin: 10px 0; }
+        .baridi-label { background: var(--baridi); color: white; padding: 3px 8px; border-radius: 5px; font-size: 10px; font-weight: 800; display: inline-block; margin-bottom: 5px; }
+        .baridi-number { font-family: 'Montserrat'; font-weight: 700; color: var(--baridi); font-size: 1.05rem; display: block; direction: ltr !important; unicode-bidi: bidi-override !important; text-align: right; }
+        .cash-box { background: #ECFDF5; border: 1px solid #A7F3D0; padding: 10px; border-radius: 12px; margin-top: 10px; display: flex; align-items: center; gap: 10px; }
+
+        /* PRINT OPTIMIZATION - THE KING FIX (v11) */
+        @media print {
+            @page { size: A4; margin: 5mm; }
+            body { background: white !important; padding: 0 !important; }
+            .container { width: 100% !important; max-width: 100% !important; margin: 0 !important; box-shadow: none !important; border-radius: 0 !important; transform: scale(0.95); transform-origin: top center; }
+            .service-desc, .cta-area, .top-strip, .modal, .roadmap, h2:nth-of-type(4) { display: none !important; } 
+            .service-name { font-size: 1.1rem !important; margin-bottom: 0 !important; font-weight: 800 !important; }
+            .padding { padding: 15px 40px !important; }
+            h2 { margin: 15px 0 10px !important; font-size: 16px !important; border-bottom: 2px solid var(--accent) !important; }
+            .card { padding: 12px !important; margin-bottom: 12px !important; font-size: 13px !important; border: 1px solid #eee !important; }
+            .total-container { margin-top: 15px !important; padding: 20px !important; border: 2px solid var(--dark) !important; }
+            .final-price { font-size: 22px !important; color: black !important; }
+            .currency { color: black !important; }
+        }
+    </style>
+</head>
+<body>
+<div class="container" id="proposal-content">
+    <div class="top-strip"></div>
+    <div class="padding">
+        <div class="header">
+            <img src="https://storage.googleapis.com/msgsndr/GwIPQCjstTzxnzDQ1B32/media/68fddb5534bb1597bc934f89.png" height="55">
+            <div class="quote-meta">PROPOSAL: WQ-2671<br>01/02/2026<br>EXP: 08/02/2026</div>
+        </div>
+        <section><h2>بيانات العميل</h2><div class="card"><b>الشركة:</b> محمصة أروما كوفي | <b>المسؤول:</b> الأستاذ هشام | <b>الهاتف:</b> <span dir="ltr">0550998877</span></div></section>
+        <section><h2>الرؤية الاستراتيجية</h2><div class="card" style="border-right: 6px solid var(--accent); font-size:0.95rem;">تحية طيبة أستاذ هشام، في Wayso، نؤمن أن القهوة الاستثنائية تستحق قصة استثنائية تروى عنها. هذا العرض ليس مجرد خدمات، بل هو الخطة الاستراتيجية التي ستنقل 'أروما كوفي' من محمصة بجودة عالمية إلى علامة تجارية فاخرة تتربع على عرش القهوة المختصة في الجزائر.</div></section>
+        <section>
+            <h2>الاستثمار المالي</h2>
+            <table><thead><tr><th>الخدمات المطلوبة</th><th style="text-align:center">الكمية</th><th style="text-align:left">الإجمالي</th></tr></thead><tbody><tr><td><div class="service-name">Social Media Management</div><div class="service-desc">إدارة احترافية لمدة شهر كامل نحول فيها صفحاتكم إلى وجهة لعشاق القهوة المختصة، عبر محتوى يروي قصة كل حبة بن ويبرر قيمتها العالية، مما يبني الولاء ويجذب عملاء النخبة.</div></td><td style="text-align:center; font-weight:700;">1</td><td class="service-price">65,000 <span class="currency">DZD</span></td></tr><tr><td><div class="service-name">Premium Reels</div><div class="service-desc">إنتاج 10 فيديوهات Reels عالية الجودة تحوّل منتجاتكم إلى قطع فنية. كل فيديو مصمم لإثارة الحواس وجعل المشاهدين يتوقون لتجربة قهوتكم، مما يعزز صورة العلامة الفاخرة بشكل فوري.</div></td><td style="text-align:center; font-weight:700;">10</td><td class="service-price">55,000 <span class="currency">DZD</span></td></tr><tr><td><div class="service-name">Menu Design</div><div class="service-desc">تصميم قائمة منتجات أنيقة تتناغم مع هويتكم الجديدة، وتحول عملية الاختيار إلى جزء من التجربة الراقية، مما يعزز انطباع الجودة العالية ويشجع على الطلب بثقة.</div></td><td style="text-align:center; font-weight:700;">1</td><td class="service-price">0 <span class="currency">DZD</span></td></tr></tbody></table>
+            <div class="total-container">
+                <div style="display:flex; justify-content:space-between"><span>المجموع الفرعي</span><span>120,000 DZD</span></div>
+                <div style="display:flex; justify-content:space-between; color:#FF8A8A"><span>خصم خاص</span><span>-12,000 DZD</span></div>
+                <div class="final-price"><span>صافي الاستثمار النهائي</span><span>108,000 DZD</span></div>
+            </div>
+        </section>
+        <section>
+            <h2>مراحل الإنجاز والقيمة المضافة</h2>
+            <div class="roadmap">
+                <div class="step"><b>المرحلة 1: التدقيق والاستراتيجية</b><small>بناء خطة العمل وتحليل المتطلبات لضمان العائد.</small></div>
+                <div class="step"><b>المرحلة 2: هندسة الإبداع والتنفيذ</b><small>تحويل الرؤية إلى واقع (تصميم، برمجة، وصناعة محتوى).</small></div>
+                <div class="step"><b>المرحلة 3: الجودة والتطوير</b><small>مراجعة النتائج مع العميل وإجراء التحسينات النهائية.</small></div>
+                <div class="step"><b>المرحلة 4: التسليم والانطلاق</b><small>تسليم الأصول الرقمية بالكامل وبدء حصد النتائج.</small></div>
+            </div>
+        </section>
+        <section><h2>شروط الدفع والصلاحية</h2><div class="card" style="background:#FFFBEB; border-color:#FEF3C7; color:#92400E; font-size:0.88rem;"><b>7 أيام صلاحية</b><br>تم أخذ تفضيلاتكم بعين الاعتبار: سيتم اعتماد نبرة صوت راقية تركز على 'تجربة فن القهوة' مع لوحة ألوان ترابية (بني محروق وذهبي مطفي). نظرًا لأهمية الوقت، تم تجهيز الرابط لتسهيل عملية الدفع الفوري عبر بريدي موب.</div></section>
+        <div class="cta-area" style="text-align:center; margin-top:30px;">
+            <button onclick="openModal()" class="btn" style="background:var(--success); color:white;">💳 طرق الدفع المتاحة</button>
+            <button onclick="window.print()" class="btn" style="background:var(--dark); color:white;">📄 طباعة العرض (PDF)</button>
+            <a href="https://wa.me/0770112233?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A7%D8%B9%D8%AA%D9%85%D8%AF%D8%AA%20%D8%A7%D9%84%D8%B9%D8%B1%D8%B6%20%D8%A7%D9%84%D8%AE%D8%A7%D8%B5%20%D8%A8%D9%80%20%D9%85%D8%AD%D9%85%D8%B5%D8%A9%20%D8%A3%D8%B1%D9%88%D9%85%D8%A7%20%D9%83%D9%88%D9%81%D9%8A" class="btn">تأكيد عبر واتساب</a>
+        </div>
+        <div class="footer" style="text-align:center; margin-top:30px; color:var(--slate); font-size:10px;">WAYSO DIGITAL AGENCY | BLIDA, ALGERIA | WWW.WAYSO.AGENCY</div>
+    </div>
+</div>
+<div id="paymentModal" class="modal">
+    <div class="modal-content">
+        <span onclick="closeModal()" class="close">&times;</span>
+        <h2 style="margin-bottom:15px; border-bottom:3px solid var(--accent); padding-bottom:10px; display:inline-block;">طرق الدفع المتاحة</h2>
+        <div class="payment-row"><div style="color:var(--slate); font-weight:500;">العربون المطلوب (40%)</div><div class="payment-value" style="color:var(--success); font-family:Montserrat;">43,200 DZD</div></div>
+        <div style="background:#f8fafc; padding:15px; border-radius:15px; margin-top:15px; border:1px dashed #e2e8f0; font-size:0.9rem;">
+            <b>Name:</b> BENAOUDA BELKACEM<br><b>CCP:</b> <span style="font-family:Montserrat">0018942625</span> / <b>KEY:</b> <span style="font-family:Montserrat">72</span>
+            <div class="baridi-section"><span class="baridi-label">BARIDI MOB (RIP)</span><span class="baridi-number">007 99999 0018942625 72</span></div>
+            <p style="margin-top:8px; font-size:0.75rem; color:var(--slate);">* يرجى إرسال وصل التحويل للمندوب لمباشرة التنفيذ.</p>
+        </div>
+        <div class="cash-box"><div style="font-size: 20px;">📍</div><div><b style="color: var(--success); font-size:0.85rem;">الدفع نقداً (في المكتب)</b><br><span style="font-size: 0.7rem; color: #065F46;">تفضل بزيارة مقرنا بالبليدة للدفع واستلام الوصل الرسمي.</span></div></div>
+    </div>
+</div>
+<script>
+    function openModal() { document.getElementById("paymentModal").style.display = "block"; }
+    function closeModal() { document.getElementById("paymentModal").style.display = "none"; }
+    window.onclick = function(e) { if(e.target == document.getElementById("paymentModal")) closeModal(); }
+</script>
+</body></html>
