@@ -1,0 +1,740 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>مؤسسة العماد (Elimad) x Sindibad International Strategy</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+<style>
+    body { background: #FFFFFF; color: #1A1A1A; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; line-height: 1.6; overflow-x: hidden; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 15px; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 2px solid #000; }
+    .wayso-logo { height: 45px; }
+    .brand-name { font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 1.4em; color: #000; text-transform: uppercase; border-right: 4px solid #FFD700; padding-right: 12px; }
+    
+    .analysis-section { margin: 30px 0; }
+    .card-philosophy { padding: 30px; border-radius: 20px; background: #000; color: #FFF; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+    .card-philosophy h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #FFD700; }
+    
+    .card-why { padding: 30px; border-radius: 20px; background: #F9F9F9; color: #333; margin-bottom: 20px; border: 1px solid #EDECE9; }
+    .card-why h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #000; display: flex; align-items: center; gap: 10px; }
+    .card-why h2::after { content: ''; flex-grow: 1; height: 1px; background: #EDECE9; margin-right: 15px; }
+
+    .hero { margin: 35px 0 20px 0; border-right: 6px solid #FFD700; padding-right: 15px; }
+    .hero h1 { font-size: 2.5em; font-weight: 700; margin: 0; }
+    .table-wrapper { margin-top: 25px; border-radius: 12px; overflow: hidden; border: 1px solid #EDECE9; }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #000; color: #FFF; padding: 15px; text-align: right; font-size: 0.9em; }
+    td { padding: 20px 12px; border-bottom: 1px solid #EDECE9; vertical-align: top; }
+    
+    .code-badge { font-family: 'Montserrat', sans-serif; font-weight: 700; background: #FFD700; color: #000; padding: 5px 12px; border-radius: 6px; font-size: 1.1em; display: inline-block; margin-bottom: 5px; }
+    .type-label { display: block; font-weight: 700; color: #555; font-size: 0.95em; }
+    
+    .hook-pill { background: #000; color: #FFD700; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 1.1em; display: block; border-right: 5px solid #FFD700; }
+    
+    /* تحسين زر المودال */
+    .script-trigger { background: #F8F9FA; border: 1px solid #EDECE9; padding: 15px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; }
+    .script-trigger:hover { background: #FFF; border-color: #FFD700; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+    
+    .preview-text { font-size: 0.95em; color: #333; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; white-space: pre-wrap; }
+    
+    .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(8px); }
+    .modal-content { background: #FFF; margin: 5% auto; padding: 30px; border-radius: 20px; width: 88%; max-width: 700px; position: relative; max-height: 85vh; overflow-y: auto; }
+    .close-modal { position: absolute; top: 15px; left: 15px; font-size: 35px; cursor: pointer; color: #999; line-height: 1; }
+    .modal-section { margin-bottom: 25px; padding: 15px; border-radius: 12px; background: #fbfbfa; border: 1px solid #eee; }
+    
+    /* تحسين تنسيق القراءة */
+    .modal-body { font-size: 1.15em; color: #1A1A1A; line-height: 1.9; word-wrap: break-word; }
+    
+    .disclaimer-card { margin: 25px 0; padding: 20px; background: #FFF9E6; border-radius: 12px; border-right: 5px solid #FFC107; font-size: 1.05em; color: #856404; display: flex; align-items: center; gap: 12px; }
+    .summary-box { margin-top: 50px; background: #000; color: #FFF; padding: 40px 20px; border-radius: 25px; text-align: center; }
+    .total-amount { font-family: 'Montserrat'; font-size: 3.5em; font-weight: 700; display: block; color: #FFD700; margin: 10px 0; }
+    .cta-btn { display: inline-block; background: #FFD700; color: #000; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.2em; margin-bottom: 25px; }
+    .phones-list { margin-top: 15px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; direction: ltr; } 
+    .phone-item { background: #1A1A1A; padding: 8px 15px; border-radius: 8px; border: 1px solid #333; color: #FFF; font-family: 'Montserrat'; font-weight: 700; font-size: 1.2em; white-space: nowrap; }
+
+    @media (max-width: 768px) {
+        thead { display: none; }
+        tr { display: block; border: 1px solid #EDECE9; border-radius: 15px; margin-bottom: 20px; padding: 15px; background: #FFF; }
+        td { display: block; padding: 8px 0; text-align: right; }
+        td::before { content: attr(data-label); font-weight: 700; color: #BBB; display: block; font-size: 0.75em; margin-bottom: 4px; }
+        .brand-name { font-size: 1.1em; }
+    }
+</style></head><body>
+
+<div class="container">
+    <div class="header">
+        <img src="https://storage.googleapis.com/msgsndr/GwIPQCjstTzxnzDQ1B32/media/68fddb5534bb1597bc934f89.png" class="wayso-logo">
+        <div class="brand-name">مؤسسة العماد (Elimad) x Sindibad International</div>
+    </div>
+
+    <div class="analysis-section">
+        <div class="card-philosophy"><h2>🎯 فلسفة الاستراتيجية</h2><p>نؤمن بأن نجاحكم هو مقياس نجاحنا. هذه الخطة المحكمة، التي تمزج ببراعة بين الفيديو المتعمق والكاروسالات التعليمية، ليست مجرد حملة تسويقية بل استراتيجية نمو شاملة. صممت لتتجاوز التوقعات، وتؤسس لموقعكم الريادي في سوق تنافسي، وتضمن لكم استثماراً يعود بأفضل العوائد على المدى الطويل.</p></div>
+        <div class="card-why"><h2>💡 لماذا هذه الخطة؟</h2><p>بدأنا بـ V1 لخطف الانتباه عبر سرد قصصي مؤثر يُلامس الألم ويوفر رؤية الحل الشامل. تبعناها بـ C2 وغيرها من الكاروسالات والصور التعليمية والتحفيزية لترسيخ الفهم وبناء الثقة خطوة بخطوة، قبل أن نختتم بدعوات صريحة للتحرك (P18, V13) تستغل عامل الندرة والإلحاح، مما يقود العميل بشكل طبيعي نحو قرار الشراء.</p></div>
+    </div>
+
+    <div class="hero"><h1>خطة الإنتاج الإبداعي</h1></div>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th style="width: 20%;">الكود والنوع</th><th style="width: 30%;">الهوك (Hook)</th><th style="width: 50%;">المحتوى</th></tr></thead>
+            <tbody><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V1</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">خدمت، قريت، تعبت... و فالتالي مسارك المهني مازالو فبلاصتو؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('1')">
+                    <div class="preview-text">راك تحس روحك محبوس في نفس الدائرة؟
+شهادات تتكدس... بصح القيمة الحقيقية غايبة.
+تعبت من الدورات المحلي...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-1" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('1')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V1</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">راك تحس روحك محبوس في نفس الدائرة؟<br/><br/>شهادات تتكدس... بصح القيمة الحقيقية غايبة.<br/><br/>تعبت من الدورات المحلية لي ما تبدل والو في الـCV تاعك.<br/><br/>هذا هو الألم تاع الطموح لي مازال مالقاش الطريق الصحيح.<br/><br/>بصح واش لوكان نقولك بلي كاينة بوابة توصلك مباشرة للنخبة العالمية؟<br/><br/>مؤسسة العماد، بالشراكة مع سندباد انترناشيونال، هي الجسر لي كنت تحوس عليه.<br/><br/>حنا ماشي مجرد مركز تكوين، حنا نبنو قادة المستقبل بشهادات دولية معترف بيها في كل مكان.<br/><br/>برامجنا مصممة باش تعطيك المهارات والاعتماد لي يفتحولك البيبان لي كانت مغلوقة.<br/><br/>واليوم، هاد البوابة راهي مفتوحة ليك بفرصة حصرية: العضوية الذهبية.<br/><br/>هادي ماشي مجرد اشتراك، هادي تذكرة الدخول تاعك لنادي النخبة.<br/><br/>تخيل حياتك بعد ما تكون جزء من هاد الشبكة العالمية... فرص جديدة، علاقات أقوى، ومسار مهني ما عندوش حدود.<br/><br/>العضوية الذهبية هي الخطوة الأولى نحو مستقبل تستاهلو.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">مسارك المهني يستحق يكون عالمي. 🌍 اكتشف كيف. <br/><br/> هل تشعر أن طموحك أكبر من الفرص المتاحة حولك؟ تعبت من الاستثمار في شهادات لا تضيف قيمة حقيقية لمسيرتك؟<br/><br/>مؤسسة العماد بالشراكة مع سندباد انترناشيونال تقدم لك الحل النهائي: "العضوية الذهبية". بوابتك الحصرية للانضمام لنخبة الكفاءات الدولية، بشهادات معتمدة عالميًا وبرامج تدريبية تصنع الفارق.<br/><br/>هذه فرصتك لتحويل مسارك المهني من المحلية إلى العالمية. <br/><br/> اكتشف العضوية الذهبية وخطوتك الأولى نحو العالمية. سجّل الآن! <br/><br/> #العماد #سندباد_انترناشيونال #التدريب_الدولي #الجزائر #تطوير_مهني #شهادات_دولية #مسار_مهني</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Hybrid Montage Style]<br/>- **Opening (0-5s):** Quick cuts showing a frustrated professional at their desk, looking at a generic certificate, then looking out a window with a thoughtful/stuck expression. Use a slightly desaturated color grade.<br/>- **Problem Agitation (5-10s):** Text overlays appear with phrases like "بلا فايدة؟", "وقت ضايع؟". Sound design: a subtle ticking clock, a sigh.<br/>- **Solution Intro (10-18s):** The music shifts to something more hopeful and authoritative. A high-quality animated logo reveal for "Elimad & Sindibad International". Shots of international landmarks (London, Dubai, Singapore) blending with professional classroom settings. The speaker's voice is confident and reassuring.<br/>- **Value Proposition (18-25s):** Montage of diverse professionals (engineers, managers, entrepreneurs) succeeding in international contexts. Screen captures of high-value course modules. Text on screen highlights: "شهادات دولية", "شبكة عالمية", "برامج النخبة".<br/>- **The Reveal (25-33s):** A dramatic build-up in music. A sleek, animated 3D model of a golden membership card appears on screen. The lighting is premium and exclusive. The voice tone becomes more direct and aspirational.<br/>- **Transformation (33-40s):** Split screen. On one side, the 'before' character (frustrated). On the other, the 'after' character, now confident, speaking in a board meeting, networking internationally. The color grading on the 'after' side is vibrant and warm.<br/>- **CTA (40-45s):** The membership card is shown again with a clear call-to-action button animating on screen: "سجّل الآن". The host's voice is firm and inviting. Final shot is the combined logos.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C2</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">حاب توصل للعالمية بصح الطريق ضايعة؟ العضوية الذهبية هي البوصلة تاعك!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('2')">
+                    <div class="preview-text">Slide 1: حلمك توصل للعالمية بصح ما لقتش الطريق؟
+العضوية الذهبية: مفتاحك لعالم جديد من الفرص!
+
+Slide ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-2" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('2')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C2</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">Slide 1: حلمك توصل للعالمية بصح ما لقتش الطريق؟<br/><br/>العضوية الذهبية: مفتاحك لعالم جديد من الفرص!<br/><br/><br/><br/>Slide 2: شكون هي سندباد انترناشيونال؟<br/><br/>شريكنا الاستراتيجي، هيئة اعتماد دولية مرموقة تضمن أن شهادتك معترف بها في أكبر الشركات حول العالم.<br/><br/><br/><br/>Slide 3: واش تستفاد كي تكون عضو ذهبي؟<br/><br/>- وصول حصري لبرامج النخبة بأسعار رمزية.<br/><br/>- شهادات دولية تفتح لك أبواب المستقبل.<br/><br/>- شبكة علاقات مع خبراء وقادة أعمال.<br/><br/><br/><br/>Slide 4: كيفاش تلتحق بالنخبة؟<br/><br/>1. سجّل في العضوية الذهبية.<br/><br/>2. اختر برنامجك التدريبي المعتمد.<br/><br/>3. ابدأ رحلتك نحو العالمية!<br/><br/><br/><br/>Slide 5: فرصتك ما تتعوضش!<br/><br/>مستقبلك بين يديك. انضم لنخبة الكفاءات الجزائرية اليوم.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">خطوة بخطوة نحو العالمية! 🗺️ <br/><br/> تساءلت يومًا كيف يمكنك الحصول على اعتراف دولي حقيقي؟ "العضوية الذهبية" من مؤسسة العماد وسندباد انترناشيونال ليست مجرد دورة، بل هي مسار واضح ومضمون.<br/><br/>اسحب لليمين ➡️ لتكتشف:<br/>✅ قوة شريكنا الدولي، سندباد انترناشيونال.<br/>✅ الامتيازات الحصرية التي تنتظرك.<br/>✅ الخطوات البسيطة للانضمام إلى النخبة. <br/><br/> شوف كامل التفاصيل وطوّر من مسارك المهني. الرابط في البايو! <br/><br/> #عضوية_ذهبية #سندباد_انترناشيونال #تدريب_الجزائر #تكوين_مهني #شهادات_معتمدة #DZcareer</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">- **Overall Style:** Clean, corporate, and aspirational. Use brand colors of Elimad & Sindibad. Font should be modern and highly readable (e.g., Cairo, Tajawal).<br/>- **Slide 1:** Impactful background image of a compass or a world map with glowing connection lines. Title in a large, bold font.<br/>- **Slide 2:** Logo of Sindibad International prominent. Background could be a professional shot of their international headquarters or a collage of their global partners' logos.<br/>- **Slide 3:** Use icons to represent each benefit (e.g., a graduation cap for certificates, a networking icon for connections, a tag price for affordability).<br/>- **Slide 4:** A simple infographic with three steps. Use arrows to guide the eye from one step to the next.<br/>- **Slide 5:** A powerful image of a successful professional looking towards the horizon. The CTA button should be visually prominent.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P3</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">أكثر من 70% من أصحاب العمل يفضلون الكفاءات ذات الشهادات الدولية.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('3')">
+                    <div class="preview-text">أكثر من 70%
+من مدراء التوظيف يمنحون الأولوية للمرشحين الحاصلين على شهادات دولية....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-3" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('3')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P3</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">أكثر من 70%<br/><br/>من مدراء التوظيف يمنحون الأولوية للمرشحين الحاصلين على شهادات دولية.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">الأرقام لا تكذب. هل سيرتك الذاتية جاهزة للمنافسة؟ <br/><br/> في سوق العمل الحالي، التميز هو مفتاح النجاح. الشهادات الدولية ليست مجرد ورقة، بل هي دليل على أنك تملك المهارات والمعايير التي يبحث عنها كبار أصحاب العمل.<br/><br/>لا تترك مسيرتك المهنية للصدفة. كن أنت الخيار الأول. <br/><br/> استثمر في مستقبلك. اضغط لمعرفة المزيد عن برامجنا المعتمدة دوليًا. <br/><br/> #إحصائيات #سوق_العمل #الجزائر #شهادات_دولية #توظيف #CV #Elimad</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">- **Design:** Minimalist and impactful. The statistic "70%" should be the largest element on the screen, in a bold, attention-grabbing font.<br/>- **Background:** A clean, solid color background, or a subtle professional office background blurred out.<br/>- **Text:** The rest of the text should be smaller but clear. Add the logos of Elimad and Sindibad International at the bottom. Include a small text saying "Source: [Industry Survey/Report]".</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V4</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">يقولك 'الدراهم ما تشريش المستقبل'... بصح الاستثمار الذكي يضمنولك. كيفاش؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('4')">
+                    <div class="preview-text">الكل يحوس على ضمان لمستقبلو المهني.
+بصح الضمان الحقيقي ما يجيش من شهادة محلية، يجي من الاعتراف الدول...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-4" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('4')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V4</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">الكل يحوس على ضمان لمستقبلو المهني.<br/><br/>بصح الضمان الحقيقي ما يجيش من شهادة محلية، يجي من الاعتراف الدولي.<br/><br/>في مؤسسة العماد، فهمنا هاد المعادلة.<br/><br/>على بيها بنينا شراكات استراتيجية مع هيئات عالمية كيما سندباد انترناشيونال.<br/><br/>هاد الشراكات ماشي مجرد لوغو على موقعنا.<br/><br/>معناها أن كل برنامج نقدموه، كل شهادة نمدوها، عندها وزنها في السوق العالمي.<br/><br/>معناها أنك كي تتخرج من عندنا، راك تدخل بشبكة عالمية تدعمك.<br/><br/>هذا هو الاستثمار لي يضمنلك مستقبل على قد طموحك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">ما وراء الشهادة: قوة الشبكة العالمية. <br/><br/> الشهادة القوية هي التي تأتي مع اعتراف دولي وشبكة عالمية تدعمك. في مؤسسة العماد، لا نمنحك تدريبًا فقط، بل نفتح لك أبواب العالم من خلال شراكاتنا الاستراتيجية.<br/><br/>شاهد الفيديو لتعرف كيف نبني كفاءات جزائرية بمعايير عالمية. <br/><br/> تعرف على شركائنا الدوليين وكيفاش نبنوا في الكفاءات الجزائرية. زور موقعنا. <br/><br/> #مصداقية #شراكات_دولية #العماد #الجزائر #مستقبل_مهني #GlobalNetwork #DZexcellence</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">- **Setting:** A professional, well-lit studio. The host is standing or sitting at a modern desk, dressed in business attire.<br/>- **Performance:** The host should speak directly and confidently to the camera. The tone should be authoritative yet accessible. Use hand gestures to emphasize points.<br/>- **B-Roll:** As the host mentions partners, their logos should appear on screen with a professional animation. Show clips of international business conferences, handshakes, and diverse teams collaborating.<br/>- **Graphics:** Key phrases like "اعتراف دولي" and "شبكة عالمية" should be displayed as clean text overlays. A map of the world with glowing nodes can appear to illustrate the global network.<br/>- **Ending:** The host looks directly at the camera for the final sentence, holding the gaze for a moment before the screen cuts to the logos and CTA.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C5</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">راك تشك في قيمة الشهادات لي راك تحصل عليها؟ شوف واش يعني الاعتماد الدولي الصح.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('5')">
+                    <div class="preview-text">Slide 1: كيفاش نضمنو ليك شهادة دولية معترف بيها؟
+السر يكمن في عملية الاعتماد الصارمة.
+
+Slide 2: خطوا...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-5" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('5')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C5</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">Slide 1: كيفاش نضمنو ليك شهادة دولية معترف بيها؟<br/><br/>السر يكمن في عملية الاعتماد الصارمة.<br/><br/><br/><br/>Slide 2: خطوات الاعتماد مع سندباد انترناشيونال:<br/><br/>1. تقييم جودة المحتوى التدريبي.<br/><br/>2. مطابقة المعايير العالمية للتدريب.<br/><br/>3. تدقيق كفاءة المدربين المعتمدين.<br/><br/>4. إصدار الشهادة برقم تسلسلي دولي.<br/><br/><br/><br/>Slide 3: قوة الشراكات العالمية لي تخلي اسمك يبرق.<br/><br/>شراكتنا تعني أن شهادتك تحمل ختم الجودة الدولي، مما يمنحها مصداقية فورية لدى أي صاحب عمل في العالم.<br/><br/><br/><br/>Slide 4: اخطو خطوتك الأولى نحو العالمية.<br/><br/>لا تقبل بأقل من الأفضل لمسيرتك المهنية.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">ما هي القيمة الحقيقية لشهادتك؟ 🤔 <br/><br/> ليست كل الشهادات متساوية. الاعتماد الدولي هو ما يميز الشهادة العادية عن تلك التي تفتح لك الأبواب العالمية. <br/><br/>اسحب لليمين ➡️ واكتشف العملية الدقيقة التي نتبعها مع سندباد انترناشيونال لنضمن لك اعترافًا دوليًا لا يقبل الشك. <br/><br/> اكتشف معاييرنا الذهبية. اتصل بفرعنا الأقرب. <br/><br/> #اعتماد_دولي #جودة_التعليم #العماد #سندباد_انترناشيونال #مصداقية #الجزائر #تكوين_الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">- **Style:** Infographic-based, educational, and transparent. Use clear diagrams and flowcharts.<br/>- **Slide 1:** A question in a large font with a background image of a magnifying glass over a certificate.<br/>- **Slide 2:** A clear flowchart or numbered list infographic detailing the steps. Use icons for each step (e.g., a document icon for evaluation, a globe icon for standards).<br/>- **Slide 3:** A visual representation of a certificate with a prominent "Internationally Accredited" stamp. Logos of international bodies could be in the background.<br/>- **Slide 4:** A strong call-to-action with an image of a person confidently stepping forward. Contact details or a prompt to visit a local branch should be clear.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P6</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">'بفضل العماد وسندباد، قدرنا نوصل ببرامجنا للعالمية!' - شهادة مدير مركز تدريب.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('6')">
+                    <div class="preview-text">"الشراكة مع مؤسسة العماد وسندباد انترناشيونال كانت نقطة تحول لمركزنا. برامجهم المعتمدة دوليًا زادت م...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-6" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('6')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P6</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">"الشراكة مع مؤسسة العماد وسندباد انترناشيونال كانت نقطة تحول لمركزنا. برامجهم المعتمدة دوليًا زادت من مصداقيتنا وجذبت لنا شريحة جديدة من الطلاب الطموحين."<br/><br/><br/><br/>- مدير مركز تدريب 'Future Leaders Academy'</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">النجاح يتحدث عن نفسه! 🌟 <br/><br/> شركاؤنا هم أكبر دليل على قوة برامجنا وتأثيرها. عندما تختار النمو، فإن النتائج تكون استثنائية. قصة نجاح 'Future Leaders Academy' هي واحدة من قصص كثيرة لمراكز تدريب اختارت التميز معنا. <br/><br/> اسمع قصص النجاح الأخرى. زر صفحتنا. <br/><br/> #دليل_اجتماعي #شهادات_العملاء #شركاء_النجاح #العماد #الجزائر #قصص_نجاح #SocialProof</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">- **Design:** Professional and clean. Use a high-quality photo of the person giving the testimonial (if available, otherwise use their logo).<br/>- **Text:** The quote should be in a large, elegant font (perhaps a script font for emphasis). The person's name and title should be clearly visible underneath.<br/>- **Branding:** Include the logos of Elimad and Sindibad International subtly at the bottom.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V7</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">راك تتخيل روحك عضو في نادي النخبة التدريبية العالمية؟ شوف واش تستفاد بالضبط!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('7')">
+                    <div class="preview-text">العضوية الذهبية... ماشي مجرد اسم.
+هي باقة متكاملة من الامتيازات الحصرية.
+أولاً: وصولك لأقوى الدورات ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-7" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('7')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V7</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">العضوية الذهبية... ماشي مجرد اسم.<br/><br/>هي باقة متكاملة من الامتيازات الحصرية.<br/><br/>أولاً: وصولك لأقوى الدورات التدريبية العالمية بأسعار رمزية.<br/><br/>ثانياً: شهادات دولية معتمدة من سندباد انترناشيونال، تزيد من قيمتك في سوق العمل.<br/><br/>ثالثاً: الانضمام لشبكة من الخبراء ورجال الأعمال، تفتحلك أبواب الشراكات والفرص.<br/><br/>رابعاً: دعم ومتابعة شخصية باش نضمنو توصل لأهدافك.<br/><br/>هادي ماشي عضوية... هادي تذكرة لمستقبل أفضل.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">امتيازات حصرية تنتظرك! ✨ <br/><br/> العضوية الذهبية هي أكثر من مجرد تدريب. إنها مفتاحك للوصول إلى عالم من المزايا المصممة خصيصًا لدفع مسيرتك المهنية نحو القمة. من الدورات الحصرية إلى الشبكات العالمية، كل شيء مصمم لنجاحك.<br/><br/>شاهد الفيديو واكتشف كل الامتيازات التي ستحصل عليها. <br/><br/> اكتشف باقة الامتيازات الذهبية اللي راي تسناك. املأ استمارة التسجيل. <br/><br/> #عضوية_ذهبية #امتيازات #حصري #العماد #تطوير_الذات #الجزائر #AIDA</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">- **Style:** Dynamic Motion Graphics. Fast-paced, energetic, and visually engaging.<br/>- **Visuals:** Use animated icons and kinetic typography to illustrate each benefit as it's mentioned.<br/>  - For "courses at symbolic prices," show a stack of books with a price tag that dramatically drops.<br/>  - For "international certificates," show an animated certificate getting stamped with a glowing seal.<br/>  - For "networking," show animated avatars connecting with glowing lines on a world map.<br/>  - For "support," show a growing bar chart representing career progress.<br/>- **Music:** An upbeat, modern, and inspiring electronic track.<br/>- **Colors:** Use the brand's primary colors dynamically throughout the animation.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C8</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">واش راك تستنى باش تولي جزء من النخبة؟ شوف واش يمدولك بالتفصيل!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('8')">
+                    <div class="preview-text">Slide 1: عضوية ذهبية؟ واش معناها ليك بالذات؟
+إنها بوابتك لـ 4 امتيازات أساسية تغير قواعد اللعبة.
+
+Sl...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-8" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('8')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C8</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">Slide 1: عضوية ذهبية؟ واش معناها ليك بالذات؟<br/><br/>إنها بوابتك لـ 4 امتيازات أساسية تغير قواعد اللعبة.<br/><br/><br/><br/>Slide 2: 1. دورات نخبة حصرية بأسعار رمزية.<br/><br/>استثمر في نفسك بأقوى البرامج العالمية دون أن تكسر ميزانيتك.<br/><br/><br/><br/>Slide 3: 2. شهادات دولية معترف بيها في كل بلاصة.<br/><br/>سيرتك الذاتية ستتحدث عنك بلغة عالمية يفهمها الجميع.<br/><br/><br/><br/>Slide 4: 3. تواصل مع خبراء عالميين وأصحاب أعمال.<br/><br/>ابنِ شبكة علاقات قوية تفتح لك أبوابًا لم تكن ممكنة.<br/><br/><br/><br/>Slide 5: 4. دعم فردي ومتابعة مستمرة لمسارك.<br/><br/>نحن معك خطوة بخطوة لضمان تحقيقك لأهدافك.<br/><br/><br/><br/>Slide 6: ابدأ قصة نجاحك العالمية. انضم الآن!<br/><br/>مكانك بين النخبة ينتظرك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">4 أسباب تجعل العضوية الذهبية استثمارك الأفضل لعام 2024. <br/><br/> لماذا يختار الطموحون الانضمام إلى عضويتنا الذهبية؟ لأن القيمة التي نقدمها تتجاوز مجرد التدريب.<br/><br/>اسحب لليمين ➡️ واكتشف المزايا الحقيقية التي ستغير مسارك المهني إلى الأبد. من التوفير المالي إلى بناء العلاقات العالمية، كل شيء هنا. <br/><br/> باقة امتيازات لا مثيل لها. زور موقعنا واكتشف المزيد! <br/><br/> #امتيازات #عضوية_ذهبية #العماد #الجزائر #استثمار_الذات #ValueProposition #DZ</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">- **Style:** List-based, clear, and benefit-oriented. Each slide should focus on one key benefit.<br/>- **Visuals:** Use high-quality stock photos that reflect each benefit. For example, a photo of a focused person studying online for Slide 2, a picture of a professional CV for Slide 3, a photo of a networking event for Slide 4, and a photo of a mentor guiding someone for Slide 5.<br/>- **Design:** Use a consistent layout for each slide with a large number (1, 2, 3, 4) to clearly structure the information. The background can have a subtle pattern or texture to add visual interest.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P9</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">وفر أكثر من 70% من تكاليف الدورات الدولية مع العضوية الذهبية!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('9')">
+                    <div class="preview-text">وفر أكثر من 70%
+من تكاليف التدريب الدولي.
+
+استثمار ذكي لمستقبل عالمي....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-9" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('9')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P9</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">وفر أكثر من 70%<br/><br/>من تكاليف التدريب الدولي.<br/><br/><br/><br/>استثمار ذكي لمستقبل عالمي.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">هل تدفع الكثير مقابل التطوير المهني؟ 💸 <br/><br/> الوصول إلى التدريب الدولي المرموق لا يجب أن يكون باهظ الثمن. العضوية الذهبية مصممة لتمنحك أفضل قيمة مقابل استثمارك، مما يتيح لك توفير هائل على تكاليف الدورات الفردية.<br/><br/>إنه ليس مجرد توفير، بل استثمار أكثر ذكاءً في مستقبلك. <br/><br/> حساب بسيط للوفورات. اعرف كيفاش تستثمر بذكاء. <br/><br/> #توفير #استثمار #قيمة_مقابل_سعر #عضوية_ذهبية #العماد #الجزائر #ValueForMoney</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">- **Design:** Data-driven and visually striking. Use an infographic style.<br/>- **Visual:** A simple bar chart comparing the high cost of "Individual International Courses" with the much lower cost of the "Golden Membership". The "70% Saved" area should be highlighted in a contrasting color.<br/>- **Text:** The numbers and percentage should be large and clear. The slogan at the bottom adds context and value.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V10</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">راك مدير مركز تدريب وتحوس تزيد عدد الطلاب تاعك؟ وتكون الأول في السوق؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('10')">
+                    <div class="preview-text">(شخص يتحدث للكاميرا بأسلوب UGC، في مكتب مركز تدريب)
+السلام عليكم، أنا مدير مركز [اسم المركز].
+كيما أ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-10" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('10')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V10</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">(شخص يتحدث للكاميرا بأسلوب UGC، في مكتب مركز تدريب)<br/><br/>السلام عليكم، أنا مدير مركز [اسم المركز].<br/><br/>كيما أغلب المراكز، كنا نواجوا تحديات كبيرة: منافسة، برامج لازم تتجدد ديما، وتكاليف تطوير عالية.<br/><br/>كنا نحوسوا على حل يخلينا نتميزو ونقدموا قيمة حقيقية للطلاب تاعنا.<br/><br/>حتى تعرفنا على برنامج الشراكة مع مؤسسة العماد وسندباد انترناشيونال.<br/><br/>بصراحة، في الأول كنت متردد. بصح القرار هذاك غيّر كلش.<br/><br/>قدرنا نوفروا لطلابنا برامج دولية معتمدة، ماكناش نحلموا بيها.<br/><br/>الدعم التسويقي لي قدموهولنا ساعدنا نوصلوا لشريحة أكبر.<br/><br/>النتيجة؟ عدد الطلاب تضاعف، ومصداقيتنا في السوق زادت.<br/><br/>إذا راك مدير مركز وحاب دير القفزة النوعية، ننصحك تتواصل معاهم.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">كيف ضاعفنا عدد طلابنا؟ شهادة من شريك نجاح. <br/><br/> النمو ليس سهلاً، لكن مع الشريك المناسب، يصبح ممكنًا. استمع مباشرة من مدير مركز تدريب شريك كيف ساعدته شراكتنا مع العماد وسندباد انترناشيونال على تحقيق قفزة نوعية في أعماله، زيادة عدد الطلاب، وترسيخ مكانته في السوق.<br/><br/>قصة نجاحهم يمكن أن تكون قصة نجاحك. <br/><br/> اكتشف كيفاش الشراكة مع العماد وسندباد تقدر تغير مركزك. احجز استشارة مجانية. <br/><br/> #شراكة_استراتيجية #نمو_الأعمال #مراكز_تدريب #الجزائر #العماد #قصة_نجاح #UGC</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">- **Style:** User-Generated Content (UGC) / Testimonial. Shot with a smartphone or DSLR to feel authentic and personal, but with good lighting and clear audio.<br/>- **Location:** The video should be filmed in the actual office or training room of a partner center to add credibility.<br/>- **Performance:** The speaker should be natural and genuine, not like a scripted actor. They should share their story with passion and conviction.<br/>- **Graphics:** Simple lower-third graphics to introduce the speaker's name and the name of their center. A simple logo of Elimad/Sindibad can appear at the end with the CTA.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C11</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">تخيل مركزك من المحلي للعالمي في وقت قصير! ماشي حلم، هادي حقيقة.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('11')">
+                    <div class="preview-text">Slide 1: مركز تدريب 'Top Skills' كان يعاني... حتى التقى بالعماد!
+هذه قصة تحول حقيقية.
+
+Slide 2: قبل ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-11" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('11')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C11</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">Slide 1: مركز تدريب 'Top Skills' كان يعاني... حتى التقى بالعماد!<br/><br/>هذه قصة تحول حقيقية.<br/><br/><br/><br/>Slide 2: قبل الشراكة (Before):<br/><br/>- برامج محلية محدودة.<br/><br/>- صعوبة في جذب الطلاب.<br/><br/>- منافسة شرسة من المراكز الكبرى.<br/><br/><br/><br/>Slide 3: الجسر (The Bridge):<br/><br/>الشراكة مع العماد وسندباد انترناشيونال.<br/><br/>توفير برامج دولية معتمدة + دعم تسويقي متكامل.<br/><br/><br/><br/>Slide 4: بعد الشراكة (After):<br/><br/>- نمو بنسبة 150% في عدد المسجلين.<br/><br/>- سمعة رائدة في السوق كمركز يقدم شهادات دولية.<br/><br/>- زيادة ملحوظة في الأرباح.<br/><br/><br/><br/>Slide 5: قصة نجاحك تقدر تبدا اليوم.<br/><br/>هل أنت مستعد لتكون قصة النجاح التالية؟</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">من التحديات إلى الريادة. قصة تحول حقيقية. <br/><br/> كل مركز تدريب يواجه تحديات، لكن القادة الحقيقيون يبحثون عن الحلول. مركز 'Top Skills' وجد الحل في شراكتنا.<br/><br/>اسحب لليمين ➡️ وشاهد بالأرقام كيف تحول مركزهم من المحلية إلى الريادة العالمية في السوق. النتائج تتحدث عن نفسها. <br/><br/> شاهد قصص نجاح أخرى لمراكز شركاء. الرابط في البايو. <br/><br/> #دراسة_حالة #قبل_وبعد #تحول #مراكز_تدريب #الجزائر #العماد #BABframework</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">- **Style:** Case Study / Before-After-Bridge (BAB) framework. Visually show the transformation.<br/>- **Slide 1:** A compelling title with the logo of the case study center.<br/>- **Slide 2 ('Before'):** Use visuals with a desaturated or grayscale color scheme. Icons representing problems (e.g., a sad face, a downward trending graph).<br/>- **Slide 3 ('Bridge'):** A central, vibrant image of the Elimad & Sindibad logos with arrows pointing from 'Before' to 'After'.<br/>- **Slide 4 ('After'):** Use bright, vibrant colors. Icons representing success (e.g., a trophy, an upward trending graph, happy students).<br/>- **Slide 5:** A strong CTA with a picture of a modern, successful training center.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P12</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">مركز تدريبك يستحق أفضل البرامج العالمية. شراكة قوية، مستقبل مزدهر.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('12')">
+                    <div class="preview-text">إلى مدراء مراكز التدريب الطموحين:
+حان الوقت لتزويد طلابكم بشهادات دولية.
+
+شراكة مع العماد = نمو مضمو...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-12" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('12')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P12</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">إلى مدراء مراكز التدريب الطموحين:<br/><br/>حان الوقت لتزويد طلابكم بشهادات دولية.<br/><br/><br/><br/>شراكة مع العماد = نمو مضمون.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">دعوة حصرية لمراكز التدريب الرائدة في الجزائر. <br/><br/> هل تسعى للتميز في سوق التدريب؟ هل تريد أن تقدم لطلابك ما لا يستطيع منافسوك تقديمه؟ نحن نبحث عن مراكز تدريب طموحة لتكون شريكتنا الحصرية في تقديم برامج معتمدة دوليًا.<br/><br/>معًا، يمكننا بناء جيل جديد من الكفاءات العالمية. <br/><br/> انضم لشبكة شركائنا. احجز موعدك الآن. <br/><br/> #شراكة #فرصة_عمل #مراكز_تدريب #الجزائر #العماد #نمو #BusinessPartnership</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">- **Design:** A direct and professional call for partnership. The design should feel like a formal invitation.<br/>- **Visual:** A background image of a modern training center or a professional handshake. The text should be overlaid in a clear, bold font.<br/>- **Branding:** Feature the logos of both Elimad and Sindibad prominently to convey the power of the partnership.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V13</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الفرصة الذهبية ما تستناش! المقاعد راهي تروح... وأنت مازالك تخمم؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('13')">
+                    <div class="preview-text">كل يوم يمر، هو فرصة ضايعة.
+فرصة باش تكون من النخبة.
+فرصة باش تحصل على شهادة دولية تغير مسارك.
+العضوي...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-13" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('13')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V13</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">كل يوم يمر، هو فرصة ضايعة.<br/><br/>فرصة باش تكون من النخبة.<br/><br/>فرصة باش تحصل على شهادة دولية تغير مسارك.<br/><br/>العضوية الذهبية ماشي عرض دائم.<br/><br/>المقاعد محدودة جدًا باش نضمنوا الجودة والقيمة لكل عضو.<br/><br/>تخيل بعد أشهر، تشوف زملائك حققوا أهدافهم... وأنت بقيت في مكانك.<br/><br/>لأنك ترددت.<br/><br/>ما تخليش التردد يسرق منك مستقبلك.<br/><br/>الوقت راهو يمشي.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">تحذير: المقاعد على وشك الانتهاء! ⏳ <br/><br/> الفرص الكبيرة لا تدوم طويلاً. تم تصميم العضوية الذهبية لتكون حصرية، ولهذا السبب فإن عدد المقاعد محدود للغاية. كل دقيقة تأخير قد تعني ضياع فرصتك لهذا العام.<br/><br/>القرار قرارك، لكن الوقت ليس في صالحك. <br/><br/> بقات أيام قليلة فقط! اضغط هنا وسجّل عضويتك الذهبية قبل فوات الأوان. <br/><br/> #عرض_محدود #فرصة_أخيرة #العماد #الجزائر #تسجيل #Urgency #Scarcity</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">- **Style:** Urgent Motion Graphics. Use elements that create a sense of scarcity and urgency.<br/>- **Visuals:** A ticking clock or a countdown timer is central to the video. Animated seats in a virtual room that disappear one by one. Use flashing text and bold, warning-like colors (red, yellow).<br/>- **Sound:** An intense, fast-paced soundtrack with a prominent ticking clock sound effect. The voiceover should be quick and slightly stressed to convey urgency.<br/>- **Text:** On-screen text like "مقاعد محدودة"، "آخر فرصة"، "الوقت ينفد" should flash on screen.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C14</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الفرصة ما تستناش! بقات غير بلايص معدودة باش تكون من النخبة.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('14')">
+                    <div class="preview-text">Slide 1: العداد يمشي... ⏳
+فرصتك الذهبية للانضمام إلى النخبة على وشك الانتهاء!
+
+Slide 2: علاش هاد الع...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-14" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('14')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C14</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">Slide 1: العداد يمشي... ⏳<br/><br/>فرصتك الذهبية للانضمام إلى النخبة على وشك الانتهاء!<br/><br/><br/><br/>Slide 2: علاش هاد العرض محدود؟<br/><br/>لأننا نؤمن بالجودة وليس الكمية. نريد أن نمنح كل عضو ذهبي الاهتمام والدعم الذي يستحقه لتحقيق أهدافه.<br/><br/><br/><br/>Slide 3: واش تخسر لو كان ما تلتحقش؟<br/><br/>- فرصة الحصول على شهادات دولية بسعر رمزي.<br/><br/>- الوصول لشبكة عالمية من الخبراء.<br/><br/>- عام كامل من التأجيل في مسارك المهني.<br/><br/><br/><br/>Slide 4: آخر فرصة باش تبدا مستقبلك العالمي.<br/><br/>لا تندم غدًا على قرار لم تتخذه اليوم.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">الوقت يمر، والفرصة تكاد تضيع! <br/><br/> هل ستكون من الذين اغتنموا الفرصة، أم من الذين سيشاهدون الآخرين ينجحون؟ المقاعد المتبقية في العضوية الذهبية قليلة جدًا.<br/><br/>اسحب لليمين ➡️ لتعرف لماذا هذا العرض لن يتكرر قريبًا، وماذا ستخسر حقًا إذا فوتّه. <br/><br/> اغتنم اللحظة. سجّل اليوم. <br/><br/> #العد_التنازلي #لا_تفوت_الفرصة #العماد #الجزائر #تسجيل_فوري #LastChance</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">- **Style:** Urgency-driven, using visual cues of time running out.<br/>- **Slide 1:** A large, bold image of a countdown timer or an hourglass. The text should be impactful.<br/>- **Slide 2:** Use a visual metaphor for exclusivity, like a velvet rope or a VIP lounge. The text should explain the 'why' behind the scarcity.<br/>- **Slide 3:** Use 'X' marks or minus symbols next to icons of the lost benefits (FOMO - Fear Of Missing Out).<br/>- **Slide 4:** A very direct and powerful CTA with a button-like design saying "سجّل الآن!" that encourages an immediate click.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P15</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الاشتراك قريب يغلق! هذه فرصتك الأخيرة.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('15')">
+                    <div class="preview-text">آخر نداء!
+التسجيل في العضوية الذهبية يغلق قريبًا جدًا.
+
+لا تفوت الفرصة....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-15" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('15')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P15</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">آخر نداء!<br/><br/>التسجيل في العضوية الذهبية يغلق قريبًا جدًا.<br/><br/><br/><br/>لا تفوت الفرصة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">إغلاق التسجيل وشيك! <br/><br/> وصلنا إلى اللحظات الأخيرة. هذه هي فرصتك النهائية لتأمين مقعدك في العضوية الذهبية والبدء في بناء مستقبلك العالمي. بعد هذا، ستغلق الأبواب.<br/><br/>لا تدعها تفلت من بين يديك. <br/><br/> مستقبلك يبدأ الآن. سجّل قبل فوات الأوان. <br/><br/> #فرصة_اخيرة #العماد #الجزائر #سجل_الان #DirectResponse #FinalCall</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">- **Design:** Extremely direct and urgent. Use a stark, high-contrast design.<br/>- **Visual:** A large, red or orange graphic that looks like a stamp or a warning sign with text like "CLOSING SOON" or "LAST CHANCE".<br/>- **Text:** The text should be minimal, bold, and in all caps to convey urgency. The focus is entirely on the call to action.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V16</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">مازال عندك شك؟ تبعني نجاوبك على كامل تساؤلاتك باش تاخذ قرار صح.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('16')">
+                    <div class="preview-text">(خبير أو وجه إعلامي في استوديو، يتحدث بأسلوب سؤال وجواب)
+وصلوني بزاف أسئلة على العضوية الذهبية، وحبي...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-16" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('16')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل V16</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">(خبير أو وجه إعلامي في استوديو، يتحدث بأسلوب سؤال وجواب)<br/><br/>وصلوني بزاف أسئلة على العضوية الذهبية، وحبيت نجاوب على أهمها اليوم.<br/><br/>سؤال: "هل الشهادات صح معترف بيها؟" - الجواب: نعم، هي معتمدة من سندباد انترناشيونال، وتقدر تتأكد من رقم الاعتماد بنفسك.<br/><br/>سؤال: "السعر يبان رمزي، وين راه المشكل؟" - الجواب: ماكانش مشكل. هذي هي فلسفتنا: نخبة التدريب الدولي لازم تكون في متناول الجميع.<br/><br/>سؤال: "واش يضمنلي بلي راح نستفاد؟" - الجواب: الضمان هو جودة برامجنا، قوة شبكتنا، والدعم الشخصي لي نوفروه. نجاحك هو نجاحنا.<br/><br/>الشك يخليك في مكانك. واليقين هو لي يخليك تتقدم.<br/><br/>اليوم، عطيناك كل الأسباب باش تكون على يقين.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">لديك أسئلة؟ لدينا إجابات شافية. <br/><br/> التردد أمر طبيعي عند اتخاذ القرارات الكبيرة. لهذا السبب، جمعنا أهم الأسئلة التي وصلتنا حول العضوية الذهبية وأجبنا عليها بكل شفافية في هذا الفيديو.<br/><br/>من قيمة الشهادات إلى السعر الرمزي، شاهد الفيديو لتبديد كل شكوكك واتخاذ قرار مبني على اليقين. <br/><br/> واش راك تستنى؟ مستقبلك المهني راه هنا. انضم للعضوية الذهبية اليوم! <br/><br/> #سؤال_جواب #العماد #شفافية #الجزائر #تطوير #FAQ #ObjectionHandling</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">- **Style:** UGC/Q&A style. Can be a professional host or an expert from the institution. The tone is reassuring and addresses objections head-on.<br/>- **Setting:** A clean, professional setting. Perhaps with a whiteboard or a screen in the background where the questions can appear as text.<br/>- **Performance:** The speaker should be calm, confident, and empathetic. They should look directly at the camera as if speaking to one person.<br/>- **Graphics:** As each question is asked, it should appear as a text overlay on the screen. The answers are delivered verbally.<br/>- **Ending:** A confident smile and a direct look at the camera, holding the gaze to build trust.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C17</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">لسّى عندك أسئلة؟ خلينا نجاوبك عليها ونبّدد كل شكوكك.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('17')">
+                    <div class="preview-text">Slide 1: سؤال وجواب: كلشي على العضوية الذهبية.
+أجوبة مباشرة على أكثر الأسئلة شيوعًا.
+
+Slide 2: س: هل...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-17" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('17')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل C17</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">Slide 1: سؤال وجواب: كلشي على العضوية الذهبية.<br/><br/>أجوبة مباشرة على أكثر الأسئلة شيوعًا.<br/><br/><br/><br/>Slide 2: س: هل هي غالية؟<br/><br/>ج: لا، هي استثمار رمزي. القيمة التي تحصل عليها (دورات، شهادات، شبكة) تفوق تكلفتها بأضعاف مضاعفة.<br/><br/><br/><br/>Slide 3: س: هل الشهادات معترف بها دوليًا حقًا؟<br/><br/>ج: نعم 100%. كل شهادة صادرة من سندباد انترناشيونال وتحمل رقم اعتماد دولي قابل للتحقق.<br/><br/><br/><br/>Slide 4: س: واش يفرقني على الآخرين لي ما عندهمش العضوية؟<br/><br/>ج: التميز. أنت تصبح جزءًا من نخبة حصرية تملك مفاتيح الوصول لفرص عالمية لا يملكها الآخرون.<br/><br/><br/><br/>Slide 5: ما عندك حتى حجة! انضم اليوم!<br/><br/>قرارك اليوم يحدد مكانتك غدًا.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">دليلك الكامل لتبديد الشكوك. 💡 <br/><br/> فكرنا في كل الأسئلة التي قد تدور في ذهنك وجمعناها لك في مكان واحد.<br/><br/>اسحب لليمين ➡️ واقرأ الإجابات الشافية التي ستمنحك الثقة الكاملة لاتخاذ الخطوة التالية في مسيرتك المهنية. <br/><br/> دليل الشكوك. اضغط لمعرفة كل شيء. <br/><br/> #FAQ #أسئلة_شائعة #العماد #الجزائر #معلومات #HVC</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">- **Style:** FAQ format. Clean, easy to read, and structured as a Q&A.<br/>- **Design:** Each slide should have a clear question (Q) and a concise answer (A). Use different typographic styles or colors to distinguish between the question and the answer.<br/>- **Icons:** Use simple icons to support the answers (e.g., a money-back guarantee icon for value, a globe icon for accreditation, a key icon for exclusivity).<br/>- **Branding:** Consistent branding with logos and colors on each slide.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P18</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">هذي آخر فرصة ليك باش تكون من نخبة التدريب العالمي. ما تفوتهاش!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('18')">
+                    <div class="preview-text">الأبواب على وشك أن تغلق.
+
+مستقبلك العالمي يبدأ بقرار واحد.
+
+اتخذه الآن....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:2px 10px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                <div id="modal-18" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('18')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل P18</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت أو محتوى الكاروسال</h4>
+                            <div class="modal-body">الأبواب على وشك أن تغلق.<br/><br/><br/><br/>مستقبلك العالمي يبدأ بقرار واحد.<br/><br/><br/><br/>اتخذه الآن.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Ad Copy)</h4>
+                            <div class="modal-body">القرار لك. المستقبل لك. <br/><br/> لقد قدمنا لك كل المعلومات، أجبنا على كل أسئلتك، وأظهرنا لك الطريق. الآن، الكرة في ملعبك. هذه هي دعوتنا الأخيرة للانضمام إلى نخبة الكفاءات الدولية.<br/><br/>لا تدع هذه الفرصة التاريخية تفوتك. <br/><br/> قرر الآن وغير حياتك المهنية. انقر للتسجيل. <br/><br/> #النداء_الأخير #العماد #الجزائر #قرار #مستقبل #FinalCTA #JoinNow</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">- **Design:** Final, decisive, and minimalist. The focus is entirely on the final call to action.<br/>- **Visual:** A simple but powerful background, perhaps an image of an open door with a bright light coming through it. The text is centered and bold.<br/>- **CTA:** The call to action phrase "سجّل الآن" should be designed like a large, clickable button to encourage immediate action.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr></tbody></table></div>
+
+    <div class="disclaimer-card">
+        <span style="font-size: 1.2em;">⚠️</span>
+        <span>قد تخضع هذه الاستراتيجية لبعض التعديلات والتحسينات، حسب المواد الإعلامية المتوفرة أو لغرض تحقيق أفضل النتائج.</span>
+    </div>
+
+    <div class="summary-box">
+        <span style="font-weight: 700; color: #FFD700;">الميزانية الإجمالية المعتمدة</span>
+        <span class="total-amount">128000 دج</span>
+        <a href="https://wa.me/213770820431" class="cta-btn">تواصل معنا للاعتماد</a>
+        <div style="border: 1px dashed #FFD700; padding: 25px; border-radius: 15px; margin-top: 20px;">
+            <h3 style="color:#FFD700; margin:0;">الخطوة التالية</h3>
+            <p style="margin:10px 0;">مكالمة قصيرة لنكيّف هذه الاستراتيجية حسب مشروعك ونبدأ العمل فوراً.</p>
+            <div class="phones-list">
+                <div class="phone-item">0770 82 04 31</div>
+                <div class="phone-item">0770 55 01 51</div>
+                <div class="phone-item">0770 82 01 45</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+function openModal(id) { document.getElementById('modal-' + id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
+function closeModal(id) { document.getElementById('modal-' + id).style.display = 'none'; document.body.style.overflow = 'auto'; }
+window.onclick = function(event) { if (event.target.className === 'modal') { event.target.style.display = 'none'; document.body.style.overflow = 'auto'; } }
+</script></body></html>
