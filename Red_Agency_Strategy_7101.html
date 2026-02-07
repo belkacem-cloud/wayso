@@ -1,0 +1,800 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Red Agency Strategy</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+<style>
+    body { background: #FFFFFF; color: #1A1A1A; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; line-height: 1.6; overflow-x: hidden; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 15px; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 2px solid #000; }
+    .wayso-logo { height: 45px; }
+    .brand-name { font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 1.4em; color: #000; text-transform: uppercase; border-right: 4px solid #FFD700; padding-right: 12px; }
+    
+    .analysis-section { margin: 30px 0; }
+    .card-philosophy { padding: 30px; border-radius: 20px; background: #000; color: #FFF; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+    .card-philosophy h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #FFD700; }
+    
+    .card-why { padding: 30px; border-radius: 20px; background: #F9F9F9; color: #333; margin-bottom: 20px; border: 1px solid #EDECE9; }
+    .card-why h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #000; display: flex; align-items: center; gap: 10px; }
+    .card-why h2::after { content: ''; flex-grow: 1; height: 1px; background: #EDECE9; margin-right: 15px; }
+
+    .hero { margin: 35px 0 20px 0; border-right: 6px solid #FFD700; padding-right: 15px; }
+    .hero h1 { font-size: 2.5em; font-weight: 700; margin: 0; }
+    .table-wrapper { margin-top: 25px; border-radius: 12px; overflow: hidden; border: 1px solid #EDECE9; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #000; color: #FFF; padding: 15px; text-align: right; font-size: 0.95em; }
+    td { padding: 20px 12px; border-bottom: 1px solid #EDECE9; vertical-align: top; }
+    
+    .code-badge { font-family: 'Montserrat', sans-serif; font-weight: 700; background: #FFD700; color: #000; padding: 5px 12px; border-radius: 6px; font-size: 1.1em; display: inline-block; margin-bottom: 5px; }
+    .type-label { display: block; font-weight: 700; color: #555; font-size: 0.95em; }
+    
+    .hook-pill { background: #000; color: #FFD700; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 1.1em; display: block; border-right: 5px solid #FFD700; }
+    
+    /* تحسين زر المودال */
+    .script-trigger { background: #F8F9FA; border: 1px solid #EDECE9; padding: 15px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; position: relative; }
+    .script-trigger:hover { background: #FFF; border-color: #FFD700; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transform: translateY(-2px); }
+    
+    .preview-text { font-size: 0.95em; color: #333; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; white-space: pre-wrap; }
+    
+    /* ستايل المودال */
+    .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); }
+    .modal-content { background: #FFF; margin: 5% auto; padding: 30px; border-radius: 20px; width: 90%; max-width: 750px; position: relative; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+    .close-modal { position: absolute; top: 20px; left: 20px; font-size: 30px; cursor: pointer; color: #999; line-height: 1; transition: color 0.2s; }
+    .close-modal:hover { color: #000; }
+    
+    .modal-section { margin-bottom: 25px; padding: 20px; border-radius: 12px; background: #fbfbfa; border: 1px solid #eee; position: relative; }
+    
+    /* زر النسخ */
+    .copy-btn { position: absolute; top: 10px; left: 10px; background: #fff; border: 1px solid #ddd; padding: 5px 10px; border-radius: 6px; cursor: pointer; font-size: 0.8em; font-weight: bold; color: #555; display: flex; align-items: center; gap: 5px; transition: all 0.2s; }
+    .copy-btn:hover { border-color: #FFD700; color: #000; background: #FFD70020; }
+    .copy-btn:active { transform: scale(0.95); }
+    
+    .modal-body { font-size: 1.15em; color: #1A1A1A; line-height: 1.9; word-wrap: break-word; white-space: pre-wrap; }
+    
+    .disclaimer-card { margin: 25px 0; padding: 20px; background: #FFF9E6; border-radius: 12px; border-right: 5px solid #FFC107; font-size: 1.05em; color: #856404; display: flex; align-items: center; gap: 12px; }
+    .summary-box { margin-top: 50px; background: #000; color: #FFF; padding: 40px 20px; border-radius: 25px; text-align: center; }
+    .total-amount { font-family: 'Montserrat'; font-size: 3.5em; font-weight: 700; display: block; color: #FFD700; margin: 10px 0; }
+    .cta-btn { display: inline-block; background: #FFD700; color: #000; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.2em; margin-bottom: 25px; transition: transform 0.2s; }
+    .cta-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px #FFD70060; }
+    
+    .phones-list { margin-top: 15px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; direction: ltr; } 
+    .phone-item { background: #1A1A1A; padding: 8px 15px; border-radius: 8px; border: 1px solid #333; color: #FFF; font-family: 'Montserrat'; font-weight: 700; font-size: 1.2em; white-space: nowrap; }
+
+    @media (max-width: 768px) {
+        thead { display: none; }
+        tr { display: block; border: 1px solid #EDECE9; border-radius: 15px; margin-bottom: 20px; padding: 15px; background: #FFF; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        td { display: block; padding: 10px 0; text-align: right; border-bottom: 1px dashed #eee; }
+        td:last-child { border-bottom: none; }
+        td::before { content: attr(data-label); font-weight: 700; color: #BBB; display: block; font-size: 0.8em; margin-bottom: 6px; text-transform: uppercase; }
+        .brand-name { font-size: 1.1em; }
+        .modal-content { width: 95%; padding: 20px; margin: 10% auto; }
+        .total-amount { font-size: 2.5em; }
+    }
+</style></head><body>
+
+<div class="container">
+    <div class="header">
+        <img src="https://storage.googleapis.com/msgsndr/GwIPQCjstTzxnzDQ1B32/media/68fddb5534bb1597bc934f89.png" class="wayso-logo">
+        <div class="brand-name">Red Agency</div>
+    </div>
+
+    <div class="analysis-section">
+        <div class="card-philosophy"><h2>🎯 فلسفة الاستراتيجية</h2><p>في Wayso، نؤمن بأن النجاح لا يأتي بالصدفة، بل بالاستراتيجية المتكاملة والشفافية التامة. هذه الخطة مصممة بعناية لتكون استثمارك الأمثل في النمو، حيث يصب كل جزء منها في هدفك الأساسي: تحويل الفوضى التسويقية إلى نظام مبيعات متسق وفعال يمنحك راحة البال والتركيز على جوهر عملك.</p></div>
+        <div class="card-why"><h2>💡 لماذا هذه الخطة؟</h2><p>بدأنا بـ V1 لخطف الانتباه وتقديم الحل الشامل لـ 'Red Agency'، ثم استخدمنا C2 لتعليم العميل وتفصيل قيمة النظام المتكامل، وأخيراً P3 لترسيخ وعد 'راحة البال' في ذهنه، مما يخلق مساراً نفسياً مقنعاً يقود نحو الثقة والتحويل.</p></div>
+    </div>
+
+    <div class="hero"><h1>خطة الإنتاج الإبداعي</h1></div>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th style="width: 20%;">الكود والنوع</th><th style="width: 30%;">الهوك (Hook)</th><th style="width: 50%;">المحتوى</th></tr></thead>
+            <tbody><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V1</span>
+                <span class="type-label">🎬 VIDÉO</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">Votre marketing ressemble à un champ de bataille ? 5 freelances, 3 agences, et 0 résultat ? Voici la solution.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('1')">
+                    <div class="preview-text">Vous avez l'impression que votre tête va exploser ?
+Chaque jour, c'est le même chaos : des appels av...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-1" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('1')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V1</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-1')">📋 نسخ النص</button>
+                            <div id="script-text-1" class="modal-body">Vous avez l'impression que votre tête va exploser ?<br/><br/>Chaque jour, c'est le même chaos : des appels avec le développeur, des e-mails pour le community manager, des réunions avec l'agence de publicité...<br/><br/>Votre budget s'évapore, votre temps est perdu, et les ventes... n'arrivent jamais.<br/><br/>Et si tout ça s'arrêtait ?<br/><br/>Imaginez un seul partenaire. Un seul système. Une seule stratégie où tout est connecté.<br/><br/>Chez Red Agency, nous ne gérons pas des tâches. Nous construisons votre machine à vendre.<br/><br/>Votre site web communique avec vos publicités. Vos publicités ciblent les bons clients sur les réseaux sociaux. Chaque euro dépensé est un investissement, pas une perte.<br/><br/>Le résultat ? Vous n'avez plus à vous soucier du marketing.<br/><br/>Vous vous concentrez sur votre métier, et vous regardez vos ventes doubler.<br/><br/>C'est ça, la tranquillité d'esprit.<br/><br/>C'est ça, la promesse de Red Agency.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-1')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-1" class="modal-body">🤯 Votre marketing vous épuise plus qu'il ne vous rapporte ? <br/><br/> Arrêtez de jongler entre plusieurs agences et freelances sans voir de résultats concrets.<br/><br/>Red Agency centralise tout votre marketing en un système unique et puissant, conçu pour une seule chose : augmenter vos ventes et vous offrir la tranquillité d'esprit.<br/><br/>Découvrez comment notre stratégie intégrée transforme le chaos en profits. <br/><br/> Cliquez ici maintenant et découvrez comment 'Red Agency' transforme le chaos marketing en ventes garanties ! <br/><br/> #MarketingDigital #AgenceMarketing #BusinessAlgerie #StratégieDigitale #EntrepreneuriatDZ #RedAgency</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Cadre Hybride: StoryBrand + PAS + BAB].<br/>SCÈNE 1 (Problème): Démarrage rapide et chaotique. Icônes de mails, de téléphones, de graphiques qui chutent, qui apparaissent et disparaissent vite. Voix-off sur un ton stressé mais clair.<br/>SCÈNE 2 (Agitation): Zoom sur un calendrier surchargé. Un visage d'entrepreneur fatigué se frottant les tempes. Superposition de chiffres négatifs (-15% ROI).<br/>SCÈNE 3 (Solution): Transition nette vers un écran blanc épuré. Le logo de 'Red Agency' apparaît. La musique passe de chaotique à calme et confiante. La voix-off devient rassurante et autoritaire.<br/>SCÈNE 4 (Démonstration): Motion graphics élégants (style Ben Saibi) montrant 3 icônes (Site Web, Publicités, Réseaux Sociaux) qui se connectent pour former une seule flèche pointant vers un graphique de ventes en pleine croissance.<br/>SCÈNE 5 (Après): L'entrepreneur est maintenant détendu, souriant, regardant son ordinateur portable qui affiche un tableau de bord clair et positif. Le focus est sur sa tranquillité d'esprit.<br/>SCÈNE 6 (CTA): Le logo et le Call To Action final apparaissent en grand sur l'écran.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C2</span>
+                <span class="type-label">🎬 CARROUSEL</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">Votre marketing part dans tous les sens ? Reprenez le contrôle en 7 slides.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('2')">
+                    <div class="preview-text">Slide 1: Imaginez... tout votre marketing piloté depuis un seul endroit.
+Slide 2: LE PROBLÈME : Vous...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-2" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('2')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C2</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-2')">📋 نسخ النص</button>
+                            <div id="script-text-2" class="modal-body">Slide 1: Imaginez... tout votre marketing piloté depuis un seul endroit.<br/><br/>Slide 2: LE PROBLÈME : Vous gérez une armée de freelances et d'agences. Résultat ? Des messages incohérents, un budget gaspillé et un stress permanent.<br/><br/>Slide 3: LA SOLUTION : Red Agency. Un système marketing unique et intégré qui aligne tous vos efforts vers un seul but : la vente.<br/><br/>Slide 4: COMMENT ÇA MARCHE ? Votre site web, vos publicités et vos réseaux sociaux ne font plus qu'un. Ils communiquent entre eux pour créer un parcours client fluide et efficace.<br/><br/>Slide 5: LE RÉSULTAT : Vous économisez du temps et de l'argent. Votre marque devient plus forte. Vos ventes augmentent de manière prévisible.<br/><br/>Slide 6: QU'ATTENDEZ-VOUS ? Libérez-vous de la complexité. Concentrez-vous sur votre cœur de métier, et laissez-nous piloter votre croissance.<br/><br/>Slide 7: Prêt à transformer votre marketing ? Réservez votre consultation stratégique gratuite dès aujourd'hui !</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-2')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-2" class="modal-body">❌ Fatigué de la dispersion de vos efforts marketing ? <br/><br/> Chaque action que vous menez est une pièce du puzzle. Mais sans une vision d'ensemble, ces pièces ne formeront jamais l'image de votre succès.<br/><br/>Découvrez en 7 étapes simples comment notre système intégré met fin au chaos et construit une machine à vendre pour votre entreprise. <br/><br/> Faites glisser pour découvrir comment nous construisons un système marketing qui travaille pour votre portefeuille. <br/><br/> #MarketingIntégré #SystèmeMarketing #CroissanceEntreprise #Efficacité #StratégieMarketing #Alger</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Design sobre et professionnel par Abdelrahman. Utiliser une charte graphique cohérente (couleurs de Red Agency). Chaque slide doit contenir un titre fort, un texte court et une icône ou un visuel simple qui illustre le point. Police de caractères claire et lisible. Le logo doit être présent sur chaque slide.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P3</span>
+                <span class="type-label">🖼️ IMAGE</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">La tranquillité d'esprit en marketing n'est pas un rêve. C'est une stratégie.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('3')">
+                    <div class="preview-text">LA TRANQUILLITÉ D'ESPRIT N'A PAS DE PRIX.
+(Sauf celui d'une bonne stratégie.)
+
+Red Agency : Mettez f...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-3" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('3')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P3</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-3')">📋 نسخ النص</button>
+                            <div id="script-text-3" class="modal-body">LA TRANQUILLITÉ D'ESPRIT N'A PAS DE PRIX.<br/><br/>(Sauf celui d'une bonne stratégie.)<br/><br/><br/><br/>Red Agency : Mettez fin au chaos. Laissez-nous piloter vos ventes.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-3')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-3" class="modal-body">Et si votre marketing devenait enfin une source de sérénité ? <br/><br/> Le succès de votre entreprise ne devrait pas dépendre du stress et du chaos. Avec une stratégie intégrée, vous gagnez sur deux tableaux : des ventes en hausse et une tranquillité d'esprit retrouvée.<br/><br/>Red Agency est la clé pour y parvenir. <br/><br/> Détendez-vous, et laissez les ventes à nous. Contactez-nous ! <br/><br/> #Tranquillité #PaixdEsprit #MarketingEfficace #StratégieGagnante #BusinessSuccess #RedAgency</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Infographie simple et percutante par Abdelrahman. Visuel central : une balance en équilibre. D'un côté, une pile de tâches chaotiques (icônes : e-mail, téléphone, pub, etc.). De l'autre, l'icône '€' ou un graphique de ventes en hausse. Le texte doit être grand, lisible et au centre de l'attention. Utiliser les couleurs de la marque.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V4</span>
+                <span class="type-label">🎬 VIDÉO</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">Cette semaine, combien d'heures avez-vous perdues en réunions marketing... pour ZÉRO résultat ?</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('4')">
+                    <div class="preview-text">(L'animateur regarde la caméra, l'air sérieux)
+1 heure, 5 heures, peut-être 10 heures ?
+Ce temps, c'...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-4" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('4')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V4</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-4')">📋 نسخ النص</button>
+                            <div id="script-text-4" class="modal-body">(L'animateur regarde la caméra, l'air sérieux)<br/><br/>1 heure, 5 heures, peut-être 10 heures ?<br/><br/>Ce temps, c'est de l'argent. C'est de l'énergie que vous n'investissez pas dans le développement de votre produit ou la satisfaction de vos clients.<br/><br/>Le problème n'est pas le marketing en soi. Le problème, c'est le chaos.<br/><br/>C'est le temps perdu à répéter la même chose à 5 personnes différentes.<br/><br/>C'est l'effort gaspillé sur des actions qui ne sont pas connectées entre elles.<br/><br/>Chez Red Agency, nous vous rendons ce temps. Notre système intégré travaille pour vous, même quand vous dormez.<br/><br/>Une seule stratégie, un seul interlocuteur, des résultats mesurables.<br/><br/>Alors, la vraie question est : êtes-vous prêt à arrêter de perdre votre temps ?</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-4')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-4" class="modal-body">Votre ressource la plus précieuse s'évapore : votre temps. <br/><br/> Chaque minute passée à gérer un marketing désorganisé est une minute de moins pour faire grandir votre entreprise.<br/><br/>Il est temps de changer. Découvrez comment un système marketing unifié peut vous libérer du temps et décupler vos résultats. <br/><br/> Arrêtez de gaspiller votre temps et vos efforts. Réservez un appel gratuit pour évaluer votre stratégie. <br/><br/> #GestionDuTemps #Productivité #MarketingAutomation #Optimisation #Entrepreneur #Algerie</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Cadre QUEST]. Animateur (Ahmed) en plan moyen, charismatique et direct. Fond de studio sobre. Motion graphics apparaissent à côté de lui pour illustrer les points clés : un chronomètre qui tourne vite, des icônes déconnectées qui se lient ensuite, un graphique de productivité qui monte. Le ton doit être direct et empathique. Pas de vente agressive, mais une prise de conscience.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C5</span>
+                <span class="type-label">🎬 CARROUSEL</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">L'histoire d'un entrepreneur comme vous, noyé sous le chaos marketing.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('5')">
+                    <div class="preview-text">Slide 1: L'histoire de Karim, entrepreneur passionné... mais épuisé par son marketing.
+Slide 2: AVAN...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-5" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('5')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C5</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-5')">📋 نسخ النص</button>
+                            <div id="script-text-5" class="modal-body">Slide 1: L'histoire de Karim, entrepreneur passionné... mais épuisé par son marketing.<br/><br/>Slide 2: AVANT : Karim passait ses journées à jongler entre un freelance pour le site, une agence pour les pubs et sa nièce pour Instagram. Les résultats ? Médiocres.<br/><br/>Slide 3: LE PROBLÈME : Aucune cohérence. Des messages contradictoires. Un budget qui part en fumée sans aucun retour sur investissement. L'épuisement était total.<br/><br/>Slide 4: LE PONT : Karim a découvert Red Agency. Nous avons rassemblé toutes les pièces du puzzle en un seul système intelligent et centralisé.<br/><br/>Slide 5: APRÈS : Aujourd'hui, Karim a l'esprit tranquille. Il se concentre sur son business pendant que notre système lui génère des prospects qualifiés. Ses ventes ont doublé en 6 mois.<br/><br/>Slide 6: L'histoire de Karim pourrait être la vôtre. Êtes-vous prêt à changer de chapitre ? Contactez-nous !</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-5')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-5" class="modal-body">Cette histoire vous semble familière ? Vous n'êtes pas seul. <br/><br/> Beaucoup d'entrepreneurs vivent le même cauchemar marketing : des efforts dispersés, du temps perdu et des résultats décevants.<br/><br/>Voyez comment nous avons transformé cette situation pour l'un de nos clients, et comment nous pouvons le faire pour vous. <br/><br/> Découvrez l'histoire de succès complète. Faites glisser maintenant ! <br/><br/> #SuccessStory #TémoignageClient #Transformation #AvantAprès #MarketingRésultats #Entreprendre</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Style narratif par Abdelrahman. Utiliser des illustrations ou des photos stock pour représenter 'Karim'. Slide 'Avant' : couleurs sombres, désaturées, icônes chaotiques. Slide 'Après' : couleurs vives, visuels clairs et positifs. La transition (Le Pont) doit être marquée visuellement.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P6</span>
+                <span class="type-label">🖼️ IMAGE</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">Votre temps est trop précieux pour le gaspiller dans un marketing qui ne fonctionne pas.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('6')">
+                    <div class="preview-text">"Votre énergie devrait être consacrée à votre génie, pas à la gestion du chaos marketing."
+
+- Red Ag...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-6" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('6')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P6</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-6')">📋 نسخ النص</button>
+                            <div id="script-text-6" class="modal-body">"Votre énergie devrait être consacrée à votre génie, pas à la gestion du chaos marketing."<br/><br/><br/><br/>- Red Agency</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-6')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-6" class="modal-body">Une piqûre de rappel pour tous les entrepreneurs. <br/><br/> Ne laissez pas la complexité du marketing vous détourner de votre véritable mission. Déléguez le chaos, gardez le contrôle de votre croissance.<br/><br/>Nous sommes là pour ça. <br/><br/> Laissez-nous travailler pour vous. Contactez 'Red Agency' et ayez l'esprit tranquille. <br/><br/> #Citation #InspirationBusiness #Focus #EntrepreneurLife #Stratégie #Priorités</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Quote Card (Carte de citation) par Abdelrahman. Design très épuré et élégant. Le texte de la citation en grand, avec une police serif pour un effet premium. Le nom 'Red Agency' en dessous, plus petit, avec le logo. Fond neutre, peut-être avec une texture subtile.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V7</span>
+                <span class="type-label">🎬 VIDÉO</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">L'année dernière, combien avez-vous dépensé en marketing ? Et... combien avez-vous réellement gagné ?</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('7')">
+                    <div class="preview-text">(Texte animé à l'écran : DÉPENSES MARKETING 2023)
+(Un chiffre élevé apparaît, puis se transforme en ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-7" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('7')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V7</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-7')">📋 نسخ النص</button>
+                            <div id="script-text-7" class="modal-body">(Texte animé à l'écran : DÉPENSES MARKETING 2023)<br/><br/>(Un chiffre élevé apparaît, puis se transforme en point d'interrogation)<br/><br/>Cette question vous angoisse ? C'est normal.<br/><br/>Quand vos publicités ne sont pas liées à votre stratégie de contenu, et que votre site n'est pas optimisé pour convertir... vous ne faites pas du marketing. Vous jetez de l'argent par les fenêtres.<br/><br/>(Animation d'argent qui s'envole)<br/><br/>Chez Red Agency, chaque action est pensée pour le ROI.<br/><br/>Nous ne créons pas de jolis sites. Nous créons des sites qui vendent.<br/><br/>Nous ne faisons pas de belles publicités. Nous faisons des publicités qui rapportent.<br/><br/>Arrêtez de dépenser. Commencez à investir.<br/><br/>(Animation d'une pièce de 1€ qui se transforme en plusieurs pièces)</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-7')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-7" class="modal-body">Votre budget marketing est-il un investissement ou une dépense ? <br/><br/> Si vous ne pouvez pas répondre à cette question avec certitude, il y a un problème.<br/><br/>Un marketing efficace n'est pas un centre de coût, c'est un centre de profit. Découvrez notre approche axée sur le retour sur investissement (ROI) et transformez vos dépenses en gains. <br/><br/> Découvrez comment 'Red Agency' vous assure un réel retour sur investissement. Réservez votre consultation gratuite ! <br/><br/> #ROI #RetourSurInvestissement #MarketingRentable #BudgetMarketing #PerformanceMarketing #Alger</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Cadre PAS]. Vidéo 100% Motion Graphics par Islam. Style dynamique et basé sur la typographie et les chiffres. Utiliser des couleurs contrastées (rouge, noir, blanc). Le rythme doit être rapide. Mettre l'accent sur la transformation des chiffres : des dépenses qui deviennent des profits. Son design moderne et engageant.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C8</span>
+                <span class="type-label">🎬 CARROUSEL</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">Vos publicités attirent des clics, mais pas de clients ? Voici pourquoi.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('8')">
+                    <div class="preview-text">Slide 1: Votre investissement marketing : est-ce qu'il vous rapporte vraiment de l'argent ?
+Slide 2:...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-8" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('8')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C8</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-8')">📋 نسخ النص</button>
+                            <div id="script-text-8" class="modal-body">Slide 1: Votre investissement marketing : est-ce qu'il vous rapporte vraiment de l'argent ?<br/><br/>Slide 2: LE PROBLÈME : Lancer des publicités sans stratégie globale, c'est comme construire une maison sans fondations. Vous attirez des visiteurs sur un site qui ne convertit pas. Résultat : 100% de perte.<br/><br/>Slide 3: LA SOLUTION RED AGENCY : Nous construisons l'équation du ROI. Trafic qualifié (Pubs) + Expérience optimisée (Site Web) + Engagement (Contenu) = Ventes.<br/><br/>Slide 4: LES CHIFFRES NE MENTENT PAS : Découvrez le cas de notre client 'XYZ'. Nous avons restructuré leur approche et transformé 1€ investi en 7€ de chiffre d'affaires.<br/><br/>Slide 5: Calculez le potentiel de VOTRE retour sur investissement. Contactez-nous pour une analyse gratuite !</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-8')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-8" class="modal-body">Où va l'argent de vos publicités ? Assurez-vous qu'il revienne, avec des bénéfices. <br/><br/> Ne vous contentez pas de 'visibilité'. Exigez de la rentabilité.<br/><br/>Notre approche intégrée garantit que chaque euro investi dans la publicité est soutenu par une stratégie conçue pour convertir. Découvrez comment. <br/><br/> Apprenez à multiplier votre retour sur investissement. Faites glisser vers la gauche ! <br/><br/> #PublicitéEnLigne #GoogleAds #FacebookAds #Rentabilité #MarketingDePerformance #BusinessDZ</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Carrousel éducatif par Abdelrahman, très orienté 'chiffres'. Utiliser des graphiques simples, des équations visuelles (icône + icône = icône €) et mettre en avant les chiffres clés en grand et en gras. La slide 4 doit ressembler à une mini étude de cas avec des chiffres percutants.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P9</span>
+                <span class="type-label">🖼️ IMAGE</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">STATISTIQUE CHOC : Les entreprises avec une stratégie intégrée surperforment leurs concurrents de 300%.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('9')">
+                    <div class="preview-text">3X
+
+C'est le gain de performance moyen des entreprises qui utilisent une stratégie marketing intégré...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-9" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('9')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P9</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-9')">📋 نسخ النص</button>
+                            <div id="script-text-9" class="modal-body">3X<br/><br/><br/><br/>C'est le gain de performance moyen des entreprises qui utilisent une stratégie marketing intégrée par rapport à celles qui travaillent en silos.<br/><br/><br/><br/>(Source: Gartner Research)<br/><br/><br/><br/>La question n'est pas de savoir SI vous devez intégrer, mais QUAND.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-9')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-9" class="modal-body">Vous voulez prendre une longueur d'avance sur la concurrence ? La data a parlé. <br/><br/> Ce n'est pas une opinion, c'est un fait. L'intégration de vos actions marketing n'est pas une option, c'est un avantage compétitif majeur.<br/><br/>Pendant que vos concurrents s'éparpillent, vous pouvez construire un système puissant et cohérent. <br/><br/> Faites partie des gagnants. Investissez judicieusement avec 'Red Agency'. <br/><br/> #Statistique #MarketingData #AvantageConcurrentiel #Performance #StratégieDigitale #Business</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Post 'Statistique' par Abdelrahman. Le chiffre '3X' doit être énorme et au centre de l'image. Le texte explicatif en dessous, plus petit mais lisible. Mentionner la source ('Gartner Research' ou autre) en bas pour la crédibilité. Design très direct et informatif.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V10</span>
+                <span class="type-label">🎬 VIDÉO</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">"Avant Red Agency, on était dans le brouillard. Maintenant, la route est claire." Écoutez nos clients.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('10')">
+                    <div class="preview-text">(Interview d'un client, style UGC - sobre et authentique)
+CLIENT 1 : Le plus grand changement pour n...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-10" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('10')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V10</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-10')">📋 نسخ النص</button>
+                            <div id="script-text-10" class="modal-body">(Interview d'un client, style UGC - sobre et authentique)<br/><br/>CLIENT 1 : Le plus grand changement pour nous, c'est la tranquillité d'esprit. Je sais que tout est géré, et je peux enfin me concentrer sur mon produit.<br/><br/>(Cut vers un autre client)<br/><br/>CLIENT 2 : On dépensait des sommes folles en pub sans comprendre pourquoi ça ne marchait pas. L'équipe de Red Agency a tout analysé et a créé un tunnel de vente qui convertit vraiment. Nos ventes ont augmenté de 60% en 3 mois.<br/><br/>(Cut vers un troisième client)<br/><br/>CLIENT 3 : Ce ne sont pas juste des exécutants. Ce sont de vrais partenaires stratégiques. Ils comprennent nos objectifs et ils sont proactifs.<br/><br/>(Texte final à l'écran : Votre succès est notre unique objectif.)</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-10')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-10" class="modal-body">Ne nous croyez pas sur parole. Croyez-les. <br/><br/> La meilleure façon de juger notre travail, c'est d'écouter ceux qui l'ont vécu. Découvrez les histoires vraies d'entrepreneurs qui ont transformé leur marketing et leurs résultats en s'associant à Red Agency. <br/><br/> Découvrez de vraies histoires de succès. Visitez notre site web ou contactez-nous directement. <br/><br/> #Témoignage #AvisClient #PreuveSociale #SocialProof #SatisfactionClient #Resultats</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Cadre HVC + AIDA]. Vidéo témoignage par Ahmed. Style UGC (User Generated Content) ou interview très naturelle. Pas de studio sur-éclairé. Les clients doivent être filmés dans leur environnement de travail. Le montage doit être simple, avec des sous-titres clairs et le nom/entreprise du client qui s'affiche brièvement. La musique doit être discrète et positive.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C11</span>
+                <span class="type-label">🎬 CARROUSEL</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">Une seule stratégie, des profits multiples. Voici le secret des entreprises qui cartonnent.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('11')">
+                    <div class="preview-text">Slide 1: La Stratégie Marketing Intégrée : Le secret des ventes massives.
+Slide 2: COMMENT ÇA MARCHE...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-11" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('11')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C11</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-11')">📋 نسخ النص</button>
+                            <div id="script-text-11" class="modal-body">Slide 1: La Stratégie Marketing Intégrée : Le secret des ventes massives.<br/><br/>Slide 2: COMMENT ÇA MARCHE ? Votre site web, vos pubs et vos réseaux sociaux parlent le même langage. Un client qui voit une pub reçoit un contenu pertinent sur Instagram, qui le mène vers une page de vente optimisée.<br/><br/>Slide 3: AVANTAGE #1 : ÉCONOMIE. Fini le gaspillage. Chaque euro est investi dans un système cohérent, ce qui maximise l'efficacité et réduit les coûts inutiles.<br/><br/>Slide 4: AVANTAGE #2 : MARQUE FORTE. Votre message est unifié et puissant sur tous les canaux. Vous devenez une référence crédible et reconnaissable dans votre secteur.<br/><br/>Slide 5: AVANTAGE #3 : CROISSANCE DURABLE. Grâce à une analyse centralisée, nous optimisons en continu ce qui fonctionne pour assurer une croissance stable et prévisible.<br/><br/>Slide 6: Prêt à construire votre propre machine à vendre ? Contactez Red Agency.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-11')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-11" class="modal-body">Les pièces de votre marketing sont là. Mais sont-elles assemblées correctement ? <br/><br/> Avoir un site web, des réseaux sociaux et faire de la publicité, c'est bien. Les faire travailler ensemble dans un système unifié, c'est là que la magie opère.<br/><br/>Découvrez les avantages concrets d'une stratégie intégrée, étape par étape. <br/><br/> Découvrez les étapes pour construire une stratégie réussie. Faites glisser pour savoir ! <br/><br/> #StratégieContenu #TunnelDeVente #MarketingAutomation #MarqueForte #Croissance #DZ</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Carrousel éducatif par Abdelrahman. Très visuel, basé sur des schémas et des icônes. Pour le slide 2, utiliser des flèches pour montrer le flux entre les canaux. Pour les slides 3, 4 et 5, utiliser une icône forte pour chaque avantage (tirelire, mégaphone, graphique en hausse). Garder le texte concis.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P12</span>
+                <span class="type-label">🖼️ IMAGE</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">3 astuces pour rendre votre marketing 10x plus efficace (que vous pouvez appliquer dès demain).</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('12')">
+                    <div class="preview-text">3 ASTUCES POUR UN MARKETING INTÉGRÉ ET RENTABLE :
+
+1. Pixel & Retargeting : Assurez-vous que votre P...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-12" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('12')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P12</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-12')">📋 نسخ النص</button>
+                            <div id="script-text-12" class="modal-body">3 ASTUCES POUR UN MARKETING INTÉGRÉ ET RENTABLE :<br/><br/><br/><br/>1. Pixel & Retargeting : Assurez-vous que votre Pixel Facebook/TikTok est sur votre site. Montrez des pubs spécifiques à ceux qui ont déjà visité une page.<br/><br/><br/><br/>2. Message Unifié : L'offre que vous mettez en avant dans vos pubs doit être EXACTEMENT la même sur votre page de destination.<br/><br/><br/><br/>3. CTA Cohérent : Le bouton d'appel à l'action sur vos posts sociaux doit mener vers l'étape logique suivante de votre tunnel de vente, pas vers votre page d'accueil.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-12')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-12" class="modal-body">💡 [MARKETING TIPS] 3 actions simples pour arrêter de perdre de l'argent. <br/><br/> L'efficacité en marketing se cache souvent dans les détails. Voici 3 conseils pratiques issus de notre expertise pour mieux intégrer vos actions et améliorer vos résultats.<br/><br/>Appliquez-les et voyez la différence ! <br/><br/> Pour plus de conseils et une consultation personnalisée, suivez 'Red Agency' et contactez-nous. <br/><br/> #ConseilMarketing #MarketingTips #DigitalMarketingTips #Retargeting #ConversionRateOptimization #Astuce</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Post 'Conseils' par Abdelrahman, format infographie simple. Titre accrocheur en haut. Diviser l'espace en 3 sections claires, chacune avec un numéro, un titre en gras et une courte explication. Utiliser des icônes pour chaque point. Facile à lire et à sauvegarder.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V13</span>
+                <span class="type-label">🎬 VIDÉO</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">Imaginez : vous vous levez le matin, et la seule chose à laquelle vous pensez, c'est votre produit. Pas votre marketing. Un rêve ?</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('13')">
+                    <div class="preview-text">(L'animateur est assis, détendu, dans un cadre confortable)
+Ce n'est pas un rêve. C'est le résultat ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-13" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('13')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V13</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-13')">📋 نسخ النص</button>
+                            <div id="script-text-13" class="modal-body">(L'animateur est assis, détendu, dans un cadre confortable)<br/><br/>Ce n'est pas un rêve. C'est le résultat d'une décision stratégique.<br/><br/>La décision de confier la complexité du marketing à un partenaire qui s'en occupe comme si c'était sa propre entreprise.<br/><br/>Je parle de ne plus avoir à valider chaque post, chaque publicité, chaque modification du site.<br/><br/>Je parle d'avoir une confiance totale dans un système qui travaille pour vous, en silence, pour atteindre les objectifs que vous avez fixés.<br/><br/>Ce que nous vendons chez Red Agency, ce n'est pas du marketing.<br/><br/>C'est la liberté. La liberté de vous concentrer sur ce que vous faites de mieux.<br/><br/>Le marketing, c'est notre métier. Laissez-nous faire.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-13')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-13" class="modal-body">Et si votre plus grand gain n'était pas l'argent, mais la tranquillité d'esprit ? <br/><br/> La croissance de votre entreprise est essentielle, mais pas au détriment de votre sérénité. Nous croyons qu'il est possible d'avoir les deux.<br/><br/>Découvrez comment notre approche de partenariat vous libère du poids du marketing pour que vous puissiez vous reconcentrer sur votre passion. <br/><br/> Avec 'Red Agency', la tranquillité d'esprit est garantie. Contactez-nous et laissez-nous prendre en charge le reste. <br/><br/> #Sérénité #BienEtreEntrepreneur #Délégation #Confiance #PartenaireStratégique #Business</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Cadre StoryBrand + BAB]. Animateur (Ahmed) dans un style 'storytelling' calme et posé. Pas de bureau, plutôt un fauteuil confortable. L'ambiance doit être rassurante. La caméra est stable, en plan rapproché pour créer une connexion. La musique de fond est douce et inspirante. Le focus est sur l'émotionnel : la paix, la confiance, la liberté.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C14</span>
+                <span class="type-label">🎬 CARROUSEL</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">Quelle est la valeur de la tranquillité d'esprit pour vous ? C'est ce que nous vous offrons.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('14')">
+                    <div class="preview-text">Slide 1: De l'anxiété à la sérénité : Un voyage avec Red Agency.
+Slide 2: AVANT : Les nuits blanches...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-14" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('14')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C14</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-14')">📋 نسخ النص</button>
+                            <div id="script-text-14" class="modal-body">Slide 1: De l'anxiété à la sérénité : Un voyage avec Red Agency.<br/><br/>Slide 2: AVANT : Les nuits blanches à cause des chiffres qui ne décollent pas. La pression de devoir tout gérer. La peur de prendre la mauvaise décision marketing.<br/><br/>Slide 3: LA TRANSFORMATION : Vous ne nous engagez pas, vous vous associez à nous. Nous devenons votre département marketing externalisé, votre partenaire stratégique qui veille sur vos intérêts.<br/><br/>Slide 4: APRÈS : Vous retrouvez le contrôle de votre temps et de votre énergie. Vous prenez des décisions basées sur des rapports clairs. Les ventes augmentent, et votre stress diminue.<br/><br/>Slide 5: Commencez votre voyage vers la tranquillité d'esprit dès aujourd'hui. Parlons-en.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-14')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-14" class="modal-body">Votre rôle est d'être un visionnaire, pas un technicien marketing. <br/><br/> Le chemin de l'entrepreneuriat est assez difficile sans avoir à porter le fardeau d'un marketing complexe et chronophage.<br/><br/>Découvrez le parcours de nos clients : de l'inquiétude face à l'incertitude à la confiance d'avoir un partenaire solide à leurs côtés. <br/><br/> Découvrez comment 'Red Agency' vous apporte la tranquillité d'esprit. Faites glisser pour savoir ! <br/><br/> #VoyageClient #TransformationDigitale #Partenariat #Sérénité #EntrepreneurLife #Alger</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Carrousel narratif et émotionnel par Abdelrahman. Utiliser une imagerie qui évoque des émotions. Slide 2 : couleurs froides, images de stress (horloge, graphiques en baisse). Slide 4 : couleurs chaudes, images de succès et de calme (personne souriante, paysage apaisant). Le texte doit être court et poétique.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P15</span>
+                <span class="type-label">🖼️ IMAGE</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">Pas seulement des promesses. Des résultats. Voici ce que 'Red Agency' a accompli pour ses clients.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('15')">
+                    <div class="preview-text">"Grâce à Red Agency, nous avons non seulement augmenté nos ventes de 40%, mais nous avons enfin une ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-15" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('15')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P15</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-15')">📋 نسخ النص</button>
+                            <div id="script-text-15" class="modal-body">"Grâce à Red Agency, nous avons non seulement augmenté nos ventes de 40%, mais nous avons enfin une vision claire de notre stratégie pour les 2 prochaines années."<br/><br/><br/><br/>- CEO, Tech Solutions Inc.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-15')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-15" class="modal-body">Les mots sont importants. Les résultats le sont encore plus. <br/><br/> Nous sommes fiers de la confiance que nos clients nous accordent et encore plus fiers des résultats que nous construisons ensemble.<br/><br/>Chaque témoignage est la preuve que notre approche intégrée fonctionne. <br/><br/> Rejoignez la liste de nos clients satisfaits. Contactez-nous ! <br/><br/> #RésultatsGarantis #ÉtudeDeCas #ClientHeureux #Croissance #PartenaireDeConfiance #RedAgency</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Post 'Extrait de succès' par Abdelrahman. Design similaire à une carte de citation, mais axé sur un résultat chiffré et un témoignage. Mettre le chiffre '40%' en évidence. Utiliser une photo professionnelle (ou le logo) du client si possible. Le design doit inspirer la confiance et le succès.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V16</span>
+                <span class="type-label">🎬 VIDÉO</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">Vous avez vu les preuves, vous comprenez la stratégie. Maintenant, une seule question se pose : Qu'attendez-vous ?</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('16')">
+                    <div class="preview-text">(Animation de texte rapide et percutante)
+PLUS DE CHAOS.
+PLUS DE TEMPS PERDU.
+PLUS DE BUDGET GASPILL...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-16" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('16')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V16</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-16')">📋 نسخ النص</button>
+                            <div id="script-text-16" class="modal-body">(Animation de texte rapide et percutante)<br/><br/>PLUS DE CHAOS.<br/><br/>PLUS DE TEMPS PERDU.<br/><br/>PLUS DE BUDGET GASPILLÉ.<br/><br/><br/><br/>(Transition nette)<br/><br/><br/><br/>PLUS DE CLIENTS.<br/><br/>PLUS DE VENTES.<br/><br/>PLUS DE SÉRÉNITÉ.<br/><br/><br/><br/>Le choix est simple.<br/><br/><br/><br/>(Le bouton CTA apparaît et s'anime)</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-16')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-16" class="modal-body">L'inaction vous coûte de l'argent chaque jour. <br/><br/> Vous avez toutes les informations. Vous savez qu'une meilleure approche est possible. Chaque jour que vous attendez est un jour de plus de ventes perdues et de stress inutile.<br/><br/>Le meilleur moment pour agir, c'était hier. Le deuxième meilleur moment, c'est maintenant. <br/><br/> Le moment d'augmenter vos ventes et d'avoir l'esprit tranquille, c'est maintenant ! Cliquez ici et réservez votre consultation gratuite avant qu'il ne soit trop tard ! <br/><br/> #CallToAction #PassezàlAction #Décision #Investissement #Futur #Maintenant</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Cadre AIDA]. Vidéo Motion Graphics très courte et dynamique par Islam. Moins de 15 secondes. Basée sur une typographie cinétique. La première partie avec les points négatifs utilise des couleurs sombres et des mouvements brusques. La deuxième partie avec les points positifs passe à des couleurs vives et des animations fluides. La musique est rythmée et s'intensifie jusqu'à l'apparition du CTA.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C17</span>
+                <span class="type-label">🎬 CARROUSEL</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">Le succès est à 3 étapes de vous. Voici le plan.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('17')">
+                    <div class="preview-text">Slide 1: Commencer votre voyage vers le succès avec Red Agency, c'est simple. Voici les 3 étapes.
+Sl...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-17" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('17')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C17</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-17')">📋 نسخ النص</button>
+                            <div id="script-text-17" class="modal-body">Slide 1: Commencer votre voyage vers le succès avec Red Agency, c'est simple. Voici les 3 étapes.<br/><br/>Slide 2: ÉTAPE 1 : Consultation Stratégique Gratuite. Nous prenons 30 minutes pour plonger au cœur de votre business, comprendre vos défis et vos objectifs précis. Pas de blabla, que de l'écoute.<br/><br/>Slide 3: ÉTAPE 2 : Conception du Plan d'Action Personnalisé. Vous recevez une proposition claire avec une stratégie intégrée sur-mesure. Vous savez exactement ce que nous allons faire, comment et pourquoi.<br/><br/>Slide 4: ÉTAPE 3 : Exécution et Croissance. Nous lançons la machine. Vous vous concentrez sur votre entreprise pendant que nous vous livrons des rapports clairs et, surtout, des résultats.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-17')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-17" class="modal-body">Prêt à travailler avec nous ? C'est plus simple que vous ne le pensez. <br/><br/> Nous avons éliminé toute la complexité pour vous offrir un processus de collaboration fluide et transparent. En 3 étapes claires, nous passons de la discussion à l'action et aux résultats.<br/><br/>Découvrez comment démarrer. <br/><br/> Comment commencer à travailler avec nous ? Faites glisser et découvrez les étapes ! <br/><br/> #Processus #CommentÇaMarche #Simplicité #Transparence #Onboarding #AgenceDigitale</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Carrousel éducatif et de simplification par Abdelrahman. Design très clair et structuré. Chaque slide doit avoir un grand chiffre (1, 2, 3) bien visible. Utiliser des icônes pour chaque étape (loupe, document, fusée). Le but est de montrer que le processus est simple, professionnel et sans risque.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P18</span>
+                <span class="type-label">🖼️ IMAGE</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">ATTENTION : Pour garantir une qualité maximale, nous n'acceptons que 3 nouveaux partenaires ce mois-ci.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('18')">
+                    <div class="preview-text">PLACES LIMITÉES.
+
+Nous ne sommes pas une usine. Pour offrir un service d'excellence et des résultats...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-18" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('18')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P18</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-18')">📋 نسخ النص</button>
+                            <div id="script-text-18" class="modal-body">PLACES LIMITÉES.<br/><br/><br/><br/>Nous ne sommes pas une usine. Pour offrir un service d'excellence et des résultats concrets, nous limitons le nombre de nos collaborations.<br/><br/><br/><br/>Plus que 3 places disponibles ce mois-ci.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-18')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-18" class="modal-body">🔥 L'opportunité de transformer votre marketing est limitée. <br/><br/> Nous nous engageons pleinement dans le succès de chaque client. C'est pourquoi nous choisissons de travailler avec un nombre restreint de partenaires pour garantir une implication et des résultats optimaux.<br/><br/>Ne laissez pas votre place à un concurrent. <br/><br/> L'opportunité, c'est maintenant ! Contactez 'Red Agency' avant qu'il ne soit trop tard. <br/><br/> #OffreLimitée #Urgence #Exclusivité #PlacesLimitées #NeRaterPasÇa #Opportunité</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Post 'Urgence' par Abdelrahman. Visuel fort et direct. Utiliser un fond rouge ou un élément graphique qui attire l'attention (un panneau 'stop', un cercle rouge). Le texte doit être grand, en majuscules, pour créer un sentiment d'urgence et d'exclusivité.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr></tbody></table></div>
+
+    <div class="disclaimer-card">
+        <span style="font-size: 1.2em;">⚠️</span>
+        <span>قد تخضع هذه الاستراتيجية لبعض التعديلات والتحسينات، حسب المواد الإعلامية المتوفرة أو لغرض تحقيق أفضل النتائج.</span>
+    </div>
+
+    <div class="summary-box">
+        <span style="font-weight: 700; color: #FFD700;">الميزانية الإجمالية المعتمدة</span>
+        <span class="total-amount">128000 دج</span>
+        <a href="https://wa.me/213770820431" class="cta-btn">تواصل معنا للاعتماد</a>
+        <div style="border: 1px dashed #FFD700; padding: 25px; border-radius: 15px; margin-top: 20px;">
+            <h3 style="color:#FFD700; margin:0;">الخطوة التالية</h3>
+            <p style="margin:10px 0;">مكالمة قصيرة لنكيّف هذه الاستراتيجية حسب مشروعك ونبدأ العمل فوراً.</p>
+            <div class="phones-list">
+                <div class="phone-item">0770 82 04 31</div>
+                <div class="phone-item">0770 55 01 51</div>
+                <div class="phone-item">0770 82 01 45</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+function openModal(id) { document.getElementById('modal-' + id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
+function closeModal(id) { document.getElementById('modal-' + id).style.display = 'none'; document.body.style.overflow = 'auto'; }
+window.onclick = function(event) { if (event.target.className === 'modal') { event.target.style.display = 'none'; document.body.style.overflow = 'auto'; } }
+
+// وظيفة النسخ الجديدة
+function copyToClipboard(elementId) {
+    const el = document.getElementById(elementId);
+    const text = el.innerText || el.textContent; // نسخ النص بدون HTML tags
+    navigator.clipboard.writeText(text).then(() => {
+        alert("تم نسخ النص بنجاح! ✅");
+    }).catch(err => {
+        console.error('Failed to copy', err);
+    });
+}
+</script></body></html>
