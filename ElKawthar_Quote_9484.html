@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root { --accent: #FFD400; --dark: #0F172A; --slate: #64748B; --bg: #F8FAFC; --success: #10B981; --baridi: #0066cc; }
+        * { box-sizing: border-box; }
+        body { font-family: 'Montserrat', sans-serif; background: var(--bg); margin: 0; padding: 15px; color: #334155; line-height: 1.6; }
+        .container { max-width: 850px; margin: 20px auto; background: #fff; border-radius: 24px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.08); overflow: hidden; }
+        .top-strip { height: 12px; background: linear-gradient(90deg, var(--accent), #FFB800); }
+        .padding { padding: 40px; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+        .quote-meta { text-align: right; font-family: 'Montserrat'; font-size: 12px; color: var(--dark); background: #f1f5f9; padding: 12px 18px; border-radius: 12px; border-right: 4px solid var(--accent); }
+        h2 { font-weight: 800; font-size: 18px; color: var(--dark); margin: 30px 0 15px; display: flex; align-items: center; gap: 10px; }
+        h2::after { content: ''; flex-grow: 1; height: 1px; background: #e2e8f0; }
+        .card { background: #fff; padding: 20px; border-radius: 16px; border: 1px solid #e2e8f0; margin-bottom: 20px; }
+        table { width: 100%; border-collapse: separate; border-spacing: 0; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; }
+        th { text-align: left; padding: 12px; background: var(--dark); color: var(--accent); font-size: 13px; font-weight: 700; }
+        td { padding: 15px; border-bottom: 1px solid #e2e8f0; background: #fff; }
+        .service-name { font-weight: 800; color: var(--dark); font-size: 1.1rem; }
+        .service-desc { font-size: 0.85rem; color: var(--slate); }
+        .service-price { text-align: right; font-weight: 800; font-family: 'Montserrat'; color: var(--dark); }
+        .total-container { background: var(--dark); color: white; padding: 25px; border-radius: 18px; margin-top: 20px; }
+        .final-price { font-size: 28px; font-weight: 800; color: var(--accent); font-family: 'Montserrat'; border-top: 1px solid #374151; margin-top: 10px; padding-top: 10px; width: 100%; display: flex; justify-content: space-between; align-items: center; }
+        
+        .roadmap { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 15px; }
+        @media (min-width: 600px) { .roadmap { grid-template-columns: repeat(4, 1fr); } }
+        .step { padding: 15px; background: #f8fafc; border-radius: 16px; border: 1px solid #e2e8f0; text-align: center; }
+        .step-num { width: 30px; height: 30px; background: var(--dark); color: var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-weight: 800; }
+        .step b { display: block; margin-bottom: 5px; font-size: 0.9rem; }
+
+        .btn { display: inline-block; background: var(--accent); color: var(--dark); padding: 15px 30px; border-radius: 12px; text-decoration: none; font-weight: 800; cursor: pointer; border: none; font-family: inherit; margin: 5px; }
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); }
+        .modal-content { background: #fff; margin: 5% auto; padding: 40px; border-radius: 28px; width: 92%; max-width: 550px; box-shadow: 0 20px 60px rgba(0,0,0,0.4); position: relative; text-align: left; }
+        .close { position: absolute; right: 25px; top: 20px; font-size: 32px; font-weight: bold; color: #cbd5e1; cursor: pointer; }
+        
+        .baridi-section { background: #f0f7ff; border: 1.5px solid #cce3ff; padding: 15px; border-radius: 16px; margin: 12px 0; }
+        .baridi-label { background: var(--baridi); color: white; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 800; display: inline-block; margin-bottom: 8px; }
+        .baridi-number { font-family: 'Montserrat'; font-weight: 700; color: var(--baridi); font-size: 1.1rem; display: block; direction: ltr !important; unicode-bidi: bidi-override !important; }
+        .cash-box { background: #ECFDF5; border: 1px solid #A7F3D0; padding: 15px; border-radius: 16px; margin-top: 15px; display: flex; align-items: center; gap: 12px; }
+
+        @media print {
+            @page { size: A4; margin: 5mm; }
+            body { background: white !important; padding: 0 !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+            .container { width: 100% !important; max-width: 100% !important; margin: 0 !important; box-shadow: none !important; border-radius: 0 !important; transform: scale(0.96); transform-origin: top center; }
+            .cta-area, .btn, .top-strip, .modal { display: none !important; }
+            .padding { padding: 30px !important; }
+            .card, .step, table, .total-container { page-break-inside: avoid !important; }
+        }
+    </style>
+</head>
+<body>
+<div class="container" id="proposal-content">
+    <div class="top-strip"></div>
+    <div class="padding">
+        <div class="header">
+            <img src="https://storage.googleapis.com/msgsndr/GwIPQCjstTzxnzDQ1B32/media/68fddb5534bb1597bc934f89.png" height="60">
+            <div class="quote-meta">PROPOSAL: WQ-9484<br>08/02/2026<br>EXP: 15/02/2026</div>
+        </div>
+
+        <section><h2>Infos Client</h2><div class="card"><b>Entreprise:</b> El-Kawthar | <b>Responsable:</b>  | <b>Téléphone:</b> <span dir="ltr">0770 78 55 10</span></div></section>
+        <section><h2>Vision Stratégique</h2><div class="card" style="border-left: 6px solid var(--accent); font-size:0.95rem;">Chez Wayso, nous ne créons pas seulement des vidéos, nous construisons des ponts entre les rêves de voyage et la réalité. Pour l'agence El-Kawthar, notre mission est de transformer chaque destination que vous proposez en une expérience virtuelle si captivante que vos clients réserveront leur billet avant la fin de la vidéo.</div></section>
+
+        <section>
+            <h2>Investissement Financier</h2>
+            <table><thead><tr><th>Service & Description</th><th style="text-align:center">Qté</th><th style="text-align:right">Total</th></tr></thead><tbody><tr><td><div class="service-name">Production vidéo</div><div class="service-desc">Chacune de ces 6 vidéos est conçue comme un puissant outil de vente. Nous allons transformer vos offres en histoires immersives qui suscitent l'émotion, répondent aux questions des voyageurs et les poussent à cliquer sur 'Réserver' avec une confiance totale.</div></td><td style="text-align:center; font-weight:700;">6</td><td class="service-price">90,000 <span class="currency">DZD</span></td></tr><tr><td><div class="service-name">Déplacement et shooting</div><div class="service-desc">Notre présence sur le terrain garantit une authenticité que vos concurrents ne peuvent pas imiter. Nous capturons l'âme de vos destinations pour créer des visuels uniques et crédibles qui inspirent confiance et transforment l'hésitation en décision d'achat.</div></td><td style="text-align:center; font-weight:700;">1</td><td class="service-price">8,000 <span class="currency">DZD</span></td></tr></tbody></table>
+            <div class="total-container">
+                <div style="display:flex; justify-content:space-between"><span>Sous-total</span><span>98,000 DZD</span></div>
+                <div style="display:flex; justify-content:space-between; color:#FF8A8A"><span>Remise</span><span>-20,000 DZD</span></div>
+                <div class="final-price"><span>Investissement Net</span><span>78,000 DZD</span></div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Feuille de Route</h2>
+            <div class="roadmap">
+                <div class="step"><div class="step-num">01</div><b>1. Stratégie & Briefing</b><small>Analyse et plan d’action</small></div>
+                <div class="step"><div class="step-num">02</div><b>2. Production Créative</b><small>Phase de design et création</small></div>
+                <div class="step"><div class="step-num">03</div><b>3. Révision & Feedback</b><small>Ajustements et validation</small></div>
+                <div class="step"><div class="step-num">04</div><b>4. Livraison Finale</b><small>Lancement et remise finale</small></div>
+            </div>
+        </section>
+
+        <section><h2>Notes de Paiement</h2><div class="card" style="background:#FFFBEB; border-color:#FEF3C7; color:#92400E;"><b>7 Days Validity</b><br></div></section>
+
+        <div class="cta-area" style="text-align:center; margin-top:40px;">
+            <button onclick="openModal()" class="btn" style="background:var(--success); color:white;">💳 Options de Paiement</button>
+            <button onclick="window.print()" class="btn" style="background:var(--dark); color:white;">📄 Imprimer PDF</button>
+            <a href="https://wa.me/0770820431?text=Hello%2C%20I%20approved%20the%20proposal%20for%20El-Kawthar" class="btn">Confirmer via WhatsApp</a>
+        </div>
+        <div class="footer" style="text-align:center; margin-top:40px; color:var(--slate); font-size:11px;">WAYSO DIGITAL AGENCY | BLIDA, ALGERIA | WWW.WAYSO.AGENCY</div>
+    </div>
+</div>
+
+<div id="paymentModal" class="modal">
+    <div class="modal-content">
+        <span onclick="closeModal()" class="close">&times;</span>
+        <h2 style="margin-bottom:20px; border-bottom:3px solid var(--accent); padding-bottom:15px; display:inline-block;">Options de Paiement</h2>
+        <div class="payment-row"><div style="color:var(--slate); font-weight:500;">Acompte (50%)</div><div class="payment-value">39,000 DZD</div></div>
+        <div style="background:#f8fafc; padding:20px; border-radius:16px; margin-top:20px; border:1px dashed #e2e8f0;">
+            <b>Name:</b> BENAOUDA BELKACEM<br><b>CCP:</b> <span style="font-family:Montserrat">0018942625</span> / <b>KEY:</b> <span style="font-family:Montserrat">72</span>
+            <div class="baridi-section"><span class="baridi-label">BARIDI MOB (RIP)</span><span class="baridi-number">007 99999 0018942625 72</span></div>
+            <p style="margin-top:10px; font-size:0.85rem; color:var(--slate);">* Veuillez envoyer le reçu.</p>
+        </div>
+        <div class="cash-box">
+            <div style="font-size: 24px;">📍</div>
+            <div><b style="color: var(--success);">Paiement en Espèces</b><br><span style="font-size: 0.85rem; color: #065F46;">Visitez notre bureau à Blida.</span></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openModal() { document.getElementById("paymentModal").style.display = "block"; }
+    function closeModal() { document.getElementById("paymentModal").style.display = "none"; }
+    window.onclick = function(e) { if(e.target == document.getElementById("paymentModal")) closeModal(); }
+</script>
+</body></html>
