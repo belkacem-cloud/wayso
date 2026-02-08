@@ -1,0 +1,808 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>مؤسسة العماد - Elimad Strategy</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+<style>
+    body { background: #FFFFFF; color: #1A1A1A; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; line-height: 1.6; overflow-x: hidden; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 15px; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 2px solid #000; }
+    .wayso-logo { height: 45px; }
+    .brand-name { font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 1.4em; color: #000; text-transform: uppercase; border-right: 4px solid #FFD700; padding-right: 12px; }
+    
+    .analysis-section { margin: 30px 0; }
+    .card-philosophy { padding: 30px; border-radius: 20px; background: #000; color: #FFF; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+    .card-philosophy h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #FFD700; }
+    
+    .card-why { padding: 30px; border-radius: 20px; background: #F9F9F9; color: #333; margin-bottom: 20px; border: 1px solid #EDECE9; }
+    .card-why h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #000; display: flex; align-items: center; gap: 10px; }
+    .card-why h2::after { content: ''; flex-grow: 1; height: 1px; background: #EDECE9; margin-right: 15px; }
+
+    .hero { margin: 35px 0 20px 0; border-right: 6px solid #FFD700; padding-right: 15px; }
+    .hero h1 { font-size: 2.5em; font-weight: 700; margin: 0; }
+    .table-wrapper { margin-top: 25px; border-radius: 12px; overflow: hidden; border: 1px solid #EDECE9; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #000; color: #FFF; padding: 15px; text-align: right; font-size: 0.95em; }
+    td { padding: 20px 12px; border-bottom: 1px solid #EDECE9; vertical-align: top; }
+    
+    .code-badge { font-family: 'Montserrat', sans-serif; font-weight: 700; background: #FFD700; color: #000; padding: 5px 12px; border-radius: 6px; font-size: 1.1em; display: inline-block; margin-bottom: 5px; }
+    .type-label { display: block; font-weight: 700; color: #555; font-size: 0.95em; }
+    
+    .hook-pill { background: #000; color: #FFD700; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 1.1em; display: block; border-right: 5px solid #FFD700; }
+    
+    /* تحسين زر المودال */
+    .script-trigger { background: #F8F9FA; border: 1px solid #EDECE9; padding: 15px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; position: relative; }
+    .script-trigger:hover { background: #FFF; border-color: #FFD700; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transform: translateY(-2px); }
+    
+    .preview-text { font-size: 0.95em; color: #333; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; white-space: pre-wrap; }
+    
+    /* ستايل المودال */
+    .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); }
+    .modal-content { background: #FFF; margin: 5% auto; padding: 30px; border-radius: 20px; width: 90%; max-width: 750px; position: relative; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+    .close-modal { position: absolute; top: 20px; left: 20px; font-size: 30px; cursor: pointer; color: #999; line-height: 1; transition: color 0.2s; }
+    .close-modal:hover { color: #000; }
+    
+    .modal-section { margin-bottom: 25px; padding: 20px; border-radius: 12px; background: #fbfbfa; border: 1px solid #eee; position: relative; }
+    
+    /* زر النسخ */
+    .copy-btn { position: absolute; top: 10px; left: 10px; background: #fff; border: 1px solid #ddd; padding: 5px 10px; border-radius: 6px; cursor: pointer; font-size: 0.8em; font-weight: bold; color: #555; display: flex; align-items: center; gap: 5px; transition: all 0.2s; }
+    .copy-btn:hover { border-color: #FFD700; color: #000; background: #FFD70020; }
+    .copy-btn:active { transform: scale(0.95); }
+    
+    .modal-body { font-size: 1.15em; color: #1A1A1A; line-height: 1.9; word-wrap: break-word; white-space: pre-wrap; }
+    
+    .disclaimer-card { margin: 25px 0; padding: 20px; background: #FFF9E6; border-radius: 12px; border-right: 5px solid #FFC107; font-size: 1.05em; color: #856404; display: flex; align-items: center; gap: 12px; }
+    .summary-box { margin-top: 50px; background: #000; color: #FFF; padding: 40px 20px; border-radius: 25px; text-align: center; }
+    .total-amount { font-family: 'Montserrat'; font-size: 3.5em; font-weight: 700; display: block; color: #FFD700; margin: 10px 0; }
+    .cta-btn { display: inline-block; background: #FFD700; color: #000; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.2em; margin-bottom: 25px; transition: transform 0.2s; }
+    .cta-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px #FFD70060; }
+    
+    .phones-list { margin-top: 15px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; direction: ltr; } 
+    .phone-item { background: #1A1A1A; padding: 8px 15px; border-radius: 8px; border: 1px solid #333; color: #FFF; font-family: 'Montserrat'; font-weight: 700; font-size: 1.2em; white-space: nowrap; }
+
+    @media (max-width: 768px) {
+        thead { display: none; }
+        tr { display: block; border: 1px solid #EDECE9; border-radius: 15px; margin-bottom: 20px; padding: 15px; background: #FFF; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        td { display: block; padding: 10px 0; text-align: right; border-bottom: 1px dashed #eee; }
+        td:last-child { border-bottom: none; }
+        td::before { content: attr(data-label); font-weight: 700; color: #BBB; display: block; font-size: 0.8em; margin-bottom: 6px; text-transform: uppercase; }
+        .brand-name { font-size: 1.1em; }
+        .modal-content { width: 95%; padding: 20px; margin: 10% auto; }
+        .total-amount { font-size: 2.5em; }
+    }
+</style></head><body>
+
+<div class="container">
+    <div class="header">
+        <img src="https://storage.googleapis.com/msgsndr/GwIPQCjstTzxnzDQ1B32/media/68fddb5534bb1597bc934f89.png" class="wayso-logo">
+        <div class="brand-name">مؤسسة العماد - Elimad</div>
+    </div>
+
+    <div class="analysis-section">
+        <div class="card-philosophy"><h2>🎯 فلسفة الاستراتيجية</h2><p>في Wayso، نؤمن بأن النجاح الحقيقي لعملائنا ينبع من فهم عميق لاحتياجات جمهورهم وبناء استراتيجية محكمة. هذا المزيج من الفيديو الرئيسي الجذاب والكاروسالات التعليمية ليس مجرد محتوى، بل هو استثمار ذكي يهدف إلى بناء الثقة والوعي أولاً، ثم تمكين جمهورك بالمعرفة اللازمة، مما يضمن تحولهم من مجرد مشاهدين إلى عملاء أوفياء. نحن شركاؤك في هذه الرحلة، ملتزمون بتحقيق نمو مستدام وملموس لعلامتك التجارية.</p></div>
+        <div class="card-why"><h2>💡 لماذا هذه الخطة؟</h2><p>التسلسل السيكولوجي لهذا المزيج يبدأ بـ V1 لخطف الانتباه عبر سرد قصصي مؤلم يلامس الوجدان، ثم ننتقل إلى C2 والكاروسالات التعليمية لتقديم الحلول وتغذية العقل بالمعلومات القيمة، وفي النهاية نختتم بـ P3 والمحتوى التحفيزي لترسيخ الثقة والدعوة لاتخاذ قرار الفعل. هذا المسار المخطط بدقة يضمن تفاعلاً عميقاً ويقود الجمهور بشكل طبيعي نحو التحول.</p></div>
+    </div>
+
+    <div class="hero"><h1>خطة الإنتاج الإبداعي</h1></div>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th style="width: 20%;">الكود والنوع</th><th style="width: 30%;">الهوك (Hook)</th><th style="width: 50%;">المحتوى</th></tr></thead>
+            <tbody><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V1</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">شحال تسوا كرامتك كي يطيحو بيها قدام الناس؟ وقتاش تكسر هاد السلسلة؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('1')">
+                    <div class="preview-text">(صوت نفس عميق وقلق)
+تحس روحك شفاف... الناس تشوف فيك بصح مايشوفوكش.
+كلامهم... نظراتهم... كل يوم نفس ا...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-1" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('1')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V1</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-1')">📋 نسخ النص</button>
+                            <div id="script-text-1" class="modal-body">(صوت نفس عميق وقلق)<br/><br/>تحس روحك شفاف... الناس تشوف فيك بصح مايشوفوكش.<br/><br/>كلامهم... نظراتهم... كل يوم نفس الحكاية.<br/><br/>"وقتاش تتسڨم؟"... "شوف فلان وين وصل..."<br/><br/>تحس روحك ثقيل على داركم... عبء.<br/><br/>العمر يجري، والأحلام تذبال... والضياع يكبر.<br/><br/>(توقف قصير، تغيير في نبرة الصوت إلى أمل)<br/><br/>بصح... كاين طريق.<br/><br/>طريق ماشي غير باش تخدم... طريق باش ترجع قيمتك.<br/><br/>في "العماد"، فهمنا بلي المشكل ماشي فيك... المشكل في البوصلة لي ضاعتلك.<br/><br/>علابيها بنينا برنامج يرجعلك زوج حوايج: الأمن في راسك، والصنعة في يدك.<br/><br/>الأمن الفكري باش تعرف شكون نتا ووين راك رايح.<br/><br/>وشهادة معتمدة... ماشي ورقة... هادي مفتاح يرجعلك كرامتك ومكانتك في المجتمع.<br/><br/>مع أساتذة ومرافقين يفهموك ويوجهوك، خطوة بخطوة.<br/><br/>ماشي وحدك. هادي المرة ماشي وحدك.<br/><br/>"العماد" ماشي غير تكوين، "العماد" هو بداية جديدة لحياة تستاهلها.<br/><br/>شهادة تبني بيها حياتك، وعقلية تبدّل بيها حالتك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-1')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-1" class="modal-body">عييت من نظرة الشفقة وكلام الناس؟ كاين حل يرجعلك قيمتك. <br/><br/> كل يوم تحس روحك بعيد على الطريق لي كنت تحلم بيه... تحس روحك عبء... وضايع بين الناس.<br/><br/>"العماد" ماشي مجرد مركز تكوين، هو اليد لي راح تعاونك توقف على رجليك من جديد. نمدولك المفاتيح لي ضاعتلك: الأمن الفكري باش تصفي عقلك، وشهادة معتمدة باش تبني مستقبلك وترجع كرامتك.<br/><br/>شهادة تبني بيها حياتك، وعقلية تبدّل بيها حالتك. <br/><br/> الخطوة الأولى تبدا هنا. سجل دروك في برنامج "العماد" وغيّر طريقك للأفضل. الرابط في البايو. <br/><br/> #العماد #تكوين_الجزائر #شباب_الجزائر #تنمية_بشرية #الأمن_الفكري #شهادة_معتمدة #بداية_جديدة #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Master Video V1 - بن صايبي]<br/>- **افتتاحية (0-5 ثواني):** لقطات مقربة جداً ومظلمة (Close-up) على شاب (20-25 سنة) في غرفته، نظراته تائهة. إضاءة خافتة من نافذة. صوت محيطي خافت مع صوت تنفس قلق مسموع. <br/>- **تصاعد المشكلة (5-15 ثانية):** لقطات سريعة (Quick cuts) تظهر مواقف تسبب الألم: الأب ينظر إليه بنظرة خيبة أمل، شباب من عمره يضحكون في الخارج، لقطة POV وهو ينظر في المرآة ولا يعجبه ما يرى. Motion graphics تظهر كلمات مثل "فاشل"، "ضايع" تظهر وتختفي حول رأسه. صوت همسات غير مفهومة.<br/>- **تقديم الحل (15-25 ثانية):** تتوقف الموسيقى. لقطة للشاب وهو يرفع رأسه نحو ضوء يدخل الغرفة. تظهر كلمة "العماد" بـ motion graphic أنيق ومشرق. تبدأ موسيقى ملهمة وهادئة.<br/>- **شرح الحل (25-45 ثانية):** لقطات حية للشاب داخل مركز "العماد". يبتسم، يتفاعل مع أستاذ يتكلم معه بحنان أبوي. Motion graphics تظهر أيقونات: "عقل (أمن فكري)" و "يد (شهادة معتمدة)". لقطات سريعة لورشات عمل حقيقية.<br/>- **النتيجة والتحول (45-55 ثانية):** لقطات مشرقة. الشاب يسلم على والديه وهو خارج للعمل، يضحك معهم. يظهر وهو في مكان عمله، واثق من نفسه. يحمل شهادته في يده بفخر.<br/>- **الخاتمة (55-60 ثانية):** الوجه الإعلامي (بن صايبي) ينظر مباشرة للكاميرا بنبرة موثوقة ويقول الجملة الأخيرة. يظهر شعار "العماد" مع الـ CTA على الشاشة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C2</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">تحس روحك في متاهة بلا نهاية؟ ها كيفاش "العماد" يرسم لك طريق واضح.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('2')">
+                    <div class="preview-text">Slide 1: ضياع، قلق، ومستقبل مجهول؟
+ماشي وحدك لي تحس هاكا... وكاين حل جزائري يفهمك.
+
+Slide 2: علاش تح...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-2" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('2')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C2</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-2')">📋 نسخ النص</button>
+                            <div id="script-text-2" class="modal-body">Slide 1: ضياع، قلق، ومستقبل مجهول؟<br/><br/>ماشي وحدك لي تحس هاكا... وكاين حل جزائري يفهمك.<br/><br/><br/><br/>Slide 2: علاش تحس بالضياع؟<br/><br/>- كلام الناس ونظرة المجتمع.<br/><br/>- غياب الهدف والبوصلة في حياتك.<br/><br/>- الإحساس بأنك عبء على العائلة.<br/><br/>- الفراغ والروتين القاتل.<br/><br/><br/><br/>Slide 3: الحل ماشي مجرد شهادة، الحل هو عقلية جديدة!<br/><br/>"العماد" يقدم لك معادلة النجاح:<br/><br/>الأمن الفكري (الثقة بالنفس) + شهادة معتمدة (القيمة في المجتمع).<br/><br/><br/><br/>Slide 4: كيفاش نساعدوك عمليًا؟<br/><br/>1. الأمن الفكري: ورشات وجلسات ترجعلك ثقتك وتصفي تفكيرك.<br/><br/>2. التخطيط للمستقبل: نعلموك كيفاش تحط أهداف وتحققها.<br/><br/>3. مرافقة شخصية: أساتذة وموجهون معاك خطوة بخطوة.<br/><br/><br/><br/>Slide 5: واش راح تربح؟<br/><br/>- الكرامة واحترام الذات.<br/><br/>- احترام الناس ونظرة فخر من عائلتك.<br/><br/>- مستقبل واضح وفرص عمل حقيقية.<br/><br/>- راحة البال.<br/><br/><br/><br/>Slide 6: علاش "العماد" هو خيارك الأفضل؟<br/><br/>- مركز جزائري 100% يفهم عقليتك ومجتمعك.<br/><br/>- برنامج متكامل يخدم على العقل واليد.<br/><br/>- مرافقة حقيقية ماشي مجرد دروس.<br/><br/><br/><br/>Slide 7: مستعد تبدا صفحة جديدة؟<br/><br/>حياتك لي تحلم بيها تبدا بقرار واحد.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-2')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-2" class="modal-body">ضايع بين الحيوط؟ افتح وشوف خريطة الطريق لمستقبلك. <br/><br/> التيهان لي راك تحس بيه ماشي قدر محتوم. هو مجرد غياب للخريطة الصحيحة.<br/><br/>في هذا الكاروسال، فككنالك المشكل والحل خطوة بخطوة. اكتشف كيفاش برنامج "العماد" المتكامل يعالج الأسباب العميقة للضياع، ويمدلك الأدوات باش تبني حياتك من جديد: ثقة بالنفس، وشهادة تفتحلك البيبان. <br/><br/> حمّل الدليل الكامل لبرنامج "العماد" من الرابط في البايو، واكتشف بالتفصيل كيف تقدر تبدا من اليوم! <br/><br/> #دليل_النجاح #العماد #مستقبلك #تطوير_الذات #حلول_للشباب #الجزائر #infographic</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Carousel C2 - عبد الرحمن]<br/>- **النمط العام:** تصميم إنفوجرافيك عصري ونظيف. استخدام أيقونات ورسوم توضيحية بسيطة. ألوان العلامة التجارية "العماد" (دافئة وموثوقة).<br/>- **Slide 1:** خلفية بصورة شاب ينظر من نافذة بشكل يوحي بالأمل. النص بخط عريض وواضح.<br/>- **Slide 2:** استخدام أيقونات تمثل كل نقطة (أيقونة أذن لكلام الناس، بوصلة للهدف، إلخ). تصميم على شكل قائمة مرقمة.<br/>- **Slide 3:** تصميم يوضح المعادلة: أيقونة "عقل" + أيقونة "شهادة" = أيقونة "شخص ناجح".<br/>- **Slide 4:** تصميم مقسم لثلاثة أقسام، كل قسم بأيقونته الخاصة وشرح مختصر.<br/>- **Slide 5:** استخدام صور تعبيرية قوية بجانب كل نقطة (شخص واثق، عائلة سعيدة، يد تصافح).<br/>- **Slide 6:** وضع العلم الجزائري بشكل مصغر وأنيق. استخدام علامات صح (checkmarks) بجانب كل ميزة.<br/>- **Slide 7:** صورة خلفية ملهمة مع CTA واضح في المنتصف. استخدام خط يدعو للفعل (Action-oriented font).</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P3</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كي تكون عندك صنعة في يدك، حتى واحد ما يزيد يشوف فيك شوفة ناقصة.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('3')">
+                    <div class="preview-text">قبل: "ماعنديش بلاصة في المجتمع."
+
+بعد: "عندي شهادة نبني بيها مكانتي."...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-3" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('3')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P3</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-3')">📋 نسخ النص</button>
+                            <div id="script-text-3" class="modal-body">قبل: "ماعنديش بلاصة في المجتمع."<br/><br/><br/><br/>بعد: "عندي شهادة نبني بيها مكانتي."</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-3')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-3" class="modal-body">مكانتك في المجتمع ما تستناهاش، اصنعها بيدك. <br/><br/> الانتقال من الشعور بأنك شخص إضافي في هذا العالم، إلى شخص عنده قيمة وكلمة، يبدأ بخطوة: امتلاك مهارة حقيقية.<br/><br/>شهادة "العماد" ماشي مجرد ورقة، هي دليل ملموس على قيمتك وقدراتك. هي لي تخليك تفرض احترامك وتبني مكانتك. <br/><br/> راك مستعد تبدا التغيير؟ ابعثلنا كلمة "مستعد" في الخاص وكادر من "العماد" راح يتواصل معاك. <br/><br/> #اصنع_مكانتك #الكرامة #شهادة #العماد #تغيير #تحفيز_يومي #جزائري_وافتخر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Post P3 - عبد الرحمن]<br/>- **الصورة:** صورة ملهمة عالية الجودة. شاب يقف بثقة، يرتدي ملابس عمل أو ورشة، وينظر إلى الأفق. الشمس خلفه (توحي ببداية جديدة). التركيز على تعابير الوجه الواثقة.<br/>- **النص:** النص مكتوب فوق الصورة بخط أبيض عريض جداً وواضح (Bold text overlay). كلمة "قبل" بلون خافت قليلاً، وكلمة "بعد" بلون ساطع للتأكيد على التحول. شعار "العماد" في زاوية بشكل أنيق.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V4</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">عقلك خدام ضدك؟ 3 خطوات بسيطة باش ترجعو يخدم معاك.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('4')">
+                    <div class="preview-text">عقلك ساعات يكون كيما غرفة مظلمة ومعمرة بالكراكيب.
+أفكار سلبية... مقارنات مع الناس... خوف من المستقبل...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-4" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('4')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V4</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-4')">📋 نسخ النص</button>
+                            <div id="script-text-4" class="modal-body">عقلك ساعات يكون كيما غرفة مظلمة ومعمرة بالكراكيب.<br/><br/>أفكار سلبية... مقارنات مع الناس... خوف من المستقبل...<br/><br/>كل هادو يخليوك محبوس في بلاصتك.<br/><br/>هذا هو غياب "الأمن الفكري".<br/><br/>بصح كيفاش ترجع النور لهاد الغرفة؟<br/><br/>أولاً: أشعل الضوء. واجه الأفكار لي راهي تعيق فيك، وسميها بأسمائها.<br/><br/>ثانياً: ابدا ترتب. حط أهداف صغيرة وواضحة تقدر تحققها. كل هدف تحققه هو كركوبة رميتها.<br/><br/>ثالثاً: افتح الشباك. دخل أفكار جديدة وتعلم مهارات جديدة. كل مهارة هي نسمة هواء نقي.<br/><br/>الأمن الفكري هو الأساس لي تبني عليه كلش.<br/><br/>كي تتحكم في عقلك، تتحكم في حياتك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-4')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-4" class="modal-body">إذا كان عقلك أكبر عدو ليك، جا الوقت باش دير معاه هدنة. <br/><br/> الأفكار السلبية والتشويش الداخلي يقدرو يشلّو حياتك كاملة. هذا ماشي قدر، هذا اسمو غياب "الأمن الفكري".<br/><br/>في هذا الفيديو، نشرحلك ببساطة واش معناه وكيفاش تبدا أولى خطواتك باش تسترجع التحكم في تفكيرك، وبالتالي في مستقبلك.<br/><br/>برنامج "العماد" يركز على بناء هذا الأساس قبل كل شيء. <br/><br/> الأمن الفكري هو الخطوة الأولى. ابعثلنا كلمة "أمان" في الخاص، وراح نبعثولك تفاصيل أكثر على برنامج "العماد". <br/><br/> #الأمن_الفكري #تطوير_الذات #صحة_نفسية #العماد #راحة_البال #تحكم_في_حياتك #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Motion Graphics V4 - إسلام]<br/>- **النمط:** 2D Motion Graphics بأسلوب Explainer video. رسومات بسيطة وواضحة، وألوان هادئة.<br/>- **المشهد 1:** رسم توضيحي لرأس إنسان، وداخله فوضى من الخطوط والأشكال المتشابكة (تمثل الأفكار السلبية).<br/>- **المشهد 2:** تظهر أيقونات تمثل (المقارنات، الخوف) داخل الرأس.<br/>- **المشهد 3:** يظهر مصباح يُضاء فوق الرأس مع ظهور كلمة "الأمن الفكري".<br/>- **المشهد 4:** تظهر 3 أيقونات مرقمة.<br/>- **عند "أولاً":** أيقونة يد تضغط على زر إضاءة، والظلام داخل الرأس يختفي.<br/>- **عند "ثانياً":** أيقونة قائمة مهام (To-do list) مع علامات صح صغيرة.<br/>- **عند "ثالثاً":** أيقونة نافذة تُفتح ويدخل منها ضوء وشعاع. تظهر أيقونات صغيرة تمثل مهارات (مطرقة، حاسوب).<br/>- **الخاتمة:** الرأس الفوضوي من البداية يصبح الآن منظمًا ومشرقًا. يظهر شعار "العماد" مع الـ CTA.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C5</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">5 خطوات عملية باش ترتب الفوضى لي في راسك وتبدا تشوف الطريق واضح.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('5')">
+                    <div class="preview-text">Slide 1: 5 خطوات بسيطة باش تلقى الأمان في راسك وترتاح.
+
+Slide 2: الخطوة 1: فرّغ راسك.
+اكتب كل الأفكا...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-5" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('5')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C5</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-5')">📋 نسخ النص</button>
+                            <div id="script-text-5" class="modal-body">Slide 1: 5 خطوات بسيطة باش تلقى الأمان في راسك وترتاح.<br/><br/><br/><br/>Slide 2: الخطوة 1: فرّغ راسك.<br/><br/>اكتب كل الأفكار لي تدور في راسك على ورقة، بلا ما تحكم عليها. مجرد الكتابة تنقص من قوتها.<br/><br/><br/><br/>Slide 3: الخطوة 2: ابدا بالصغير.<br/><br/>خير هدف واحد صغير تقدر تديرو اليوم. (مثال: نرتب غرفتي، نمشي نص ساعة). الإنجاز يقتل التفكير السلبي.<br/><br/><br/><br/>Slide 4: الخطوة 3: غيّر المحيط.<br/><br/>تبع ناس وصفحات إيجابية. تلاقى مع صحابك لي يطلعولك المورال. عقلك يتأثر بالشي لي يشوفو ويسمعو.<br/><br/><br/><br/>Slide 5: الخطوة 4: تعلم حاجة جديدة.<br/><br/>كي تتعلم مهارة جديدة، عقلك يركز على الحاضر وينسى التفكير الزايد. كل مهارة هي ثقة جديدة تكتسبها.<br/><br/><br/><br/>Slide 6: الأمن الفكري يبدا بخطوة.<br/><br/>"العماد" يرافقك في كل خطوة باش تبني هذا الأمان.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-5')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-5" class="modal-body">التفكير الزايد سرق منك راحة البال؟ استرجعها بهاد الخطوات. <br/><br/> الأمن الفكري ماشي حاجة معقدة، هو مجموعة عادات بسيطة ديرها كل يوم باش تحمي عقلك من الفوضى.<br/><br/>في هذا الكاروسال، مدينالك 5 خطوات عملية تقدر تبدا تطبقها من اليوم. احفظ المنشور باش ترجع ليه وقت الحاجة. <br/><br/> حاب تفهم أكثر كيفاش برنامجنا يبني معاك الأمن الفكري خطوة بخطوة؟ زور موقعنا الرسمي من الرابط في البايو. <br/><br/> #نصائح #تطوير_الذات #الأمن_الفكري #صحة_نفسية #خطوات_النجاح #العماد #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Carousel C5 - عبد الرحمن]<br/>- **النمط العام:** تصميم إنفوجرافيك عملي (How-to style). كل سلايد يركز على خطوة واحدة.<br/>- **Slide 1:** عنوان جذاب على خلفية هادئة (صورة سماء صافية أو بحر هادئ).<br/>- **Slides 2-5:** كل سلايد له رقم الخطوة واضح وكبير. استخدام أيقونة بسيطة لكل خطوة (قلم وورقة، سلم صغير، مجموعة أشخاص، لمبة مضيئة). النص يكون مختصر ومباشر.<br/>- **Slide 5:** يمكن وضع أيقونات لمهارات مختلفة (برمجة، تصميم، حرفة يدوية) للتلميح لخدمات "العماد".<br/>- **Slide 6:** نفس خلفية السلايد الأول مع وضع شعار "العماد" بشكل بارز والـ CTA.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P6</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الحرب الحقيقية ماشي برا، راهي داخل راسك.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('6')">
+                    <div class="preview-text">"أكبر عدو ليك هو تفكيرك السلبي. حان الوقت تتحكم فيه."...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-6" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('6')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P6</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-6')">📋 نسخ النص</button>
+                            <div id="script-text-6" class="modal-body">"أكبر عدو ليك هو تفكيرك السلبي. حان الوقت تتحكم فيه."</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-6')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-6" class="modal-body">انتصر في المعركة لي لداخل، تربح كلش برا. <br/><br/> الأفكار السلبية تقدر تدمر مستقبلك قبل ما يبدا. بصح الخبر المليح هو أنك نتا القائد في هاد المعركة.<br/><br/>التحكم في تفكيرك هو أول وأهم خطوة باش تبني الحياة لي تستاهلها. <br/><br/> فكرتك هي لي تصنع واقعك. ابدا في تغييرها اليوم مع مرافقة "العماد". تواصل معنا. <br/><br/> #تحفيز #إقتباس #تفكير_إيجابي #العماد #قوة_العقل #تنمية_بشرية #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Post P6 - عبد الرحمن]<br/>- **الصورة:** تصميم جرافيكي بسيط وأنيق. خلفية بلون واحد داكن (كحلي، رمادي غامق). <br/>- **النص:** الاقتباس مكتوب في المنتصف بخط أبيض أنيق وقوي (Serif or bold Sans-serif). يمكن إبراز كلمات مثل "عدو" و "تتحكم" بلون مختلف أو بحجم أكبر. <br/>- **العناصر:** إضافة شعار "العماد" في الأسفل بشكل صغير.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V7</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">عندك أحلام كبار بصح الواقع تاعك صغير؟ المشكل ماشي في الحلم، في الخريطة.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('7')">
+                    <div class="preview-text">(الموجه يتحدث بأسلوب حواري، طبيعي ومباشر للكاميرا)
+السلام عليكم،
+شحال من واحد فيكم عندو أهداف كبيرة....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-7" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('7')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V7</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-7')">📋 نسخ النص</button>
+                            <div id="script-text-7" class="modal-body">(الموجه يتحدث بأسلوب حواري، طبيعي ومباشر للكاميرا)<br/><br/>السلام عليكم،<br/><br/>شحال من واحد فيكم عندو أهداف كبيرة... حاب يدير دراهم، يبني دارو، يفرح والديه.<br/><br/>بصح كي يجي يشوف الواقع، يلقى روحو مازال في نقطة الصفر.<br/><br/>علاش؟ ماشي لخاطر الحلم كبير عليك. لخاطر ماعندكش خطة واضحة توصلك ليه.<br/><br/>الحلم بلا تخطيط يبقى مجرد أمنية.<br/><br/>التخطيط هو الجسر لي يربط بين وين راك اليوم، ووين حاب تكون غدوة.<br/><br/>هو لي يحول "يا لوكان" إلى "راني درت".<br/><br/>في "العماد"، أول حاجة نعلموها للشاب هي كيفاش يخطط. ماشي تخطيط معقد تاع شركات.<br/><br/>تخطيط بسيط وواقعي لحياتو هو.<br/><br/>نقسمو الهدف الكبير لأهداف صغيرة... كل سمانة واش لازم يدير... كل شهر وين لازم يوصل.<br/><br/>كي تبدا تشوف روحك تتقدم، حتى ولو بخطوات صغيرة، الثقة تاعك تزيد، والحلم هذاك يبدا يقرب.<br/><br/>ما تخليش أحلامك تموت في راسك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-7')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-7" class="modal-body">ما الفرق بين الحالم والناجح؟ كلمة واحدة: الخطة. <br/><br/> الأحلام وحدها ما تكفيش باش تبني مستقبل. لازمها خريطة طريق واضحة تقولك واش دير كل يوم.<br/><br/>في هذا الفيديو، الخبير تاعنا من "العماد" يشرحلك علاش التخطيط الاستراتيجي لحياتك هو المفتاح لي كان خاصك باش تحول أحلامك لأفعال حقيقية.<br/><br/>استمع مليح، بالاك تلقى الجواب لي كنت تحوس عليه. <br/><br/> مستعد تكتب قصة نجاحك؟ سجل في ورشة التخطيط المجانية لي ينظمها "العماد" عبر الإنترنت. الرابط في البايو. <br/><br/> #التخطيط #تحديد_الأهداف #مستقبلك #النجاح #العماد #تحفيز #تطوير_الذات #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[UGC V7 - أحمد]<br/>- **المكان:** مكتب بسيط ومنظم، أو غرفة جلوس مريحة. الإضاءة طبيعية. الهدف هو أن يبدو المكان حقيقيًا وليس استوديو.<br/>- **الكاميرا:** لقطة متوسطة (Medium Shot) ثابتة. المتحدث (خبير/موجه من العماد) يجلس ويتحدث مباشرة إلى الكاميرا كأنه في مكالمة فيديو مع المشاهد.<br/>- **الأداء:** طبيعي جداً، عفوي، يستخدم لغة الجسد (حركة اليدين للشرح). نبرة الصوت ودودة وموثوقة. لا يوجد مونتاج معقد، ربما فقط قطع بسيط لإزالة التوقفات الطويلة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C8</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">التخطيط لمستقبلك أسهل مما تتخيل! 5 خطوات برك تبدلك حياتك.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('8')">
+                    <div class="preview-text">Slide 1: 5 خطوات بسيطة باش تخطط لمستقبلك صح!
+بلا تعقيدات، وبطريقة تقدر تطبقها من اليوم.
+
+Slide 2: ال...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-8" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('8')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C8</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-8')">📋 نسخ النص</button>
+                            <div id="script-text-8" class="modal-body">Slide 1: 5 خطوات بسيطة باش تخطط لمستقبلك صح!<br/><br/>بلا تعقيدات، وبطريقة تقدر تطبقها من اليوم.<br/><br/><br/><br/>Slide 2: الخطوة 1: وين حاب توصل؟ (الحلم الكبير)<br/><br/>غمض عينيك وتخيل حياتك المثالية بعد 5 سنين. اكتب كلش بالتفصيل. هذا هو المقصد تاعك.<br/><br/><br/><br/>Slide 3: الخطوة 2: واش لازم تدير؟ (المهام الصغيرة)<br/><br/>قسم الحلم الكبير لمهام صغيرة. مثال: باش نولي مطور ويب، لازم (1) نتعلم لغة HTML (2) نطبق بمشاريع صغيرة...<br/><br/><br/><br/>Slide 4: الخطوة 3: أطلب المساعدة! (ورشة العماد)<br/><br/>ماشي لازم دير كلش وحدك. احجز بلاصتك في ورشة "العماد" للتخطيط، وخلي الخبراء يعاونوك تحط خطة صحيحة.<br/><br/><br/><br/>Slide 5: الخطوة 4: طبّق وتابع.<br/><br/>كل أسبوع، شوف وين وصلت. احتفل بالنجاحات الصغيرة، وتعلم من الأخطاء. المهم تكمل تمشي.<br/><br/><br/><br/>Slide 6: مستقبلك بين يديك.<br/><br/>ابدأ التخطيط اليوم.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-8')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-8" class="modal-body">مستقبلك ماشي ورقة يانصيب، هو خطة عمل. <br/><br/> إذا كنت حاب توصل لهدف كبير، لازم تعرف الطريق ليه بالتفصيل. التخطيط هو GPS تاعك في رحلة النجاح.<br/><br/>اكتشف في هذا الدليل المبسط 5 خطوات عملية تقدر تبدا بيها اليوم باش ترسم مستقبلك بيدك.<br/><br/>احفظ المنشور باش تعاود ترجع ليه. <br/><br/> حاب مساعدة احترافية؟ احصل على دليل التخطيط المجاني من "العماد"، تلقى فيه نماذج جاهزة تساعدك. الرابط في البايو. <br/><br/> #خطة_عمل #دليل #كيف #تخطيط_استراتيجي #النجاح #العماد #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Carousel C8 - عبد الرحمن]<br/>- **النمط العام:** تصميم دليل إرشادي (Step-by-step guide). استخدام أرقام كبيرة وواضحة لكل خطوة.<br/>- **Slide 1:** عنوان كبير وجذاب على صورة لطريق طويل وواضح.<br/>- **Slide 2:** أيقونة "هدف" أو "منظار". مساحة فارغة للكتابة بشكل رمزي.<br/>- **Slide 3:** تصميم يوضح تفكيك هدف كبير إلى أهداف صغيرة (هرم مقلوب).<br/>- **Slide 4:** صورة لمجموعة أشخاص في ورشة عمل أو اجتماع. شعار "العماد" واضح.<br/>- **Slide 5:** أيقونة "تقويم" أو "Checklist".<br/>- **Slide 6:** صورة لشخص يكتب في دفتر ملاحظات مع ابتسامة ثقة. CTA واضح.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P9</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">ماشي كافي تحلم بمستقبل أفضل، لازم تنوض تخدم عليه.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('9')">
+                    <div class="preview-text">"المستقبل لا يُنتظر، المستقبل يُصنع."...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-9" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('9')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P9</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-9')">📋 نسخ النص</button>
+                            <div id="script-text-9" class="modal-body">"المستقبل لا يُنتظر، المستقبل يُصنع."</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-9')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-9" class="modal-body">كل صباح عندك فرصة: يا تكمل ترقد وتحلم، يا تنوض وتحقق. <br/><br/> الأحلام تبقى في عالم الخيال حتى تقرر نتا تهبطها لأرض الواقع بالعمل والجهد.<br/><br/>كل خطوة ديرها اليوم، هي حجرة تبني بيها مستقبلك غدوة. <br/><br/> مستقبل أفضل يبدأ بخطوة اليوم. ابدأها مع "العماد". تواصل معنا واعرف كيفاش. <br/><br/> #اصنع_مستقبلك #تحفيز #عمل #إلهام #العماد #لا_تستسلم #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Post P9 - عبد الرحمن]<br/>- **الصورة:** صورة رمزية قوية. يد عامل تبني جدارًا، أو يد فنان تشكل الطين. صورة توحي بالبناء والخلق.<br/>- **النص:** الاقتباس مكتوب بخط قوي وواضح (Bold) فوق الصورة. التركيز على كلمة "يُصنع".<br/>- **العناصر:** شعار "العماد" في الأسفل.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V10</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كانوا يقولولي "حيط قصير" و "ما يجي منو والو"... اليوم، أنا هو لي بنيت مستقبلي.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('10')">
+                    <div class="preview-text">(شاب يجلس في مكان عمله أو ورشته، يتحدث بثقة وهدوء)
+كي نتفكر كيفاش كنت... صراحة، نلقى روحي تبدلت 180 ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-10" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('10')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V10</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-10')">📋 نسخ النص</button>
+                            <div id="script-text-10" class="modal-body">(شاب يجلس في مكان عمله أو ورشته، يتحدث بثقة وهدوء)<br/><br/>كي نتفكر كيفاش كنت... صراحة، نلقى روحي تبدلت 180 درجة.<br/><br/>كنت غير قاعد في الدار، النهار كامل وأنا نتكيف ونخمم... نحس روحي ثقيل على والديا.<br/><br/>نظرة الناس كانت تقتلني... هذاك لي ماقراش، هذاك لي ما يخدمش.<br/><br/>كنت فاقد الأمل في روحي قبل ما الناس تفقد الأمل فيا.<br/><br/>(يبتسم ابتسامة خفيفة)<br/><br/>حتى لواحد النهار، الوالد سمع بمركز "العماد". قاللي "نوض، هادي فرصتك الأخيرة".<br/><br/>دخلت لـ "العماد" وأنا خايف... بصح ثم لقيت ناس ماشي باش يحكمو عليا.<br/><br/>لقيت أساتذة فهموني، سمعولي، ومدولي الثقة لي كانت خاصتني.<br/><br/>علموني ماشي غير صنعة... علموني كيفاش نخمم، كيفاش نرجع نآمن بروحي.<br/><br/>الشهادة لي ديتها كانت المفتاح... بصح الصح كامل في العقلية لي تبدلت.<br/><br/>اليوم الحمد لله، راني خدام، عندي قيمتي، ورجعت الفرحة لوجه والديا.<br/><br/>كي نشوف روحي اليوم، نقول لكل شاب راه في بلاصتي القديمة: مازال كاين أمل. برك لازم تلقى اليد لي تشدك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-10')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-10" class="modal-body">من شاب يائس يحتقره الجميع، إلى صاحب مهنة يفتخر به الجميع. قصة أيمن الملهمة. <br/><br/> شحال من شاب اليوم راه يعيش نفس قصة أيمن؟ الشعور بالضياع، نظرات المجتمع القاسية، والإحساس بأنك عبء على أقرب الناس ليك.<br/><br/>قصة أيمن هي دليل حي باللي التغيير ممكن. هي قصة على قوة الإرادة، وأهمية تلقى البيئة الصحيحة لي تدعمك وتآمن بيك.<br/><br/>"العماد" كان نقطة التحول في حياة أيمن، ويقدر يكون نقطة التحول في حياتك. <br/><br/> قصتك تقدر تكون هي قصة النجاح الجاية. ابعثلنا رسالة واحكيلنا وين راك حاب توصل، باش نشوفو كيفاش نقدرو نساعدوك. <br/><br/> #قصة_نجاح #تحول #الأمل #العماد #جزائري #إلهام #لا_لليأس</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Storytelling V10 - أحمد]<br/>- **النمط:** قصة نجاح حقيقية، بأسلوب وثائقي حميمي.<br/>- **المكان:** مكان عمل الشاب الحقيقي (ورشة، مكتب، محل). هذا يضيف مصداقية.<br/>- **الكاميرا:** لقطات متنوعة. لقطة رئيسية للشاب وهو يتحدث (Medium shot). ولقطات إضافية (B-roll) له وهو يعمل بمهارة، يضحك مع زملائه، أو يسلم على والديه. يمكن استخدام لقطات قديمة (إن وجدت) لـ "قبل" لزيادة التأثير.<br/>- **الإخراج:** التركيز على العفوية. لا يوجد تمثيل. أحمد (المخرج) يطرح أسئلة بسيطة خلف الكاميرا لتوجيه الحديث.<br/>- **الموسيقى:** موسيقى تصويرية هادئة وعاطفية في الخلفية، ترتفع في لحظات التحول الإيجابي.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C11</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">شوف بعينيك كيفاش أيمن حوّل حياته من 0 إلى 100... بفضل قرار واحد.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('11')">
+                    <div class="preview-text">Slide 1: من ضياع تام لنجاح باهر: رحلة أيمن مع "العماد".
+
+Slide 2: قبل "العماد"...
+- صورة: شاب يجلس ف...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-11" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('11')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C11</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-11')">📋 نسخ النص</button>
+                            <div id="script-text-11" class="modal-body">Slide 1: من ضياع تام لنجاح باهر: رحلة أيمن مع "العماد".<br/><br/><br/><br/>Slide 2: قبل "العماد"...<br/><br/>- صورة: شاب يجلس في الظلام، وجهه متعب.<br/><br/>- نص: يائس، بطال، يحس بنظرات المجتمع القاسية.<br/><br/><br/><br/>Slide 3: نقطة التحول.<br/><br/>- صورة: يد تمسك بيد أخرى (رمز للدعم).<br/><br/>- نص: قرر يعطي لروحو فرصة أخيرة وسجل في "العماد".<br/><br/><br/><br/>Slide 4: ماذا تعلم في "العماد"؟<br/><br/>- أيقونات: عقل (أمن فكري)، خريطة (تخطيط)، مطرقة (مهنة).<br/><br/>- نص: استرجع ثقته بنفسه، تعلم يخطط لمستقبله، واكتسب مهنة بيدو.<br/><br/><br/><br/>Slide 5: بعد "العماد"...<br/><br/>- صورة: أيمن يبتسم بثقة في مكان عمله.<br/><br/>- نص: كرامة، عمل، وفخر في عيون والديه.<br/><br/><br/><br/>Slide 6: نصيحة أيمن ليك:<br/><br/>- صورة مقربة لوجه أيمن المبتسم.<br/><br/>- نص: "ما تخليش اليأس يغلبك والفرصة تفوتك. لي قدرت نديرها أنا، تقدر ديرها نتا."<br/><br/><br/><br/>Slide 7: قصتك تبدأ الآن.<br/><br/>هل أنت مستعد لكتابة الفصل الجديد من حياتك؟</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-11')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-11" class="modal-body">الصور تحكي قصة أقوى من ألف كلمة. شوف رحلة أيمن. <br/><br/> لخصنالك رحلة التحول تاع أيمن في هذا الكاروسال المؤثر.<br/><br/>من الظلام إلى النور، من اليأس إلى الأمل، ومن الشعور بالضياع إلى بناء المستقبل. كل صورة هي خطوة في طريق استعادة الكرامة.<br/><br/>هذه ليست مجرد قصة، هذا دليل على أن الحل موجود. <br/><br/> شاهد الفيديو الكامل لقصة أيمن وتصريحاته المؤثرة على بروفايلنا الآن! <br/><br/> #قصص_ملهمة #قبل_وبعد #تحفيز #العماد #تغيير_حقيقي #شبابنا #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Carousel C11 - عبد الرحمن]<br/>- **النمط:** قصة مصورة (Photo Narrative). استخدام صور حقيقية من قصة أيمن (الفيديو V10) إن أمكن، أو صور رمزية قوية.<br/>- **التصميم:** التركيز على التباين بين "قبل" و "بعد". السلايدات الأولى بألوان باهتة أو بالأبيض والأسود. السلايدات الأخيرة بألوان زاهية ومشرقة.<br/>- **الخطوط:** استخدام خطوط مختلفة للتعبير عن المشاعر. خطوط ضعيفة ومترددة في البداية، وخطوط قوية وواثقة في النهاية.<br/>- **Slide 6:** الاقتباس يكون كبيراً وواضحاً كأنه توقيع شخصي من أيمن.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P12</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الكرامة ماشي في الدراهم، الكرامة كي تنوض الصباح وتحس عندك قيمة.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('12')">
+                    <div class="preview-text">"الشهادة ردتلي كرامتي، والعقلية لي بدلتها هي لي بنتلي مستقبلي."
+- أيمن، خريج العماد...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-12" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('12')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P12</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-12')">📋 نسخ النص</button>
+                            <div id="script-text-12" class="modal-body">"الشهادة ردتلي كرامتي، والعقلية لي بدلتها هي لي بنتلي مستقبلي."<br/><br/>- أيمن، خريج العماد</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-12')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-12" class="modal-body">كلمات من القلب... من شخص عاش التجربة. <br/><br/> أيمن لخص كل فلسفة "العماد" في جملة واحدة.<br/><br/>التحول الحقيقي يبدا من الداخل (العقلية)، وينعكس على الخارج (الشهادة والكرامة).<br/><br/>إذا كانت كلمات أيمن لمستك، أعرف باللي نتا ثاني تقدر تعيش هذا التحول. <br/><br/> ابدا قصتك أنت ثاني. تواصل معنا في الخاص ودعنا نكن معك في رحلتك. <br/><br/> #شهادة #إقتباس_ملهم #قصة_حقيقية #العماد #كرامتي #مستقبلي #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Post P12 - عبد الرحمن]<br/>- **الصورة:** صورة بورتريه عالية الجودة لأيمن (من الفيديو V10)، ينظر مباشرة للكاميرا بنظرة فخر وثقة.<br/>- **النص:** الاقتباس مكتوب بجانب صورته أو تحتها بخط أنيق يشبه التوقيع. كتابة اسمه وصفته "خريج العماد" تضيف مصداقية.<br/>- **العناصر:** شعار "العماد" حاضر بشكل discree.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V13</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كنت نشوف وليدي يذبال قدام عينيا ومانقدر ندير والو... قلبي كان يتقطع كل يوم.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('13')">
+                    <div class="preview-text">(أم في الأربعينات أو الخمسينات، تتحدث بعاطفة وصدق. عيناها تلمعان بالدموع أحياناً)
+مكانش أصعب على الأ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-13" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('13')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V13</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-13')">📋 نسخ النص</button>
+                            <div id="script-text-13" class="modal-body">(أم في الأربعينات أو الخمسينات، تتحدث بعاطفة وصدق. عيناها تلمعان بالدموع أحياناً)<br/><br/>مكانش أصعب على الأم من أنها تشوف وليدها ضايع.<br/><br/>وليدي كان... كان منغلق على روحو، ما يهدر ما يخرج. النهار كامل في غرفتو.<br/><br/>كنت نخاف عليه... الخوف كان ياكل فيا. خفت عليه من صحاب السوء، خفت عليه من المستقبل الكحل.<br/><br/>كلام الناس... جاراتي يسقسيوني "وليدك واش راه يدير؟"... كنت نتحرج، مانعرف واش نجاوب.<br/><br/>الدار كانت ثقيلة، مافيهاش فرحة.<br/><br/>(تأخذ نفساً عميقاً، تبتسم)<br/><br/>نهار لي سجلناه في "العماد"، والله ما كنت مأمنة بزاف. قلت نجربو وخلاص.<br/><br/>بصح سبحان الله... من السمانة الأولى، بديت نشوف تغيير.<br/><br/>رجع يهدر معانا على العشاء... رجع يضحك.<br/><br/>الأساتذة تاعو كانوا يعيطولي، يطمنوني عليه، يقولولي راه يتحسن.<br/><br/>حسيت باللي كاين ناس أخرين مهتمين بيه كيما أنا، وأكثر.<br/><br/>اليوم كي نشوفو ينوض الصباح بكري لخدمتو، فرحان... نقول الحمد لله يا ربي.<br/><br/>"العماد" ما رجعليش غير وليدي، رجعلي راحة بالي.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-13')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-13" class="modal-body">شهادة أم أبكتنا جميعاً... "العماد رجعلي وليدي وراحة بالي". <br/><br/> خلف كل شاب ضائع، كاين قلب أم محروق... وأب قلق على مستقبل عائلته.<br/><br/>في هذه الشهادة المؤثرة، تحكي لنا والدة أحد شبابنا عن رحلتها من الخوف والقلق إلى الفرح والطمأنينة. قصة تمس كل عائلة جزائرية تخاف على أولادها.<br/><br/>استمعوا لكلماتها الصادقة. <br/><br/> قلقان على وليدك أو بنتك؟ "العماد" يوفر المرافقة النفسية والمهنية لي يستحقوها. ابعثلنا رسالة ونفهموك أكثر. <br/><br/> #شهادة_أم #قصة_عائلة #حب_الوالدين #العماد #راحة_البال #الأسرة_الجزائرية #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[UGC V13 - أحمد]<br/>- **النمط:** شهادة عاطفية من منظور أحد الوالدين.<br/>- **المكان:** منزل العائلة، في غرفة الجلوس. الديكور بسيط وجزائري أصيل. هذا يخلق جواً من الحميمية والصدق.<br/>- **الكاميرا:** لقطة مقربة (Close-up) على الأم للتركيز على تعابير وجهها الصادقة. يمكن استخدام لقطتين بزوايا مختلفة للتبديل بينهما.<br/>- **الإخراج:** أسلوب المقابلة. أحمد خلف الكاميرا، صوته غير مسموع. يترك الأم تتحدث بحرية مطلقة. الهدف هو التقاط المشاعر الحقيقية.<br/>- **الصوت:** التركيز على وضوح صوت الأم. يمكن إضافة موسيقى عاطفية خفيفة جداً في الخلفية.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C14</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كي يرتاح وليدك، ترتاح الدار كاملة. هذا هو تأثير "العماد" على العائلات.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('14')">
+                    <div class="preview-text">Slide 1: راحة بال الوالدين... شحال تسوى؟
+كي يكون واحد من ولادك ماشي مليح، العائلة كامل تتأثر.
+
+Slide...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-14" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('14')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C14</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-14')">📋 نسخ النص</button>
+                            <div id="script-text-14" class="modal-body">Slide 1: راحة بال الوالدين... شحال تسوى؟<br/><br/>كي يكون واحد من ولادك ماشي مليح، العائلة كامل تتأثر.<br/><br/><br/><br/>Slide 2: قبل: القلق اليومي.<br/><br/>- الخوف من مستقبله المجهول.<br/><br/>- الحرج من كلام الناس.<br/><br/>- الشعور بالعجز.<br/><br/>- جو الحزن في الدار.<br/><br/><br/><br/>Slide 3: الحل: يد العون.<br/><br/>"العماد" يوفر بيئة آمنة ومرافقة أبوية لولدك. نحن نهتم به كأنه واحد من عائلتنا.<br/><br/><br/><br/>Slide 4: النتيجة: الطمأنينة.<br/><br/>- ابنك يلقى طريقو وثقتو في نفسو.<br/><br/>- عائلتك تسترجع فرحتها وهدوءها.<br/><br/>- تشوف ولدك راجل يعتمد عليه.<br/><br/><br/><br/>Slide 5: شهادة من والد:<br/><br/>"كنت نظن أني فقدت ابني، لكن بفضل المرافقة في العماد، اليوم أنا أرى أمامي رجلاً مسؤولاً وفخوراً بنفسه. شكراً لكم."<br/><br/><br/><br/>Slide 6: مستقبل ولدك أمانة.<br/><br/>خلينا نعاونوك تحافظ عليها.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-14')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-14" class="modal-body">مستقبل أولادكم هو أكبر هم عندكم؟ أنتم لستم وحدكم. <br/><br/> القلق على مستقبل الأبناء هو شعور مشترك عند كل الآباء والأمهات. الشعور بالعجز أمام ضياعهم هو من أصعب التجارب.<br/><br/>"العماد" لا يساعد الشباب فقط، بل يمد يده للعائلة كلها ليعيد لها التوازن والهدوء. اكتشف كيف في هذا الكاروسال. <br/><br/> اقرأ المزيد من قصص وشهادات آباء وأمهات مطمئنين على موقعنا الرسمي. الرابط في البايو. <br/><br/> #عائلتي #راحة_البال #تربية_الأبناء #العماد #دعم_الأسرة #أولادنا #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Carousel C14 - عبد الرحمن]<br/>- **النمط:** عاطفي، يركز على النصوص القوية مع صور داعمة.<br/>- **التصميم:** استخدام صور رمزية للعائلة. صور بالأبيض والأسود في سلايد "قبل"، وصور ملونة ومشرقة في سلايد "النتيجة".<br/>- **الخطوط:** استخدام خطوط أنيقة وكلاسيكية (Serif) لإعطاء إحساس بالجدية والموثوقية.<br/>- **Slide 2:** استخدام أيقونات بسيطة تمثل الخوف والحزن.<br/>- **Slide 5:** وضع الاقتباس بشكل بارز على صورة رمزية لأب وابنه.<br/>- **Slide 6:** صورة دافئة لعائلة مجتمعة وسعيدة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P15</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">أغلى استثمار في حياتك هو مستقبل أولادك.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('15')">
+                    <div class="preview-text">"راحة بال الوالدين لا تقدر بثمن. دع العماد يكون سندك وسند ابنك."...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-15" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('15')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P15</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-15')">📋 نسخ النص</button>
+                            <div id="script-text-15" class="modal-body">"راحة بال الوالدين لا تقدر بثمن. دع العماد يكون سندك وسند ابنك."</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-15')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-15" class="modal-body">لأن لا شيء أغلى من رؤيتهم ناجحين وسعداء. <br/><br/> مهمتكم كآباء هي توفير الأفضل لأبنائكم. ومهمتنا في "العماد" هي أن نكون السند الذي يساعدكم على تحقيق هذه المهمة.<br/><br/>نحن نوفر لأبنائكم المرافقة والإرشاد الذي يحتاجونه ليبنوا مستقبلهم بثقة وأمان. <br/><br/> هل تريد أن تعرف كيف يمكننا مساعدة ابنك أو ابنتك بالتحديد؟ احجز استشارة مجانية خاصة بالوالدين الآن عبر الرابط في البايو. <br/><br/> #استثمار #مستقبل_أولادنا #العائلة_أولا #العماد #سند #أمان #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Post P15 - عبد الرحمن]<br/>- **الصورة:** صورة دافئة وعاطفية. يد أب كبيرة تمسك بيد ابنه الشاب، أو صورة لعائلة تنظر إلى غروب الشمس معًا. الصورة يجب أن توحي بالأمان، الدعم، والمستقبل.<br/>- **النص:** النص مكتوب بخط أنيق ودافئ. التركيز على عبارة "راحة بال الوالدين".<br/>- **العناصر:** شعار "العماد" في الأسفل.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V16</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">راك وحدك، ضايع، ومتردد؟ هذا الفيديو ليك. فرصتك الأخيرة راهي هنا.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('16')">
+                    <div class="preview-text">(صوت قوي وواضح، إيقاع سريع ومحفز)
+الوقت يجري...
+والفرص ما تستناش.
+شحال من مرة قلت "غدوة نبدا"؟
+"العم...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-16" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('16')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V16</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-16')">📋 نسخ النص</button>
+                            <div id="script-text-16" class="modal-body">(صوت قوي وواضح، إيقاع سريع ومحفز)<br/><br/>الوقت يجري...<br/><br/>والفرص ما تستناش.<br/><br/>شحال من مرة قلت "غدوة نبدا"؟<br/><br/>"العماد" اليوم يقولك: "ابدأ دروك!"<br/><br/>واش راح تربح معانا؟<br/><br/>أولاً: عقلية جديدة. ثقة بالنفس وأمن فكري.<br/><br/>ثانياً: شهادة معتمدة. قيمتك تزيد في سوق العمل.<br/><br/>ثالثاً: مرافقة حقيقية. ما تبقاش وحدك.<br/><br/>كيفاش تسجل؟ أسهل من الساهل.<br/><br/>الخطوة 1: اضغط على الرابط.<br/><br/>الخطوة 2: املأ الاستمارة.<br/><br/>الخطوة 3: فريقنا يتصل بك.<br/><br/>الأماكن محدودة جداً باش نضمنو جودة المرافقة.<br/><br/>هذا ماشي مجرد إعلان، هذا نداء.<br/><br/>نداء ليك باش تبدل حياتك.<br/><br/>القرار يرجع ليك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-16')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-16" class="modal-body">خلاص من التردد! فرصتك باش تبدا حياة جديدة مع "العماد" راهي تروح. <br/><br/> كل يوم تأخير هو يوم يضيع من مستقبلك.<br/><br/>في هذا الفيديو السريع، لخصنالك كل الفوائد لي راح تديها، والخطوات البسيطة باش تنضم لينا. ماعندك حتى عذر الآن.<br/><br/>الأماكن محدودة جداً، والقرار لازم تاخذو اليوم. <br/><br/> سجل دروك! اضغط على الرابط في البايو قبل ما تخلص البلايص. العرض هذا ما يتعاودش. <br/><br/> #فرصة_أخيرة #سجل_الان #العماد #غير_حياتك #لا_تتردد #الجزائر #عرض_محدود</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Motion Graphics V16 - إسلام]<br/>- **النمط:** فيديو إعلاني سريع ومباشر (Direct Response). Motion graphics جريئة وواضحة.<br/>- **الإيقاع:** سريع جداً. كل جملة تظهر على الشاشة كنص متحرك (Kinetic Typography) بالتزامن مع صوت المعلق.<br/>- **الرسومات:** استخدام أيقونات كبيرة وواضحة للفوائد (عقل، شهادة، أيادي متشابكة). إظهار خطوات التسجيل بشكل بصري (أيقونة فأرة تضغط على رابط، استمارة تُملأ، هاتف يرن).<br/>- **الألوان:** ألوان قوية وجذابة. استخدام اللون الأحمر أو البرتقالي للـ CTA.<br/>- **الموسيقى:** موسيقى إلكترونية حماسية ومرتفعة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C17</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">مستقبلك على بعد 3 خطوات بسيطة. ما تخليش التردد يسرقها منك.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('17')">
+                    <div class="preview-text">Slide 1: مستقبلك الجديد على بعد خطوات قليلة!
+ما بقاش وقت للتفكير، جا وقت الفعل.
+
+Slide 2: علاش "العم...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-17" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('17')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C17</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-17')">📋 نسخ النص</button>
+                            <div id="script-text-17" class="modal-body">Slide 1: مستقبلك الجديد على بعد خطوات قليلة!<br/><br/>ما بقاش وقت للتفكير، جا وقت الفعل.<br/><br/><br/><br/>Slide 2: علاش "العماد" هو خيارك الأفضل الآن؟<br/><br/>- شهادة معتمدة تفتحلك بيبان الخدمة.<br/><br/>- أمن فكري يرجعلك الثقة في النفس.<br/><br/>- مرافقة شخصية تضمن ما تبقاش وحدك.<br/><br/><br/><br/>Slide 3: كيفاش تسجل؟ (أسهل مما تتخيل)<br/><br/>1. اضغط على رابط التسجيل في البايو.<br/><br/>2. املأ معلوماتك في أقل من دقيقة.<br/><br/>3. استنى اتصال من فريق التوجيه تاعنا.<br/><br/><br/><br/>Slide 4: ما تضيعش الفرصة!<br/><br/>الأماكن المتبقية قليلة جداً. قرارك اليوم يحدد مستقبلك غدوة.<br/><br/><br/><br/>Slide 5: ابدأ رحلتك الآن.<br/><br/>اضغط على الرابط وسجل.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-17')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-17" class="modal-body">وقت التغيير جا. هل أنت مستعد؟ <br/><br/> التسجيل في "العماد" هو الخطوة الأولى نحو الحياة لي راك حابها. بسطنالك كلش في هذا الكاروسال: الفوائد والخطوات.<br/><br/>ما بقا والو. القرار بين يديك. <br/><br/> سجل مباشرة من خلال الرابط في البايو قبل ما يغلق التسجيل! الأماكن محدودة. <br/><br/> #الفرصة_الأخيرة #تسجيل #خطوات_بسيطة #العماد #مستقبلك_الآن #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Carousel C17 - عبد الرحمن]<br/>- **النمط:** مباشر ومركز على دعوة للفعل (CTA-focused).<br/>- **التصميم:** تصميم نظيف جداً وبسيط. استخدام مساحات بيضاء كبيرة لجعل المحتوى سهل القراءة.<br/>- **Slide 2:** استخدام علامات صح (checkmarks) خضراء بجانب كل فائدة.<br/>- **Slide 3:** استخدام أرقام كبيرة وواضحة للخطوات مع أيقونات بسيطة (أيقونة رابط، أيقونة استمارة، أيقونة هاتف).<br/>- **Slide 4:** استخدام عنصر الندرة (Scarcity). يمكن وضع شريط تقدم (progress bar) شبه ممتلئ لإظهار أن الأماكن على وشك الانتهاء.<br/>- **Slide 5:** زر CTA كبير وواضح في منتصف السلايد.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P18</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">هذا هو القرار لي راح تشكر روحك عليه بعد سنين.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('18')">
+                    <div class="preview-text">قرار واحد.
+حياة جديدة.
+خذ القرار الآن....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-18" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('18')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P18</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-18')">📋 نسخ النص</button>
+                            <div id="script-text-18" class="modal-body">قرار واحد.<br/><br/>حياة جديدة.<br/><br/>خذ القرار الآن.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-18')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-18" class="modal-body">🚨 آخر نداء: لا تدع هذه الفرصة تضيع! 🚨 <br/><br/> أحياناً، لحظة واحدة من الشجاعة تغير كل شيء.<br/><br/>هذه هي لحظتك. التردد كلفك الكثير من الوقت. لا تدعه يكلفك مستقبلك.<br/><br/>الأماكن على وشك الانتهاء. <br/><br/> آخر فرصة باش تبدا رحلتك مع "العماد"! اضغط على الرابط في البايو وسجل فورًا. <br/><br/> #آخر_فرصة #قرار #غير_حياتك #العماد #الآن #الجزائر #عرض_ينتهي_قريبا</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Post P18 - عبد الرحمن]<br/>- **الصورة:** تصميم جرافيكي جريء ومباشر. خلفية بلون قوي (أحمر، برتقالي، أو أزرق داكن).<br/>- **النص:** النص مكتوب في المنتصف بخط أبيض عريض جداً (Ultra Bold). كل جملة في سطر. التركيز على كلمة "الآن".<br/>- **العناصر:** يمكن إضافة سهم كبير يشير إلى الأسفل (نحو مكان الـ CTA في الكابشن). شعار "العماد" يكون موجودًا ولكن ليس هو النقطة المحورية.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr></tbody></table></div>
+
+    <div class="disclaimer-card">
+        <span style="font-size: 1.2em;">⚠️</span>
+        <span>قد تخضع هذه الاستراتيجية لبعض التعديلات والتحسينات، حسب المواد الإعلامية المتوفرة أو لغرض تحقيق أفضل النتائج.</span>
+    </div>
+
+    <div class="summary-box">
+        <span style="font-weight: 700; color: #FFD700;">الميزانية الإجمالية المعتمدة</span>
+        <span class="total-amount">138000 دج</span>
+        <a href="https://wa.me/213770820431" class="cta-btn">تواصل معنا للاعتماد</a>
+        <div style="border: 1px dashed #FFD700; padding: 25px; border-radius: 15px; margin-top: 20px;">
+            <h3 style="color:#FFD700; margin:0;">الخطوة التالية</h3>
+            <p style="margin:10px 0;">مكالمة قصيرة لنكيّف هذه الاستراتيجية حسب مشروعك ونبدأ العمل فوراً.</p>
+            <div class="phones-list">
+                <div class="phone-item">0770 82 04 31</div>
+                <div class="phone-item">0770 55 01 51</div>
+                <div class="phone-item">0770 82 01 45</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+function openModal(id) { document.getElementById('modal-' + id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
+function closeModal(id) { document.getElementById('modal-' + id).style.display = 'none'; document.body.style.overflow = 'auto'; }
+window.onclick = function(event) { if (event.target.className === 'modal') { event.target.style.display = 'none'; document.body.style.overflow = 'auto'; } }
+
+// وظيفة النسخ الجديدة
+function copyToClipboard(elementId) {
+    const el = document.getElementById(elementId);
+    const text = el.innerText || el.textContent; // نسخ النص بدون HTML tags
+    navigator.clipboard.writeText(text).then(() => {
+        alert("تم نسخ النص بنجاح! ✅");
+    }).catch(err => {
+        console.error('Failed to copy', err);
+    });
+}
+</script></body></html>
