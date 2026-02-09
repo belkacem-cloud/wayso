@@ -1,0 +1,792 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>ORRIVANE Strategy</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+<style>
+    body { background: #FFFFFF; color: #1A1A1A; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; line-height: 1.6; overflow-x: hidden; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 15px; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 2px solid #000; }
+    .wayso-logo { height: 45px; }
+    .brand-name { font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 1.4em; color: #000; text-transform: uppercase; border-right: 4px solid #FFD700; padding-right: 12px; }
+    
+    .analysis-section { margin: 30px 0; }
+    .card-philosophy { padding: 30px; border-radius: 20px; background: #000; color: #FFF; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+    .card-philosophy h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #FFD700; }
+    
+    .card-why { padding: 30px; border-radius: 20px; background: #F9F9F9; color: #333; margin-bottom: 20px; border: 1px solid #EDECE9; }
+    .card-why h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #000; display: flex; align-items: center; gap: 10px; }
+    .card-why h2::after { content: ''; flex-grow: 1; height: 1px; background: #EDECE9; margin-right: 15px; }
+
+    .hero { margin: 35px 0 20px 0; border-right: 6px solid #FFD700; padding-right: 15px; }
+    .hero h1 { font-size: 2.5em; font-weight: 700; margin: 0; }
+    .table-wrapper { margin-top: 25px; border-radius: 12px; overflow: hidden; border: 1px solid #EDECE9; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #000; color: #FFF; padding: 15px; text-align: right; font-size: 0.95em; }
+    td { padding: 20px 12px; border-bottom: 1px solid #EDECE9; vertical-align: top; }
+    
+    .code-badge { font-family: 'Montserrat', sans-serif; font-weight: 700; background: #FFD700; color: #000; padding: 5px 12px; border-radius: 6px; font-size: 1.1em; display: inline-block; margin-bottom: 5px; }
+    .type-label { display: block; font-weight: 700; color: #555; font-size: 0.95em; }
+    
+    .hook-pill { background: #000; color: #FFD700; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 1.1em; display: block; border-right: 5px solid #FFD700; }
+    
+    /* تحسين زر المودال */
+    .script-trigger { background: #F8F9FA; border: 1px solid #EDECE9; padding: 15px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; position: relative; }
+    .script-trigger:hover { background: #FFF; border-color: #FFD700; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transform: translateY(-2px); }
+    
+    .preview-text { font-size: 0.95em; color: #333; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; white-space: pre-wrap; }
+    
+    /* ستايل المودال */
+    .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); }
+    .modal-content { background: #FFF; margin: 5% auto; padding: 30px; border-radius: 20px; width: 90%; max-width: 750px; position: relative; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+    .close-modal { position: absolute; top: 20px; left: 20px; font-size: 30px; cursor: pointer; color: #999; line-height: 1; transition: color 0.2s; }
+    .close-modal:hover { color: #000; }
+    
+    .modal-section { margin-bottom: 25px; padding: 20px; border-radius: 12px; background: #fbfbfa; border: 1px solid #eee; position: relative; }
+    
+    /* زر النسخ */
+    .copy-btn { position: absolute; top: 10px; left: 10px; background: #fff; border: 1px solid #ddd; padding: 5px 10px; border-radius: 6px; cursor: pointer; font-size: 0.8em; font-weight: bold; color: #555; display: flex; align-items: center; gap: 5px; transition: all 0.2s; }
+    .copy-btn:hover { border-color: #FFD700; color: #000; background: #FFD70020; }
+    .copy-btn:active { transform: scale(0.95); }
+    
+    .modal-body { font-size: 1.15em; color: #1A1A1A; line-height: 1.9; word-wrap: break-word; white-space: pre-wrap; }
+    
+    .disclaimer-card { margin: 25px 0; padding: 20px; background: #FFF9E6; border-radius: 12px; border-right: 5px solid #FFC107; font-size: 1.05em; color: #856404; display: flex; align-items: center; gap: 12px; }
+    .summary-box { margin-top: 50px; background: #000; color: #FFF; padding: 40px 20px; border-radius: 25px; text-align: center; }
+    .total-amount { font-family: 'Montserrat'; font-size: 3.5em; font-weight: 700; display: block; color: #FFD700; margin: 10px 0; }
+    .cta-btn { display: inline-block; background: #FFD700; color: #000; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.2em; margin-bottom: 25px; transition: transform 0.2s; }
+    .cta-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px #FFD70060; }
+    
+    .phones-list { margin-top: 15px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; direction: ltr; } 
+    .phone-item { background: #1A1A1A; padding: 8px 15px; border-radius: 8px; border: 1px solid #333; color: #FFF; font-family: 'Montserrat'; font-weight: 700; font-size: 1.2em; white-space: nowrap; }
+
+    @media (max-width: 768px) {
+        thead { display: none; }
+        tr { display: block; border: 1px solid #EDECE9; border-radius: 15px; margin-bottom: 20px; padding: 15px; background: #FFF; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        td { display: block; padding: 10px 0; text-align: right; border-bottom: 1px dashed #eee; }
+        td:last-child { border-bottom: none; }
+        td::before { content: attr(data-label); font-weight: 700; color: #BBB; display: block; font-size: 0.8em; margin-bottom: 6px; text-transform: uppercase; }
+        .brand-name { font-size: 1.1em; }
+        .modal-content { width: 95%; padding: 20px; margin: 10% auto; }
+        .total-amount { font-size: 2.5em; }
+    }
+</style></head><body>
+
+<div class="container">
+    <div class="header">
+        <img src="https://storage.googleapis.com/msgsndr/GwIPQCjstTzxnzDQ1B32/media/68fddb5534bb1597bc934f89.png" class="wayso-logo">
+        <div class="brand-name">ORRIVANE</div>
+    </div>
+
+    <div class="analysis-section">
+        <div class="card-philosophy"><h2>🎯 فلسفة الاستراتيجية</h2><p>في Wayso، نؤمن بأن النجاح الحقيقي لعملائنا ينبع من شراكة استراتيجية مبنية على الفهم العميق لأهدافهم. هذه الحملة، التي تجمع بين قوة الفيديو الشامل والكاروسالات التعليمية، ليست مجرد محتوى؛ إنها استثمار مدروس مصمم لترسيخ مكانتكم في السوق وزيادة أرباحكم بشكل مستدام، مع توفير راحة البال التي تستحقونها كقادة في مجالكم.</p></div>
+        <div class="card-why"><h2>💡 لماذا هذه الخطة؟</h2><p>بدأنا بـ V1 لخطف الانتباه وتأسيس سلطة ORRIVANE كحل جذري لمشكلة Rupture de stock. ثم انتقلنا إلى C2 و P3 لتعليم الجمهور وتعميق فهمهم لتكاليف المشكلة الخفية. هذا التسلسل المصمم بعناية يقود المشاهد في رحلة عاطفية ومنطقية، تحوله من مجرد مشاهد إلى عميل محتمل مدرك لقيمة الحل الذي تقدمونه.</p></div>
+    </div>
+
+    <div class="hero"><h1>خطة الإنتاج الإبداعي</h1></div>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th style="width: 20%;">الكود والنوع</th><th style="width: 30%;">الهوك (Hook)</th><th style="width: 50%;">المحتوى</th></tr></thead>
+            <tbody><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V1</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الرفوف الفارغة في محلك... ماشي مجرد منظر ماشي شباب، راهي تسرقلك في دراهمك كل يوم.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('1')">
+                    <div class="preview-text">(صوت هادئ وواثق)
+كل يوم، نفس الحكاية تتعاود.
+زبون يدخل، يحوس على منتج معين... و الجواب واحد: "خلاصلي...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-1" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('1')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V1</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-1')">📋 نسخ النص</button>
+                            <div id="script-text-1" class="modal-body">(صوت هادئ وواثق)<br/><br/>كل يوم، نفس الحكاية تتعاود.<br/><br/>زبون يدخل، يحوس على منتج معين... و الجواب واحد: "خلاصلي، ماكانش".<br/><br/>ماشي برك خسرت بيعة... راك تخسر في الثقة.<br/><br/>و كل زبون يخرج من عندك ماشي راضي... هو باب تاع ربح تسكر.<br/><br/>هذا يسموه الـ"Rupture de stock". ماشي مجرد مشكل صغير، هو سرطان لي ياكل في سمعتك و أرباحك بالعقل.<br/><br/>وقتها تحس روحك ضايع، تجري مور الموردين، التليفونات ما تحبسش، و النتيجة ماشي ديما مضمونة.<br/><br/>بصح، واش لوكان نقولك كاينة طريقة تبدل كلش؟<br/><br/>تخيل معايا صيدليتك ديما عامرة... كل منتج يطلبه الزبون، تلقاه واجد.<br/><br/>تخيل سمعتك تكبر في السوق... الناس تعرف بلي عندك تلقى كلش، حتى السلعة المقطوعة.<br/><br/>هذا هو الفرق لي تصنعو منصة ORRIVANE.<br/><br/>أوريفان ماشي مجرد مورد، هو الشريك الاستراتيجي لي يضمنلك التحكم الكامل في مخزونك.<br/><br/>بفضل النظام تاعنا الذكي، تقدر تتوقع الطلب، تخطط مسبقاً، و تضمن توفر كل المنتجات الأساسية.<br/><br/>نوفرولك الوقت... الدراهم... و الأهم: راحة البال.<br/><br/>مع أوريفان، الرفوف الفارغة تولي من الماضي.<br/><br/>خلي تجارتك تكبر و سمعتك تزيد قوة.<br/><br/>واش راك تستنى؟</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-1')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-1" class="modal-body">تجارتك تخسر كل يوم... و أنت بالاك ماعلابالكش! 😱<br/><br/>كل مرة تقول للزبون "ماكانش"، راك تفتح الباب للمنافس تاعك باش يدي مكانك.<br/><br/>مشكل نفاذ المخزون (Rupture de stock) ماشي مجرد خسارة تاع بيعة وحدة، هو ثقب أسود يبلع سمعتك، وقتك، و أرباحك.<br/><br/>منصة ORRIVANE هي الحل لي يرجعلك التحكم. نظام ذكي يخليك ديما متقدم بخطوة، و يضمنلك توفر المنتجات لي يحتاجوها زبائنك... ديما.<br/><br/>حان الوقت باش تحبس الخسارة. أكتشف أوريفان: سجل الآن و وفر السلعة لزبائنك ديما!<br/><br/>#ORRIVANE #صيدلية_الجزائر #موزع_ادوية #تجارة_الجملة #حلول_ذكية #ادارة_المخزون #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[إطار هجين: StoryBrand + BAB + PAS]<br/><br/>[0-5 ثواني - المشكل P]: لقطات سينمائية بطيئة لرفوف شبه فارغة في صيدلية أنيقة. زبون يسأل الصيدلي ويبدو عليه الإحباط عندما يهز رأسه بالنفي. التركيز على تعابير وجه الصيدلي القلقة. موسيقى تصويرية متوترة.<br/><br/>[6-15 ثانية - التحريض A]: لقطات سريعة (مونتاج): هاتف يرن باستمرار، قائمة طويلة من الأرقام، صيدلي يمسح على جبينه بتعب. يظهر على الشاشة نص Motion Graphic: "خسارة مبيعات"، "تضرر السمعة"، "ضغط نفسي". صوت المعلق يجب أن يكون أكثر حدة وتأثيراً هنا.<br/><br/>[16-20 ثانية - الجسر B / الحل S]: شاشة سوداء للحظة ثم يظهر شعار ORRIVANE ببطء مع إضاءة خافتة. تتغير الموسيقى إلى نغمة أكثر تفاؤلاً وإيجابية. صوت المعلق يصبح واثقاً وممكّناً.<br/><br/>[21-35 ثانية - العالم الجديد After]: لقطات مشرقة وواضحة لصيدلي مبتسم يستخدم جهاز لوحي (Tablet) تظهر عليه واجهة منصة ORRIVANE. لقطات لرفوف ممتلئة ومنظمة بشكل مثالي. زبائن يدفعون وهم سعداء. لقطة مقربة على الصيدلي وهو يغلق محله في نهاية اليوم براحة بال.<br/><br/>[36-45 ثانية - الفوائد]: أيقونات Motion Graphics تظهر على الشاشة مع كل فائدة يذكرها المعلق: أيقونة عملة (€/DA) لـ "الدراهم"، أيقونة ساعة لـ "الوقت"، أيقونة درع لـ "راحة البال".<br/><br/>[46-50 ثانية - الدعوة للعمل CTA]: لقطة أخيرة للصيدلي الواثق ينظر مباشرة إلى الكاميرا. يظهر على الشاشة عنوان الموقع الإلكتروني وزر واضح: "سجل الآن". صوت المعلق يكون مباشراً ومقنعاً.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C2</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كل منتج "ماكانش" في محلك... شحال يكلفك بالصح؟ ماشي غير السعر تاعو.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('2')">
+                    <div class="preview-text">Slide 1: سلعتك تقطعت... تعرف شحال راك تخسر بلا ما تفيق؟
+Slide 2: دراسة حديثة تقول: أكثر من 40% من ال...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-2" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('2')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C2</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-2')">📋 نسخ النص</button>
+                            <div id="script-text-2" class="modal-body">Slide 1: سلعتك تقطعت... تعرف شحال راك تخسر بلا ما تفيق؟<br/><br/>Slide 2: دراسة حديثة تقول: أكثر من 40% من الزبائن يروحوا عند المنافس مباشرةً كي ما يلقاوش واش يحوسوا... و أغلبهم ما يوليوش.<br/><br/>Slide 3: الخسارة الحقيقية ماشي في سعر المنتج، بل في سمعة تجارتك. الثقة لي يبنيها الزبون فيك على مدار سنين، تقدر تطيح في دقيقة.<br/><br/>Slide 4: التخطيط المسبق للمخزون هو أساس أي تجارة ناجحة. هو لي يخليك ديما واجد و يضمنلك استمرارية الأرباح.<br/><br/>Slide 5: الحل موجود باش ما تزيدش تقول "خلاصلي". ORRIVANE هو شريكك باش تضمن مخزونك و تحافظ على زبائنك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-2')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-2" class="modal-body">الأرقام لا تكذب... شوف بعينيك حجم الخسارة الحقيقي! 📊<br/><br/>تعتقد أن خسارتك تتوقف عند سعر المنتج لي ماكانش؟ للأسف، الحقيقة أصعب بكثير.<br/><br/>في هذا الكاروسال، راح نكشفولك بالأرقام كيفاش نفاذ المخزون راه يأثر مباشرة على سمعتك و أرباحك على المدى البعيد.<br/><br/>اقرا و اكتشف الحل لي يخليك ديما في الصدارة.<br/><br/>#ادارة_مخزون #خسائر_خفية #تجارة_ناجحة #صيدليات_الجزائر #ORRIVANE_DZ #نصائح_اعمال</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم غرافيكي احترافي (عبد الرحمن).<br/>- الخلفية: استخدام خلفية بيضاء أو بلون هادئ من ألوان العلامة التجارية مع لمسات بسيطة.<br/>- Slide 1: العنوان بخط عريض وواضح، مع أيقونة علامة استفهام كبيرة.<br/>- Slide 2: استخدام رسم بياني بسيط (Infographic) لإظهار نسبة 40% بشكل بصري جذاب.<br/>- Slide 3: صورة رمزية ليدين تتصافحان (تمثل الثقة) مع علامة كسر (Crack) في المنتصف.<br/>- Slide 4: أيقونة تقويم أو مخطط بياني يرمز للتخطيط.<br/>- Slide 5: وضع شعار ORRIVANE بشكل بارز مع عبارة قصيرة ومحفزة. استخدام خط واضح وسهل القراءة في كل الشرائح.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P3</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الزبون كي ما يلقاش عندك... يلقى عند غيرك. سمعتك هي الصح.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('3')">
+                    <div class="preview-text">سمعتك في الميزان... منتجاتك متوفرة ولا لأ؟...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-3" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('3')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P3</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-3')">📋 نسخ النص</button>
+                            <div id="script-text-3" class="modal-body">سمعتك في الميزان... منتجاتك متوفرة ولا لأ؟</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-3')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-3" class="modal-body">الثقة تُبنى في سنين... و تُهدم في كلمة "ماكانش"! 💔<br/><br/>في سوق المنافسة فيه قوية، السمعة هي رأس مالك الحقيقي. كل منتج ناقص هو ضربة لهذيك السمعة.<br/><br/>لا تترك عملك للصدفة. كن المرجع الموثوق لي يلجأ ليه الزبون و هو متأكد أنه سيلقى ما يبحث عنه.<br/><br/>حمي سمعة تجارتك. زور موقعنا واكتشف كيفاش ORRIVANE تضمنلك التوفر الدائم.<br/><br/>#سمعة_تجارية #ولاء_العملاء #الجزائر #اعمال_ناجحة #صيدلية #ORRIVANE</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم غرافيكي (عبد الرحمن).<br/>- المفهوم: تصميم بسيط و قوي. في المنتصف، ميزان قديم (Balance scale). كفة فيها أيقونة "شخص/زبون سعيد" وهي الأثقل، والكفة الأخرى فيها أيقونة "منتج غير متوفر" وهي الأخف.<br/>- النص يكون فوق الميزان بخط أنيق وواضح.<br/>- شعار ORRIVANE في زاوية التصميم.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V4</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">التليفون ما يحبسش، الموردين واحد يقولك كاين و واحد مكانش... حسيت روحك فاقد السيطرة؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('4')">
+                    <div class="preview-text">(صوت شخص يتحدث في الهاتف، يبدو عليه التعب و الإحباط)
+ألو؟ خويا لعزيز، هذيك السلعة دخلت ولا مازال؟
+(و...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-4" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('4')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V4</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-4')">📋 نسخ النص</button>
+                            <div id="script-text-4" class="modal-body">(صوت شخص يتحدث في الهاتف، يبدو عليه التعب و الإحباط)<br/><br/>ألو؟ خويا لعزيز، هذيك السلعة دخلت ولا مازال؟<br/><br/>(وقفة قصيرة)<br/><br/>كيفاش مازال؟ يا خويا سمانة و أنا نستنى!<br/><br/>(يغلق الهاتف بعصبية خفيفة، يتنهد)<br/><br/><br/><br/>(ينظر للكاميرا مباشرة)<br/><br/>هذا هو حالي كل يوم. عقلي حاير بين الموردين، واحد يعدك و ما يوفيش، و لاخر السعر تاعو في السما.<br/><br/>تحس روحك تلعب في لعبة الحظ، و التجارة تاعك هي لي راهي في الميزان.<br/><br/>كنت حاسب بلي هذا هو المكتوب، حتى عرفت بلي كاين طريقة أخرى.<br/><br/>(يفتح جهاز لوحي، تظهر واجهة ORRIVANE)<br/><br/>مع أوريفان، رجعتلي السيطرة. كلش واضح، كلش مضمون، و كلش في وقتو.<br/><br/>دروك، راني متفرغ لخدمتي الصح... و لزبائني.<br/><br/>ما بقيتش نجري مور السلعة، السلعة هي لي راهي مضمونة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-4')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-4" class="modal-body">هل أنت مدير تجارتك... أم أسير فوضى الموردين؟ 🤔<br/><br/>الشعور بفقدان السيطرة هو واحد من أكبر الضغوطات لي يعيشها صاحب العمل.<br/><br/>عندما يكون نجاحك معلق بوعود الآخرين، من المستحيل التخطيط للمستقبل.<br/><br/>ORRIVANE ليست مجرد منصة، بل هي أداة تمنحك القوة لاستعادة التحكم الكامل في سلسلة التوريد الخاصة بك.<br/><br/>تخلص من القلق و تحكم في مخزونك. تفضل زور موقعنا واكتشف كيف.<br/><br/>#تحكم_في_عملك #ادارة_الموردين #راحة_البال #نجاح_مهني #ORRIVANE_DZ #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[UGC - إطار BAB]<br/><br/>- الكاميرا: تصوير بأسلوب واقعي، كأن الشخص يصور نفسه (Selfie mode) أو شخص آخر يصوره بطريقة عفوية. إضاءة طبيعية.<br/><br/>- [Before]: المشهد الأول في مكتب أو خلفية صيدلية تبدو فوضوية قليلاً. الممثل (أحمد/إسلام) يجب أن يظهر الإحباط الحقيقي (تعب، قلق، تنهدات).<br/><br/>- [Bridge]: اللقطة التي يفتح فيها الجهاز اللوحي هي نقطة التحول. يمكن إضافة مؤثر صوتي خفيف (Swoosh) للدلالة على التغيير.<br/><br/>- [After]: المشهد الثاني يكون في نفس المكان لكنه أكثر ترتيباً. الممثل يبدو مرتاحاً، واثقاً، ويتحدث بهدوء. ابتسامة خفيفة في نهاية الفيديو.<br/><br/>- الأداء: يجب أن يكون طبيعياً جداً و غير متصنع، كأنه شخص حقيقي يشارك تجربته.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C5</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">من الفوضى اليومية إلى التحكم التام... حكاية صيدلي كيما نتا.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('5')">
+                    <div class="preview-text">Slide 1: من الفوضى إلى التحكم التام: حكاية صيدلي رجع تحكمو في السوق.
+Slide 2: "قبل": كان سمير يقضي ن...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-5" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('5')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C5</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-5')">📋 نسخ النص</button>
+                            <div id="script-text-5" class="modal-body">Slide 1: من الفوضى إلى التحكم التام: حكاية صيدلي رجع تحكمو في السوق.<br/><br/>Slide 2: "قبل": كان سمير يقضي نصف يومه في الهاتف مع الموردين. مخزونه كان ديما ناقص، و الزبائن بدأو يهربوا.<br/><br/>Slide 3: "بعد": اكتشف سمير ORRIVANE. في أسابيع قليلة، أصبح بإمكانه تتبع مخزونه بدقة، و طلب المنتجات قبل نفاذها بضغطة زر.<br/><br/>Slide 4: النتيجة: مخزون مستقر، زبائن راضون، و أرباح في ارتفاع. سمير الآن يركز على تطوير صيدليته، ماشي على الجري مور السلعة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-5')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-5" class="modal-body">كان يعاني من نفس مشاكلك... شوف كيفاش تبدلت حياتو. 📖<br/><br/>النجاح ليس صدفة، بل هو نتيجة اتخاذ القرارات الصحيحة في الوقت المناسب.<br/><br/>تابع معنا قصة سمير، الصيدلي الذي قرر أن يغير واقعه من الفوضى إلى التحكم المطلق بفضل حل واحد ذكي.<br/><br/>اقرا القصة كاملة و اكتشف نفسك فيها.<br/><br/>#قصص_نجاح #قبل_وبعد #تحفيز_اعمال #ريادة_اعمال_الجزائر #صيدلي #ORRIVANE</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم غرافيكي (عبد الرحمن).<br/>- الأسلوب: قصصي (Storytelling). استخدام أيقونات أو رسوم بسيطة تروي القصة.<br/>- Slide 1: عنوان جذاب بخط كبير.<br/>- Slide 2: استخدام ألوان داكنة أو رمادية. أيقونة هاتف مع علامات تعجب و استفهام حوله.<br/>- Slide 3: الانتقال إلى ألوان مشرقة وحيوية (ألوان العلامة التجارية). أيقونة جهاز لوحي مع علامة صح (✓).<br/>- Slide 4: رسم بياني بسيط يظهر سهماً متجهاً للأعلى (للأرباح). أيقونة زبون مبتسم. في الأسفل شعار ORRIVANE مع عبارة "قصتك تبدأ هنا".</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P6</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">ما تخليش تجارتك تمشي بالزهر... خليها تمشي بالتحكم.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('6')">
+                    <div class="preview-text">تحكم في تجارتك و خلي القلق للوراء....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-6" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('6')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P6</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-6')">📋 نسخ النص</button>
+                            <div id="script-text-6" class="modal-body">تحكم في تجارتك و خلي القلق للوراء.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-6')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-6" class="modal-body">القرار يرجع ليك: تبقى تتفرج ولا تولي تتحكم؟ 🎮<br/><br/>الفوضى، عدم اليقين، القلق... هذه كلها أعراض لفقدان السيطرة على أهم جزء في عملك: المخزون.<br/><br/>ORRIVANE تمنحك الأدوات اللازمة لتكون أنت القائد، أنت من يقرر، و أنت من يتحكم.<br/><br/>أوريفان: تحكمك الكامل على المنتجات. اكتشف المزيد على موقعنا.<br/><br/>#التحكم #القوة #ادارة_الاعمال #ريادة_اعمال #ORRIVANE_DZ #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم غرافيكي (عبد الرحمن).<br/>- المفهوم: صورة رمزية قوية. يد شخص (رجل أعمال/صيدلي) تمسك بزمام الأمور (Reins) أو عجلة قيادة (Steering wheel). الخلفية تمثل بيانات أو رسوم بيانية بشكل احترافي.<br/>- النص يكون مدمجاً بشكل أنيق في التصميم.<br/>- شعار ORRIVANE في الأسفل مع عبارة: "التحكم الكامل بين يديك".</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V7</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">السوايع لي ضيعتهم في التليفون مع الموردين... لوكان خدمت بيهم، شحال كنت راح تدخل دراهم؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('7')">
+                    <div class="preview-text">(صوت ساعة تدق بشكل واضح ومستمر في الخلفية)
+في عالم التجارة، كل دقيقة عندها قيمة.
+شحال من ساعة ضيعتها...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-7" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('7')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V7</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-7')">📋 نسخ النص</button>
+                            <div id="script-text-7" class="modal-body">(صوت ساعة تدق بشكل واضح ومستمر في الخلفية)<br/><br/>في عالم التجارة، كل دقيقة عندها قيمة.<br/><br/>شحال من ساعة ضيعتها هذا الأسبوع و أنت تبحث على منتج مقطوع؟<br/><br/>شحال من فرصة راحت عليك باش تخدم زبون جديد، لأنك كنت مشغول في مكالمة مع مورد؟<br/><br/>هذا الوقت الضايع... هو في الحقيقة دراهم ضايعة.<br/><br/>أوريفان تفهم قيمة وقتك.<br/><br/>منصتنا مصممة باش توفرلك ساعات ثمينة كل أسبوع.<br/><br/>بدل ما تجري مور السلعة، خلي نظامنا الذكي يخدم في بلاصتك.<br/><br/>استثمر وقتك في تطوير عملك، في بناء علاقات مع زبائنك، في التخطيط للمستقبل.<br/><br/>لأن وقتك... أغلى من أن يضيع في الانتظار.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-7')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-7" class="modal-body">أكبر تكلفة في تجارتك ليست السلعة... بل الوقت الضائع! ⏳💸<br/><br/>هل حسبت يوماً تكلفة الساعات التي تقضيها في مهام متكررة مثل البحث عن الموردين وتتبع الطلبات؟<br/><br/>هذا الوقت هو أثمن مورد لديك. ORRIVANE مصممة لتعيده إليك، مما يسمح لك بالتركيز على ما يهم حقًا: نمو عملك.<br/><br/>وقتك أغلى من أن يضيع. اكتشف كيف توفره مع أوريفان.<br/><br/>#كفاءة_تشغيلية #توفير_الوقت #ادارة_الوقت #انتاجية #ORRIVANE_DZ #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Motion Graphics - إطار QUEST]<br/><br/>- الأسلوب: فيديو Motion Graphics سريع و احترافي.<br/>- [0-5 ثواني]: تظهر ساعة كبيرة على الشاشة وعقاربها تدور بسرعة. أرقام تتطاير (تمثل الدقائق والساعات الضائعة).<br/>- [6-15 ثواني]: أيقونة هاتف تظهر وعليها علامة X حمراء. أيقونة زبون حزين يغادر. أيقونات عملات (Coins) تختفي من الشاشة.<br/>- [16-25 ثواني]: انتقال سلس إلى واجهة منصة ORRIVANE المتحركة. تظهر أيقونات (Checklists, automated orders, analytics) لتوضيح الكفاءة.<br/>- [26-35 ثواني]: مشاهد متحركة تظهر ما يمكن فعله بالوقت الموفر: أيقونة مصافحة (علاقات مع الزبائن)، أيقونة رسم بياني للنمو (تطوير العمل)، أيقونة دماغ يفكر (تخطيط استراتيجي).<br/>- [36-40 ثواني]: تظهر رسالة واضحة في النهاية: "وقتك = أموالك. استثمره بذكاء".<br/>- الموسيقى: تبدأ مع دقات ساعة ثم تتحول إلى موسيقى إلكترونية محفزة و عصرية.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C8</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الوقت لي يروح ما يوليش... بصح تقدر تستثمرو بدل ما تضيعو. شوف كيفاش.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('8')">
+                    <div class="preview-text">Slide 1: وقتك: الكنز الذي لا يعوض في عملك.
+Slide 2: البحث المستمر عن المنتجات و متابعة الموردين يسته...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-8" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('8')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C8</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-8')">📋 نسخ النص</button>
+                            <div id="script-text-8" class="modal-body">Slide 1: وقتك: الكنز الذي لا يعوض في عملك.<br/><br/>Slide 2: البحث المستمر عن المنتجات و متابعة الموردين يستهلك على الأقل 5 ساعات أسبوعياً. هذا وقت كان بإمكانك استغلاله لخدمة 20 زبون إضافي!<br/><br/>Slide 3: بالوقت الذي توفره مع أوريفان، يمكنك: تدريب فريقك، تحليل مبيعاتك، أو حتى أخذ قسط من الراحة لإعادة شحن طاقتك.<br/><br/>Slide 4: ORRIVANE ليس مجرد منصة، بل هو استثمار مباشر في وقتك و إنتاجيتك. كل دقيقة توفرها هي ربح صافي.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-8')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-8" class="modal-body">هل تستثمر وقتك... أم تستهلكه؟ 🤔 الفرق كبير!<br/><br/>الوقت هو المورد الوحيد الذي لا يمكن شراؤه. لكن يمكنك إدارته بذكاء.<br/><br/>في هذا الكاروسال، سنوضح لك كيف يمكن لبعض الساعات الضائعة أسبوعياً أن تكلفك الكثير، وكيف يمكنك استعادتها.<br/><br/>قائمة: كيف تستثمر وقتك صح مع الحلول الذكية من أوريفان.<br/><br/>#استثمار_الوقت #انتاجية_عالية #ذكاء_الاعمال #صيدليات #ORRIVANE #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم غرافيكي (عبد الرحمن).<br/>- الأسلوب: تعليمي و تحفيزي.<br/>- Slide 1: صورة ساعة رملية أنيقة مع العنوان بخط فاخر.<br/>- Slide 2: إنفوجرافيك بسيط يقارن بين "وقت ضائع" (أيقونة هاتف) و "فرصة ربح" (أيقونات زبائن).<br/>- Slide 3: استخدام أيقونات متعددة تمثل الأنشطة المذكورة (تدريب، تحليل، استرخاء) في تصميم شبكي (Grid layout).<br/>- Slide 4: وضع شعار ORRIVANE في المنتصف مع معادلة بسيطة: "وقت أكثر = أرباح أكثر".</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P9</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كل دقيقة تضيعها في الروتين، هي فرصة تضيعها للنمو.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('9')">
+                    <div class="preview-text">وقتك دراهم! علاش راك تضيعه؟...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-9" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('9')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P9</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-9')">📋 نسخ النص</button>
+                            <div id="script-text-9" class="modal-body">وقتك دراهم! علاش راك تضيعه؟</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-9')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-9" class="modal-body">المعادلة بسيطة: توفير الوقت = زيادة الأرباح. 💰<br/><br/>توقف عن إهدار أثمن أصولك في مهام يمكن أتمتتها.<br/><br/>الكفاءة التشغيلية ليست ترفاً، بل هي ضرورة للنجاح في السوق اليوم. ORRIVANE تمنحك هذه الكفاءة.<br/><br/>حلول ذكية لتوفير الوقت. اعرف المزيد على موقعنا.<br/><br/>#الوقت_هو_المال #كفاءة #أتمتة_الاعمال #نمو_الاعمال #ORRIVANE_DZ</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم غرافيكي (عبد الرحمن).<br/>- المفهوم: صورة مجمعة (Collage) تضع صورة ساعة أنيقة بجانب كومة من العملات المالية (أورو أو دينار)، لترسيخ فكرة "الوقت هو المال" بصرياً.<br/>- النص يكون كبيراً وواضحاً في منتصف التصميم.<br/>- شعار ORRIVANE في الأسفل مع عبارة "استثمر في الكفاءة".</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V10</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كي يخلص الدوا المهم هذاك... تحس بقلبك يضيق؟ هذا ماشي مجرد بيزنس، راه ضغط نفسي.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('10')">
+                    <div class="preview-text">(مشهد صيدلي يغلق محله في وقت متأخر من الليل، يبدو عليه الإرهاق الشديد)
+(صوت داخلي هادئ وحزين)
+نهار آ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-10" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('10')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V10</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-10')">📋 نسخ النص</button>
+                            <div id="script-text-10" class="modal-body">(مشهد صيدلي يغلق محله في وقت متأخر من الليل، يبدو عليه الإرهاق الشديد)<br/><br/>(صوت داخلي هادئ وحزين)<br/><br/>نهار آخر... نفس التعب.<br/><br/>الضغط تاع الزبائن لي ما لقاوش دواهم.<br/><br/>الضغط تاع المورد لي مازال ما جابش السلعة.<br/><br/>تحس روحك وحدك في هذه المعركة.<br/><br/>(يتوقف للحظة، ينظر إلى هاتفه، يرى إشعاراً)<br/><br/>بصح... كاين لي يفهمك.<br/><br/>كاين لي يعرف بلي خدمتك ماشي ساهلة.<br/><br/>(يفتح تطبيق ORRIVANE على هاتفه، يرى أن كل الطلبات تم تأكيدها)<br/><br/>ORRIVANE ماشي برك توفرلك السلعة.<br/><br/>توفرلك حاجة أهم... راحة البال.<br/><br/>(ابتسامة خفيفة تظهر على وجهه)<br/><br/>باش تقدر تركز على مهمتك الحقيقية: خدمة الناس.<br/><br/>(يغلق المحل و يمشي بثقة و هدوء).</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-10')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-10" class="modal-body">الضغط النفسي في عملك... هل أصبح جزءاً من الروتين؟ 🤯<br/><br/>إدارة المخزون ليست مجرد أرقام، بل هي مسؤولية كبيرة تسبب ضغطاً نفسياً هائلاً.<br/><br/>القلق من نفاذ المنتجات، التعامل مع الموردين، ومواجهة الزبائن... كلها عوامل تستنزف طاقتك.<br/><br/>لقد حان الوقت لتغيير هذا الواقع.<br/><br/>قل وداعاً للضغط. أوريفان تجلب لك راحة البال التي تستحقها.<br/><br/>#راحة_البال #صحة_نفسية #ادارة_الضغط #ريادة_اعمال #ORRIVANE #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Storytelling - إطار AIDA]<br/><br/>- [Attention]: المشهد الافتتاحي الليلي مع الصيدلي المرهق. الإضاءة خافتة، والموسيقى هادئة وحزينة. يجب أن يجذب الانتباه فوراً.<br/>- [Interest]: الصوت الداخلي (Voiceover) يشرح مصدر الضغط. يجب أن يثير اهتمام المشاهد الذي يعاني من نفس المشكلة.<br/>- [Desire]: اللحظة التي يرى فيها إشعار ORRIVANE هي نقطة التحول. تتغير الإضاءة لتصبح أكثر دفئاً. الموسيقى تكتسب نبرة أمل. هنا نخلق الرغبة في الحصول على نفس "راحة البال".<br/>- [Action]: المشهد الأخير يمثل النتيجة المرجوة (التحرك بثقة). تظهر دعوة للعمل واضحة على الشاشة.<br/>- الأداء (أحمد/إسلام): يجب التركيز على التعبير عن الإرهاق في البداية، ثم الارتياح والأمل في النهاية.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C11</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">متوتر من خدمة المخزون؟ هاك 3 خطوات عملية باش تتهنى.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('11')">
+                    <div class="preview-text">Slide 1: تخلص من الضغط: 3 استراتيجيات ذكية لإدارة المخزون.
+Slide 2: الخطوة 1: فهم مصادر التوتر. هل ه...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-11" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('11')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C11</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-11')">📋 نسخ النص</button>
+                            <div id="script-text-11" class="modal-body">Slide 1: تخلص من الضغط: 3 استراتيجيات ذكية لإدارة المخزون.<br/><br/>Slide 2: الخطوة 1: فهم مصادر التوتر. هل هو الخوف من نفاذ المخزون؟ أم فوضى الموردين؟ تحديد المشكل هو نصف الحل.<br/><br/>Slide 3: الخطوة 2: تقليل الأخطاء البشرية. اعتمد على التكنولوجيا للتنبؤ بالطلب و أتمتة الطلبات المتكررة. دع الآلة تقوم بالعمل الروتيني.<br/><br/>Slide 4: الخطوة 3: اختر شريكاً موثوقاً. نظام مركزي مثل ORRIVANE يمنحك رؤية شاملة و تحكماً كاملاً، مما يزيل 90% من مصادر القلق.<br/><br/>Slide 5: راحة بالك لا تقدر بثمن. ابدأ اليوم في تطبيق هذه الخطوات.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-11')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-11" class="modal-body">التوتر ليس قدراً محتوماً! خطوات بسيطة لراحة بال دائمة. 🧘‍♂️<br/><br/>الكثير من الضغط الذي تشعر به في عملك يمكن تجنبه بسهولة من خلال تطبيق بعض الاستراتيجيات الذكية.<br/><br/>في هذا الكاروسال، نقدم لك خارطة طريق عملية لتقليل التوتر واستعادة هدوئك المهني.<br/><br/>اكتشف نصائحنا و ابدأ رحلتك نحو إدارة أكثر هدوءاً وفعالية.<br/><br/>#نصائح_ادارة #تقليل_التوتر #هدوء_نفسي #انتاجية #ORRIVANE_DZ #اعمال</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم غرافيكي (عبد الرحمن).<br/>- الأسلوب: تعليمي، هادئ ومريح بصرياً.<br/>- استخدام ألوان الباستيل المريحة مع الأبيض.<br/>- Slide 1: عنوان واضح مع أيقونة لشخص يتأمل (Meditating).<br/>- Slide 2, 3, 4: استخدام تصميم مرقم (1, 2, 3) مع أيقونة بسيطة لكل خطوة (عدسة مكبرة للمشكل، روبوت للأتمتة، مصافحة للشراكة).<br/>- Slide 5: دعوة للعمل مع شعار ORRIVANE.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P12</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الخدمة لي تريحلك بالك... تسوى كثر من الخدمة لي دخل الدراهم برك.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('12')">
+                    <div class="preview-text">تهنى من التخمام! مخزونك ديما مضمون....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-12" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('12')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P12</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-12')">📋 نسخ النص</button>
+                            <div id="script-text-12" class="modal-body">تهنى من التخمام! مخزونك ديما مضمون.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-12')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-12" class="modal-body">ما هو النجاح الحقيقي؟ الأرباح... أم راحة البال؟ (لماذا لا يكون كلاهما؟) 😉<br/><br/>الأمان المهني لا يتعلق فقط بالاستقرار المالي، بل بالشعور بالهدوء والثقة في أن كل شيء تحت السيطرة.<br/><br/>هذا هو الوعد الذي تقدمه ORRIVANE: نظام قوي يضمن لك الأمان لعملك، والراحة لبالك.<br/><br/>نظام أوريفان: أمان لعملك وراحة لبالك. اكتشف المزيد.<br/><br/>#امان_مهني #هدوء #ثقة #ORRIVANE #صيدليات_الجزائر #موزعين</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم غرافيكي (عبد الرحمن).<br/>- المفهوم: صورة عالية الجودة لشخص (صيدلي/مدير) يستمتع بكوب قهوة وهو يبتسم بارتياح في مكتبه المنظم. التركيز على الشعور بالهدوء والسيطرة.<br/>- النص يكون مكتوباً بخط أنيق فوق الصورة.<br/>- شعار ORRIVANE مع عبارة "شريكك لراحة البال".</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V13</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">ما تسمعش لينا... اسمع للناس لي جربت و تبدلت حياتها.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('13')">
+                    <div class="preview-text">(شخص 1 - صيدلي، يتحدث للكاميرا بصدق)
+"في الأول كنت متردد، نقول بالاك كيما كامل الموردين. بصح مع ORRI...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-13" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('13')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V13</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-13')">📋 نسخ النص</button>
+                            <div id="script-text-13" class="modal-body">(شخص 1 - صيدلي، يتحدث للكاميرا بصدق)<br/><br/>"في الأول كنت متردد، نقول بالاك كيما كامل الموردين. بصح مع ORRIVANE، الحكاية مختلفة. الدقة في المواعيد، توفر السلعة... رجعولي الثقة في روحي و قدام الزبائن."<br/><br/><br/><br/>(شخص 2 - مدير توزيع، في مكتبه)<br/><br/>"الوقت لي كنا نضيعوه في تسيير الطلبيات كان كارثة. دروك مع النظام تاعهم، ربحنا على الأقل 10 ساعات خدمة في السمانة. هذا ربح صافي لينا."<br/><br/><br/><br/>(شخص 3 - صيدلانية شابة)<br/><br/>"كيما يقولو صحاب التجارب... أوريفان بدلتلي حياتي! خاصة في المنتجات النادرة، وليت أنا الأولى لي نجيبها في المنطقة. سمعتي تبدلت 180 درجة."<br/><br/><br/><br/>(تظهر لقطات سريعة للمتحدثين الثلاثة وهم يبتسمون)<br/><br/>(نص على الشاشة: "النجاح يبدأ بقرار واحد.")</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-13')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-13" class="modal-body">كلامنا وحدو ما يكفيش... شوف واش قالو عملائنا! 💬<br/><br/>أفضل طريقة لمعرفة قيمة أي خدمة هي من خلال تجارب أناس حقيقيين، عاشوا نفس التحديات التي تواجهها أنت اليوم.<br/><br/>في هذا الفيديو، عملاؤنا يشاركون قصصهم بكل شفافية.<br/><br/>اسمع حكايات النجاح بنفسك. زور موقعنا و انضم لينا.<br/><br/>#شهادات_عملاء #اثبات_اجتماعي #ثقة #قصص_نجاح #ORRIVANE_DZ #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[UGC - Testimonial Video]<br/><br/>- الأسلوب: شهادات حقيقية وعفوية. كل شخص في بيئة عمله الطبيعية (صيدلية، مكتب، مستودع).<br/>- الكاميرا: تصوير ثابت وواضح، مع التركيز على وجه المتحدث لتعزيز الصدق والمصداقية.<br/>- المونتاج: قص سريع بين الشهادات المختلفة للحفاظ على إيقاع الفيديو. يمكن إضافة اسم المتحدث و مهنته كنص صغير في أسفل الشاشة.<br/>- الصوت: يجب أن يكون واضحاً جداً. يمكن إضافة موسيقى خلفية هادئة لا تطغى على صوت المتحدثين.<br/>- النهاية: لقطة تجمع صور المتحدثين الثلاثة مع شعار ORRIVANE.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C14</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الناس لي جربو هوما خير دليل. اقرا حكاياتهم.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('14')">
+                    <div class="preview-text">Slide 1: نجاحات حقيقية مع أوريفان: عملاؤنا يتحدثون.
+Slide 2: "مكنتني أوريفان من توفير كل شيء لزبائني...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-14" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('14')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C14</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-14')">📋 نسخ النص</button>
+                            <div id="script-text-14" class="modal-body">Slide 1: نجاحات حقيقية مع أوريفان: عملاؤنا يتحدثون.<br/><br/>Slide 2: "مكنتني أوريفان من توفير كل شيء لزبائني، حتى الأدوية التي كانت تعتبر مقطوعة. الآن صيدليتي هي المرجع الأول في الحي." - د. فريد، صيدلي في الجزائر العاصمة.<br/><br/>Slide 3: "الكفاءة هي كل شيء في مجال التوزيع. ربحنا الوقت و الدراهم بفضل نظامهم المركزي. أنصح بهم بشدة." - سفيان.م، مدير شركة توزيع.<br/><br/>Slide 4: قصص النجاح هذه يمكن أن تكون قصتك. هل أنت مستعد للخطوة التالية؟</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-14')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-14" class="modal-body">ليس مجرد كلام... بل نتائج حقيقية على أرض الواقع. ✅<br/><br/>عندما يتحدث عملاؤنا، نحن نستمع. لأن نجاحهم هو مقياس نجاحنا.<br/><br/>اكتشف من خلال هذه الشهادات كيف ساهمت ORRIVANE في تغيير واقع الصيادلة والموزعين في الجزائر.<br/><br/>اقرا شهاداتهم هنا و استلهم قصة نجاحك القادمة.<br/><br/>#اراء_العملاء #مصداقية #نتائج_مضمونة #تجارة_الجزائر #ORRIVANE</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم غرافيكي (عبد الرحمن).<br/>- الأسلوب: أنيق و احترافي، يركز على الاقتباسات.<br/>- Slide 1: عنوان واضح مع صور رمزية (Avatars) لعدة أشخاص.<br/>- Slide 2 & 3: كل شريحة مخصصة لشهادة واحدة. استخدام صورة رمزية للمتحدث، نص الاقتباس بخط مميز، واسمه ومنصبه في الأسفل.<br/>- Slide 4: دعوة للعمل مباشرة مع شعار ORRIVANE و زر وهمي (Ghost button) مكتوب عليه "انضم إليهم".</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P15</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الثقة ما تتشراش... تتخدم. و الدليل هو شهادة عملائنا.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('15')">
+                    <div class="preview-text">ثقة عملائنا هي راس مالنا....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-15" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('15')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P15</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-15')">📋 نسخ النص</button>
+                            <div id="script-text-15" class="modal-body">ثقة عملائنا هي راس مالنا.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-15')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-15" class="modal-body">عندما يضع عملاؤنا ثقتهم فينا، هذه هي أكبر شهادة نعتز بها. 🏆<br/><br/>نحن لا نبني مجرد علاقات عمل، بل نبني شراكات قائمة على الثقة والنتائج الملموسة.<br/><br/>هذه الثقة هي أساس كل ما نقوم به في ORRIVANE.<br/><br/>انضم إلى مجتمع أوريفان الناجح و كن جزءاً من هذه الثقة.<br/><br/>#الثقة #شراكة_نجاح #عملاء_راضون #مجتمع_الاعمال #ORRIVANE_DZ</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم غرافيكي (عبد الرحمن).<br/>- المفهوم: تصميم بسيط يعرض اقتباساً قوياً من أحد العملاء (مثلاً: "أفضل شريك تعاملت معه.") بخط يدوي (Script font) أنيق. وفي الأسفل، النص الرئيسي "ثقة عملائنا هي راس مالنا" بخط رسمي.<br/>- الخلفية تكون صورة عالية الجودة لمصافحة (Handshake) ترمز للثقة والشراكة.<br/>- شعار ORRIVANE يكون بارزاً.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V16</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">شفت المشكل، و شفت الحل... السؤال الوحيد لي بقى: واش راك تستنى؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('16')">
+                    <div class="preview-text">(وجه إعلامي Host يقف أمام شاشة تعرض شعار ORRIVANE، يتحدث مباشرة للكاميرا بحماس وثقة)
+
+السلام عليكم،
+...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-16" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('16')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V16</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-16')">📋 نسخ النص</button>
+                            <div id="script-text-16" class="modal-body">(وجه إعلامي Host يقف أمام شاشة تعرض شعار ORRIVANE، يتحدث مباشرة للكاميرا بحماس وثقة)<br/><br/><br/><br/>السلام عليكم،<br/><br/>على مدار الدقائق لي فاتت، حكينا على أكبر تحدي يواجه تجارتك: مشكل نفاذ المخزون.<br/><br/>(تظهر على الشاشة خلفه لقطات سريعة من الفيديوهات السابقة: الرفوف الفارغة، الصيدلي المتوتر).<br/><br/>شفنا كيفاش هذا المشكل يسرقلك أرباحك، سمعتك، و راحة بالك.<br/><br/>(تظهر الآن لقطات للحل: واجهة المنصة، الصيدلي السعيد).<br/><br/>و الأهم، شفنا بلي الحل موجود بين يديك.<br/><br/>أوريفان ماهيش مجرد خدمة، هي قرار استراتيجي.<br/><br/>قرار باش تولي تتحكم في تجارتك و ما تخليهاش هي تتحكم فيك.<br/><br/>قرار باش تربح أكثر، تخدم مرتاح، و تبني سمعة تاع حديد.<br/><br/>السؤال ماشي "إذا" لازم تبدا، السؤال هو "وقتاش؟".<br/><br/>و الجواب هو: الآن.<br/><br/>كل يوم تأخير هو يوم آخر من الخسارة.<br/><br/>الفرصة راهي قدامك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-16')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-16" class="modal-body">وصلنا للحظة القرار... هل ستبقى في الماضي أم ستصنع مستقبلك؟ 🚀<br/><br/>لقد رأيت المشكلة، وتعرفت على الحل، وسمعت قصص النجاح.<br/><br/>لم يبق سوى خطوة واحدة تفصلك عن التحكم الكامل وراحة البال التي تستحقها.<br/><br/>لا تدع التردد يكلفك المزيد من الوقت والأرباح.<br/><br/>حان الوقت باش تتخذ القرار! سجل الآن و ابدأ رحلتك مع أوريفان!<br/><br/>#اتخذ_القرار #فرصة_عمل #مستقبل_افضل #نمو #ORRIVANE #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Direct to Camera - إطار PAS]<br/><br/>- [Problem]: الـ Host يذكر المشاهد بالمشكلة بوضوح في بداية الفيديو، مع دعم بصري من لقطات سابقة على الشاشة خلفه.<br/>- [Agitate]: يربط المشكلة مباشرة بالخسائر الملموسة (أرباح، سمعة، راحة بال) لتعميق الشعور بالحاجة للحل.<br/>- [Solve]: يقدم ORRIVANE كـ "قرار استراتيجي" و ليس مجرد "خدمة". يجب أن تكون نبرة صوته قوية ومقنعة. الشاشة خلفه تعرض شعار ORRIVANE بوضوح.<br/>- الكاميرا: لقطة متوسطة (Medium shot) ثابتة على الـ Host. تواصل بصري مباشر مع الجمهور.<br/>- الإضاءة: احترافية ومشرقة.<br/>- الختام: زووم بطيء على وجه الـ Host وهو يطرح السؤال الأخير، ثم تظهر دعوة للعمل كبيرة على كامل الشاشة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C17</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">مازال تخمم؟ هاك زبدة الموضوع في 3 نقاط تخليك تقرر الآن.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('17')">
+                    <div class="preview-text">Slide 1: لماذا تختار أوريفان؟ أهم 3 أسباب تخليك تقرر اليوم.
+Slide 2: 1. الربحية المضمونة: لا مزيد من...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-17" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('17')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C17</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-17')">📋 نسخ النص</button>
+                            <div id="script-text-17" class="modal-body">Slide 1: لماذا تختار أوريفان؟ أهم 3 أسباب تخليك تقرر اليوم.<br/><br/>Slide 2: 1. الربحية المضمونة: لا مزيد من خسارة المبيعات بسبب نفاذ المخزون. كل منتج متوفر هو ربح إضافي في جيبك.<br/><br/>Slide 3: 2. الراحة و التحكم: ودّع القلق والاتصالات المتكررة. نظام واحد يمنحك رؤية كاملة وتحكماً مطلقاً، مما يحرر وقتك و طاقتك.<br/><br/>Slide 4: 3. سمعتك في القمة: كن المرجع الأول لزبائنك، حتى في المنتجات النادرة. ابني ثقة تدوم لسنوات.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-17')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-17" class="modal-body">إذا كنت تحتاج لسبب أخير لاتخاذ القرار... إليك 3! 🔥<br/><br/>لخصنا لك كل فوائد ORRIVANE في ثلاث نقاط أساسية ستغير طريقة عملك إلى الأبد.<br/><br/>إذا كانت الربحية، الراحة، والسمعة تهمك، فهذا الكاروسال لك.<br/><br/>شوف الفوائد لي تسناك! القرار بين يديك الآن.<br/><br/>#فوائد #قيمة_مضافة #قرار_ذكي #لماذا_نحن #ORRIVANE_DZ</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم غرافيكي (عبد الرحمن).<br/>- الأسلوب: مباشر، قوي، و يركز على الفوائد الرئيسية.<br/>- Slide 1: عنوان جذاب وواضح مع الرقم "3" بحجم كبير.<br/>- Slide 2, 3, 4: كل شريحة مخصصة لسبب واحد. استخدام تصميم مرقم (1, 2, 3) مع أيقونة قوية لكل فائدة (أيقونة كيس نقود، أيقونة دماغ هادئ، أيقونة تاج ملكي).<br/>- الخطوط: استخدام خطوط عريضة وواضحة (Bold fonts).</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P18</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">النجاح يبدأ بخطوة. خطوتك تبدأ هنا.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('18')">
+                    <div class="preview-text">الفرصة بين يديك! واش راك تستنى؟...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-18" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('18')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P18</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-18')">📋 نسخ النص</button>
+                            <div id="script-text-18" class="modal-body">الفرصة بين يديك! واش راك تستنى؟</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-18')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-18" class="modal-body">لا تنتظر الفرصة، اصنعها! ⚡️<br/><br/>أفضل وقت لبدء تحسين عملك كان بالأمس. ثاني أفضل وقت هو الآن.<br/><br/>لا تدع هذه الفرصة تفوتك. خطوة واحدة اليوم يمكن أن تغير مسار تجارتك بالكامل.<br/><br/>سجل الآن في أوريفان و بدل طريقة عملك للأفضل!<br/><br/>#سجل_الان #لا_تتردد #ابدأ_اليوم #مستقبل_عملك #ORRIVANE</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم غرافيكي (عبد الرحمن).<br/>- المفهوم: تصميم جريء ومباشر. زر كبير وواضح في منتصف الشاشة مكتوب عليه "سجل الآن". اليد التي تضغط على الزر يمكن أن تكون يد الممثل أو صورة رمزية.<br/>- الخلفية تكون بألوان العلامة التجارية الزاهية لجذب الانتباه.<br/>- النص الرئيسي يكون فوق الزر.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr></tbody></table></div>
+
+    <div class="disclaimer-card">
+        <span style="font-size: 1.2em;">⚠️</span>
+        <span>قد تخضع هذه الاستراتيجية لبعض التعديلات والتحسينات، حسب المواد الإعلامية المتوفرة أو لغرض تحقيق أفضل النتائج.</span>
+    </div>
+
+    <div class="summary-box">
+        <span style="font-weight: 700; color: #FFD700;">الميزانية الإجمالية المعتمدة</span>
+        <span class="total-amount">123000 دج</span>
+        <a href="https://wa.me/213770820431" class="cta-btn">تواصل معنا للاعتماد</a>
+        <div style="border: 1px dashed #FFD700; padding: 25px; border-radius: 15px; margin-top: 20px;">
+            <h3 style="color:#FFD700; margin:0;">الخطوة التالية</h3>
+            <p style="margin:10px 0;">مكالمة قصيرة لنكيّف هذه الاستراتيجية حسب مشروعك ونبدأ العمل فوراً.</p>
+            <div class="phones-list">
+                <div class="phone-item">0770 82 04 31</div>
+                <div class="phone-item">0770 55 01 51</div>
+                <div class="phone-item">0770 82 01 45</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+function openModal(id) { document.getElementById('modal-' + id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
+function closeModal(id) { document.getElementById('modal-' + id).style.display = 'none'; document.body.style.overflow = 'auto'; }
+window.onclick = function(event) { if (event.target.className === 'modal') { event.target.style.display = 'none'; document.body.style.overflow = 'auto'; } }
+
+// وظيفة النسخ الجديدة
+function copyToClipboard(elementId) {
+    const el = document.getElementById(elementId);
+    const text = el.innerText || el.textContent; // نسخ النص بدون HTML tags
+    navigator.clipboard.writeText(text).then(() => {
+        alert("تم نسخ النص بنجاح! ✅");
+    }).catch(err => {
+        console.error('Failed to copy', err);
+    });
+}
+</script></body></html>
