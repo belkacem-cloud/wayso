@@ -1,0 +1,686 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Sparx Strategy</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+<style>
+    body { background: #FFFFFF; color: #1A1A1A; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; line-height: 1.6; overflow-x: hidden; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 15px; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 2px solid #000; }
+    .wayso-logo { height: 45px; }
+    .brand-name { font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 1.4em; color: #000; text-transform: uppercase; border-right: 4px solid #FFD700; padding-right: 12px; }
+    
+    .analysis-section { margin: 30px 0; }
+    .card-philosophy { padding: 30px; border-radius: 20px; background: #000; color: #FFF; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+    .card-philosophy h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #FFD700; }
+    
+    .card-why { padding: 30px; border-radius: 20px; background: #F9F9F9; color: #333; margin-bottom: 20px; border: 1px solid #EDECE9; }
+    .card-why h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #000; display: flex; align-items: center; gap: 10px; }
+    .card-why h2::after { content: ''; flex-grow: 1; height: 1px; background: #EDECE9; margin-right: 15px; }
+
+    .hero { margin: 35px 0 20px 0; border-right: 6px solid #FFD700; padding-right: 15px; }
+    .hero h1 { font-size: 2.5em; font-weight: 700; margin: 0; }
+    .table-wrapper { margin-top: 25px; border-radius: 12px; overflow: hidden; border: 1px solid #EDECE9; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #000; color: #FFF; padding: 15px; text-align: right; font-size: 0.95em; }
+    td { padding: 20px 12px; border-bottom: 1px solid #EDECE9; vertical-align: top; }
+    
+    .code-badge { font-family: 'Montserrat', sans-serif; font-weight: 700; background: #FFD700; color: #000; padding: 5px 12px; border-radius: 6px; font-size: 1.1em; display: inline-block; margin-bottom: 5px; }
+    .type-label { display: block; font-weight: 700; color: #555; font-size: 0.95em; }
+    
+    .hook-pill { background: #000; color: #FFD700; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 1.1em; display: block; border-right: 5px solid #FFD700; }
+    
+    /* تحسين زر المودال */
+    .script-trigger { background: #F8F9FA; border: 1px solid #EDECE9; padding: 15px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; position: relative; }
+    .script-trigger:hover { background: #FFF; border-color: #FFD700; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transform: translateY(-2px); }
+    
+    .preview-text { font-size: 0.95em; color: #333; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; white-space: pre-wrap; }
+    
+    /* ستايل المودال */
+    .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); }
+    .modal-content { background: #FFF; margin: 5% auto; padding: 30px; border-radius: 20px; width: 90%; max-width: 750px; position: relative; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+    .close-modal { position: absolute; top: 20px; left: 20px; font-size: 30px; cursor: pointer; color: #999; line-height: 1; transition: color 0.2s; }
+    .close-modal:hover { color: #000; }
+    
+    .modal-section { margin-bottom: 25px; padding: 20px; border-radius: 12px; background: #fbfbfa; border: 1px solid #eee; position: relative; }
+    
+    /* زر النسخ */
+    .copy-btn { position: absolute; top: 10px; left: 10px; background: #fff; border: 1px solid #ddd; padding: 5px 10px; border-radius: 6px; cursor: pointer; font-size: 0.8em; font-weight: bold; color: #555; display: flex; align-items: center; gap: 5px; transition: all 0.2s; }
+    .copy-btn:hover { border-color: #FFD700; color: #000; background: #FFD70020; }
+    .copy-btn:active { transform: scale(0.95); }
+    
+    .modal-body { font-size: 1.15em; color: #1A1A1A; line-height: 1.9; word-wrap: break-word; white-space: pre-wrap; }
+    
+    .disclaimer-card { margin: 25px 0; padding: 20px; background: #FFF9E6; border-radius: 12px; border-right: 5px solid #FFC107; font-size: 1.05em; color: #856404; display: flex; align-items: center; gap: 12px; }
+    .summary-box { margin-top: 50px; background: #000; color: #FFF; padding: 40px 20px; border-radius: 25px; text-align: center; }
+    .total-amount { font-family: 'Montserrat'; font-size: 3.5em; font-weight: 700; display: block; color: #FFD700; margin: 10px 0; }
+    .cta-btn { display: inline-block; background: #FFD700; color: #000; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.2em; margin-bottom: 25px; transition: transform 0.2s; }
+    .cta-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px #FFD70060; }
+    
+    .phones-list { margin-top: 15px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; direction: ltr; } 
+    .phone-item { background: #1A1A1A; padding: 8px 15px; border-radius: 8px; border: 1px solid #333; color: #FFF; font-family: 'Montserrat'; font-weight: 700; font-size: 1.2em; white-space: nowrap; }
+
+    @media (max-width: 768px) {
+        thead { display: none; }
+        tr { display: block; border: 1px solid #EDECE9; border-radius: 15px; margin-bottom: 20px; padding: 15px; background: #FFF; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        td { display: block; padding: 10px 0; text-align: right; border-bottom: 1px dashed #eee; }
+        td:last-child { border-bottom: none; }
+        td::before { content: attr(data-label); font-weight: 700; color: #BBB; display: block; font-size: 0.8em; margin-bottom: 6px; text-transform: uppercase; }
+        .brand-name { font-size: 1.1em; }
+        .modal-content { width: 95%; padding: 20px; margin: 10% auto; }
+        .total-amount { font-size: 2.5em; }
+    }
+</style></head><body>
+
+<div class="container">
+    <div class="header">
+        <img src="https://storage.googleapis.com/msgsndr/GwIPQCjstTzxnzDQ1B32/media/68fddb5534bb1597bc934f89.png" class="wayso-logo">
+        <div class="brand-name">Sparx</div>
+    </div>
+
+    <div class="analysis-section">
+        <div class="card-philosophy"><h2>🎯 فلسفة الاستراتيجية</h2><p>في Wayso، نؤمن بأن الاستثمار في كفاءاتكم هو أساس نموكم المستدام. هذا المزيج المتكامل من الفيديوهات التعريفية القوية والكاروسالات التعليمية التفصيلية ليس مجرد محتوى تسويقي، بل هو استراتيجية محكمة لترسيخ مكانة Sparx كشريك لا غنى عنه في بناء القدرات. نحن نوفر لكم خريطة طريق واضحة لتحقيق عائد استثماري ملموس، بتركيز على الأصالة والجودة.</p></div>
+        <div class="card-why"><h2>💡 لماذا هذه الخطة؟</h2><p>بدأنا الحملة بفيديو ماستر (V1) لخطف الانتباه وتحديد المشكلة والحل لكل من الشركات والأفراد. تبعته الكاروسالات (C2، C5، C8، C11، C14) والمنشورات الثابتة (P3، P6، P9، P12، P15) لتقديم شرح تفصيلي وحلول لمخاوف محددة، مستخدمين أدلة اجتماعية ودراسات حالة. اختتمنا بفيديوهات الأسئلة الشائعة (V13) وعروض الإجراءات المباشرة (P15) لإزالة أي تردد وتحويل الاهتمام إلى تسجيلات فعلية، مؤكدين على قيمة الاستثمار.</p></div>
+    </div>
+
+    <div class="hero"><h1>خطة الإنتاج الإبداعي</h1></div>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th style="width: 20%;">الكود والنوع</th><th style="width: 30%;">الهوك (Hook)</th><th style="width: 50%;">المحتوى</th></tr></thead>
+            <tbody><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V1</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">تكوين نظري... خسارة للشركات، وضياع للشباب.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('1')">
+                    <div class="preview-text">(صوت أنثوي/رجولي واثق)
+كاين حلقة مفرغة في بلادنا... 
+الشركات تعاني باش تلقى كفاءات واجدة... وتخسر ال...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-1" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('1')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V1</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-1')">📋 نسخ النص</button>
+                            <div id="script-text-1" class="modal-body">(صوت أنثوي/رجولي واثق)<br/><br/>كاين حلقة مفرغة في بلادنا... <br/><br/>الشركات تعاني باش تلقى كفاءات واجدة... وتخسر الملايين على تكوينات نظرية ما تجيب حتى نتيجة.<br/><br/>ومن جهة أخرى، الشباب عندهم شهادات... بصح خايفين من غدوة، لأنهم عارفين بلي القراية وحدها ما تكفيش باش يدخلوا لسوق العمل.<br/><br/>الفجوة بين النظرية والتطبيق راهي تكلفنا كامل... وقت، دراهم، وأحلام.<br/><br/>بصح، واش لوكان نقولك بلي الحل موجود؟<br/><br/>هنا في سباركس (Sparx)، حنا ماشي مجرد مركز تكوين... حنا مصنع للكفاءات.<br/><br/>نؤمنوا بحاجة وحدة: 'التعلم بالإنتاج'.<br/><br/>المتكوّن عندنا ما يخرجش بشهادة برك... يخرج بخبرة حقيقية ومشاريع خدمها بيديه في استوديوهات احترافية.<br/><br/>والشركة اللي تبعث موظفينها عندنا... ما راهيش تستثمر في تكوين، راهي تستثمر في قسم إنتاج جديد.<br/><br/>من اليوم الأول، فريقك يبدأ يخدم على مشاريع حقيقية... ويرجعلك بالنتيجة.<br/><br/>هذا هو الفرق.<br/><br/>في سباركس، التكوين هو استثمار... ماشي خسارة.<br/><br/>ما تزيدش تضيّع وقتك ودراهمك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-1')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-1" class="modal-body">🛑 كفى من إهدار الميزانيات على تكوين لا يُنتج! الحل هنا. <br/><br/> سواء كنت شركة تبحث عن عائد حقيقي على استثمارك في الموظفين، أو شاب طموح تبحث عن مكانك في سوق العمل... المشكلة واحدة: الفجوة بين ما نتعلمه وما نحتاجه حقًا.<br/><br/>Sparx ليست مجرد حل، بل هي ثورة في مفهوم التكوين.<br/>نحن نحول قسم التدريب في شركتك إلى مركز إنتاج فوري، ونحول شهادتك الجامعية إلى خبرة عملية مطلوبة.<br/><br/>اكتشف كيف يمكن لنموذج 'التعلم بالإنتاج' أن يغير قواعد اللعبة بالنسبة لك. <br/><br/> ما تضيعش وقتك و دراهمك! اكتشف كيفاش Sparx يقلب التكوين استثمار حقيقي. اضغط على الرابط و ابدا رحلتك نحو التميز. <br/><br/> #SparxDZ #تكوين_احترافي #الجزائر #سوق_العمل_الجزائري #تطوير_الكفاءات #B2B_Algeria #استثمار</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[0-5s] لقطات سريعة ومتقطعة: مكتب شركة فارغ، موظف يبدو عليه الإرهاق. ثم طالب جامعي ينظر لشهادته بقلق. إضاءة خافتة، موسيقى متوترة.<br/>[5-12s] (صوت المتحدث يبدأ) لقطات B-roll احترافية: مدير شركة (B2B) يمسح على رأسه أمام أرقام في شاشة. ثم خريج جديد (B2C) يغلق اللابتوب بعد رفض توظيف. حركة بطيئة للتأكيد على الإحباط.<br/>[12-18s] ظهور نص Motion Graphic واضح: 'الفجوة بين النظرية والتطبيق'. ثم يظهر سهم أحمر يوضح الخسائر المالية للشركات والفرص الضائعة للأفراد.<br/>[18-25s] (تتغير الموسيقى لنبرة ملهمة) لقطة واسعة وساطعة لاستوديوهات Sparx المجهزة. حركة كاميرا سلسة تكشف المعدات الاحترافية. يظهر شعار Sparx بشكل أنيق.<br/>[25-35s] لقطات عملية: متدربون يعملون بحماس على أجهزة كمبيوتر عالية الأداء، آخرون في استوديو تصوير يضبطون الكاميرات والإضاءة. التركيز على العمل الجماعي والبيئة المنتجة.<br/>[35-45s] لقطة مقربة (Close-up) على مشروع منتهي (تصميم، فيديو، كود) بجودة عالية. ثم لقطة لمدير شركة يبتسم بثقة وهو يرى النتائج. ثم لقطة لشاب يعمل بحرية من مقهى (رمز للعمل الحر).<br/>[45-50s] (الجسر) ظهور الوجه الإعلامي لأول مرة، يمشي بثقة داخل الاستوديو، يتحدث مباشرة للكاميرا بنبرة سلطة وعملية. 'هذا هو الفرق.'<br/>[50-55s] شاشة تعرض جملة المفتاح: 'في سباركس، التكوين استثمار'. بخط عريض وواثق.<br/>[55-60s] شاشة الختام تعرض الشعار ومعلومات الاتصال والدعوة للعمل بوضوح.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C2</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">تدفعون لتكوين فريقكم... ثم تدفعون لوكالة لتنجز عمله؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('2')">
+                    <div class="preview-text">Slide 1: العنوان الرئيسي: هل قسم التدريب في شركتكم 'مركز تكلفة' أم 'مركز إنتاج'؟ الحقيقة قد تصدمك.
+S...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-2" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('2')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C2</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-2')">📋 نسخ النص</button>
+                            <div id="script-text-2" class="modal-body">Slide 1: العنوان الرئيسي: هل قسم التدريب في شركتكم 'مركز تكلفة' أم 'مركز إنتاج'؟ الحقيقة قد تصدمك.<br/><br/>Slide 2: المشكلة: توظفون خريجين جدد، ثم تنفقون أموالاً طائلة على تكوينات نظرية تجعلهم 'يفهمون' لكن لا 'ينتجون'. النتيجة؟ تأخر في المشاريع وفريق غير فعال.<br/><br/>Slide 3: تفاقم المشكلة: تضطرون للجوء إلى وكالات خارجية بأسعار باهظة لإنجاز العمل، بينما فريقكم الداخلي يراقب. هذه دائرة مغلقة من إهدار الموارد.<br/><br/>Slide 4: الحل الجذري (Sparx B2B): نحن لا نُدرّب فريقك، بل نشركه في الإنتاج. نمنحهم الأدوات والمشاريع الحقيقية ليصبحوا القوة المنتجة التي تحتاجها.<br/><br/>Slide 5: التحول: مع Sparx، يتحول قسم الموارد البشرية والتدريب من خانة المصاريف إلى خانة الأرباح. فريقك يتعلم، ينتج، ويحقق عائدًا على الاستثمار من اليوم الأول.<br/><br/>Slide 6: هل أنتم مستعدون لتحويل التحدي إلى فرصة؟ دعونا نريكم كيف.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-2')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-2" class="modal-body">للمدراء وأصحاب الشركات: كيف توقفون نزيف الميزانية في قسم التدريب؟ 💡 <br/><br/> كل عام، تُخصص ميزانيات ضخمة للتكوين، لكن كم منها يعود كإنتاجية حقيقية؟<br/><br/>في هذا الكاروسال، نكشف عن التكلفة الخفية للاعتماد على التكوين النظري والوكالات الخارجية، ونقدم لكم نموذج Sparx الذي يحوّل فريقكم إلى أصل منتج ومربح من اليوم الأول.<br/><br/>تصفحوا لمعرفة كيف يمكنكم تحقيق ROI حقيقي من تكوين موظفيكم. <br/><br/> اكتشف كيف سباركس يضمنلك ROI حقيقي. زر موقعنا لقسم الشركات. <br/><br/> #B2B_Algeria #إدارة_المشاريع #موارد_بشرية #تطوير_الشركات #الجزائر #SparxDZ #فعالية_التكاليف</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Slide 1: خلفية داكنة مع سؤال قوي بخط أبيض عريض. شعار Sparx في الزاوية.<br/>Slide 2: استخدام أيقونات ورسوم بيانية بسيطة. أيقونة 'قبعة تخرج' بجانبها علامة استفهام، وأيقونة 'كيس نقود' يطير بعيدًا.<br/>Slide 3: رسم بياني يوضح سهم يخرج من الشركة إلى 'وكالة خارجية' مع رمز '$' كبير، وسهم صغير وضعيف يبقى داخل الشركة.<br/>Slide 4: صورة احترافية من داخل استوديوهات Sparx تظهر فريق عمل منتج. استخدام ألوان Sparx الزاهية.<br/>Slide 5: رسم بياني 'قبل/بعد'. 'قبل': رسم بياني دائري يوضح التكاليف. 'بعد': رسم بياني يوضح نمو الإنتاجية والعائد على الاستثمار.<br/>Slide 6: تصميم بسيط وأنيق مع دعوة للعمل واضحة وزر بصري يحث على الضغط (حتى لو كان صورة).</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P3</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الديبلوم في يدك... والخوف في قلبك؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('3')">
+                    <div class="preview-text">الشهادة وحدها ما تفتحش البيبان.
+الخبرة هي المفتاح.
+
+Sparx...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-3" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('3')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P3</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-3')">📋 نسخ النص</button>
+                            <div id="script-text-3" class="modal-body">الشهادة وحدها ما تفتحش البيبان.<br/><br/>الخبرة هي المفتاح.<br/><br/><br/><br/>Sparx</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-3')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-3" class="modal-body">لديك الشهادة، لكن هل لديك الثقة؟ <br/><br/> الشعور بالقلق قبل دخول سوق العمل طبيعي، خاصة عندما تشعر أن ما تعلمته في الجامعة لا يكفي.<br/><br/>في Sparx، نحن نبني الجسر بين شهادتك وأول وظيفة لك. نوفر لك البيئة والمعدات والمشاريع الحقيقية لبناء معرض أعمال قوي وخبرة عملية تمنحك الثقة التي تحتاجها للنجاح.<br/><br/>لا تدع الخوف يوقفك. <br/><br/> حقق حلمك المهني مع Sparx. تواصل معنا و ابدا التغيير. <br/><br/> #خريج_جديد #فرص_عمل_الجزائر #تطوير_الذات #الجزائر #SparxDZ #بناء_المستقبل_المهني</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم جرافيكي بسيط ومؤثر. صورة مقسومة: على اليسار، يد تمسك بشهادة جامعية في الظلام. على اليمين، نفس اليد تفتح بابًا يخرج منه نور ساطع. النص مكتوب بخط أنيق وواضح في المنتصف. شعار Sparx في الأسفل.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V4</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">علاش تخلّص وكالة خارجية... وفريقك يقدر يدير كلش؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('4')">
+                    <div class="preview-text">(صوت ديناميكي وسريع)
+هل سئمت من فواتير الوكالات الخارجية؟
+من التأخير في تسليم المشاريع؟
+ومن فقدان ال...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-4" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('4')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V4</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-4')">📋 نسخ النص</button>
+                            <div id="script-text-4" class="modal-body">(صوت ديناميكي وسريع)<br/><br/>هل سئمت من فواتير الوكالات الخارجية؟<br/><br/>من التأخير في تسليم المشاريع؟<br/><br/>ومن فقدان السيطرة على جودة عملك؟<br/><br/>نحن نتفهم ذلك.<br/><br/>لهذا السبب، قمنا بتصميم برامج B2B في Sparx.<br/><br/>مهمتنا: أن نأخذ فريقك الحالي... ونحوله إلى قوة إبداعية وإنتاجية مكتفية ذاتيًا.<br/><br/>تخيل أن كل مشاريعك، من التصميم إلى الفيديو، تتم داخل شركتك... بالسرعة والجودة التي تريدها.<br/><br/>تخيل التوفير في الميزانية.<br/><br/>هذا ليس حلمًا، بل هو استثمار استراتيجي في أصول شركتك.<br/><br/>سباركس يمنحك الاستقلالية.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-4')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-4" class="modal-body">استقلالية تامة عن الوكالات الخارجية؟ نعم، هذا ممكن. <br/><br/> الاعتماد على أطراف خارجية لتنفيذ مشاريعك يكلفك المال، الوقت، وأحيانًا الجودة.<br/><br/>Sparx تقدم لشركتك الحل النهائي: بناء فريق داخلي فائق الكفاءة وقادر على تنفيذ كل شيء.<br/><br/>شاهد هذا الفيديو السريع لتعرف كيف يمكنك تحويل موظفيك إلى مركز إنتاج متكامل، وتوفير مبالغ طائلة على المدى الطويل. <br/><br/> احجز استشارة مجانية مع خبير Sparx و ابنِ فريقك الخاص. اضغط هنا. <br/><br/> #B2B_Algeria #توفير_التكاليف #كفاءة_العمل #الجزائر #SparxDZ #استشارات_إدارية</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[0-5s] Motion graphic سريع: أيقونة 'فاتورة' كبيرة مع علامة '$' تظهر وتختفي بسرعة. موسيقى إيقاعية.<br/>[5-10s] رسم متحرك يوضح تقويم تتساقط منه الأوراق بسرعة، مع أيقونة 'ساعة رملية' فارغة. للتعبير عن التأخير.<br/>[10-20s] شاشة مقسومة: على اليسار، 'وكالة خارجية' (صندوق أسود غامض). على اليمين، 'شركتك' (مبنى شفاف وواضح). سهم يوضح نقل التحكم من اليسار إلى اليمين.<br/>[20-30s] لقطات B-roll سريعة من داخل استوديوهات Sparx، تظهر موظفين (ممثلين) يرتدون ملابس شركة موحدة وهم يعملون بكفاءة عالية.<br/>[30-35s] Motion graphic: رسم بياني يوضح انخفاض التكاليف بشكل حاد بعد تطبيق برنامج Sparx.<br/>[35-40s] لقطة أخيرة لفريق عمل مبتسم وواثق، مع ظهور شعار Sparx فوقهم. النص على الشاشة: 'الكفاءة تبدأ من الداخل'.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C5</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">شركة جزائرية وفّرت 30% من ميزانيتها السنوية... هكذا فعلناها.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('5')">
+                    <div class="preview-text">Slide 1: دراسة حالة: كيف ساعدنا شركة 'AlphaTech' على خفض تكاليفها التسويقية بـ 30% وبناء فريق داخلي ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-5" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('5')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C5</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-5')">📋 نسخ النص</button>
+                            <div id="script-text-5" class="modal-body">Slide 1: دراسة حالة: كيف ساعدنا شركة 'AlphaTech' على خفض تكاليفها التسويقية بـ 30% وبناء فريق داخلي مستقل.<br/><br/>Slide 2: التحدي: شركة 'AlphaTech' كانت تنفق أكثر من 5 ملايين دينار سنويًا على وكالات خارجية للتصميم والمونتاج، مع نتائج متوسطة وتأخير مستمر.<br/><br/>Slide 3: الحل المخصص من Sparx: قمنا بتصميم برنامج مكثف لمدة 3 أشهر لـ 4 من موظفيهم. ركزنا على المهارات التي يحتاجونها بالضبط: المونتاج الإعلاني، التصميم للسوشل ميديا، وإدارة الحملات.<br/><br/>Slide 4: النتائج المباشرة: بعد شهر واحد فقط، بدأ الفريق الداخلي في إنتاج 60% من المحتوى. بعد 3 أشهر، أصبحوا مستقلين بنسبة 100%.<br/><br/>Slide 5: العائد على الاستثمار (ROI): تكلفة البرنامج تم استردادها في 6 أشهر فقط. الآن، 'AlphaTech' توفر 30% من ميزانيتها سنويًا، مع جودة وسرعة أكبر.<br/><br/>Slide 6: شهادة المدير التنفيذي لـ 'AlphaTech': 'Sparx لم يقدم لنا تدريبًا، بل قدم لنا أصلاً استراتيجيًا جديدًا. استثمارنا معهم كان أفضل قرار اتخذناه هذا العام.'<br/><br/>Slide 7: هل تريدون أن تكون قصة نجاحكم التالية؟ لنتحدث عن أهداف شركتكم.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-5')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-5" class="modal-body">بالأرقام: قصة نجاح شركة جزائرية مع Sparx. <br/><br/> الكلام سهل، لكن الأرقام لا تكذب.<br/><br/>ندعوكم لاستكشاف دراسة الحالة هذه التي توضح بالتفصيل كيف تمكنت إحدى الشركات الجزائرية الرائدة من تحويل قسم التسويق لديها من مركز تكلفة إلى محرك للنمو والربحية، بفضل شراكتها مع Sparx.<br/><br/>النتائج تتحدث عن نفسها. تصفحوا لتروا الإمكانات. <br/><br/> اكتشف قصة النجاح الكاملة! اتصل بنا اليوم. <br/><br/> #دراسة_حالة #قصص_نجاح #B2B_Algeria #الجزائر #SparxDZ #نمو_الأعمال</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Slide 1: تصميم قوي وجذاب مع عنوان رئيسي واضح وشعار 'AlphaTech' (افتراضي) وشعار Sparx.<br/>Slide 2: استخدام أيقونات تمثل 'المال الضائع' و'الوقت الضائع'. أرقام واضحة ومقروءة.<br/>Slide 3: مخطط زمني بسيط يوضح مدة البرنامج والمراحل الرئيسية. استخدام صور رمزية للمهارات (أيقونة كاميرا، أيقونة فرشاة رسم).<br/>Slide 4: رسم بياني شريطي يوضح نمو الإنتاج الداخلي من 0% إلى 100%.<br/>Slide 5: إنفوجرافيك جذاب يوضح 'التكلفة' مقابل 'التوفير' على المدى الطويل.<br/>Slide 6: صورة احترافية للمدير (من بنك الصور) مع الاقتباس في تصميم أنيق.<br/>Slide 7: دعوة للعمل واضحة مع زر بصري 'اطلب دراسة حالة مخصصة'.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P6</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">التكوين الجاهز فشل. الحل؟ برنامج مصمم 100% لشركتك.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('6')">
+                    <div class="preview-text">لا تدفع مقابل مهارات لا تحتاجها.
+
+برامج Sparx للشركات: مصممة خصيصًا لتلبية أهداف فريقك....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-6" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('6')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P6</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-6')">📋 نسخ النص</button>
+                            <div id="script-text-6" class="modal-body">لا تدفع مقابل مهارات لا تحتاجها.<br/><br/><br/><br/>برامج Sparx للشركات: مصممة خصيصًا لتلبية أهداف فريقك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-6')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-6" class="modal-body">لماذا تشتري بدلة جاهزة إذا كان بإمكانك تفصيلها؟ <br/><br/> ينطبق نفس المبدأ على تكوين فريقك.<br/><br/>البرامج التدريبية العامة قد تضيع وقت وموارد فريقك في معلومات لا تنطبق على واقع شركتكم.<br/><br/>في Sparx، نبدأ بالاستماع إليكم. نحلل احتياجاتكم وأهدافكم، ثم نصمم برنامجًا تدريبيًا 'على المقاس' يضمن أقصى قدر من الفعالية والعائد على الاستثمار.<br/><br/>استثمر بذكاء. <br/><br/> خصّص تكوين فريقك. اطلب عرض أسعار الآن. <br/><br/> #تكوين_مخصص #تطوير_الموظفين #B2B_Algeria #الجزائر #SparxDZ #حلول_شركات</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم إنفوجرافيك بسيط وأنيق. في المنتصف، أيقونة 'ترس' (رمز التخصيص). النص مكتوب حولها بطريقة دائرية وجذابة. استخدام لونين فقط من هوية Sparx البصرية للحفاظ على البساطة والتركيز.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V7</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">من بطّال بديبلوم... لمصمم مطلوب في الشركات. هذي قصتي.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('7')">
+                    <div class="preview-text">(صوت شاب/شابة بنبرة صادقة وحقيقية)
+كي تخرجت، كنت كيما كامل الناس... عندي شهادة في يدي، وحلم في راسي،...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-7" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('7')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V7</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-7')">📋 نسخ النص</button>
+                            <div id="script-text-7" class="modal-body">(صوت شاب/شابة بنبرة صادقة وحقيقية)<br/><br/>كي تخرجت، كنت كيما كامل الناس... عندي شهادة في يدي، وحلم في راسي، بصح بزاف خوف في قلبي.<br/><br/>كنت نبعث في السي فيات، وماكان حتى واحد يرد عليا.<br/><br/>حسيت بلي قرايتي كامل راحت باطل.<br/><br/>نهار سمعت بسباركس، كنت متردد... قلت بالاك مجرد مركز آخر.<br/><br/>بصح كي دخلت وشفت الاستوديوهات، وشفت الناس تخدم صح... فهمت بلي هذا ماشي لعب.<br/><br/>في 3 أشهر، تعلمت واش ما تعلمتوش في 5 سنين جامعة.<br/><br/>خدمت على مشاريع حقيقية... بنيت بورتفوليو احترافي.<br/><br/>بصح الحاجة الأهم... بنيت الثقة في روحي.<br/><br/>اليوم، راني نخدم في شركة كنت نحلم بيها... وكلش بدا من قرار واحد.<br/><br/>سباركس ما عطاتنيش خدمة... عطاتني مستقبل.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-7')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-7" class="modal-body">قصة 'أمين' يمكن أن تكون قصتك. <br/><br/> الكثير منا يمر بلحظة الشك بعد التخرج. الشعور بأن كل سنوات الدراسة لم تكن كافية.<br/><br/>شاهد قصة أمين، وكيف تمكن من تحويل شهادته الجامعية إلى مسار مهني ناجح ومثير بفضل البيئة العملية والدعم الذي وجده في Sparx.<br/><br/>قصتك يمكن أن تكون التالية. الخطوة الأولى تبدأ من هنا. <br/><br/> قصة نجاحك تبدا من اليوم! سجّل في Sparx و غير مسارك المهني. <br/><br/> #قصة_نجاح #تطوير_مهني #الجزائر #فرص_عمل #SparxDZ #تحفيز</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[0-7s] لقطة للشخصية الرئيسية في غرفة مظلمة، ينظر إلى شاشة لابتوب عليها إيميلات رفض. تعابير وجهه محبطة.<br/>[7-15s] لقطة وهو يمشي في الشارع بلا هدف، ينظر للآخرين وهم يذهبون للعمل. موسيقى هادئة وحزينة.<br/>[15-25s] (نقطة التحول) لقطة وهو يرى إعلان Sparx على هاتفه. تتغير ملامحه إلى الفضول. يدخل إلى مركز Sparx، والكاميرا تركز على عينيه المندهشتين وهو يرى الاستوديوهات المجهزة.<br/>[25-40s] (المونتاج) سلسلة لقطات سريعة وملهمة: وهو يتعلم من مدرب، يطبق على الكمبيوتر، يضحك مع زملائه، يصور في الاستوديو. الموسيقى تصبح أكثر إيقاعًا وتفاؤلاً.<br/>[40-50s] لقطة مقربة على شاشة تعرض البورتفوليو النهائي الخاص به. ثم لقطة له وهو في مقابلة عمل، يتحدث بثقة.<br/>[50-60s] المشهد الأخير: الشخصية في مكتب عصري، يعمل بابتسامة. ينظر إلى الكاميرا مباشرة ويقول الجملة الأخيرة. يظهر شعار Sparx مع دعوة للعمل.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C8</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">تخدم بكاميرا تاع 100 مليون... بلا ما تخلّص سنتيم؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('8')">
+                    <div class="preview-text">Slide 1: العنوان: استوديوهات Sparx الإحترافية. هنا، يتحول شغفك إلى خبرة حقيقية.
+Slide 2: استوديو الت...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-8" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('8')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C8</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-8')">📋 نسخ النص</button>
+                            <div id="script-text-8" class="modal-body">Slide 1: العنوان: استوديوهات Sparx الإحترافية. هنا، يتحول شغفك إلى خبرة حقيقية.<br/><br/>Slide 2: استوديو التصوير والفيديو: كاميرات Blackmagic، إضاءة Aputure، خلفيات متنوعة... كل ما تحتاجه لإنتاج محتوى بجودة سينمائية متاح لك مجانًا طوال فترة تكوينك.<br/><br/>Slide 3: استوديو الصوت: ميكروفونات Shure، عزل صوتي احترافي، أجهزة تسجيل Zoom. سجل البودكاست أو التعليق الصوتي الخاص بك بجودة لا تضاهى.<br/><br/>Slide 4: القيمة الحقيقية: الوصول لهذه المعدات يكلف آلاف الدينارات للساعة الواحدة في السوق. في Sparx، هو جزء من رحلتك التعليمية. نحن نزيل العائق المادي لتتمكن من بناء معرض أعمال ينافس به الكبار.<br/><br/>Slide 5: هل أنت جاهز لتبدأ الإنتاج؟ معدات أحلامك في انتظارك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-8')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-8" class="modal-body">أكبر عائق أمامك هو الوصول للمعدات؟ لقد قمنا بحل هذه المشكلة. <br/><br/> نعلم أن بناء معرض أعمال قوي يتطلب أدوات احترافية، ونعلم أن تكلفة هذه الأدوات باهظة.<br/><br/>لهذا السبب، استثمرنا في أحدث الاستوديوهات والمعدات وجعلناها متاحة بالكامل لجميع متدربينا.<br/><br/>تصفح هذا الكاروسال لتأخذ جولة افتراضية في بيئة العمل التي تنتظرك في Sparx. هنا، لا حدود لإبداعك. <br/><br/> اكتشف كيف تتميز في سوق العمل! تفضل بزيارة Sparx. <br/><br/> #استوديو_احترافي #تصوير #مونتاج #صناعة_المحتوى #الجزائر #SparxDZ</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Slide 1: صورة بانورامية واسعة وعالية الجودة لأحد استوديوهات Sparx. العنوان بخط جريء وأنيق.<br/>Slide 2: صورة مقربة (close-up) على كاميرا احترافية مع ذكر اسمها ومواصفاتها الرئيسية. استخدام تصميم جرافيكي لإبراز الميزات.<br/>Slide 3: صورة لغرفة تسجيل الصوت، مع التركيز على الميكروفون الاحترافي.<br/>Slide 4: إنفوجرافيك بسيط يقارن بين 'تكلفة الإيجار في السوق' (رقم كبير باللون الأحمر) و'تكلفة الوصول في Sparx' (كلمة 'مجانًا' باللون الأخضر).<br/>Slide 5: صورة جذابة لمتدرب يستخدم المعدات بابتسامة وثقة. دعوة للعمل واضحة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P9</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">نفس الشخص، نفس الفكرة... شهر واحد في سباركس هو الفرق.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('9')">
+                    <div class="preview-text">قبل Sparx / بعد Sparx...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-9" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('9')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P9</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-9')">📋 نسخ النص</button>
+                            <div id="script-text-9" class="modal-body">قبل Sparx / بعد Sparx</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-9')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-9" class="modal-body">التحول الذي تراه وتلمسه. <br/><br/> الفرق بين الهاوي والمحترف ليس الموهبة دائمًا، بل هو المعرفة بالأدوات والتقنيات الصحيحة.<br/><br/>هذا مثال حقيقي على مشروع أحد متدربينا، يوضح القفزة النوعية في مهاراته خلال فترة قصيرة في Sparx.<br/><br/>تخيل ما يمكنك تحقيقه عندما تتاح لك نفس الفرصة. <br/><br/> أطلق إبداعك! تعلّم المزيد عن برامجنا. <br/><br/> #قبل_وبعد #تطور_المهارات #تصميم_جرافيكي #مونتاج_فيديو #الجزائر #SparxDZ</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم بصري قوي يعتمد على المقارنة 'Before/After'. شاشة مقسومة عموديًا. الجهة اليسرى 'قبل': تصميم بوستر بسيط أو فيديو قصير بجودة هواة. الجهة اليمنى 'بعد': نفس فكرة المشروع لكن بتنفيذ احترافي، ألوان متناسقة، خطوط أفضل، وجودة أعلى بكثير. كلمة 'قبل' و'بعد' مكتوبة بوضوح. شعار Sparx في المنتصف السفلي.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V10</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">ما تسمعلناش حنا... أسمع للناس اللي خدمت معانا ونجحت.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('10')">
+                    <div class="preview-text">(مونتاج سريع لعدة أصوات مختلفة)
+صوت 1 (مدير شركة): 'فريقنا أصبح أكثر إنتاجية واستقلالية.'
+صوت 2 (شاب...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-10" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('10')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V10</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-10')">📋 نسخ النص</button>
+                            <div id="script-text-10" class="modal-body">(مونتاج سريع لعدة أصوات مختلفة)<br/><br/>صوت 1 (مدير شركة): 'فريقنا أصبح أكثر إنتاجية واستقلالية.'<br/><br/>صوت 2 (شابة): 'لقيت خدمة في شهرين برك بعد ما كملت معاهم.'<br/><br/>صوت 3 (مسؤول موارد بشرية): 'العائد على الاستثمار كان أسرع مما توقعنا.'<br/><br/>صوت 4 (شاب): 'البورتفوليو اللي بنيته في سباركس هو اللي فتحلي بيبان الفريلانس.'<br/><br/>صوت 5 (صاحبة مشروع): 'الآن كل المحتوى الرقمي نخدموه وحدنا في الشركة.'<br/><br/>(صوت المذيع الرئيسي يختم): 'النتائج تتكلم بنفسها. سباركس... حيث يبدأ النجاح.'</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-10')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-10" class="modal-body">الدليل الاجتماعي: عملاؤنا هم أفضل من يتحدث عنا. <br/><br/> لا شيء يثبت قيمة الخدمة أكثر من شهادات العملاء الراضين.<br/><br/>جمعنا لكم في هذا الفيديو السريع مقتطفات من تجارب حقيقية لشركات وأفراد غيرت Sparx مسارهم المهني.<br/><br/>شاهد واستمع بنفسك. <br/><br/> قصص نجاح Sparx تحكي بزاف! شاهدها كاملة و انضم للناجحين. <br/><br/> #شهادات_عملاء #دليل_اجتماعي #الجزائر #SparxDZ #نتائج_حقيقية</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو UGC (User Generated Content) سريع وإيقاعي. لقطات حقيقية (أو تبدو حقيقية) للعملاء وهم يتحدثون. يمكن تصويرها بهواتفهم لزيادة المصداقية. يتم تقطيع الجمل لأخذ الأقوى فقط. تظهر اقتباساتهم كنص متحرك على الشاشة مع أسمائهم وصفتهم. موسيقى محفزة في الخلفية. الفيديو لا يتجاوز 30 ثانية.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C11</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">هذه هي الكلمات التي قالها عملاؤنا... بالحرف الواحد.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('11')">
+                    <div class="preview-text">Slide 1: العنوان: كلامهم هو الدليل. ماذا قال عملاؤنا عن تجربة Sparx؟
+Slide 2: من شركة رائدة (B2B): '...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-11" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('11')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C11</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-11')">📋 نسخ النص</button>
+                            <div id="script-text-11" class="modal-body">Slide 1: العنوان: كلامهم هو الدليل. ماذا قال عملاؤنا عن تجربة Sparx؟<br/><br/>Slide 2: من شركة رائدة (B2B): 'Sparx حولت فريقنا من مجرد منفذين إلى مبدعين استراتيجيين. استثمارنا كان في محله.' - مدير التسويق، شركة TechPro.<br/><br/>Slide 3: من خريج طموح (B2C): 'قبل سباركس، كنت أملك شهادة. بعد سباركس، أصبحت أملك مهارة ومستقبل.' - سارة. مصممة جرافيك.<br/><br/>Slide 4: بالأرقام: 85% من خريجينا الأفراد وجدوا عملاً أو بدأوا مشاريعهم الخاصة في غضون 6 أشهر. 95% من الشركات الشريكة أبلغت عن زيادة في الإنتاجية.<br/><br/>Slide 5: قصتك يمكن أن تكون التالية. هل أنت مستعد لكتابتها معنا؟</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-11')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-11" class="modal-body">عندما يتحدث النجاح، نصمت نحن لنستمع. <br/><br/> أقوى ما نملكه في Sparx ليس استوديوهاتنا أو برامجنا، بل قصص النجاح التي يبنيها عملاؤنا كل يوم.<br/><br/>تصفحوا هذا الكاروسال لقراءة بعض الشهادات التي وصلتنا من شركائنا من الشركات والأفراد.<br/><br/>هذه الكلمات هي وقودنا لنستمر. <br/><br/> مئات القصص الناجحة... و قصة نجاحك الجاية؟ <br/><br/> #اقتباسات_ملهمة #شهادات #الجزائر #SparxDZ #مجتمع_سباركس</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم أنيق يركز على الاقتباسات. كل سلايد يحتوي على صورة احترافية للشخص المقتبس منه أو شعار شركته. استخدام خطوط كبيرة وواضحة للاقتباس. سلايد الأرقام يستخدم إنفوجرافيكس بسيطة وجذابة لتوضيح النسب.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P12</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">''من نهار لي دخلت سباركس... حياتي المهنية تبدلت.''</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('12')">
+                    <div class="preview-text">''من نهار لي دخلت سباركس... حياتي المهنية تبدلت.''
+- كريم، مونتير فيديو ومؤسس مشارك في ستارت-أب....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-12" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('12')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P12</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-12')">📋 نسخ النص</button>
+                            <div id="script-text-12" class="modal-body">''من نهار لي دخلت سباركس... حياتي المهنية تبدلت.''<br/><br/>- كريم، مونتير فيديو ومؤسس مشارك في ستارت-أب.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-12')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-12" class="modal-body">كلمات بسيطة، تأثير عميق. <br/><br/> أحيانًا، جملة واحدة تختصر كل شيء. شهادة كريم هي مثال على التأثير الحقيقي الذي نسعى لإحداثه في حياة كل شخص يثق فينا.<br/><br/>التحول المهني ليس مجرد تغيير وظيفة، بل هو تغيير حياة. <br/><br/> شهادات حقيقية، نتائج حقيقية. اكتشف الفرق مع Sparx. <br/><br/> #تغيير_الحياة #مسار_مهني #الجزائر #SparxDZ #شهادة_حقيقية</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم بصري مؤثر جداً. صورة عالية الجودة لكريم (ممثل أو من بنك الصور) ينظر بثقة نحو المستقبل، مع ابتسامة خفيفة. الاقتباس مكتوب بخط كبير وأنيق يغطي جزءًا من الصورة. اسمه وصفته في الأسفل بخط أصغر. شعار Sparx بشكل غير مزعج في الزاوية.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V13</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">3 أسئلة تمنعك من التسجيل في سباركس... إليك الإجابة في 60 ثانية!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('13')">
+                    <div class="preview-text">(مقدم الفيديو، وجه إعلامي، يتحدث بسرعة وثقة مباشرة للكاميرا)
+عندك شكوك؟ معليش، هذا حقك. خلينا نجاوب ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-13" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('13')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V13</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-13')">📋 نسخ النص</button>
+                            <div id="script-text-13" class="modal-body">(مقدم الفيديو، وجه إعلامي، يتحدث بسرعة وثقة مباشرة للكاميرا)<br/><br/>عندك شكوك؟ معليش، هذا حقك. خلينا نجاوب على أهم 3 أسئلة في أقل من دقيقة. انطلقنا!<br/><br/>السؤال الأول: 'هل هي غالية بزاف؟'<br/><br/>الجواب: هي استثمار. قارن تكلفتها بتكلفة البطالة أو تكلفة وكالة خارجية... وستعرف أنها أذكى استثمار ممكن تديرو.<br/><br/>السؤال الثاني: 'هل لازم تكون عندي خبرة من قبل؟'<br/><br/>الجواب: لا! برامجنا مصممة لتبدأ معك من الصفر وتأخذك إلى مستوى الاحتراف.<br/><br/>السؤال الثالث: 'هل تضمنولي خدمة؟'<br/><br/>الجواب: نحن لا نضمن لك وظيفة، بل نضمن لك شيئًا أهم: الكفاءة، الخبرة، ومعرض الأعمال الذي يجعل الشركات هي التي تبحث عنك.<br/><br/>الشكوك زالت؟ الآن وقت العمل.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-13')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-13" class="modal-body">مازال متردد؟ شاهد هذا الفيديو، قد يغير رأيك. <br/><br/> جمعنا أكثر الأسئلة والتساؤلات التي تصلنا منكم، وأجبنا عليها بشكل مباشر وسريع في 60 ثانية فقط.<br/><br/>إذا كانت إحدى هذه النقاط تمنعك من اتخاذ القرار، فهذا الفيديو لك.<br/><br/>لا تدع الشك يضيع عليك فرصة حقيقية. <br/><br/> واش راك تستنى؟ وقت العمل جا! اضغط على الرابط و ابدا التكوين لي يغير حياتك. <br/><br/> #سؤال_جواب #الجزائر #SparxDZ #خذ_القرار #استثمار_المستقبل</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">مقدم الفيديو يقف أمام خلفية ديناميكية تحمل شعار Sparx. إضاءة ممتازة. يستخدم حركات يدين واثقة. مع كل سؤال، يظهر نص Motion Graphic كبير على الشاشة. الأجوبة تكون سريعة ومباشرة. يوجد عداد تنازلي من 60 ثانية في زاوية الشاشة لزيادة الإحساس بالسرعة. موسيقى سريعة وحماسية.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C14</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كل الأسئلة اللي في راسك على سباركس... إجاباتها هنا.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('14')">
+                    <div class="preview-text">Slide 1: العنوان الرئيسي: الأسئلة الشائعة (FAQ). كل ما تحتاج معرفته لاتخاذ قرارك بثقة.
+Slide 2: سؤال...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-14" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('14')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C14</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-14')">📋 نسخ النص</button>
+                            <div id="script-text-14" class="modal-body">Slide 1: العنوان الرئيسي: الأسئلة الشائعة (FAQ). كل ما تحتاج معرفته لاتخاذ قرارك بثقة.<br/><br/>Slide 2: سؤال للشركات (B2B): كيف يتم تخصيص البرنامج لفريقي؟<br/><br/>الجواب: نبدأ بجلسة استشارية مجانية لفهم أهدافكم. ثم نقوم بتصميم منهج مخصص 100% يركز على المهارات التي تحتاجونها لتحقيق تلك الأهداف.<br/><br/>Slide 3: سؤال للأفراد (B2C): ما هي مدة البرامج؟ وهل هناك مرونة في التوقيت؟<br/><br/>الجواب: تتراوح برامجنا بين 3 و 6 أشهر. نقدم خيارات صباحية ومسائية لتناسب الجميع، سواء كنتم طلابًا أو موظفين.<br/><br/>Slide 4: سؤال عن التسجيل والدفع: ما هي طرق الدفع المتاحة؟<br/><br/>الجواب: نوفر إمكانية الدفع الكامل أو بالتقسيط لتسهيل العملية على الجميع. يمكنكم التسجيل مباشرة عبر موقعنا الإلكتروني أو بزيارة مركزنا.<br/><br/>Slide 5: لم تجد إجابة لسؤالك؟ فريقنا في انتظارك. تواصل معنا مباشرة عبر الهاتف أو الإيميل.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-14')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-14" class="modal-body">لديك سؤال؟ لدينا الإجابة. <br/><br/> الشفافية هي أحد مبادئنا الأساسية في Sparx.<br/><br/>جمعنا لكم في هذا المنشور إجابات وافية عن أكثر الأسئلة التي تصلنا، سواء من الشركات أو الأفراد.<br/><br/>تصفحوا المنشور، وإذا كان لديكم أي استفسار آخر، فلا تترددوا في التواصل معنا. نحن هنا لمساعدتكم. <br/><br/> كل استفساراتك تجد إجابتها هنا! تواصل معنا مباشرة. <br/><br/> #أسئلة_شائعة #FAQ #الجزائر #SparxDZ #معلومات</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم نظيف وبسيط جدًا. كل سلايد له خلفية بلون واحد من ألوان الهوية البصرية. السؤال مكتوب بخط عريض والجواب بخط عادي وأصغر حجمًا. استخدام أيقونات بسيطة (أيقونة شركة، أيقونة شخص، أيقونة نقود) لكل سؤال.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P15</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">فرصة لا تعوّض: استشارة مجانية للشركات، وخصم للمسجلين الأوائل!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('15')">
+                    <div class="preview-text">للشركات: احجزوا استشارتكم المجانية الآن وقيموا احتياجات فريقكم.
+للأفراد: خصم 20% لأول 10 مسجلين في ا...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-15" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('15')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P15</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-15')">📋 نسخ النص</button>
+                            <div id="script-text-15" class="modal-body">للشركات: احجزوا استشارتكم المجانية الآن وقيموا احتياجات فريقكم.<br/><br/>للأفراد: خصم 20% لأول 10 مسجلين في الدورة القادمة!<br/><br/><br/><br/>العرض ينتهي قريباً.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-15')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-15" class="modal-body">🚨 لا تفوت هذه الفرصة! عرض خاص ولفترة محدودة. <br/><br/> سواء كنت شركة تتطلع لتطوير فريقها، أو فردًا يسعى لبدء مساره المهني بقوة، فقد حان الوقت المثالي للتحرك.<br/><br/>للشركات: نقدم استشارة استراتيجية مجانية (بقيمة حقيقية) لمساعدتكم على تحديد خارطة طريق لتطوير كفاءاتكم الداخلية.<br/><br/>للأفراد: بادروا بالتسجيل الآن واستفيدوا من خصم خاص على برامجنا التي ستغير مساركم المهني.<br/><br/>الأماكن محدودة والعرض لن يدوم. <br/><br/> اغتنم الفرصة الآن! اطلب استشارتك أو سجّل مباشرة. <br/><br/> #عرض_خاص #تخفيضات #فرصة #الجزائر #SparxDZ #تسجيلات_مفتوحة</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم جريء وملفت للنظر. استخدام ألوان قوية مثل الأحمر أو الأصفر للفت الانتباه. كلمة 'فرصة' و'مجانية' و'خصم' مكتوبة بأكبر خط ممكن. يمكن إضافة شريط صغير في الأسفل بعبارة 'أماكن محدودة' لخلق إحساس بالإلحاح (Urgency).</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr></tbody></table></div>
+
+    <div class="disclaimer-card">
+        <span style="font-size: 1.2em;">⚠️</span>
+        <span>قد تخضع هذه الاستراتيجية لبعض التعديلات والتحسينات، حسب المواد الإعلامية المتوفرة أو لغرض تحقيق أفضل النتائج.</span>
+    </div>
+
+    <div class="summary-box">
+        <span style="font-weight: 700; color: #FFD700;">الميزانية الإجمالية المعتمدة</span>
+        <span class="total-amount">110000 دج</span>
+        <a href="https://wa.me/213770820431" class="cta-btn">تواصل معنا للاعتماد</a>
+        <div style="border: 1px dashed #FFD700; padding: 25px; border-radius: 15px; margin-top: 20px;">
+            <h3 style="color:#FFD700; margin:0;">الخطوة التالية</h3>
+            <p style="margin:10px 0;">مكالمة قصيرة لنكيّف هذه الاستراتيجية حسب مشروعك ونبدأ العمل فوراً.</p>
+            <div class="phones-list">
+                <div class="phone-item">0770 82 04 31</div>
+                <div class="phone-item">0770 55 01 51</div>
+                <div class="phone-item">0770 82 01 45</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+function openModal(id) { document.getElementById('modal-' + id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
+function closeModal(id) { document.getElementById('modal-' + id).style.display = 'none'; document.body.style.overflow = 'auto'; }
+window.onclick = function(event) { if (event.target.className === 'modal') { event.target.style.display = 'none'; document.body.style.overflow = 'auto'; } }
+
+// وظيفة النسخ الجديدة
+function copyToClipboard(elementId) {
+    const el = document.getElementById(elementId);
+    const text = el.innerText || el.textContent; // نسخ النص بدون HTML tags
+    navigator.clipboard.writeText(text).then(() => {
+        alert("تم نسخ النص بنجاح! ✅");
+    }).catch(err => {
+        console.error('Failed to copy', err);
+    });
+}
+</script></body></html>
