@@ -1,0 +1,679 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Bookingo Strategy</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+<style>
+    body { background: #FFFFFF; color: #1A1A1A; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; line-height: 1.6; overflow-x: hidden; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 15px; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 2px solid #000; }
+    .wayso-logo { height: 45px; }
+    .brand-name { font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 1.4em; color: #000; text-transform: uppercase; border-right: 4px solid #FFD700; padding-right: 12px; }
+    
+    .analysis-section { margin: 30px 0; }
+    .card-philosophy { padding: 30px; border-radius: 20px; background: #000; color: #FFF; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+    .card-philosophy h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #FFD700; }
+    
+    .card-why { padding: 30px; border-radius: 20px; background: #F9F9F9; color: #333; margin-bottom: 20px; border: 1px solid #EDECE9; }
+    .card-why h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #000; display: flex; align-items: center; gap: 10px; }
+    .card-why h2::after { content: ''; flex-grow: 1; height: 1px; background: #EDECE9; margin-right: 15px; }
+
+    .hero { margin: 35px 0 20px 0; border-right: 6px solid #FFD700; padding-right: 15px; }
+    .hero h1 { font-size: 2.5em; font-weight: 700; margin: 0; }
+    .table-wrapper { margin-top: 25px; border-radius: 12px; overflow: hidden; border: 1px solid #EDECE9; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #000; color: #FFF; padding: 15px; text-align: right; font-size: 0.95em; }
+    td { padding: 20px 12px; border-bottom: 1px solid #EDECE9; vertical-align: top; }
+    
+    .code-badge { font-family: 'Montserrat', sans-serif; font-weight: 700; background: #FFD700; color: #000; padding: 5px 12px; border-radius: 6px; font-size: 1.1em; display: inline-block; margin-bottom: 5px; }
+    .type-label { display: block; font-weight: 700; color: #555; font-size: 0.95em; }
+    
+    .hook-pill { background: #000; color: #FFD700; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 1.1em; display: block; border-right: 5px solid #FFD700; }
+    
+    /* تحسين زر المودال */
+    .script-trigger { background: #F8F9FA; border: 1px solid #EDECE9; padding: 15px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; position: relative; }
+    .script-trigger:hover { background: #FFF; border-color: #FFD700; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transform: translateY(-2px); }
+    
+    .preview-text { font-size: 0.95em; color: #333; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; white-space: pre-wrap; }
+    
+    /* ستايل المودال */
+    .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); }
+    .modal-content { background: #FFF; margin: 5% auto; padding: 30px; border-radius: 20px; width: 90%; max-width: 750px; position: relative; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+    .close-modal { position: absolute; top: 20px; left: 20px; font-size: 30px; cursor: pointer; color: #999; line-height: 1; transition: color 0.2s; }
+    .close-modal:hover { color: #000; }
+    
+    .modal-section { margin-bottom: 25px; padding: 20px; border-radius: 12px; background: #fbfbfa; border: 1px solid #eee; position: relative; }
+    
+    /* زر النسخ */
+    .copy-btn { position: absolute; top: 10px; left: 10px; background: #fff; border: 1px solid #ddd; padding: 5px 10px; border-radius: 6px; cursor: pointer; font-size: 0.8em; font-weight: bold; color: #555; display: flex; align-items: center; gap: 5px; transition: all 0.2s; }
+    .copy-btn:hover { border-color: #FFD700; color: #000; background: #FFD70020; }
+    .copy-btn:active { transform: scale(0.95); }
+    
+    .modal-body { font-size: 1.15em; color: #1A1A1A; line-height: 1.9; word-wrap: break-word; white-space: pre-wrap; }
+    
+    .disclaimer-card { margin: 25px 0; padding: 20px; background: #FFF9E6; border-radius: 12px; border-right: 5px solid #FFC107; font-size: 1.05em; color: #856404; display: flex; align-items: center; gap: 12px; }
+    .summary-box { margin-top: 50px; background: #000; color: #FFF; padding: 40px 20px; border-radius: 25px; text-align: center; }
+    .total-amount { font-family: 'Montserrat'; font-size: 3.5em; font-weight: 700; display: block; color: #FFD700; margin: 10px 0; }
+    .cta-btn { display: inline-block; background: #FFD700; color: #000; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.2em; margin-bottom: 25px; transition: transform 0.2s; }
+    .cta-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px #FFD70060; }
+    
+    .phones-list { margin-top: 15px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; direction: ltr; } 
+    .phone-item { background: #1A1A1A; padding: 8px 15px; border-radius: 8px; border: 1px solid #333; color: #FFF; font-family: 'Montserrat'; font-weight: 700; font-size: 1.2em; white-space: nowrap; }
+
+    @media (max-width: 768px) {
+        thead { display: none; }
+        tr { display: block; border: 1px solid #EDECE9; border-radius: 15px; margin-bottom: 20px; padding: 15px; background: #FFF; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        td { display: block; padding: 10px 0; text-align: right; border-bottom: 1px dashed #eee; }
+        td:last-child { border-bottom: none; }
+        td::before { content: attr(data-label); font-weight: 700; color: #BBB; display: block; font-size: 0.8em; margin-bottom: 6px; text-transform: uppercase; }
+        .brand-name { font-size: 1.1em; }
+        .modal-content { width: 95%; padding: 20px; margin: 10% auto; }
+        .total-amount { font-size: 2.5em; }
+    }
+</style></head><body>
+
+<div class="container">
+    <div class="header">
+        <img src="https://storage.googleapis.com/msgsndr/GwIPQCjstTzxnzDQ1B32/media/68fddb5534bb1597bc934f89.png" class="wayso-logo">
+        <div class="brand-name">Bookingo</div>
+    </div>
+
+    <div class="analysis-section">
+        <div class="card-philosophy"><h2>🎯 فلسفة الاستراتيجية</h2><p>في Wayso، نؤمن بأن الاستثمار الذكي هو حجر الزاوية للنمو المستدام. لقد صممنا هذا المزيج من الفيديو الرئيسي الجاذب والكاروسالات التعليمية خصيصاً ليخاطب جمهورك المستهدف بفعالية، محولين التحديات إلى فرص. هذه الخطة ليست مجرد حملة تسويقية، بل هي استراتيجية متكاملة تضمن لك عائداً استثنائياً على استثمارك وتعزز ولاء عملائك.</p></div>
+        <div class="card-why"><h2>💡 لماذا هذه الخطة؟</h2><p>بدأنا بـ V1 لخطف الانتباه ومعالجة الألم الأساسي بأسلوب قصصي مؤثر، ثم انتقلنا إلى C2 لتقديم الحلول وشرح المزايا بوضوح. هذا التسلسل السيكولوجي يضمن بناء الثقة، تعليم العميل، ثم ترسيخ قناعاته، مما يدفعه لاتخاذ قرار الشراء بثقة تامة.</p></div>
+    </div>
+
+    <div class="hero"><h1>خطة الإنتاج الإبداعي</h1></div>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th style="width: 20%;">الكود والنوع</th><th style="width: 30%;">الهوك (Hook)</th><th style="width: 50%;">المحتوى</th></tr></thead>
+            <tbody><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V1</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">تكسار الراس تاع الطيارة وحدها ولوطيل وحدو... والدفع لي يخلع... وقتاش يخلص هاد الكوشمار؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('1')">
+                    <div class="preview-text">تخطط لسفرية؟ تبداها بحماس... وتكملها بستراس.
+موقع للتذاكر... وموقع للفنادق... وعينك على الأسعار لي ت...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-1" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('1')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V1</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-1')">📋 نسخ النص</button>
+                            <div id="script-text-1" class="modal-body">تخطط لسفرية؟ تبداها بحماس... وتكملها بستراس.<br/><br/>موقع للتذاكر... وموقع للفنادق... وعينك على الأسعار لي تتبدل كل دقيقة.<br/><br/>ومبعد توصل لمرحلة الدفع... الخلعة تاع الصح.<br/><br/>لازمك كارطة بالعملة الصعبة... وتخاف يدولك معلوماتك... وتحس روحك حاصل.<br/><br/>هذا هو الكابوس لي كان يعيشوه بزاف جزائريين.<br/><br/>بصح اليوم، الحكاية تبدلت.<br/><br/>هذي هي Bookingo. المنصة الجزائرية لي جمعتلك كلش في بلاصة وحدة.<br/><br/>تذكرتك... ولوطيل تاعك... مع بعض.<br/><br/>تقارن... تختار... وتحجز في ثواني.<br/><br/>والأهم؟ تخلص بالدينار تاع بلادك.<br/><br/>ولا كاين أحسن... تخلص عند الاستلام.<br/><br/>هكا، تسافر وأنت مهني... وراسك مرتاح.<br/><br/>من الفوضى... للراحة.<br/><br/>من الخوف... للأمان.<br/><br/>من التعقيد... للسهولة.<br/><br/>هذا هو الفرق لي تصنعو Bookingo.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-1')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-1" class="modal-body">🤯 تعبت من فوضى الحجوزات والخوف من الدفع؟ الحل جزائري 100%! <br/><br/> كلنا نعرفو هذاك الإحساس... حماس السفر يتحول لستراس بسبب تكسار الراس بين مواقع الطيران والفنادق، ويزيد يكمل عليك مشكل الدفع بالعملة الصعبة وانعدام الثقة.<br/><br/>مع Bookingo، هاد الشي خلاص! منصة جزائرية تفهمك وتوفرلك:<br/>✈️🏨 تذاكر الطيران والفنادق في مكان واحد.<br/>🇩🇿 دفع آمن بالدينار الجزائري أو عند الاستلام.<br/>😌 راحة بال مضمونة وخدمة عملاء في المستوى.<br/><br/>شوف الفيديو واكتشف كيفاش ترجع متعة السفر لحياتك. <br/><br/> شوف كيفاش Bookingo رجّع السفر ساهل وآمن بالدينار. اكتشف خدمتنا درك! <br/><br/> #Bookingo #سافر_بأمان #حجوزات_الجزائر #الدفع_بالدينار #صنع_في_الجزائر #سياحة_الجزائر #تذاكر_طيران #حجز_فنادق</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[مشهد 1 - المشكلة]: لقطات سريعة ومتقطعة (Fast cuts) لشخص متوتر أمام لابتوب، يفتح العديد من التابوهات (مواقع طيران، فنادق، بوكينغ). إضاءة باردة وموسيقى متوترة.<br/>[مشهد 2 - تصعيد المشكلة]: زوم على شاشة الدفع تطلب فيزا/ماستركارد. تظهر أيقونات قفل مكسور أو علامات تحذير. تعابير وجه الشخص قلقة. نبرة الصوت هنا تكون سريعة وتعكس القلق.<br/>[مشهد 3 - الحل]: انتقال مفاجئ وسلس. تظهر واجهة تطبيق Bookingo الأنيقة والمنظمة على هاتف ذكي. تتغير الإضاءة لتصبح دافئة ومريحة. الموسيقى تصبح هادئة وملهمة. نبرة الصوت هنا تصبح واثقة ومُطمْئِنة.<br/>[مشهد 4 - المزايا]: لقطات شاشة متحركة (Screen recording) لعملية الحجز السهلة داخل التطبيق (اختيار وجهة، مقارنة أسعار الطيران والفنادق). ظهور أيقونات واضحة لـ 'الدفع بالدينار' (CIB/بريدي موب) و 'الدفع عند الاستلام').<br/>[مشهد 5 - النتيجة]: لقطات سينمائية لعائلة أو شخص يستمتع بعطلته (يمشي على الشاطئ، يكتشف مدينة جديدة). الشعور بالراحة والسعادة واضح. نبرة الصوت هنا فخورة وقوية.<br/>[مشهد 6 - الختام]: يظهر لوغو Bookingo بشكل بارز مع الشعار. نبرة الصوت تدعو للفعل بحماس.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C2</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">تخطط لسفرية؟ هكا تبدا... وهكا تولي مع Bookingo!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('2')">
+                    <div class="preview-text">Slide 1: الكابوس تاع التخطيط لرحلة... خلاص!
+Slide 2: المشكل: تذاكر الطيران من موقع، والفنادق من موقع...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-2" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('2')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C2</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-2')">📋 نسخ النص</button>
+                            <div id="script-text-2" class="modal-body">Slide 1: الكابوس تاع التخطيط لرحلة... خلاص!<br/><br/>Slide 2: المشكل: تذاكر الطيران من موقع، والفنادق من موقع آخر... ويزيد يكمل عليك ستراس الدفع بالعملة الصعبة!<br/><br/>Slide 3: الحل الشامل: Bookingo يجمعلك كلش في بلاصة وحدة. رحلتك كاملة في تطبيق واحد!<br/><br/>Slide 4: ادفع بالدينار كيما تحب: حرية مالية حقيقية ليك. لا حاجة للدوفيز.<br/><br/>Slide 5: الأمان هو الصح: مع خيار 'الدفع عند الاستلام'، الثقة تبدا من عندنا.<br/><br/>Slide 6: ابدأ رحلتك بـ 0 ستراس. حمّل تطبيق Bookingo الآن!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-2')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-2" class="modal-body">✈️🏨 من الفوضى إلى الراحة... في 6 خطوات! <br/><br/> كرهت من تعقيدات حجز السفر؟ تفتح 10 مواقع باش تلقى واش تحوس؟ والدفع حكاية وحدها؟<br/><br/>هذا الكاروسال يشرحلك كيفاش Bookingo يقضي على كل هذه المشاكل ويسهّل عليك حياتك.<br/><br/>اكتشف الحل الشامل لي يخليك تحجز رحلتك كاملة في دقائق... وتدفع بالدينار! <br/><br/> اكتشف الحل الشامل مع Bookingo. تصفّح الكاروسال! <br/><br/> #BookingoDZ #تخطيط_سفر #حلول_ذكية #سافر_بسهولة #الجزائر #راحة_البال #حجوزات</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Slide 1: صورة لمسافر مرهق يمسك رأسه أمام لابتوب مليء بالصفحات. تصميم فوضوي.<br/>Slide 2: رسم بياني (إنفوجرافيك) بسيط يوضح أسهم متناثرة تخرج من 'مسافر' إلى أيقونات (طائرة، فندق، بنك أجنبي)، مع علامات استفهام وتعجب.<br/>Slide 3: لقطة شاشة واضحة وجميلة لواجهة تطبيق Bookingo الرئيسية، تظهر خيارات الطيران والفنادق معاً. تصميم نظيف ومنظم.<br/>Slide 4: تصميم يضم أيقونات طرق الدفع المحلية (بطاقة CIB، بريدي موب) بشكل بارز، مع عملة الدينار الجزائري.<br/>Slide 5: صورة رمزية عالية الجودة تظهر يد تسلم نقوداً بلطف لممثل خدمة، مع أيقونة درع حماية.<br/>Slide 6: صورة جذابة لشخص مبتسم يحمل هاتفه مع تطبيق Bookingo، وخلفه وجهة سفر جميلة. مع أزرار التحميل من App Store و Google Play.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P3</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">تذكرتك. لوطيل. دينارك. راحتك.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('3')">
+                    <div class="preview-text">تذكرتك و لوطيل في بلاصة وحدة... و تدفع بالدينار!...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-3" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('3')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P3</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-3')">📋 نسخ النص</button>
+                            <div id="script-text-3" class="modal-body">تذكرتك و لوطيل في بلاصة وحدة... و تدفع بالدينار!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-3')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-3" class="modal-body">كل ما تحتاجه لسفرك... في صورة واحدة. <br/><br/> لا داعي لتعقيد الأمور. مع Bookingo، رحلتك أصبحت أبسط من أي وقت مضى.<br/><br/>تذكرتك ولوطيل في مكان واحد، والدفع بعملة بلادك.<br/><br/>هذه هي راحة البال الحقيقية. <br/><br/> Bookingo: راحة البال في جيبك. زور موقعنا! <br/><br/> #Bookingo #راحة_البال #سفر_الجزائر #AllinOne #سهولة #ثقة #دينار_جزائري</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">صورة فوتوغرافية إبداعية عالية الجودة (Flat lay). على طاولة أنيقة، يظهر هاتف ذكي مفتوح على تطبيق Bookingo، وبجانبه جواز سفر، تذكرة طائرة رمزية، وأوراق نقدية من الدينار الجزائري. استخدام إضاءة طبيعية وألوان هادئة تعكس الراحة والثقة. النص مكتوب بخط عصري وأنيق فوق الصورة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V4</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الكارطة تاعك تبقى في جيبك، والدوفيز خليه عندهم... بصح كيفاش تسافر؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('4')">
+                    <div class="preview-text">مازالك تخاف من الدفع فالأنترنت؟
+تحس روحك مقيّد كي ما عندكش كارطة بالعملة الصعبة؟
+هذا الإحساس تاع 'ال...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-4" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('4')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V4</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-4')">📋 نسخ النص</button>
+                            <div id="script-text-4" class="modal-body">مازالك تخاف من الدفع فالأنترنت؟<br/><br/>تحس روحك مقيّد كي ما عندكش كارطة بالعملة الصعبة؟<br/><br/>هذا الإحساس تاع 'الحڤرة المالية' نعرفوه مليح.<br/><br/>تشوف الناس تسافر... وأنت حاصل في مشكل بسيط بصح مصيري.<br/><br/>الخوف من سرقة المعلومات... والضغط تاع لازم تدبر الدوفيز.<br/><br/>بصح... ماذا لو كان الحل بين يديك؟<br/><br/>مع Bookingo، حنا نفهموك. ولهذا درنالك حلول على مقاسك.<br/><br/>الحل الأول: ادفع بالدينار الجزائري. استعمل بطاقتك الذهبية ولا CIB. ساهلة، آمنة، وبلا تعقيد.<br/><br/>الحل الثاني... لي راح ينحيلك كل الشك: الدفع عند الاستلام. أحجز أونلاين وادفع كي يلحقك التأكيد.<br/><br/>مع Bookingo، أنت اللي تتحكم.<br/><br/>سافر بكل ثقة... وبكل سيادة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-4')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-4" class="modal-body">🚫 خايف تدفع أونلاين؟ ما عندكش دوفيز؟ الحل هنا! <br/><br/> الشعور بالعجز أمام مواقع تتطلب الدفع بالعملة الصعبة هو أسوأ إحساس ممكن يواجه أي مسافر جزائري. الخوف من الاحتيال يجعلك تتردد ألف مرة.<br/><br/>في Bookingo، قضينا على هذا الحاجز نهائياً! الفيديو هذا يوريلك كيفاش تقدر تحجز رحلتك للعالم وتخلص بكل أمان:<br/>✅ بالدينار الجزائري (بطاقتك الذهبية أو CIB).<br/>✅ أو عند الاستلام... ثقة ما بعدها ثقة!<br/><br/>ودّع الخوف واسترجع حريتك المالية. <br/><br/> مع Bookingo، خلص بالدينار ولا عند الاستلام. حجوزاتك آمنة 100%. جربها درك! <br/><br/> #الدفع_الآمن #Bookingo #سيادة_مالية #الجزائر #سافر_بثقة #الدفع_عند_الاستلام #لا_للخوف</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[مشهد 1 - المشكلة/التصعيد (PAS)]: رسوم متحركة (Motion Graphics) تظهر شخصية كرتونية جزائرية تحاول الدفع أونلاين. تظهر أيقونة بطاقة فيزا وعليها علامة X حمراء كبيرة. ثم تظهر أيقونة 'دولار' أو 'أورو' تهرب بعيداً. الموسيقى قلقة والنبرة متعاطفة.<br/>[مشهد 2 - التفهم (QUEST)]: تتوقف الحركة للحظة، وتظهر عبارة 'حنا نفهموك' بخط ودي. الموسيقى تهدأ قليلاً.<br/>[مشهد 3 - التعليم/الحل (QUEST/PAS)]: تنقسم الشاشة إلى قسمين. القسم الأول يظهر أيقونة بطاقة ذهبية/CIB مع علامة صح خضراء. القسم الثاني يظهر أيقونة 'الدفع عند الاستلام' مع أيقونة درع قوي. الشرح يكون عبر نصوص متحركة بسيطة وواضحة. النبرة هنا تصبح تعليمية وواثقة.<br/>[مشهد 4 - التحفيز (QUEST)]: تظهر الشخصية الكرتونية وهي تحجز بسهولة على هاتفها ثم تركب طائرة بسعادة. الألوان تصبح زاهية والموسيقى ملهمة.<br/>[مشهد 5 - الانتقال (QUEST)]: يظهر لوغو Bookingo مع دعوة واضحة للفعل. النبرة حماسية.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C5</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كيفاش تقدر تسافر للعالم وتخلص بالدينار الجزائري؟ تبع معانا.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('5')">
+                    <div class="preview-text">Slide 1: الدفع عبر الإنترنت ما بقاش كابوس! اكتشف حلول Bookingo الآمنة.
+Slide 2: 1. ادفع بالدينار: اس...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-5" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('5')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C5</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-5')">📋 نسخ النص</button>
+                            <div id="script-text-5" class="modal-body">Slide 1: الدفع عبر الإنترنت ما بقاش كابوس! اكتشف حلول Bookingo الآمنة.<br/><br/>Slide 2: 1. ادفع بالدينار: استعمل بطاقتك الذهبية أو CIB بكل سهولة. سيادتك المالية هي أولويتنا.<br/><br/>Slide 3: 2. ادفع عند الاستلام: ما عندكش كارطة؟ خايف؟ احجز الآن وادفع لاحقاً. حنا نثقوا فيك.<br/><br/>Slide 4: أمانك مضمون 100%: بياناتك الشخصية والبنكية محمية بأحدث تقنيات التشفير.<br/><br/>Slide 5: أنت تختار واش يريحك. احجز رحلتك القادمة بلا خوف مع Bookingo.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-5')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-5" class="modal-body">💳 بالدينار ولا كاش؟ أنت اللي تقرر! <br/><br/> الدفع هو آخر خطوة في حجزك، ولازم تكون الأكثر راحة وأمان.<br/><br/>في هذا الكاروسال، نشرح بالتفصيل خيارات الدفع المرنة والآمنة 100% اللي توفرها Bookingo، والمصممة خصيصاً للمسافر الجزائري.<br/><br/>تعلّم كيفاش تقدر تسافر للعالم وتخلص بالطريقة اللي تريحك. <br/><br/> تعلّم كلش على خيارات الدفع الآمنة مع Bookingo. إضغط! <br/><br/> #BookingoPayments #الدفع_بالدينار #الأمان_أولا #حجوزات_آمنة #الجزائر #تكنولوجيا_مالية</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Slide 1: تصميم حديث يظهر أيقونة قفل مغلق ودرع حماية كبيرين، مع خلفية توحي بالثقة والاحترافية. استخدام اللونين الأزرق والأخضر.<br/>Slide 2: إنفوجرافيك يوضح أيقونة بطاقة CIB والذهبية مع سهم يتجه نحو أيقونة 'تأكيد الحجز'. نص واضح ومختصر.<br/>Slide 3: رسم توضيحي بسيط لعملية الدفع عند الاستلام: (1. حجز أونلاين -> 2. تأكيد -> 3. دفع نقدي). استخدام أيقونات معبرة.<br/>Slide 4: تصميم يركز على أيقونات الأمان (SSL, 3D Secure) مع نص قصير يؤكد على حماية البيانات.<br/>Slide 5: صورة ملهمة لمسافر ينظر إلى الأفق بثقة، مع دعوة واضحة للحجز وظهور لوغو Bookingo.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P6</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الدفع عند الاستلام... سافر اليوم وخلّص غدوة!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('6')">
+                    <div class="preview-text">ادفع بالدينار و لا عند الاستلام... وسافر بأمان!...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-6" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('6')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P6</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-6')">📋 نسخ النص</button>
+                            <div id="script-text-6" class="modal-body">ادفع بالدينار و لا عند الاستلام... وسافر بأمان!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-6')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-6" class="modal-body">الثقة قبل كل شيء. 🤝 <br/><br/> في Bookingo، نؤمن أن راحة بالك تبدأ من الثقة في طريقة الدفع.<br/><br/>لهذا السبب، نوفر لك الخيار للدفع بالطريقة التي تناسبك: بالدينار عبر البطاقة، أو حتى عند الاستلام.<br/><br/>سافر وأنت مطمئن، لأن ثقتك هي أولويتنا القصوى. <br/><br/> ثقتك هي أولويتنا في Bookingo. احجز درك! <br/><br/> #الثقة #Bookingo #سافر_بأمان #جزائري #خدمة_عملاء #أمان #موثوق</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">صورة جذابة تظهر يد عميل تضع ثقة عملة الدينار في يد ممثل Bookingo (يرتدي زي عليه لوغو الشركة). التركيز على لقطة اليدين (Handshake gesture) لترسيخ معنى الثقة المتبادلة. النص مكتوب بخط واضح وقوي. الخلفية توحي بالسفر (مطار أو بهو فندق).</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V7</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">شكون فينا ما ضيعش نهار كامل وهو يحوس على تذكرة مليحة... ومبعد يزيد يضيع نهار آخر على لوطيل؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('7')">
+                    <div class="preview-text">(يبدأ الوجه الإعلامي وهو يمثل التعب)
+آآه يا جماعة... شكون فينا ما كرهش من تكسار الراس تاع السفر؟
+(يم...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-7" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('7')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V7</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-7')">📋 نسخ النص</button>
+                            <div id="script-text-7" class="modal-body">(يبدأ الوجه الإعلامي وهو يمثل التعب)<br/><br/>آآه يا جماعة... شكون فينا ما كرهش من تكسار الراس تاع السفر؟<br/><br/>(يمثل حالة الـ 'قبل' - Before)<br/><br/>تحوس على تذكرة طيارة... تفتح عشرين موقع... تقارن الأسعار... تلقى وحدة مليحة، تروح تحجزها، تلقاها طارت.<br/><br/>تزيد تعاود... ومبعد كي تكمل، تبدا الحكاية من جديد مع لوطيل.<br/><br/>هذا قريب من هنا؟ هذاك بعيد؟ هذا واش قالو عليه الناس؟ نهار كامل وأنت مقابل الشاشة... والنتيجة؟ ستراس وتعب قبل حتى ما تبدا الرحلة.<br/><br/>(يبتسم ويمسك هاتفه - الجسر - Bridge)<br/><br/>بصح تخيل معايا... لو كان نقولك كاينة طريقة تخليك تحجز كلش في 5 دقايق؟<br/><br/>(يُظهر التطبيق - الـ 'بعد' - After)<br/><br/>هذا Bookingo. تفتح التطبيق... تكتب وين حاب تروح... وهو يعطيك أحسن عروض الطيران والفنادق مع بعض.<br/><br/>تقارن بيناتهم في صفحة وحدة... تشوف كل التفاصيل... وتحجزهم بضغطة زر.<br/><br/>بلا صداع... بلا ما تضيع وقتك... وبلا ستراس.<br/><br/>هكا... يرجعلك الوقت باش تخمم في الحاجة الصح: كيفاش راح تستمتع برحلتك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-7')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-7" class="modal-body">⏰ نهار كامل وأنت تحجز؟ استرجع وقتك وحياتك! <br/><br/> تخطيط السفر المفروض يكون جزء من المتعة، ماشي مصدر للتعب والضغط!<br/><br/>إذا كنت من الناس اللي تضيع ساعات وأيام في المقارنة بين أسعار الطيران والفنادق، هذا الفيديو ليك.<br/><br/>اكتشف كيفاش Bookingo يجمعلك كلش في تطبيق واحد بسيط، ويحول تجربة الحجز من معاناة... إلى متعة. <br/><br/> Bookingo يجمعلك كلش! جرب السهولة والراحة في تطبيق واحد. حمّل التطبيق درك! <br/><br/> #وفر_وقتك #Bookingo #حجز_ذكي #سفر_مريح #الجزائر #تطبيق_سفر #AllInOne</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[مشهد 1 - الانتباه/المشكلة (AIDA/Before)]: الوجه الإعلامي في ديكور منزلي، يظهر عليه التعب والإرهاق وهو ينظر إلى شاشة لابتوب. يتحدث بنبرة متعبة ومتعاطفة مع الجمهور. يمكن استخدام لقطات سريعة للشاشة تظهر كثرة المواقع المفتوحة.<br/>[مشهد 2 - الاهتمام/الرغبة (AIDA/Bridge)]: يتغير تعبير وجهه إلى الحماس. يمسك بهاتفه الذكي الذي يصبح مصدر الضوء في المشهد. نبرة صوته تصبح أكثر تشويقاً.<br/>[مشهد 3 - الحل (AIDA/After)]: لقطات واضحة ومشرقة لشاشة التطبيق وهو يستعرض سهولة الحجز. الوجه الإعلامي يعلق بصوت مريح وواثق، ويشرح المزايا.<br/>[مشهد 4 - الفعل (AIDA)]: ينظر الوجه الإعلامي مباشرة إلى الكاميرا ويدعو المشاهدين لتحميل التطبيق بحماس وثقة. يظهر رابط التحميل على الشاشة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C8</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">5 دقايق... هذا هو الوقت لي تحتاجه باش تحجز رحلتك الكاملة. كيفاش؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('8')">
+                    <div class="preview-text">Slide 1: وداعاً لساعات البحث الطويلة! رحلتك الكاملة في 3 خطوات بسيطة.
+Slide 2: الخطوة 1: اختار وجهتك...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-8" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('8')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C8</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-8')">📋 نسخ النص</button>
+                            <div id="script-text-8" class="modal-body">Slide 1: وداعاً لساعات البحث الطويلة! رحلتك الكاملة في 3 خطوات بسيطة.<br/><br/>Slide 2: الخطوة 1: اختار وجهتك وتاريخ سفرك. كل الخيارات أمامك.<br/><br/>Slide 3: الخطوة 2: قارن بين أفضل عروض الطيران والفنادق في صفحة واحدة.<br/><br/>Slide 4: الخطوة 3: احجز تذكرتك وغرفتك بضغطة زر واحدة. كل شيء مؤكد فوراً.<br/><br/>Slide 5: النتيجة: وقت أقل في التخطيط، وراحة بال أكبر للاستمتاع برحلتك.<br/><br/>Slide 6: ابدأ رحلتك بلا تعب. اكتشف السهولة مع Bookingo الآن!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-8')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-8" class="modal-body">✈️🏨 رحلتك الكاملة في 3 خطوات فقط! <br/><br/> هل تعلم أنك تقدر تحجز تذكرة الطيران والفندق مع بعض في أقل من 5 دقائق؟<br/><br/>مع Bookingo، العملية أصبحت سهلة وبديهية. هذا الكاروسال يوريلك الخطوات بالتفصيل.<br/><br/>توقف عن إضاعة وقتك في البحث، وابدأ في الاستمتاع بالتخطيط لرحلتك القادمة! <br/><br/> تعلّم كيفاش Bookingo يسهّلك حياتك. إضغط وشوف! <br/><br/> #BookingoSteps #حجز_سريع #سهولة #راحة #تكنولوجيا #سفر_الجزائر #خطوات_بسيطة</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Slide 1: تصميم جذاب يظهر ساعة رملية بجانب هاتف عليه تطبيق Bookingo، مع عنوان بارز. استخدام ألوان مريحة.<br/>Slide 2: لقطة شاشة متحركة (GIF) تظهر عملية إدخال الوجهة والتاريخ في التطبيق. واضحة وبسيطة.<br/>Slide 3: تصميم إنفوجرافيك يقارن 'جنباً إلى جنب' بين خيارين للطيران وخيارين للفنادق، لإظهار سهولة المقارنة.<br/>Slide 4: التركيز على زر 'احجز الآن' الكبير والواضح، مع أيقونة 'تأكيد' تظهر بعد الضغط.<br/>Slide 5: رسم بياني بسيط يوضح 'قبل' (الكثير من الوقت، الكثير من الستراس) و 'بعد' (وقت قليل، راحة كبيرة).<br/>Slide 6: دعوة مباشرة للفعل مع صورة لشخص مرتاح في وجهة سفر، يحمل هاتفه بثقة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P9</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">علاش تكسّر راسك في 10 بلايص؟ كلش هنا.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('9')">
+                    <div class="preview-text">رحلتك كاملة... في جيبك!...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-9" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('9')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P9</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-9')">📋 نسخ النص</button>
+                            <div id="script-text-9" class="modal-body">رحلتك كاملة... في جيبك!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-9')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-9" class="modal-body">✈️🏨 كل ما تحتاجه لسفرك... في مكان واحد. <br/><br/> وداعاً للتشتت بين عشرات التطبيقات والمواقع.<br/><br/>Bookingo هو الحل الشامل (All-in-One) الذي يضع كل تفاصيل رحلتك بين يديك.<br/><br/>من التذكرة إلى الفندق، كل شيء منظم، سهل، وفي متناول يدك. <br/><br/> Bookingo: كل ما تحتاج إليه لتخطيط سفرك. اكتشف الآن! <br/><br/> #AllInOne #Bookingo #الراحة_الشاملة #تطبيق_واحد #سفر #الجزائر #تنظيم</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">صورة إبداعية تظهر جيب سترة أو بنطال، ويخرج منه بشكل رمزي طائرة ورقية، مفتاح فندق، وخريطة صغيرة. الهاتف الذكي يكون بارزاً في اليد التي بجانب الجيب، وعليه شعار Bookingo. يجب أن يكون هناك شعار 'All-in-One' مدمج بأناقة في التصميم.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V10</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">تتصل بخدمة عملاء... تبدا بالعربية يجاوبوك بلونغلي؟ هادي هي المعاناة!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('10')">
+                    <div class="preview-text">شحال من مرة احتجت مساعدة في حجز سفر... ولقيت روحك تهدر مع روبوت؟
+ولا مع خدمة عملاء ما تفهمش لهجتك......</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-10" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('10')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V10</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-10')">📋 نسخ النص</button>
+                            <div id="script-text-10" class="modal-body">شحال من مرة احتجت مساعدة في حجز سفر... ولقيت روحك تهدر مع روبوت؟<br/><br/>ولا مع خدمة عملاء ما تفهمش لهجتك... ما تعرفش عقليتك... وماعلابالهاش بمشاكلك تاع الصح.<br/><br/>هذا المشكل... تاع واحد يحس روحو 'غريب' وهو يطلب المساعدة... كملناه.<br/><br/>في Bookingo، حنا جزائريين كيفك.<br/><br/>فريقنا يفهمك كي تقولو 'حبستلي الكونيكسيو'...<br/><br/>ويعرف واش معناها 'الدفع بالذهبية'...<br/><br/>ويجاوبك على كل أسئلتك بالدارجة... بكل بساطة.<br/><br/>لأننا نؤمن أن الدعم الحقيقي يبدأ من الفهم.<br/><br/>مع Bookingo، أنت ماشي مجرد رقم حجز.<br/><br/>أنت واحد منا... وحنا هنا ليك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-10')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-10" class="modal-body">🤝 خدمة عملاء تفهمك... بالدارجة! <br/><br/> تعبت من خدمات العملاء التي لا تفهم احتياجاتك الخاصة كجزائري؟<br/><br/>في Bookingo، الفخر تاعنا ماشي غير في المنصة، بل في الفريق اللي وراها. فريق جزائري 100%، مستعد يسمعك، يفهمك، ويحلك أي مشكل يواجهك... بلهجتنا.<br/><br/>لأننا نؤمن أن الخدمة الممتازة تبدأ من التواصل الحقيقي. <br/><br/> Bookingo: خدمة جزائرية بامتياز تفهمك وتوكفك. اتصل بنا درك! <br/><br/> #خدمة_عملاء #جزائري #Bookingo #دعم_فني #صنع_في_الجزائر #هدرة_وحدة</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[مشهد 1 - المشكلة]: لقطات UGC (محتوى من المستخدمين) أو رسوم متحركة بسيطة تظهر شخصاً محبطاً وهو يتحدث في الهاتف. تظهر فقاعات كلام بلغات أجنبية أو ردود آلية (Robot voice) لخلق شعور بالانفصال.<br/>[مشهد 2 - التصعيد]: نبرة الصوت تعكس الإحباط. لقطات سريعة لأيقونات 'Error' أو 'Support Ticket Closed'.<br/>[مشهد 3 - الحل]: انتقال هادئ. تظهر لقطات حقيقية لفريق دعم Bookingo الجزائري في مكاتبهم، مبتسمين ويتحدثون. أو يمكن استخدام صور مع أسماء جزائرية (محمد، فاطمة). الموسيقى تصبح ودودة ومحلية. نبرة الصوت تصبح فخورة ودافئة.<br/>[مشهد 4 - النتيجة]: تظهر شهادات عملاء مكتوبة على الشاشة (مثال: 'ردوا عليا في دقيقة وحلولي المشكل').<br/>[مشهد 5 - الختام]: يظهر رقم هاتف أو رابط 'اتصل بنا' مع لوغو Bookingo.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C11</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">ماشي حنا لي نشكرو روحنا... شوف واش قالو لي جربونا.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('11')">
+                    <div class="preview-text">Slide 1: Bookingo بعيون عملائنا: الثقة تتكلم!
+Slide 2: محمد من وهران: 'أول مرة نحجز كلش في بلاصة وحد...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-11" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('11')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C11</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-11')">📋 نسخ النص</button>
+                            <div id="script-text-11" class="modal-body">Slide 1: Bookingo بعيون عملائنا: الثقة تتكلم!<br/><br/>Slide 2: محمد من وهران: 'أول مرة نحجز كلش في بلاصة وحدة وندفع بالدينار. خدمة في القمة، حسيت براحة كبيرة.'<br/><br/>Slide 3: فاطمة من الجزائر العاصمة: 'كان عندي استفسار، اتصلت بيهم جاوبوني بالدارجة وحلولي المشكل في 5 دقايق. فريق محترف!'.<br/><br/>Slide 4: أمين من قسنطينة: 'خيار الدفع عند الاستلام نحالي كل الخوف. منصة جزائرية نثق فيها وعينيا مغمضين.'<br/><br/>Slide 5: انضم لأكثر من 10,000 مسافر جزائري راضٍ. احجز رحلتك القادمة بثقة تامة مع Bookingo.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-11')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-11" class="modal-body">⭐ ⭐ ⭐ ⭐ ⭐ الناس شهود! <br/><br/> أفضل طريقة لمعرفة قيمة خدمة ما هي الاستماع لمن جربوها.<br/><br/>في هذا الكاروسال، نشارك معكم بعض شهادات عملائنا الأوفياء الذين وجدوا في Bookingo الحل الأمثل لسفرهم.<br/><br/>تجاربهم هي أكبر دليل على التزامنا بتقديم الأفضل. <br/><br/> شوف واش قالو ناس جربو Bookingo! إضغط! <br/><br/> #شهادات_عملاء #SocialProof #Bookingo #ثقة #عملاء_سعداء #الجزائر #تجربة_حقيقية</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Slide 1: تصميم أنيق وعصري يضم صور رمزية (أو حقيقية إن أمكن) لعملاء مبتسمين، مع عنوان جذاب.<br/>Slide 2-4: كل سلايد مخصص لشهادة واحدة. تصميم يضم صورة العميل (أو صورة رمزية)، اسمه ومدينته، ونص الاقتباس بخط واضح وسهل القراءة. استخدام علامات الاقتباس الكبيرة لإبراز النص.<br/>Slide 5: تصميم يجمع عدة صور صغيرة لعملاء سعداء أو وجهات سفر، مع رقم كبير وجذاب (مثل +10,000) ودعوة واضحة للحجز.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P12</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الفريق لي يسهر على راحتك... جزائري 100%.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('12')">
+                    <div class="preview-text">خدمة جزائرية... ليكم و معاكم!...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-12" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('12')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P12</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-12')">📋 نسخ النص</button>
+                            <div id="script-text-12" class="modal-body">خدمة جزائرية... ليكم و معاكم!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-12')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-12" class="modal-body">فريقنا... فخرنا! 🇩🇿 <br/><br/> وراء كل حجز ناجح وكل رحلة مريحة، يوجد فريق من الشباب الجزائري الطموح الذي يعمل بشغف لتقديم أفضل خدمة لكم.<br/><br/>نحن هنا، في الجزائر، قريبون منكم ومستعدون لدعمكم في كل خطوة.<br/><br/>#MadeInAlgeria <br/><br/> Bookingo: ندعمكم في كل خطوة. زور موقعنا! <br/><br/> #فريق_عمل #جزائريون #فخر_محلي #BookingoDZ #دعم_محلي #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">صورة احترافية ودافئة لفريق عمل Bookingo الجزائري. يجب أن يظهر الفريق مبتسماً، ودوداً، وفي بيئة عمل عصرية. الصورة تعكس التنوع والكفاءة. النص يكون مكتوباً بأسلوب بسيط وودي. لوغو Bookingo يكون واضحاً.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V13</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كاين رحلات تبقى في الذاكرة ماشي غير بالصور... بصح بالإحساس.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('13')">
+                    <div class="preview-text">(صوت هادئ وعاطفي)
+أجمل حاجة في الدنيا... هي الذكريات لي نبنيوها مع الناس لي نحبوهم.
+(مشاهد لعائلة تخ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-13" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('13')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V13</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-13')">📋 نسخ النص</button>
+                            <div id="script-text-13" class="modal-body">(صوت هادئ وعاطفي)<br/><br/>أجمل حاجة في الدنيا... هي الذكريات لي نبنيوها مع الناس لي نحبوهم.<br/><br/>(مشاهد لعائلة تخطط للسفر، لكن بملامح قلق وتشتت)<br/><br/>بصح ساعات... الطريق لهذيك الذكريات يكون معمر بالتعب... تكسار الراس تاع الحجوزات... ستراس الدفع...<br/><br/>(انتقال سلس للمشهد)<br/><br/>تخيل... لو كان تقدر تمحي كل هذا التعب... وتخلي بلاصتو غير للمتعة.<br/><br/>(مشاهد لنفس العائلة تستخدم Bookingo بسهولة على تابلت، والأطفال يشاركون بحماس)<br/><br/>رحلة... تبدا بابتسامة... ماشي بقلق.<br/><br/>تخطيط يجمعكم... ماشي يفرقكم.<br/><br/>(مشاهد سينمائية للعائلة في المطار، ثم في وجهة سفر خلابة، يضحكون ويلعبون)<br/><br/>لأن السفر ماشي مجرد تذكرة وفندق.<br/><br/>السفر هو ضحكة ولدك كي يشوف البحر أول مرة.<br/><br/>هو راحة الوالدين وهما يشوفوكم مجموعين.<br/><br/>هو اللحظات... لي ما تتقدرش بثمن.<br/><br/>و Bookingo... هو الجسر البسيط لهذيك اللحظات.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-13')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-13" class="modal-body">✈️❤️ السفر ليس وجهة، بل هو الذكريات التي نصنعها. <br/><br/> أثمن ما نملكه هو الوقت الذي نقضيه مع من نحب. السفر هو فرصة لخلق ذكريات تدوم للأبد.<br/><br/>لكن تعقيدات التخطيط قد تسرق منا متعة هذه اللحظات.<br/><br/>شاهد كيف تجعل Bookingo من التخطيط لعطلة أحلامك جزءاً من الذكرى الجميلة، وليس مصدراً للقلق. <br/><br/> حقق أحلام سفرك مع Bookingo. ابدأ التخطيط لرحلتك المثالية الآن! <br/><br/> #ذكريات_السفر #Bookingo #عائلة #حب #سفر_عائلي #لحظات_لا_تنسى #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[مشهد 1 - الانتباه (AIDA)]: لقطات سينمائية بطيئة وعاطفية لعائلة (أب، أم، أطفال) في المنزل. الأب يبدو متوتراً على اللابتوب. موسيقى بيانو هادئة ولكن فيها لمسة حزن.<br/>[مشهد 2 - الاهتمام/الرغبة (AIDA)]: تتغير ملامح الأب إلى الراحة وهو يكتشف تطبيق Bookingo. تشارك العائلة في عملية الاختيار بابتسامة. الموسيقى تصبح أكثر إشراقاً وتفاؤلاً.<br/>[مشهد 3 - رحلة البطل (StoryBrand)]: لقطات تتبع رحلة العائلة من التخطيط السهل، إلى المطار، إلى الوصول للوجهة. التركيز على تعابير السعادة والراحة والترابط العائلي. (Hero's Journey complete).<br/>[مشهد 4 - الفعل (AIDA)]: تظهر عبارة على الشاشة: 'ابنِ ذكرياتك... بسهولة'. ثم يظهر لوغو Bookingo والدعوة للفعل. النبرة عاطفية وملهمة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C14</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">إذا كانت عندك فرصة تسافر غدوة... وين تروح؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('14')">
+                    <div class="preview-text">Slide 1: العالم بين يديك. أين وجهتك القادمة؟
+Slide 2: ربما شواطئ تركيا الدافئة؟ لحظات من الاسترخاء ت...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-14" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('14')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C14</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-14')">📋 نسخ النص</button>
+                            <div id="script-text-14" class="modal-body">Slide 1: العالم بين يديك. أين وجهتك القادمة؟<br/><br/>Slide 2: ربما شواطئ تركيا الدافئة؟ لحظات من الاسترخاء تنتظرك.<br/><br/>Slide 3: أو شوارع باريس الساحرة؟ مغامرة رومانسية لا تُنسى.<br/><br/>Slide 4: مهما كان حلمك... Bookingo هو خطوتك الأولى لتحقيقه.<br/><br/>Slide 5: توقف عن الحلم، وابدأ بالتخطيط. رحلتك تبدأ من هنا!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-14')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-14" class="modal-body">🌍 حلمك بالسفر يبدأ بنقرة واحدة! <br/><br/> كل رحلة عظيمة تبدأ بفكرة، بحلم، بشغف لاكتشاف مكان جديد.<br/><br/>دع هذا الكاروسال يلهمك ويأخذك في جولة سريعة حول العالم.<br/><br/>مهما كانت وجهة أحلامك، Bookingo هنا لمساعدتك على الوصول إليها بسهولة. <br/><br/> تصفّح وجهاتنا و ابدأ مغامرتك مع Bookingo. إضغط! <br/><br/> #وجهات_سفر #إلهام #Bookingo #حلم_السفر #اكتشف_العالم #الجزائر #مغامرة</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Slide 1: صورة مذهلة لكوكب الأرض من الفضاء أو خريطة عالم فنية، مع سؤال كبير ومحفز. تصميم ملهم.<br/>Slide 2-3: صور احترافية عالية الجودة وساحرة لوجهات سياحية عالمية مشهورة (مثل كابادوكيا، برج إيفل). كل صورة معها نص قصير وملهم.<br/>Slide 4: تصميم يدمج شعار Bookingo مع صور مصغرة لعدة وجهات مختلفة، لإعطاء إحساس بالخيارات اللامتناهية.<br/>Slide 5: صورة مسافر يحمل حقيبته وينظر نحو الأفق عند شروق الشمس. دعوة قوية ومباشرة للفعل.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P15</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">أجمل اللحظات... هي لي نعيشوها مع بعض.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('15')">
+                    <div class="preview-text">رحلتك ... سعادتك ... Bookingo!...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-15" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('15')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P15</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-15')">📋 نسخ النص</button>
+                            <div id="script-text-15" class="modal-body">رحلتك ... سعادتك ... Bookingo!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-15')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-15" class="modal-body">❤️ السعادة الحقيقية... هي رحلة نشاركها. <br/><br/> في نهاية اليوم، كل ما يهم هو تلك اللحظات الثمينة التي لا يمكن للمال أن يشتريها.<br/><br/>Bookingo يسهل عليك الطريق، لتركز أنت على ما هو أهم: بناء ذكريات سعيدة مع من تحب.<br/><br/>ابدأ مغامرتك القادمة اليوم. <br/><br/> ابدأ مغامرتك اليوم. زور Bookingo! <br/><br/> #سعادة #عائلة #ذكريات #Bookingo #سفر_ملهم #الجزائر #حب</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">صورة عاطفية وملهمة جداً. عائلة (أب وأم وطفل) من الخلف، يمسكون بأيدي بعضهم البعض وينظرون إلى منظر طبيعي خلاب (غروب الشمس على البحر، قمة جبل). الصورة يجب أن تنقل شعوراً بالدفء، الأمان، والسعادة المشتركة. النص يكون مكتوباً بخط يدوي أنيق (Script font) لإضافة لمسة شخصية.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr></tbody></table></div>
+
+    <div class="disclaimer-card">
+        <span style="font-size: 1.2em;">⚠️</span>
+        <span>قد تخضع هذه الاستراتيجية لبعض التعديلات والتحسينات، حسب المواد الإعلامية المتوفرة أو لغرض تحقيق أفضل النتائج.</span>
+    </div>
+
+    <div class="summary-box">
+        <span style="font-weight: 700; color: #FFD700;">الميزانية الإجمالية المعتمدة</span>
+        <span class="total-amount">105000 دج</span>
+        <a href="https://wa.me/213770820431" class="cta-btn">تواصل معنا للاعتماد</a>
+        <div style="border: 1px dashed #FFD700; padding: 25px; border-radius: 15px; margin-top: 20px;">
+            <h3 style="color:#FFD700; margin:0;">الخطوة التالية</h3>
+            <p style="margin:10px 0;">مكالمة قصيرة لنكيّف هذه الاستراتيجية حسب مشروعك ونبدأ العمل فوراً.</p>
+            <div class="phones-list">
+                <div class="phone-item">0770 82 04 31</div>
+                <div class="phone-item">0770 55 01 51</div>
+                <div class="phone-item">0770 82 01 45</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+function openModal(id) { document.getElementById('modal-' + id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
+function closeModal(id) { document.getElementById('modal-' + id).style.display = 'none'; document.body.style.overflow = 'auto'; }
+window.onclick = function(event) { if (event.target.className === 'modal') { event.target.style.display = 'none'; document.body.style.overflow = 'auto'; } }
+
+// وظيفة النسخ الجديدة
+function copyToClipboard(elementId) {
+    const el = document.getElementById(elementId);
+    const text = el.innerText || el.textContent; // نسخ النص بدون HTML tags
+    navigator.clipboard.writeText(text).then(() => {
+        alert("تم نسخ النص بنجاح! ✅");
+    }).catch(err => {
+        console.error('Failed to copy', err);
+    });
+}
+</script></body></html>
