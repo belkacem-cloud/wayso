@@ -1,0 +1,457 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Slimane Chaker Strategy</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+<style>
+    body { background: #FFFFFF; color: #1A1A1A; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; line-height: 1.6; overflow-x: hidden; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 15px; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 2px solid #000; }
+    .wayso-logo { height: 45px; }
+    .brand-name { font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 1.4em; color: #000; text-transform: uppercase; border-right: 4px solid #FFD700; padding-right: 12px; }
+    
+    .analysis-section { margin: 30px 0; }
+    .card-philosophy { padding: 30px; border-radius: 20px; background: #000; color: #FFF; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+    .card-philosophy h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #FFD700; }
+    
+    .card-why { padding: 30px; border-radius: 20px; background: #F9F9F9; color: #333; margin-bottom: 20px; border: 1px solid #EDECE9; }
+    .card-why h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #000; display: flex; align-items: center; gap: 10px; }
+    .card-why h2::after { content: ''; flex-grow: 1; height: 1px; background: #EDECE9; margin-right: 15px; }
+
+    .hero { margin: 35px 0 20px 0; border-right: 6px solid #FFD700; padding-right: 15px; }
+    .hero h1 { font-size: 2.5em; font-weight: 700; margin: 0; }
+    .table-wrapper { margin-top: 25px; border-radius: 12px; overflow: hidden; border: 1px solid #EDECE9; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #000; color: #FFF; padding: 15px; text-align: right; font-size: 0.95em; }
+    td { padding: 20px 12px; border-bottom: 1px solid #EDECE9; vertical-align: top; }
+    
+    .code-badge { font-family: 'Montserrat', sans-serif; font-weight: 700; background: #FFD700; color: #000; padding: 5px 12px; border-radius: 6px; font-size: 1.1em; display: inline-block; margin-bottom: 5px; }
+    .type-label { display: block; font-weight: 700; color: #555; font-size: 0.95em; }
+    
+    .hook-pill { background: #000; color: #FFD700; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 1.1em; display: block; border-right: 5px solid #FFD700; }
+    
+    /* تحسين زر المودال */
+    .script-trigger { background: #F8F9FA; border: 1px solid #EDECE9; padding: 15px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; position: relative; }
+    .script-trigger:hover { background: #FFF; border-color: #FFD700; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transform: translateY(-2px); }
+    
+    .preview-text { font-size: 0.95em; color: #333; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; white-space: pre-wrap; }
+    
+    /* ستايل المودال */
+    .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); }
+    .modal-content { background: #FFF; margin: 5% auto; padding: 30px; border-radius: 20px; width: 90%; max-width: 750px; position: relative; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+    .close-modal { position: absolute; top: 20px; left: 20px; font-size: 30px; cursor: pointer; color: #999; line-height: 1; transition: color 0.2s; }
+    .close-modal:hover { color: #000; }
+    
+    .modal-section { margin-bottom: 25px; padding: 20px; border-radius: 12px; background: #fbfbfa; border: 1px solid #eee; position: relative; }
+    
+    /* زر النسخ */
+    .copy-btn { position: absolute; top: 10px; left: 10px; background: #fff; border: 1px solid #ddd; padding: 5px 10px; border-radius: 6px; cursor: pointer; font-size: 0.8em; font-weight: bold; color: #555; display: flex; align-items: center; gap: 5px; transition: all 0.2s; }
+    .copy-btn:hover { border-color: #FFD700; color: #000; background: #FFD70020; }
+    .copy-btn:active { transform: scale(0.95); }
+    
+    .modal-body { font-size: 1.15em; color: #1A1A1A; line-height: 1.9; word-wrap: break-word; white-space: pre-wrap; }
+    
+    .disclaimer-card { margin: 25px 0; padding: 20px; background: #FFF9E6; border-radius: 12px; border-right: 5px solid #FFC107; font-size: 1.05em; color: #856404; display: flex; align-items: center; gap: 12px; }
+    .summary-box { margin-top: 50px; background: #000; color: #FFF; padding: 40px 20px; border-radius: 25px; text-align: center; }
+    .total-amount { font-family: 'Montserrat'; font-size: 3.5em; font-weight: 700; display: block; color: #FFD700; margin: 10px 0; }
+    .cta-btn { display: inline-block; background: #FFD700; color: #000; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.2em; margin-bottom: 25px; transition: transform 0.2s; }
+    .cta-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px #FFD70060; }
+    
+    .phones-list { margin-top: 15px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; direction: ltr; } 
+    .phone-item { background: #1A1A1A; padding: 8px 15px; border-radius: 8px; border: 1px solid #333; color: #FFF; font-family: 'Montserrat'; font-weight: 700; font-size: 1.2em; white-space: nowrap; }
+
+    @media (max-width: 768px) {
+        thead { display: none; }
+        tr { display: block; border: 1px solid #EDECE9; border-radius: 15px; margin-bottom: 20px; padding: 15px; background: #FFF; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        td { display: block; padding: 10px 0; text-align: right; border-bottom: 1px dashed #eee; }
+        td:last-child { border-bottom: none; }
+        td::before { content: attr(data-label); font-weight: 700; color: #BBB; display: block; font-size: 0.8em; margin-bottom: 6px; text-transform: uppercase; }
+        .brand-name { font-size: 1.1em; }
+        .modal-content { width: 95%; padding: 20px; margin: 10% auto; }
+        .total-amount { font-size: 2.5em; }
+    }
+</style></head><body>
+
+<div class="container">
+    <div class="header">
+        <img src="https://storage.googleapis.com/msgsndr/GwIPQCjstTzxnzDQ1B32/media/68fddb5534bb1597bc934f89.png" class="wayso-logo">
+        <div class="brand-name">Slimane Chaker</div>
+    </div>
+
+    <div class="analysis-section">
+        <div class="card-philosophy"><h2>🎯 فلسفة الاستراتيجية</h2><p>في Wayso، نؤمن بأن التسويق الفعّال هو استثمار استراتيجي ينمو مع عملائنا. هذا المزيج المتكامل من الفيديو الرئيسي والكاروسالات التعليمية المصممة بعناية ليس مجرد حملة، بل هو أساس متين لبناء علامتك الشخصية وزيادة قيمة أعمالك بشكل مستدام. نحن هنا كشركاء لضمان أن كل محتوى يخدم هدفك الأسمى.</p></div>
+        <div class="card-why"><h2>💡 لماذا هذه الخطة؟</h2><p>بدأنا بـ V1 لخطف الانتباه وإثارة الألم العاطفي، ثم انتقلنا إلى C2 للتعليم العميق حول قيمة الصيانة، وP3 لترسيخ الثقة والسلطة. هذا التسلسل السيكولوجي يوجه العميل بسلاسة من الوعي بالمشكلة إلى رؤية الحل، مما يعزز القناعة ويحفز على اتخاذ القرار الصحيح.</p></div>
+    </div>
+
+    <div class="hero"><h1>خطة الإنتاج الإبداعي</h1></div>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th style="width: 20%;">الكود والنوع</th><th style="width: 30%;">الهوك (Hook)</th><th style="width: 50%;">المحتوى</th></tr></thead>
+            <tbody><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V1</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">راك تخدم شهور باش تشري سيارة... و مبعد تخلي قيمتها تذوب قدام عينيك؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('1')">
+                    <div class="preview-text">(صوت قلق) سيارتك ماشي مجرد وسيلة نقل... هي استثمار.
+وكل يوم، هذا الاستثمار راهو ينقص.
+(صوت واثق) الت...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-1" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('1')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V1</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-1')">📋 نسخ النص</button>
+                            <div id="script-text-1" class="modal-body">(صوت قلق) سيارتك ماشي مجرد وسيلة نقل... هي استثمار.<br/><br/>وكل يوم، هذا الاستثمار راهو ينقص.<br/><br/>(صوت واثق) التشققات، البهتان، الأوساخ... ماشي مجرد منظر ماشي شباب. هذي دراهمك لي راهي تروح.<br/><br/>بصح كاين حل.<br/><br/>أنا سليمان شاكر، ومهمتي ماشي نظافة برك، مهمتي نحمي قيمة سيارتك.<br/><br/>بخبرتنا، نرجعو الجلد لحالته الأصلية ونحميو كل تفصيلة لداخل.<br/><br/>هذا ماشي كمالية، هذا قرار ذكي باش تحافظ على استثمارك.<br/><br/>شوف الفرق... من سيارة تفقد قيمتها، لقطعة فنية تزيد قيمتها.<br/><br/>الفخامة تبدا من الداخل، وقيمة سيارتك ثاني.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-1')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-1" class="modal-body">سيارتك راهي تفقد من قيمتها كل يوم وانت ماشي فايق! <br/><br/> كل تشقق صغير في الجلد وكل بقعة على المقاعد هي إنذار بأن استثمارك راهو في خطر. ماشي لازم تستنى حتى يفوت الفوت!<br/><br/>مع خبرة سليمان شاكر، حنا منرجعولهاش اللمعان برك، بل نحميو قيمتها المالية على المدى الطويل. خدمتنا هي درع يحمي سيارتك من التآكل ويضمنلك شعور الفخامة في كل مرة تفتح فيها الباب.<br/><br/>خبرة سليمان شاكر: فخامة تشوفها وقيمة تحافظ عليها. <br/><br/> احجز استشارتك المجانية اليوم واكتشف كيف نحافظ على قيمة وفخامة سيارتك! اضغط هنا! <br/><br/> #سليمان_شاكر #حماية_السيارات #ديتايلينغ_الجزائر #فخامة #استثمار #سيارات_الجزائر #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[مشهد 1: لقطة افتتاحية صادمة] Split screen. على اليسار: مقعد سيارة فخم جديد ولامع. على اليمين: نفس المقعد بالي، متشقق، وباهت. حركة سريعة وموسيقى درامية.<br/>[مشهد 2: لقطات مقربة (Close-up)] لقطات مقربة جداً على تشققات الجلد، بقع على القماش، غبار في أماكن صعبة. إضاءة خافتة لإظهار العيوب. نبرة الصوت قلقة.<br/>[مشهد 3: ظهور الخبير] انتقال سلس لـ سليمان شاكر، واقف بثقة في ورشة عمل احترافية جداً ونظيفة. إضاءة دافئة. يرتدي لباس عمل براندد. نبرة صوته تصبح واثقة وهادئة.<br/>[مشهد 4: لقطات العمل (B-Roll)] لقطات سينمائية لعملية التنظيف الاحترافية: استخدام آلات متخصصة، مواد عالية الجودة، التركيز على يديه الخبيرة وهي تعمل بدقة. تسريع طفيف للقطات (Timelapse).<br/>[مشهد 5: التحول (The Reveal)] لقطات 'بعد' مبهرة. slow-motion بانورامي داخل السيارة وهي تبدو كأنها جديدة. إضاءة ساطعة تعكس اللمعان والنظافة. موسيقى ملهمة وراقية.<br/>[مشهد 6: لقطة ختامية] سليمان شاكر يقف بجانب السيارة بعد التحول، ينظر للكاميرا بابتسامة خبير. يظهر النص على الشاشة مع CTA.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C2</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">علاش لازم تحمي سيارتك من الداخل؟ الجواب ماشي كيما راك تتخيل!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('2')">
+                    <div class="preview-text">Slide 1: حافظ على قيمة سيارتك! هل تعلم أن الإهمال الداخلي قادر يخفضلك سعرها بأكثر من 20% وقت البيع؟
+...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-2" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('2')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C2</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-2')">📋 نسخ النص</button>
+                            <div id="script-text-2" class="modal-body">Slide 1: حافظ على قيمة سيارتك! هل تعلم أن الإهمال الداخلي قادر يخفضلك سعرها بأكثر من 20% وقت البيع؟<br/><br/>Slide 2: المشكلة الحقيقية: الشمس، الاحتكاك اليومي، الأوساخ والبقع ماشي برك يفسدو المنظر... بل يتلفو المواد الأصلية للسيارة ويصعب تصليحها.<br/><br/>Slide 3: الحل الاحترافي: في ورشة سليمان شاكر، نتبعو خطوات مدروسة: تشخيص دقيق، تنظيف عميق بآلات متخصصة، معالجة الجلد أو القماش بمواد عالمية، وأخيراً طبقة حماية تدوم طويلاً.<br/><br/>Slide 4: الفوائد ليك: 1- قيمة إعادة بيع أعلى. 2- شعور بالفخامة والراحة كل يوم. 3- راحة البال بأن استثمارك محمي.<br/><br/>Slide 5: الفرق واضح: التنظيف العادي يمسح الغبرة السطحية. خدمتنا تعالج، تحمي، وترجع السيارة لحالة الوكالة.<br/><br/>Slide 6: استثمارك يستاهل الأفضل. استشر خبير قبل ما تخسر أكثر.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-2')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-2" class="modal-body">ماشي مجرد نظافة... استثمار يرجعلك فايدة! <br/><br/> الكثير يعتقد أن العناية بالسيارة من الداخل هي رفاهية، بصح الحقيقة أنها من أذكى القرارات المالية لي تقدر تديرها.<br/><br/>في هذا الكاروسال، نكشفلك علاش حماية مقصورة سيارتك هي استثمار مباشر في قيمتها وكيفاش خدمتنا الاحترافية تضمنلك نتيجة تشوفها بعينيك وتحسها في جيبك.<br/><br/>اسحب لليمين واكتشف السر. <br/><br/> اضغط للتعرف على سر الحفاظ على استثمارك الثمين! <br/><br/> #تعليم #سيارات #استثمار #ديتايلينغ #نصائح_سيارات #الجزائر #قيمة_السيارة #سليمان_شاكر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Slide 1: صورة مقربة جداً على عداد سيارة فخمة مع نص جذاب بخط عريض.<br/>Slide 2: صورة مقسومة، نصف يظهر جلد متشقق والنصف الآخر قماش عليه بقع. استخدام أيقونات (شمس، احتكاك) للتوضيح.<br/>Slide 3: تصميم إنفوجرافيك بسيط يوضح الخطوات الثلاث (تشخيص، معالجة، حماية) مع أيقونات لكل خطوة. الخلفية صورة للورشة.<br/>Slide 4: استخدام تصميم ثلاثي الأعمدة، كل عمود فيه أيقونة ومنفعة مكتوبة تحته. خط نظيف وواضح.<br/>Slide 5: صورة مقارنة 'قبل/بعد' واضحة جداً. كلمة 'تنظيف عادي' فوق صورة 'قبل' و 'خبرة سليمان شاكر' فوق صورة 'بعد'.<br/>Slide 6: صورة لسليمان شاكر يبدو فيها خبيراً وواثقاً، مع CTA واضحة في الأسفل.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P3</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الخبرة ماشي واش نخدمو... الخبرة هي علاش نخدمو.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('3')">
+                    <div class="preview-text">سليمان شاكر: "خدمتنا ماشي مجرد تنظيف، هي استثمار في فخامة سيارتك وراحة بالك."...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-3" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('3')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P3</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-3')">📋 نسخ النص</button>
+                            <div id="script-text-3" class="modal-body">سليمان شاكر: "خدمتنا ماشي مجرد تنظيف، هي استثمار في فخامة سيارتك وراحة بالك."</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-3')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-3" class="modal-body">الفرق بين الهاوي والخبير... في التفاصيل. <br/><br/> كل سيارة نتعاملو معاها هي قصة ثقة ومسؤولية.<br/><br/>خبرتنا هي ضمان ليك بأن كل تفصيلة صغيرة في سيارتك راح تاخذ العناية لي تستحقها. لأننا نؤمن أن الفخامة الحقيقية هي راحة البال لما تعرف أن استثمارك في أيدٍ أمينة.<br/><br/>خبرة سليمان شاكر: فخامة تشوفها وقيمة تحافظ عليها. <br/><br/> اكتشف خدماتنا! <br/><br/> #ثقة #خبرة #احترافية #سليمان_شاكر #جودة #سيارات_فخمة #الجزائر #ديتايلينغ_احترافي</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">التصميم: صورة 'قبل/بعد' قوية جداً لمقعد سيارة فارهة. في الجزء السفلي من الصورة، يوضع الاقتباس بخط أنيق وواضح (Serif font). شعار 'سليمان شاكر' يوضع في زاوية بشكل غير مزعج. التركيز الكلي على قوة التحول البصري.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V4</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">غلطة وحدة في ورشة ماشي محترفة... تقدر تكلفك أغلى من السيارة.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('4')">
+                    <div class="preview-text">راك فرحان... ديت سيارتك لورشة باش ينظفوهالك بسعر مغري.
+(صوت يتغير ليصبح قلقاً) بصح... واش من مواد را...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-4" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('4')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V4</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-4')">📋 نسخ النص</button>
+                            <div id="script-text-4" class="modal-body">راك فرحان... ديت سيارتك لورشة باش ينظفوهالك بسعر مغري.<br/><br/>(صوت يتغير ليصبح قلقاً) بصح... واش من مواد راهم يستعملو؟<br/><br/>هل عندهم الخبرة باش يتعاملو مع الجلد الطبيعي؟<br/><br/>(موسيقى متوترة) غلطة وحدة... منتج غالط... يقدر يتلفلك المقاعد للأبد.<br/><br/>تشققات... بهتان اللون... تلف دائم!<br/><br/>هذيك الدراهم لي كنت حاسب ربحتها... راح تخسرها أضعاف في التصليح.<br/><br/>ولا الأسوأ... تخسرها في قيمة سيارتك لي طاحت للأرض.<br/><br/>ماتغامرش باستثمارك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-4')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-4" class="modal-body">أكبر خطأ يرتكبه أصحاب السيارات في الجزائر! <br/><br/> السعر الرخيص في البداية، قادر يكون هو أغلى غلطة تديرها في حق سيارتك.<br/><br/>الورشات غير المحترفة تستعمل مواد تجارية قادرة تتلفلك الجلد، تبهت اللون، وتسبب أضرار دائمة تكلفك آلاف الدينارات لتصليحها... هذا إذا قدرت تصلحها أصلاً.<br/><br/>قبل ما تسلم مفاتح سيارتك، شوف هذا الفيديو واعرف كيفاش تحمي استثمارك من خطأ واحد قادر يندمك. <br/><br/> لا تخلي سيارتك ضحية، استشر الخبراء. اضغط هنا لتصحيح الأخطاء! <br/><br/> #تحذير #سيارات_الجزائر #ورشة_تصليح #ديتايلينغ #خسارة #احتيال #حماية_المستهلك #سليمان_شاكر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[مشهد 1: لقطة UGC] لقطة تبدو وكأنها مصورة بهاتف، لشخص يصور سيارته من الداخل وهو يقول 'شوفو واش صرا للجلد!'.<br/>[مشهد 2: Motion Graphics] رسوم متحركة بسيطة تظهر علامة '؟' فوق عبوات مواد تنظيف مجهولة. ثم تظهر علامة 'X' حمراء كبيرة.<br/>[مشهد 3: لقطات مقربة سلبية] لقطات مقربة جداً لجلد تالف بسبب مواد كيميائية خاطئة، خيوط مقطعة، لون باهت بشكل غير طبيعي. موسيقى تصويرية متوترة.<br/>[مشهد 4: Motion Graphics] رسم بياني بسيط يوضح سهم سعر السيارة وهو يهبط للأسفل بسرعة، مع صوت خسارة.<br/>[مشهد 5: لقطة ختامية] شاشة سوداء يظهر عليها النص: 'المغامرة تكلف غالياً. اختر الخبرة.' ثم يظهر شعار سليمان شاكر.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C5</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">3 علامات تقولك بلي سيارتك من الداخل راهي في خطر حقيقي!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('5')">
+                    <div class="preview-text">Slide 1: سيارتك راهي تبعتلك في إشارات تحذير! هل أنت تشوف فيها؟ تجاهلها يكلفك غالي.
+Slide 2: العلامة ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-5" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('5')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C5</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-5')">📋 نسخ النص</button>
+                            <div id="script-text-5" class="modal-body">Slide 1: سيارتك راهي تبعتلك في إشارات تحذير! هل أنت تشوف فيها؟ تجاهلها يكلفك غالي.<br/><br/>Slide 2: العلامة 1: بهتان وتشققات. ماشي مجرد علامة تاع قدم، بل دليل على أن الجلد فقد الترطيب تاعه وراهو معرض للتلف الكامل. السبب؟ الشمس والمواد الغالطة.<br/><br/>Slide 3: العلامة 2: روائح كريهة. الرائحة لي متحبش تروح ماشي مجرد إزعاج. قادرة تكون دليل على وجود بكتيريا وعفن تحت المقاعد، وهذا خطر على صحتك وصحة عائلتك.<br/><br/>Slide 4: العلامة 3: ملمس خشن أو جاف. كي تلمس المقاعد وتحسها ماشي ناعمة كيما كانت، هذا إنذار أخير قبل ما تبدأ مرحلة التآكل والتلف الدائم لي تصليحه شبه مستحيل.<br/><br/>Slide 5: الحل الوقائي: الصيانة الدورية الاحترافية ماشي رفاهية. هي لي تحميك من كل هذا. نستعملو مواد مخصصة ترطب، تحمي، وتنظف بعمق باش نتفاداو الكارثة.<br/><br/>Slide 6: ما تستناش حتى تولي مشكلة كبيرة. اكتشف الحلول الآن.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-5')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-5" class="modal-body">لا تتجاهل هذه العلامات في سيارتك! <br/><br/> سيارتك تتكلم معك... لكن بلغة الإشارات. تشقق صغير أو رائحة خفيفة اليوم، قادرة تكون مشكلة كبيرة ومكلفة غداً.<br/><br/>في هذا الكاروسال، نبهناك للعلامات التحذيرية الثلاثة الأخطر لي لازم كل مالك سيارة يعرفها.<br/><br/>اسحب لليمين وتعلّم كيفاش تقرا هذي الإشارات وتحمي استثمارك قبل فوات الأوان. <br/><br/> تعرف على الحلول قبل فوات الأوان! <br/><br/> #صيانة_سيارات #نصائح #تحذير #مشاكل_سيارات #ديتايلينغ #الجزائر #سليمان_شاكر #وقاية</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Slide 1: صورة درامية لعلامة تعجب كبيرة فوق صورة داخلية لسيارة. استخدام ألوان تحذيرية (أصفر، أسود).<br/>Slide 2: صورة مقربة جداً على تشقق في الجلد، مع أيقونة شمس صغيرة بجانبها.<br/>Slide 3: تصميم غرافيكي يظهر أيقونات بكتيريا صغيرة بشكل كرتوني فوق رسم لمقعد سيارة، للتعبير عن الفكرة دون صور مقززة.<br/>Slide 4: صورة يد تلمس مقعد سيارة، مع تركيز على نسيج الجلد الجاف. استخدام فلتر يبرز الجفاف.<br/>Slide 5: صورة ليد خبير تضع مادة حماية على الجلد. الصورة يجب أن تبدو نظيفة جداً واحترافية.<br/>Slide 6: CTA واضحة وكبيرة على خلفية نظيفة مع شعار سليمان شاكر.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P6</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">راك من ضمن الـ 70% لي يخسرو دراهمهم في قيمة السيارة بلا ما يفيقو؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('6')">
+                    <div class="preview-text">هل تعلم؟
+70% من القيمة المفقودة للسيارات المستعملة سببها المباشر هو الإهمال الداخلي والمظهر البالي....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-6" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('6')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P6</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-6')">📋 نسخ النص</button>
+                            <div id="script-text-6" class="modal-body">هل تعلم؟<br/><br/>70% من القيمة المفقودة للسيارات المستعملة سببها المباشر هو الإهمال الداخلي والمظهر البالي.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-6')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-6" class="modal-body">إحصائية صادمة لكل مالك سيارة في الجزائر. <br/><br/> الرقم لا يكذب. 7 من كل 10 سيارات تفقد جزء كبير من قيمتها ليس بسبب المحرك أو الأعطال الميكانيكية، بل بسبب شيء يمكن التحكم فيه: الحالة الداخلية.<br/><br/>إهمال بسيط اليوم يعني خسارة مالية كبيرة غداً عند البيع.<br/><br/>قرارك اليوم يحدد قيمة استثمارك غداً. <br/><br/> احمِ سيارتك الآن! <br/><br/> #إحصائيات #خسارة_مالية #سوق_السيارات #الجزائر #استثمار #نصيحة_اليوم #سليمان_شاكر #قيمة_مضافة</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">التصميم: خلفية داكنة وأنيقة. الرقم '70%' مكتوب بحجم ضخم جداً ولون بارز (أحمر أو ذهبي). باقي النص مكتوب تحته بخط أصغر ولكن واضح جداً. التركيز البصري الكامل على الإحصائية الصادمة. شعار 'سليمان شاكر' في الأسفل.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V7</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كانو حاسبين سياراتهم خلاص راحت عليهم... اسمع واش قالو كي شافوها!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('7')">
+                    <div class="preview-text">(شهادة 1 - صوت رجل أعمال) كنت حشمان ندي معايا كليون في سيارتي. بعد خدمة سليمان شاكر، وليت نفتاخر بيه...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-7" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('7')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V7</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-7')">📋 نسخ النص</button>
+                            <div id="script-text-7" class="modal-body">(شهادة 1 - صوت رجل أعمال) كنت حشمان ندي معايا كليون في سيارتي. بعد خدمة سليمان شاكر، وليت نفتاخر بيها. رجعتلي الثقة.<br/><br/>(شهادة 2 - صوت سيدة) سيارتي عائلية، مع الدراري كانت حالتها حالة. كنت نظن مستحيل ترجع نظيفة. سليمان فاجأني، رجعت خير من لي كانت جديدة.<br/><br/>(شهادة 3 - صوت شاب) نحب سيارتي ونحب تبان دايماً TOP. جربت بزاف ورشات، بصح الدقة والاحترافية تاع سليمان شاكر وحدها. التفاصيل هي كلش.<br/><br/>(صوت سليمان شاكر الختامي) فرحة كل عميل هي أكبر نجاح لينا. حنا منخدموش على السيارات، نخدمو على الثقة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-7')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-7" class="modal-body">النتيجة تتكلم وحدها... والعملاء يشهدون! <br/><br/> لا تأخذ كلمتنا كأمر مسلم به، بل اسمع مباشرة من الناس الذين وضعوا ثقتهم في خبرة سليمان شاكر وشاهدوا التحول بأعينهم.<br/><br/>من الإحراج إلى الفخر، ومن اليأس إلى الدهشة. هذه ليست مجرد شهادات، بل هي قصص حقيقية عن استثمارات تم إنقاذها وثقة تم استعادتها.<br/><br/>شاهد الفيديو واكتشف بنفسك لماذا يختاروننا. <br/><br/> جاهز باش تشوف سيارتك كيما جامي شفتها؟ احجز موعدك اليوم! <br/><br/> #شهادات_عملاء #زبائن_راضون #ثقة #نتائج_مضمونة #ديتايلينغ_الجزائر #سليمان_شاكر #فخامة #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[مشهد 1: لقطات 'بعد' سينمائية] الفيديو يبدأ بلقطات جمالية وبطيئة جداً للسيارات بعد الخدمة. إضاءة مثالية، لمعان، نظافة فائقة. موسيقى راقية وملهمة.<br/>[مشهد 2: شهادات العملاء] نسمع أصوات العملاء (Voice Over) بينما نرى لقطات للسيارات المعنية. يمكن إظهار أجزاء من وجوه العملاء وهم يبتسمون (دون الكشف الكامل عن هويتهم للحفاظ على الخصوصية) أو لقطات لهم وهم يستلمون مفاتيح سياراتهم بسعادة.<br/>[مشهد 3: التركيز على التفاصيل] مع كل شهادة، يتم عرض لقطات مقربة جداً للتفاصيل التي يتحدث عنها العميل (الجلد اللامع، القماش النظيف، انعدام الغبار).<br/>[مشهد 4: لقطة ختامية] لقطة لسليمان شاكر وهو يسلم المفتاح لعميل مبتسم. يظهر النص والـ CTA على الشاشة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C8</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">ماشي حنا لي نقولو خدمتنا هي الأفضل... هوما لي يقولو!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('8')">
+                    <div class="preview-text">Slide 1: واش راهم يقولو علينا؟ شوف بعينيك قصص نجاح حقيقية لعملاء وضعوا ثقتهم في خبرة سليمان شاكر.
+Sl...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-8" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('8')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C8</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-8')">📋 نسخ النص</button>
+                            <div id="script-text-8" class="modal-body">Slide 1: واش راهم يقولو علينا؟ شوف بعينيك قصص نجاح حقيقية لعملاء وضعوا ثقتهم في خبرة سليمان شاكر.<br/><br/>Slide 2: "السيارة رجعت كأنها خرجت من المصنع اليوم. خدمة احترافية ودقة في المواعيد. شكراً سليمان." - محمد. أ.<br/><br/>Slide 3: "كنت على وشك تغيير مقاعد سيارتي بالكامل. سليمان أنقذ الموقف وأنقذني من تكلفة كبيرة. النتيجة فاقت توقعاتي." - فاطمة. ز.<br/><br/>Slide 4: "أفضل استثمار درتو في سيارتي. كل دينار يستاهل. التعامل راقي والنتيجة مبهرة." - كريم. ب.<br/><br/>Slide 5: علاش يختارونا؟ لأننا نقدم أكثر من مجرد خدمة: نقدم ثقة، خبرة مثبتة، ونتائج تدوم طويلاً.<br/><br/>Slide 6: الثقة تاعكم هي لي تصنع نجاحنا. انضم لعائلتنا الراضية.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-8')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-8" class="modal-body">أقوى دليل على جودتنا؟ ثقة عملائنا. <br/><br/> في سوق مليء بالوعود، نحن نفضل ترك النتائج تتحدث بنفسها، وعملائنا يشاركون قصصهم.<br/><br/>كل اقتباس في هذا الكاروسال هو شهادة حقيقية على التزامنا بالجودة والاحترافية.<br/><br/>اسحب لليمين وشوف علاش خبرة سليمان شاكر هي الخيار رقم واحد للباحثين عن الأفضل. <br/><br/> ثقة العملاء هي سر نجاحنا! تواصل معنا! <br/><br/> #اراء_العملاء #social_proof #ثقة #جودة #الجزائر #ديتايلينغ #سيارات #سليمان_شاكر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Slide 1: تصميم أنيق بخلفية فاخرة، مع عنوان جذاب واستخدام أيقونات 'اقتباس'.<br/>Slide 2: صورة 'بعد' مذهلة لداخلية سيارة سيدان فخمة. الاقتباس مكتوب بخط واضح وأنيق، واسم العميل في الأسفل.<br/>Slide 3: صورة 'بعد' رائعة لداخلية سيارة SUV عائلية. نفس نسق التصميم للاقتباس.<br/>Slide 4: صورة 'بعد' لسيارة رياضية أو كوبيه. نفس نسق التصميم للحفاظ على الهوية البصرية.<br/>Slide 5: تصميم إنفوجرافيك بسيط يلخص 3 نقاط قوة (ثقة، خبرة، نتائج) باستخدام أيقونات جذابة.<br/>Slide 6: صورة لسليمان شاكر وهو يصافح عميلاً (دون إظهار وجه العميل بوضوح)، مع CTA واضحة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P9</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">سيارتك ماشي مجرد حديد... هي جزء من هويتك.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('9')">
+                    <div class="preview-text">الفخامة تبدأ من الداخل....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-9" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('9')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P9</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-9')">📋 نسخ النص</button>
+                            <div id="script-text-9" class="modal-body">الفخامة تبدأ من الداخل.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-9')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-9" class="modal-body">بعض التفاصيل... تحدث كل الفرق. <br/><br/> سيارتك هي انعكاس لذوقك وشخصيتك. الاهتمام بأدق تفاصيلها الداخلية ليس مجرد صيانة، بل هو تعبير عن تقديرك للفخامة والجودة.<br/><br/>امنح سيارتك العناية التي تستحقها، ودعها تحكي قصة أناقتك.<br/><br/>خبرة سليمان شاكر: فخامة تشوفها وقيمة تحافظ عليها. <br/><br/> خلي سيارتك تحكي قصة الفخامة. احجز موعدك! <br/><br/> #فخامة #أناقة #تفاصيل #سيارات_فخمة #lifestyle_dz #الجزائر #سليمان_شاكر #جودة_عالية</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">التصميم: صورة فوتوغرافية فنية ومبهرة للغاية لقطعة واحدة من داخل السيارة بعد الخدمة (مثلاً، مقبض الباب الجلدي مع الخياطة، أو جزء من المقود). الإضاءة والزاوية يجب أن تكونا احترافيتين جداً لتعطي شعوراً بالإعلان عن ساعة فاخرة. النص 'الفخامة تبدأ من الداخل' يكتب بخط يدوي (Script font) أنيق وصغير.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr></tbody></table></div>
+
+    <div class="disclaimer-card">
+        <span style="font-size: 1.2em;">⚠️</span>
+        <span>قد تخضع هذه الاستراتيجية لبعض التعديلات والتحسينات، حسب المواد الإعلامية المتوفرة أو لغرض تحقيق أفضل النتائج.</span>
+    </div>
+
+    <div class="summary-box">
+        <span style="font-weight: 700; color: #FFD700;">الميزانية الإجمالية المعتمدة</span>
+        <span class="total-amount">74000 دج</span>
+        <a href="https://wa.me/213770820431" class="cta-btn">تواصل معنا للاعتماد</a>
+        <div style="border: 1px dashed #FFD700; padding: 25px; border-radius: 15px; margin-top: 20px;">
+            <h3 style="color:#FFD700; margin:0;">الخطوة التالية</h3>
+            <p style="margin:10px 0;">مكالمة قصيرة لنكيّف هذه الاستراتيجية حسب مشروعك ونبدأ العمل فوراً.</p>
+            <div class="phones-list">
+                <div class="phone-item">0770 82 04 31</div>
+                <div class="phone-item">0770 55 01 51</div>
+                <div class="phone-item">0770 82 01 45</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+function openModal(id) { document.getElementById('modal-' + id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
+function closeModal(id) { document.getElementById('modal-' + id).style.display = 'none'; document.body.style.overflow = 'auto'; }
+window.onclick = function(event) { if (event.target.className === 'modal') { event.target.style.display = 'none'; document.body.style.overflow = 'auto'; } }
+
+// وظيفة النسخ الجديدة
+function copyToClipboard(elementId) {
+    const el = document.getElementById(elementId);
+    const text = el.innerText || el.textContent; // نسخ النص بدون HTML tags
+    navigator.clipboard.writeText(text).then(() => {
+        alert("تم نسخ النص بنجاح! ✅");
+    }).catch(err => {
+        console.error('Failed to copy', err);
+    });
+}
+</script></body></html>
