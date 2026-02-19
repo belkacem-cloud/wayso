@@ -1,0 +1,567 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>ايمو Strategy</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+<style>
+    body { background: #FFFFFF; color: #1A1A1A; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; line-height: 1.6; overflow-x: hidden; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 15px; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 2px solid #000; }
+    .wayso-logo { height: 45px; }
+    .brand-name { font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 1.4em; color: #000; text-transform: uppercase; border-right: 4px solid #FFD700; padding-right: 12px; }
+    
+    .analysis-section { margin: 30px 0; }
+    .card-philosophy { padding: 30px; border-radius: 20px; background: #000; color: #FFF; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+    .card-philosophy h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #FFD700; }
+    
+    .card-why { padding: 30px; border-radius: 20px; background: #F9F9F9; color: #333; margin-bottom: 20px; border: 1px solid #EDECE9; }
+    .card-why h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #000; display: flex; align-items: center; gap: 10px; }
+    .card-why h2::after { content: ''; flex-grow: 1; height: 1px; background: #EDECE9; margin-right: 15px; }
+
+    .hero { margin: 35px 0 20px 0; border-right: 6px solid #FFD700; padding-right: 15px; }
+    .hero h1 { font-size: 2.5em; font-weight: 700; margin: 0; }
+    .table-wrapper { margin-top: 25px; border-radius: 12px; overflow: hidden; border: 1px solid #EDECE9; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #000; color: #FFF; padding: 15px; text-align: right; font-size: 0.95em; }
+    td { padding: 20px 12px; border-bottom: 1px solid #EDECE9; vertical-align: top; }
+    
+    .code-badge { font-family: 'Montserrat', sans-serif; font-weight: 700; background: #FFD700; color: #000; padding: 5px 12px; border-radius: 6px; font-size: 1.1em; display: inline-block; margin-bottom: 5px; }
+    .type-label { display: block; font-weight: 700; color: #555; font-size: 0.95em; }
+    
+    .hook-pill { background: #000; color: #FFD700; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 1.1em; display: block; border-right: 5px solid #FFD700; }
+    
+    /* تحسين زر المودال */
+    .script-trigger { background: #F8F9FA; border: 1px solid #EDECE9; padding: 15px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; position: relative; }
+    .script-trigger:hover { background: #FFF; border-color: #FFD700; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transform: translateY(-2px); }
+    
+    .preview-text { font-size: 0.95em; color: #333; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; white-space: pre-wrap; }
+    
+    /* ستايل المودال */
+    .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); }
+    .modal-content { background: #FFF; margin: 5% auto; padding: 30px; border-radius: 20px; width: 90%; max-width: 750px; position: relative; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+    .close-modal { position: absolute; top: 20px; left: 20px; font-size: 30px; cursor: pointer; color: #999; line-height: 1; transition: color 0.2s; }
+    .close-modal:hover { color: #000; }
+    
+    .modal-section { margin-bottom: 25px; padding: 20px; border-radius: 12px; background: #fbfbfa; border: 1px solid #eee; position: relative; }
+    
+    /* زر النسخ */
+    .copy-btn { position: absolute; top: 10px; left: 10px; background: #fff; border: 1px solid #ddd; padding: 5px 10px; border-radius: 6px; cursor: pointer; font-size: 0.8em; font-weight: bold; color: #555; display: flex; align-items: center; gap: 5px; transition: all 0.2s; }
+    .copy-btn:hover { border-color: #FFD700; color: #000; background: #FFD70020; }
+    .copy-btn:active { transform: scale(0.95); }
+    
+    .modal-body { font-size: 1.15em; color: #1A1A1A; line-height: 1.9; word-wrap: break-word; white-space: pre-wrap; }
+    
+    .disclaimer-card { margin: 25px 0; padding: 20px; background: #FFF9E6; border-radius: 12px; border-right: 5px solid #FFC107; font-size: 1.05em; color: #856404; display: flex; align-items: center; gap: 12px; }
+    .summary-box { margin-top: 50px; background: #000; color: #FFF; padding: 40px 20px; border-radius: 25px; text-align: center; }
+    .total-amount { font-family: 'Montserrat'; font-size: 3.5em; font-weight: 700; display: block; color: #FFD700; margin: 10px 0; }
+    .cta-btn { display: inline-block; background: #FFD700; color: #000; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.2em; margin-bottom: 25px; transition: transform 0.2s; }
+    .cta-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px #FFD70060; }
+    
+    .phones-list { margin-top: 15px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; direction: ltr; } 
+    .phone-item { background: #1A1A1A; padding: 8px 15px; border-radius: 8px; border: 1px solid #333; color: #FFF; font-family: 'Montserrat'; font-weight: 700; font-size: 1.2em; white-space: nowrap; }
+
+    @media (max-width: 768px) {
+        thead { display: none; }
+        tr { display: block; border: 1px solid #EDECE9; border-radius: 15px; margin-bottom: 20px; padding: 15px; background: #FFF; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        td { display: block; padding: 10px 0; text-align: right; border-bottom: 1px dashed #eee; }
+        td:last-child { border-bottom: none; }
+        td::before { content: attr(data-label); font-weight: 700; color: #BBB; display: block; font-size: 0.8em; margin-bottom: 6px; text-transform: uppercase; }
+        .brand-name { font-size: 1.1em; }
+        .modal-content { width: 95%; padding: 20px; margin: 10% auto; }
+        .total-amount { font-size: 2.5em; }
+    }
+</style></head><body>
+
+<div class="container">
+    <div class="header">
+        <img src="https://storage.googleapis.com/msgsndr/GwIPQCjstTzxnzDQ1B32/media/68fddb5534bb1597bc934f89.png" class="wayso-logo">
+        <div class="brand-name">ايمو</div>
+    </div>
+
+    <div class="analysis-section">
+        <div class="card-philosophy"><h2>🎯 فلسفة الاستراتيجية</h2><p>بصفتنا شركاء نجاحكم، قمنا بتصميم هذه الاستراتيجية لتكون استثمارًا ذكيًا ومباشرًا في نموكم. يرتكز المزيج بين الفيديو الشامل والكاروسالات التعليمية على قوة السرد القصصي لتوطيد الثقة، مع تبسيط المعلومات لضمان فهم واضح لميزتكم التنافسية الفريدة. هذه الخطة ليست مجرد حملة، بل هي رحلة متكاملة تضمن الوصول لأهدافكم بكفاءة وفعالية.</p></div>
+        <div class="card-why"><h2>💡 لماذا هذه الخطة؟</h2><p>بدأنا بـ V1 لخطف الانتباه وتقديم الوعد الرئيسي (عمولة صفر)، ثم C2 للتعليم وشرح الآلية. هذا التسلسل مصمم سيكولوجيًا لترسيخ الثقة وبناء الرغبة خطوة بخطوة، مما يقود العميل بشكل طبيعي نحو اتخاذ قرار الشراء.</p></div>
+    </div>
+
+    <div class="hero"><h1>خطة الإنتاج الإبداعي</h1></div>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th style="width: 20%;">الكود والنوع</th><th style="width: 30%;">الهوك (Hook)</th><th style="width: 50%;">المحتوى</th></tr></thead>
+            <tbody><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V1</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">راح تخلّص ملاين زيادة على دار أحلامك؟ حبّس! هاد الدراهم تاع العمولة تقدر تدير بيهم شحال من حاجة.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('1')">
+                    <div class="preview-text">حاب تشري دار و راسك معمر بالأسئلة؟
+شحال نزيد فوق السومة؟ الإجراءات واش حال معقدة؟ و منين نجيب وكيل ع...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-1" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('1')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V1</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-1')">📋 نسخ النص</button>
+                            <div id="script-text-1" class="modal-body">حاب تشري دار و راسك معمر بالأسئلة؟<br/><br/>شحال نزيد فوق السومة؟ الإجراءات واش حال معقدة؟ و منين نجيب وكيل عقاري ثقة؟<br/><br/>علابالنا بلي هاد التخمام قادر يحبّسلك حلمك... ويخليك تدفع دراهم كنت قادر توفرها.<br/><br/>بصح اليوم، الحكاية تبدلت.<br/><br/>في وكالة ايمو العقارية، ماشي برك نلقاولك الدار اللي تحلم بيها... نضمنولك تشريها بـ 0% عمولة.<br/><br/>وي، صفر عمولة على المشتري.<br/><br/>عندنا أكثر من 10 سنين خبرة في السوق العقاري تاع قسنطينة. نعرفو كل حومة وكل فرصة.<br/><br/>مهمتنا ماشي برك نبيعولك... مهمتنا نوقفو معاك، نوجهوك، ونحميوك من كل المشاكل.<br/><br/>نتكفلو بكل شي: من البحث على العقار المناسب، للتفاوض على أفضل سعر، حتى نكملو كل الإجراءات القانونية.<br/><br/>باش نت، تكون مرتاح البال، وموفر دراهمك.<br/><br/>هادي ماشي مجرد خدمة، هذا هو العهد تاعنا معاك.<br/><br/>دار أحلامك راهي تسنى فيك، بلا حتى سنتيم زيادة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-1')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-1" class="modal-body">🚨 قبل ما تشري دار في قسنطينة، لازم تشوف هذا الفيديو! <br/><br/> علاش تزيد على روحك مصاريف العمولة اللي تقدر توفرها و تستفاد منها في دارك الجديدة؟ 🤔<br/>في وكالة ايمو العقارية، قلبنا المعادلة. معانا، المشتري ما يخلص حتى فرنك عمولة! خبرتنا تاع 10 سنين في السوق القسنطيني هي ضمانك باش دير أفضل صفقة بأمان تام وراحة بال.<br/>نتكفلو بكلش من الألف إلى الياء. مهمتك الوحيدة؟ تستلم مفاتيح دار أحلامك. <br/><br/> ✅ أحجز استشارتك المجانية اليوم واعرف كيف تولي مولا دارك بلا ما تخلّص زيادة! <br/><br/> #عقارات_قسنطينة #شراء_عقار_الجزائر #عمولة_صفر #وكالة_ايمو_العقارية #شقق_للبيع_قسنطينة #استثمار_عقاري_الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Master Video - Hybrid Style]<br/>- **Opening (0-3s):** Fast cuts. A calculator showing a large number (e.g., 500,000 DA), then a hand swiping it away with a 'X'. Text overlay: 'عمولة؟'. Voiceover starts with the hook, tone is slightly shocking/urgent.<br/>- **Problem (3-10s):** Show a person looking stressed, scrolling through property listings on a phone, looking confused at paperwork. Use motion graphics to show question marks popping up around their head. Visuals are slightly desaturated.<br/>- **Agitation (10-15s):10-15s):** Quick shot of money being passed under a table (metaphor for hidden costs), followed by a shot of a calendar with days flying by (wasted time). Nبرة الصوت تكون متعاطفة.<br/>- **Solution Intro (15-25s):** Screen goes clean. The 'ايمو' logo animates in smoothly. A friendly, professional host (الوجه الإعلامي) appears on screen. Lighting is bright and warm. He delivers the '0% commission' line with confidence and a smile.<br/>- **Building Trust (25-35s):** Motion graphics showing '10+ سنوات خبرة' with a map of Constantine in the background highlighting different neighborhoods. Show quick B-roll shots of keys being handed over to happy clients. Host's voice is now expert and reassuring.<br/>- **The Process (35-45s):** Simplified animated flowchart shows the process: 1. Consultation, 2. Property Search, 3. Negotiation, 4. Paperwork. All handled by the agency. Emphasize ease and simplicity.<br/>- **The Promise/CTA (45-55s):** Return to the host. He speaks directly to the camera with a calm, trustworthy demeanor. The final call to action appears on screen as a clear, clickable-looking button. End with the logo and contact info.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C2</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">السر اللي يخلّيك تشري دارك بلا ما تزيد حتى دورو عمولة... موجود هنا.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('2')">
+                    <div class="preview-text">Slide 1: السر اللي يخلّيك تشري دارك في قسنطينة بلا ما تزيد حتى دورو عمولة... موجود في هذا الكاروسال!...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-2" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('2')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C2</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-2')">📋 نسخ النص</button>
+                            <div id="script-text-2" class="modal-body">Slide 1: السر اللي يخلّيك تشري دارك في قسنطينة بلا ما تزيد حتى دورو عمولة... موجود في هذا الكاروسال! (مع سهم للإشارة للتمرير)<br/><br/>Slide 2: الطريقة التقليدية: المشتري يدفع عمولة للوكالة العقارية. هاد الشي يزيد في تكلفة العقار عليك.<br/><br/>Slide 3: طريقتنا في ايمو: المشتري يدفع 0% عمولة. السعر اللي تشوفو هو السعر اللي تخلصو. شفافية تامة.<br/><br/>Slide 4: كيفاش ممكن؟ بكل بساطة، حنا نتفاهمو على العمولة تاعنا مع البائع فقط. مهمتنا نسهلولو البيع، ومهمتنا ليك هي نسهلولك الشراء.<br/><br/>Slide 5: واش معنتها ليك؟ دراهم العمولة اللي كنت راح تخلصها، تقدر دير بيها:<br/><br/>- أثاث جديد لدارك<br/><br/>- تكمل بيها مبلغ الشراء<br/><br/>- تخبيها لمشروع آخر<br/><br/>Slide 6: الفوائد واضحة: توفير مالي كبير، ثقة أكبر في العملية، وتركيز كامل على إيجاد المنزل المثالي ليك.<br/><br/>Slide 7: مستعد تبدا رحلتك نحو دار أحلامك بلا تكاليف مخفية؟ وكالة ايمو العقارية هي شريكك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-2')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-2" class="modal-body">🤫 كشف سر شراء عقار في قسنطينة بأقل تكلفة ممكنة! <br/><br/> ما تخليش العمولات تكون هي الحاجز بينك وبين دار أحلامك. اكتشف في هذا الكاروسال كيف نظامنا تاع 'عمولة صفر للمشتري' يخدم لصالحك ويوفّرلك آلاف الدينارات.<br/>الشفافية والثقة هما أساس خدمتنا. مرر الصور واعرف علاش حنا الخيار الأفضل. <br/><br/> حاب تعرف تفاصيل أكثر؟ ادخل لموقعنا الرسمي أو ابعث لينا رسالة ونجاوبوك في الحين! <br/><br/> #عمولة_صفر_ايمو #شراء_منزل #نصائح_عقارية #الجزائر #قسنطينة #توفير_المال #وكالة_عقارية_موثوقة</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Infographic Carousel]<br/>- **Overall Style:** Clean, modern, using brand colors (e.g., blue, white, grey). Use clear icons and simple graphics to illustrate points.<br/>- **Slide 1:** Bold hook text over a high-quality, slightly blurred image of house keys. A 'swipe' graphic is essential.<br/>- **Slide 2:** A simple diagram showing: [Buyer] -> [Money Icon + %] -> [Agency]. Use a 'sad' or 'thinking' emoji.<br/>- **Slide 3:** A similar diagram showing: [Buyer] -> [0% Icon] -> [Agency 'Imo']. Use a 'happy' or 'check mark' emoji.<br/>- **Slide 4:** A graphic showing [Seller] -> [Money Icon] -> [Agency 'Imo'] on one side, and [Agency 'Imo'] -> [Service/Handshake Icon] -> [Buyer] on the other.<br/>- **Slide 5:** Use bullet points with clear icons for each item (a sofa for furniture, a piggy bank for savings, etc.).<br/>- **Slide 6:** Use checkmark icons next to each benefit (توفير، ثقة، تركيز).<br/>- **Slide 7:** Clear Call To Action text with the agency logo and a button-like graphic saying 'تواصل معنا'.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P3</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">العمولة على الشاري؟ هادي حكاية قديمة. معانا، تشري و تتهنّى.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('3')">
+                    <div class="preview-text">عمولة 0% للمشتري.
+نقطة إلى السطر....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-3" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('3')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P3</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-3')">📋 نسخ النص</button>
+                            <div id="script-text-3" class="modal-body">عمولة 0% للمشتري.<br/><br/>نقطة إلى السطر.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-3')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-3" class="modal-body">واش تسنى باش تملك دارك؟ العمولة ولات تاريخ! <br/><br/> المعادلة بسيطة وواضحة: في وكالة ايمو العقارية، المشتري ما يخلصش عمولة. تركيزنا الكامل هو باش تلقى الدار المناسبة ليك، بأفضل سعر، وبلا أي تكاليف إضافية مفاجئة.<br/>مرحلة جديدة في السوق العقاري بدأت. <br/><br/> ابدأ رحلتك نحو تملك العقار اليوم - اضغط على الرابط في البايو! <br/><br/> #بدون_عمولة #عقارات_الجزائر #قسنطينة_سيتي #فرصة_عقارية #ايمو_العقارية #دار_للبيع</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Awareness Graphic]<br/>- **Background:** A professional and clean background, maybe a subtle architectural design or a solid brand color.<br/>- **Typography:** The text 'عمولة 0% للمشتري' should be very large, bold, and the central focus. The line 'نقطة إلى السطر.' should be smaller but still impactful.<br/>- **Branding:** The 'ايمو' logo should be clearly visible but not overpowering, likely in a corner.<br/>- **Overall Feel:** Confident, direct, and unambiguous.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V4</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">حسبت شحال من مليون كنت راح ترميه في العمولة؟ أرواح نحسبوها كيف كيف.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('4')">
+                    <div class="preview-text">راك تخمم تشري دار؟ ممتاز.
+بصح علابالك بلي في السوق التقليدي، جزء كبير من ميزانيتك يقدر يروح في العمو...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-4" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('4')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V4</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-4')">📋 نسخ النص</button>
+                            <div id="script-text-4" class="modal-body">راك تخمم تشري دار؟ ممتاز.<br/><br/>بصح علابالك بلي في السوق التقليدي، جزء كبير من ميزانيتك يقدر يروح في العمولة؟<br/><br/>خلونا نحسبوها... إذا شريت عقار بمليار سنتيم، وعمولة الوكالة 3%، راك راح تزيد 30 مليون سنتيم من جيبك!<br/><br/>تخيل واش تقدر دير بـ 30 مليون... تجهز بيها كوزينتك، تشري أثاث جديد، ولا حتى تخلص بيها مصاريف أخرى.<br/><br/>مع وكالة ايمو العقارية، هاد الحسابات ماكانش.<br/><br/>لأنو عمولتنا عليك هي صفر بالمئة.<br/><br/>نخدمو باش نوفرو عليك، ماشي باش نزيدو عليك.<br/><br/>حاب تعرف شحال تقدر توفر بالضبط على العقار اللي راك تحوس عليه؟</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-4')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-4" class="modal-body">💰 30 مليون سنتيم (أو أكثر) تقدر توفرها في صفقتك العقارية الجاية! <br/><br/> قبل ما توقع أي عقد، لازم تعرف الأرقام الحقيقية. العمولات التقليدية قادرة تكلفك مبالغ طائلة كنت قادر تستثمرها في مستقبلك.<br/>في هذا الفيديو، نورولك بالحساب شحال تقدر تخبي في جيبك كي تختار الشريك العقاري الصحيح.<br/>المبلغ راح يصدمك! <br/><br/> احسب مدخراتك المحتملة! أرسل لنا رسالة واحجز استشارتك المجانية الآن! <br/><br/> #توفير #اقتصاد #عقارات_قسنطينة #استثمار_ذكي #ايمو_العقارية #شراء_شقة #نصيحة_مالية</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Motion Graphics Video - QUEST Framework]<br/>- **(Qualify) 0-3s:** Animated text: 'تخمّم تشري دار؟'. Fast, upbeat music starts.<br/>- **(Understand) 3-8s:** A piggy bank graphic appears. Coins start flying out of it into a bin labeled 'عمولة'. Show a sad face emoji.<br/>- **(Educate) 8-18s:** A calculator interface animates on screen. Show the calculation: '1,000,000,000 x 3% = 30,000,000'. The number '30,000,000' flashes in red. Then, show icons of a kitchen, a sofa, and a car appearing next to this number.<br/>- **(Stimulate) 18-23s:** The '30,000,000' in red gets crossed out with a big green 'X'. The 'Imo' logo appears with text '0% عمولة للمشتري'. The sad emoji flips to a happy, smiling one.<br/>- **(Transition) 23-30s:** The screen transitions to a clear call to action. An animated button 'احسب توفيرك الآن' appears. The music ends on a positive, encouraging note.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C5</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">بالأرقام: شوف الفرق بين تشري دار وحدك، مع وكالة عادية، ومعانا.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('5')">
+                    <div class="preview-text">Slide 1: قبل ما تشري دارك، شوف بالأرقام شحال كنت راح تخلّص عمولة وكيفاش تقدر تحافظ على دراهمك! (مع ص...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-5" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('5')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C5</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-5')">📋 نسخ النص</button>
+                            <div id="script-text-5" class="modal-body">Slide 1: قبل ما تشري دارك، شوف بالأرقام شحال كنت راح تخلّص عمولة وكيفاش تقدر تحافظ على دراهمك! (مع صورة مفتاح وآلة حاسبة)<br/><br/>Slide 2: الحالة: شراء عقار بقيمة 1.5 مليار سنتيم (15,000,000 دج).<br/><br/>Slide 3: الخيار 1: وكالة تقليدية.<br/><br/>عمولة المشتري (مثلاً 2%): 30 مليون سنتيم.<br/><br/>التكلفة الإجمالية: 1.53 مليار سنتيم.<br/><br/>Slide 4: الخيار 2: وكالة ايمو العقارية.<br/><br/>عمولة المشتري: 0 دج.<br/><br/>التكلفة الإجمالية: 1.5 مليار سنتيم.<br/><br/>Slide 5: النتيجة: توفير مباشر بقيمة 30,000,000 دج.<br/><br/>هذا المبلغ يبقى في جيبك. أنت حر كيفاش تستعملو.<br/><br/>Slide 6: الخيار واضح. كي يتعلق الأمر بأكبر استثمار في حياتك، كل دينار يهم. اختار الشفافية والتوفير. اختار ايمو.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-5')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-5" class="modal-body">الحسابات ما تكذبش! 🧐 شوف شحال تقدر توفر على دارك الجديدة. <br/><br/> الكلام ساهل، بصح الأرقام هي اللي تورّي الحقيقة. في هذا الكاروسال، درنالك مقارنة بسيطة وواضحة توريلك الأثر المالي الحقيقي لاختيارك للوكالة العقارية.<br/>الفرق قادر يوصل لعشرات الملايين! مرر واكتشف بنفسك. <br/><br/> قارن واكتشف الفارق بنفسك! زور صفحتنا للمزيد من المعلومات. <br/><br/> #مقارنة_عقارية #الجزائر #قسنطينة #توفير_عقاري #ايمو_العقارية #حاسبة_العمولة #استثمار_ناجح</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Data/Comparison Carousel]<br/>- **Style:** Data-driven, clean, and professional. Use graphs or comparison tables.<br/>- **Slide 1:** Hook in bold text. Visuals: a calculator, house keys, and maybe a graph icon.<br/>- **Slide 2:** Set the stage. Use a large, clear font for the property value.<br/>- **Slide 3:** Use a column or box for 'الخيار 1'. Highlight the commission amount in red or a contrasting color to show it's a cost.<br/>- **Slide 4:** Use a parallel column for 'الخيار 2'. Highlight the '0 دج' commission in green to show it's a saving.<br/>- **Slide 5:** A large, impactful graphic showing '= 30,000,000 دج توفير'. You can add icons of things that can be bought with this money.<br/>- **Slide 6:** A concluding statement with the brand logo and a clear CTA button graphic.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P6</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">عمولتك ولات جيبك! اشري دارك اليوم ووفر الآلاف.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('6')">
+                    <div class="preview-text">دراهم العمولة... خليها في جيبك....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-6" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('6')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P6</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-6')">📋 نسخ النص</button>
+                            <div id="script-text-6" class="modal-body">دراهم العمولة... خليها في جيبك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-6')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-6" class="modal-body">💰 عمولتك ولات جيبك! اشري دارك اليوم ووفر الآلاف. <br/><br/> هذا هو وعدنا ليك. كل دينار كنت راح تدفعو كعمولة، الآن تقدر تستثمرو في أثاث أحلامك، أو ببساطة، تخليه في حسابك البنكي. مع وكالة ايمو، التوفير حقيقي وملموس.<br/>عقارك الجديد ينتظرك، وميزانيتك في أمان. <br/><br/> ابدأ التوفير - اضغط هنا لتعرف أكثر! <br/><br/> #التوفير_أولا #عقارات_قسنطينة #جيبك_أولى #ايمو_العقارية #منزل_جديد #استثمار_مربح</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Benefit-Driven Graphic]<br/>- **Visual:** A high-quality, expressive photo. Either a close-up of a wallet full of money, or a person smiling with relief while holding house keys. The feeling should be one of financial gain and happiness.<br/>- **Text Overlay:** The text 'دراهم العمولة... خليها في جيبك.' should be elegantly placed on the image. Not too large, but clear and readable.<br/>- **Branding:** The 'ايمو' logo in a corner.<br/>- **Color Grading:** Warm and positive color tones.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V7</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كي تحط تحويشة حياتك في دار، آخر حاجة تحتاجها هي القلق من النصب. أرواح تشوف كيفاش نضمنولك كل خطوة.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('7')">
+                    <div class="preview-text">شراء عقار هو أكبر قرار مالي في حياة أغلبنا.
+وعلابالنا بلي أكبر تخوف هو الثقة... هل هذا هو السعر الحق...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-7" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('7')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V7</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-7')">📋 نسخ النص</button>
+                            <div id="script-text-7" class="modal-body">شراء عقار هو أكبر قرار مالي في حياة أغلبنا.<br/><br/>وعلابالنا بلي أكبر تخوف هو الثقة... هل هذا هو السعر الحقيقي؟ هل الأوراق سليمة؟ هل راني نتعامل مع ناس محترفين؟<br/><br/>هاد المخاوف مشروعة.<br/><br/>هذا علاش في وكالة ايمو، بنينا خدمتنا على أساس واحد: الثقة.<br/><br/>عندنا أكثر من 10 سنين وحنا نخدمو في السوق العقاري تاع قسنطينة. نعرفو كل حومة، ونعرفو قيمة كل عقار.<br/><br/>الخبرة تاعنا هي ضمانك.<br/><br/>نراجعو كل وثيقة، ونتأكدو من كل تفصيل قانوني... باش نتا تكون مهني.<br/><br/>نوقفو معاك في كل خطوة، من الزيارة الأولى حتى نهار الإمضاء عند الموثق.<br/><br/>معانا، ماكاش مفاجآت. كاين غير الشفافية، الاحترافية، وراحة البال.<br/><br/>لأنو ثقتك هي رأس مالنا الحقيقي.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-7')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-7" class="modal-body">🔒 القلق من النصب والاحتيال في شراء العقار؟ مع 10 سنين خبرة، نضمنلك كل خطوة! <br/><br/> استثمارك العقاري لازم يكون مصدر سعادة، ماشي مصدر قلق. خبرتنا الطويلة في سوق قسنطينة تسمح لنا نكونو الدليل الموثوق اللي تحتاجه بجنبك.<br/>من التحقق من الأوراق إلى التفاوض على السعر، حنا هنا باش نحميو مصالحك ونضمنلك تجربة شراء آمنة 100%.<br/>شاهد الفيديو واعرف كيفاش نحولو القلق إلى راحة بال. <br/><br/> ثقتك أمانة عندنا. تواصل معنا اليوم لتحظى بتجربة شراء عقاري مضمونة. <br/><br/> #ثقة_في_العقارات #خبرة_عقارية #قسنطينة #وكالة_ايمو_الموثوقة #أمان_عقاري #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Storytelling Video - Trust Focused]<br/>- **Style:** Cinematic, calm, and reassuring. Led by the host (الوجه الإعلامي) in a professional setting, like an office or a quiet, well-lit living room.<br/>- **Opening (0-5s):** Host looks directly at the camera, speaks calmly and empathetically about the fear of buying a property.<br/>- **The Problem (5-15s):** B-roll footage showing someone looking worriedly at complex legal documents, or shaking hands hesitantly.<br/>- **The Guide (15-30s):** Host explains the agency's philosophy. On-screen text appears: '10+ سنوات خبرة في قسنطينة'. Show quick, professional shots of the team working, reviewing plans, talking to clients.<br/>- **The Plan (30-45s):** Use B-roll to show the process: inspecting a property with a client, a close-up of a legal document getting a stamp of approval, a firm and friendly handshake with a notary.<br/>- **Success (45-55s):** Show a family happily entering their new home. The host concludes the message about trust and peace of mind.<br/>- **CTA (55-60s):** Final shot of the host smiling, with the agency's logo and contact info displayed clearly.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C8</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">ما تسمعش لينا... أسمع للناس اللي شراو ديارهم معانا.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('8')">
+                    <div class="preview-text">Slide 1: ماشي أي واحد يخدم في العقار. شوف علاش آلاف العائلات في قسنطينة وثقت فينا باش تشري دارها.
+Sl...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-8" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('8')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C8</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-8')">📋 نسخ النص</button>
+                            <div id="script-text-8" class="modal-body">Slide 1: ماشي أي واحد يخدم في العقار. شوف علاش آلاف العائلات في قسنطينة وثقت فينا باش تشري دارها.<br/><br/>Slide 2: 'كنت خايف من التعقيدات تاع الأوراق، بصح فريق ايمو سهّل عليا كلش. لقيت داري في وقت قصير وبلا صداع راس.' - سليم. ب، زبون سعيد.<br/><br/>Slide 3: 'أكثر حاجة عجبتني هي الشفافية، وخصوصا ميزة 0% عمولة. حسيت بلي صح يخدمو لمصلحتي.' - فاطمة. ز، اشترت شقتها الأولى معنا.<br/><br/>Slide 4: خبرتنا تاع 10 سنين ماشي مجرد رقم. هي مئات الصفقات الناجحة، مئات العائلات اللي ساعدناها تبدا حياتها الجديدة.<br/><br/>Slide 5: الثقة تُبنى بالأفعال، ماشي بالأقوال. مستعد تكون قصة نجاحنا الجاية؟</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-8')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-8" class="modal-body">💬 كلام زبائننا هو أكبر دليل على نجاحنا! <br/><br/> أفضل طريقة باش تعرف جودة خدمتنا هي من خلال تجارب الناس اللي تعاملوا معانا. في هذا الكاروسال، نشاركوكم بعض من قصص النجاح لزبائن وضعوا ثقتهم فينا لتحقيق حلمهم.<br/>شهاداتهم هي مصدر فخرنا والدافع تاعنا باش نقدّمو الأفضل دايماً. <br/><br/> اقرأ قصص نجاحنا وتأكد بنفسك. رابط شهادات العملاء في البايو! <br/><br/> #شهادات_عملاء #زبائن_سعداء #ايمو_العقارية #ثقة #عقارات_قسنطينة #دليل_اجتماعي</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Social Proof Carousel]<br/>- **Style:** Personal and authentic. Use high-quality photos of the clients (if available) or professional stock photos that look genuine. Use quote marks for testimonials.<br/>- **Slide 1:** A strong opening statement with a collage of happy families/people in their homes in the background.<br/>- **Slide 2 & 3:** Each testimonial on a separate slide. The client's quote should be the main focus. Include their first name and initial for authenticity. A 5-star rating graphic can be added.<br/>- **Slide 4:** A bold statement about the '10 years experience' with numbers like '100+ صفقات ناجحة' animated or highlighted.<br/>- **Slide 5:** A direct and inviting question as a CTA, with the agency logo and contact details.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P9</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">10 سنين خبرة في قسنطينة: شريكك الموثوق لتملك عقارك.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('9')">
+                    <div class="preview-text">"الثقة هي أساس كل صفقة ناجحة."
+- فريق وكالة ايمو العقارية...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-9" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('9')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P9</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-9')">📋 نسخ النص</button>
+                            <div id="script-text-9" class="modal-body">"الثقة هي أساس كل صفقة ناجحة."<br/><br/>- فريق وكالة ايمو العقارية</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-9')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-9" class="modal-body">🤝 خبرتنا بين يديك. <br/><br/> أكثر من 10 سنوات في قلب السوق العقاري القسنطيني علمتنا حاجة وحدة: بناء الثقة مع العميل هو أهم من أي صفقة.<br/>حنا ماشي مجرد وكلاء، حنا مستشارين وشركاء في رحلتك لتحقيق حلمك. <br/><br/> استشر خبيرنا مجاناً الآن واحصل على تقييم ونصيحة احترافية. <br/><br/> #خبراء_العقار #ثقة_واحترافية #قسنطينة #وكالة_ايمو #استشارة_عقارية #10_سنوات_خبرة</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Credibility Graphic]<br/>- **Visual:** A professional, high-quality photograph of the agency's founder or the team. They should look approachable, confident, and trustworthy.<br/>- **Text:** The hook '10 سنين خبرة في قسنطينة...' can be at the top. The quote should be placed elegantly below or next to the image, attributed to the team.<br/>- **Overall Feel:** Professional, stable, and reassuring. Use a classic, clean font.<br/>- **Branding:** Logo placed subtly.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V10</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">حياتك معمرة بالخدمة والمسؤوليات... وعلاش تزيد عليها تعقيدات شراء دار؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('10')">
+                    <div class="preview-text">(صوت سريع لإشعارات الهاتف، وزحمة السير)
+الوقت هو أثمن حاجة عندك.
+بين الخدمة، العائلة، والالتزامات......</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-10" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('10')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V10</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-10')">📋 نسخ النص</button>
+                            <div id="script-text-10" class="modal-body">(صوت سريع لإشعارات الهاتف، وزحمة السير)<br/><br/>الوقت هو أثمن حاجة عندك.<br/><br/>بين الخدمة، العائلة، والالتزامات... البحث على دار يقدر يولي كابوس.<br/><br/>ساعات وساعات تاع بحث على الإنترنت...<br/><br/>مواعيد وزيارات ما تخلصش...<br/><br/>والتخمام في الإجراءات والأوراق...<br/><br/>بصح... كاينة طريقة أخرى.<br/><br/>(الموسيقى تتغير إلى هادئة ومريحة)<br/><br/>تخيل تكلف فريق من الخبراء يدير كل هذا في بلاصتك.<br/><br/>حنا في وكالة ايمو، نتكفلو بكل التفاصيل المزعجة.<br/><br/>نبحثو، ننسقو، نتفاوضو، ونوجدو كلش.<br/><br/>باش نتا، تتفرغ لحياتك، وتركز على واش يهم صح.<br/><br/>ومن بعد، بكل بساطة، تستلم مفاتيح دارك الجديدة.<br/><br/>شراء دار ما لازمش يكون مهمة متعبة. لازم يكون بداية مرحلة جديدة وممتعة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-10')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-10" class="modal-body">🤯 ما تخممش في تعقيدات شراء العقار! حنا نتكفلو بكلش، ونت تتهنّى. <br/><br/> وقتك ثمين، وراحة بالك أثمن. علاش تضيّعهم في عملية بحث وشراء مرهقة ومعقدة؟<br/>وكالة ايمو العقارية هنا باش ترفع عليك هاد الحمل. من البحث الأولي حتى إمضاء العقد، فريقنا المحترف يتكفل بكل خطوة.<br/>مهمتنا؟ نرجعو تجربة شراء منزلك بسيطة وممتعة كيما المفروض تكون. <br/><br/> وفر وقتك وجهدك. تواصل معنا لتجربة شراء عقاري بلا صداع راس! <br/><br/> #راحة_البال #توفير_الوقت #شراء_عقار_بسهولة #ايمو_تتكفل_بكل_شيء #قسنطينة #حياة_أسهل</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[AIDA Video]<br/>- **(Attention) 0-5s:** Fast-paced montage (UGC style) of stressful daily life: traffic jam, person looking tired at a desk, phone buzzing with notifications. Sound design is key here - chaotic.<br/>- **(Interest) 5-12s:** Transition to someone looking overwhelmed while juggling a phone call and looking at property listings. Text overlay: 'البحث عن منزل = ضغط إضافي'.<br/>- **(Desire) 12-22s:** Abrupt cut to silence, then calm, soothing music begins. Show a person relaxing on a sofa with a cup of coffee, smiling. Use motion graphics to show a checklist (بحث، تفاوض، أوراق) with green checkmarks appearing next to each item, handled by the 'ايمو' logo.<br/>- **(Action) 22-30s:** The video shows a smooth, satisfying shot of a key turning in a lock and a door opening to a clean, empty apartment. The final message about saving time and the CTA appear on screen.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C11</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">تخاف من الإجراءات؟ نوريلك كيفاش تشري دارك في 4 خطوات بسيطة معانا.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('11')">
+                    <div class="preview-text">Slide 1: نوريلك كيفاش تشري دارك في وقت قياسي وبلا تعب! الخطة الكاملة هنا. (صورة لشخص مرتاح يبتسم)
+Sl...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-11" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('11')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C11</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-11')">📋 نسخ النص</button>
+                            <div id="script-text-11" class="modal-body">Slide 1: نوريلك كيفاش تشري دارك في وقت قياسي وبلا تعب! الخطة الكاملة هنا. (صورة لشخص مرتاح يبتسم)<br/><br/>Slide 2: الخطوة 1: جلسة استشارية (مجانية).<br/><br/>نتلاقاو، نفهمو بالضبط واش تحتاج، ميزانيتك، والمناطق اللي تفضلها. هادي أهم خطوة.<br/><br/>Slide 3: الخطوة 2: البحث والعروض.<br/><br/>فريقنا يبدا يخدم. نختارولك أفضل العروض اللي تطابق طلبك 100% وننسقو الزيارات في الوقت اللي يساعدك.<br/><br/>Slide 4: الخطوة 3: التفاوض والإجراءات.<br/><br/>لقيت الدار اللي عجبتك؟ ممتاز. حنا نتكفلو بالتفاوض على أفضل سعر ونبداو في تحضير كل الوثائق اللازمة بكل احترافية.<br/><br/>Slide 5: الخطوة 4: الإمضاء والتسليم.<br/><br/>كلش واجد. نرافقوك عند الموثق لإتمام الصفقة بشكل رسمي. مبروك عليك دارك الجديدة!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-11')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-11" class="modal-body">📋 خطة شراء منزلك الجديد... في كاروسال واحد! <br/><br/> شكون قال شراء عقار لازم يكون معقد؟ معانا، العملية كاملة مبسطة في خطوات واضحة وفعالة. من أول لقاء حتى تستلم مفاتيحك، كلشي مدروس باش يضمنلك راحة البال.<br/>اكتشف خطتنا السهلة وودّع التعقيدات! <br/><br/> ابدأ رحلة السهولة: اضغط لتعرف خطواتنا بالتفصيل! <br/><br/> #خطوات_شراء_منزل #بكل_سهولة #ايمو_العقارية #قسنطينة #دليل_المشتري #عملية_مبسطة</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Process Simplification Carousel]<br/>- **Style:** A step-by-step guide using a clear flowchart or numbered list format.<br/>- **Slide 1:** A welcoming image and the main hook. '4 خطوات بسيطة' should be highlighted.<br/>- **Slide 2, 3, 4, 5:** Each slide focuses on one step. Use a large number (1, 2, 3, 4) and a clear icon for each step (e.g., a speech bubble for consultation, binoculars for search, a handshake for negotiation, keys for delivery). Keep the text concise and easy to read.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P12</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">اشري دارك وتفرّغ لحياتك! حنا نتكفلو بالباقي.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('12')">
+                    <div class="preview-text">مهمتك تختار حلمك... مهمتنا نحققوه....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-12" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('12')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P12</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-12')">📋 نسخ النص</button>
+                            <div id="script-text-12" class="modal-body">مهمتك تختار حلمك... مهمتنا نحققوه.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-12')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-12" class="modal-body">🏡 اشري دارك وتفرّغ لحياتك! حنا نتكفلو بالباقي. <br/><br/> الهدف من شراء منزل هو بداية فصل جديد من السعادة والاستقرار، ماشي الدخول في دوامة من التوتر والإجراءات.<br/>مع وكالة ايمو العقارية، نضمنولك تركز على فرحة البداية الجديدة، بينما فريقنا يهتم بكل التفاصيل المعقدة.<br/>استمتع بالرحلة، وخلي الباقي علينا. <br/><br/> تواصل معنا اليوم للراحة التامة! <br/><br/> #راحة_نفسية #منزل_الأحلام #بداية_جديدة #قسنطينة #ايمو_معاك #عقارات_الجزائر #حياة_هادئة</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Emotional Benefit Graphic]<br/>- **Visual:** A powerful, emotionally resonant image. A happy family playing in the living room of their new house, or a person peacefully looking out of their new apartment window at a beautiful view. The mood is serene and content.<br/>- **Text Overlay:** The text should be minimalist and poetic, matching the emotional tone of the image.<br/>- **Color Palette:** Soft, warm, and inviting colors.<br/>- **Branding:** Logo is small and discreet.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr></tbody></table></div>
+
+    <div class="disclaimer-card">
+        <span style="font-size: 1.2em;">⚠️</span>
+        <span>قد تخضع هذه الاستراتيجية لبعض التعديلات والتحسينات، حسب المواد الإعلامية المتوفرة أو لغرض تحقيق أفضل النتائج.</span>
+    </div>
+
+    <div class="summary-box">
+        <span style="font-weight: 700; color: #FFD700;">الميزانية الإجمالية المعتمدة</span>
+        <span class="total-amount">92000 دج</span>
+        <a href="https://wa.me/213770820431" class="cta-btn">تواصل معنا للاعتماد</a>
+        <div style="border: 1px dashed #FFD700; padding: 25px; border-radius: 15px; margin-top: 20px;">
+            <h3 style="color:#FFD700; margin:0;">الخطوة التالية</h3>
+            <p style="margin:10px 0;">مكالمة قصيرة لنكيّف هذه الاستراتيجية حسب مشروعك ونبدأ العمل فوراً.</p>
+            <div class="phones-list">
+                <div class="phone-item">0770 82 04 31</div>
+                <div class="phone-item">0770 55 01 51</div>
+                <div class="phone-item">0770 82 01 45</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+function openModal(id) { document.getElementById('modal-' + id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
+function closeModal(id) { document.getElementById('modal-' + id).style.display = 'none'; document.body.style.overflow = 'auto'; }
+window.onclick = function(event) { if (event.target.className === 'modal') { event.target.style.display = 'none'; document.body.style.overflow = 'auto'; } }
+
+// وظيفة النسخ الجديدة
+function copyToClipboard(elementId) {
+    const el = document.getElementById(elementId);
+    const text = el.innerText || el.textContent; // نسخ النص بدون HTML tags
+    navigator.clipboard.writeText(text).then(() => {
+        alert("تم نسخ النص بنجاح! ✅");
+    }).catch(err => {
+        console.error('Failed to copy', err);
+    });
+}
+</script></body></html>
