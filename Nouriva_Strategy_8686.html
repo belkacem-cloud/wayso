@@ -1,0 +1,797 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Nouriva Strategy</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+<style>
+    body { background: #FFFFFF; color: #1A1A1A; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; line-height: 1.6; overflow-x: hidden; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 15px; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 2px solid #000; }
+    .wayso-logo { height: 45px; }
+    .brand-name { font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 1.4em; color: #000; text-transform: uppercase; border-right: 4px solid #FFD700; padding-right: 12px; }
+    
+    .analysis-section { margin: 30px 0; }
+    .card-philosophy { padding: 30px; border-radius: 20px; background: #000; color: #FFF; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+    .card-philosophy h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #FFD700; }
+    
+    .card-why { padding: 30px; border-radius: 20px; background: #F9F9F9; color: #333; margin-bottom: 20px; border: 1px solid #EDECE9; }
+    .card-why h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #000; display: flex; align-items: center; gap: 10px; }
+    .card-why h2::after { content: ''; flex-grow: 1; height: 1px; background: #EDECE9; margin-right: 15px; }
+
+    .hero { margin: 35px 0 20px 0; border-right: 6px solid #FFD700; padding-right: 15px; }
+    .hero h1 { font-size: 2.5em; font-weight: 700; margin: 0; }
+    .table-wrapper { margin-top: 25px; border-radius: 12px; overflow: hidden; border: 1px solid #EDECE9; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #000; color: #FFF; padding: 15px; text-align: right; font-size: 0.95em; }
+    td { padding: 20px 12px; border-bottom: 1px solid #EDECE9; vertical-align: top; }
+    
+    .code-badge { font-family: 'Montserrat', sans-serif; font-weight: 700; background: #FFD700; color: #000; padding: 5px 12px; border-radius: 6px; font-size: 1.1em; display: inline-block; margin-bottom: 5px; }
+    .type-label { display: block; font-weight: 700; color: #555; font-size: 0.95em; }
+    
+    .hook-pill { background: #000; color: #FFD700; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 1.1em; display: block; border-right: 5px solid #FFD700; }
+    
+    /* تحسين زر المودال */
+    .script-trigger { background: #F8F9FA; border: 1px solid #EDECE9; padding: 15px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; position: relative; }
+    .script-trigger:hover { background: #FFF; border-color: #FFD700; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transform: translateY(-2px); }
+    
+    .preview-text { font-size: 0.95em; color: #333; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; white-space: pre-wrap; }
+    
+    /* ستايل المودال */
+    .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); }
+    .modal-content { background: #FFF; margin: 5% auto; padding: 30px; border-radius: 20px; width: 90%; max-width: 750px; position: relative; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+    .close-modal { position: absolute; top: 20px; left: 20px; font-size: 30px; cursor: pointer; color: #999; line-height: 1; transition: color 0.2s; }
+    .close-modal:hover { color: #000; }
+    
+    .modal-section { margin-bottom: 25px; padding: 20px; border-radius: 12px; background: #fbfbfa; border: 1px solid #eee; position: relative; }
+    
+    /* زر النسخ */
+    .copy-btn { position: absolute; top: 10px; left: 10px; background: #fff; border: 1px solid #ddd; padding: 5px 10px; border-radius: 6px; cursor: pointer; font-size: 0.8em; font-weight: bold; color: #555; display: flex; align-items: center; gap: 5px; transition: all 0.2s; }
+    .copy-btn:hover { border-color: #FFD700; color: #000; background: #FFD70020; }
+    .copy-btn:active { transform: scale(0.95); }
+    
+    .modal-body { font-size: 1.15em; color: #1A1A1A; line-height: 1.9; word-wrap: break-word; white-space: pre-wrap; }
+    
+    .disclaimer-card { margin: 25px 0; padding: 20px; background: #FFF9E6; border-radius: 12px; border-right: 5px solid #FFC107; font-size: 1.05em; color: #856404; display: flex; align-items: center; gap: 12px; }
+    .summary-box { margin-top: 50px; background: #000; color: #FFF; padding: 40px 20px; border-radius: 25px; text-align: center; }
+    .total-amount { font-family: 'Montserrat'; font-size: 3.5em; font-weight: 700; display: block; color: #FFD700; margin: 10px 0; }
+    .cta-btn { display: inline-block; background: #FFD700; color: #000; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.2em; margin-bottom: 25px; transition: transform 0.2s; }
+    .cta-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px #FFD70060; }
+    
+    .phones-list { margin-top: 15px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; direction: ltr; } 
+    .phone-item { background: #1A1A1A; padding: 8px 15px; border-radius: 8px; border: 1px solid #333; color: #FFF; font-family: 'Montserrat'; font-weight: 700; font-size: 1.2em; white-space: nowrap; }
+
+    @media (max-width: 768px) {
+        thead { display: none; }
+        tr { display: block; border: 1px solid #EDECE9; border-radius: 15px; margin-bottom: 20px; padding: 15px; background: #FFF; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        td { display: block; padding: 10px 0; text-align: right; border-bottom: 1px dashed #eee; }
+        td:last-child { border-bottom: none; }
+        td::before { content: attr(data-label); font-weight: 700; color: #BBB; display: block; font-size: 0.8em; margin-bottom: 6px; text-transform: uppercase; }
+        .brand-name { font-size: 1.1em; }
+        .modal-content { width: 95%; padding: 20px; margin: 10% auto; }
+        .total-amount { font-size: 2.5em; }
+    }
+</style></head><body>
+
+<div class="container">
+    <div class="header">
+        <img src="https://storage.googleapis.com/msgsndr/GwIPQCjstTzxnzDQ1B32/media/68fddb5534bb1597bc934f89.png" class="wayso-logo">
+        <div class="brand-name">Nouriva</div>
+    </div>
+
+    <div class="analysis-section">
+        <div class="card-philosophy"><h2>🎯 فلسفة الاستراتيجية</h2><p>نحن في Wayso نعتبر أنفسنا شركاء نجاحكم، ولهذا قمنا بهندسة هذه الاستراتيجية لتكون استثماراً ذكياً وموجهاً نحو تحقيق أهدافكم. يمثل هذا المزيج من الفيديوهات الماستر العميقة والكاروسالات التعليمية المتسلسلة، نهجاً شاملاً لا يخاطب فقط احتياجات السوق الظاهرة، بل يتعمق في الجوانب النفسية والسلوكية لجمهوركم المستهدف. هذه الخطة مصممة لتبني الثقة، تثقيف الجمهور، وتحويل الاهتمام إلى ولاء دائم، مما يضمن لكم نمواً مستداماً وفعالاً.</p></div>
+        <div class="card-why"><h2>💡 لماذا هذه الخطة؟</h2><p>بدأنا بـ V1 لخطف الانتباه ومعالجة الصراع النفسي المركزي لدى العميل، مما يخلق رابطاً عاطفياً قوياً. تبعناه بـ C2 لتقديم حلول تعليمية قيمة وبناء الثقة تدريجياً، ثم P3 للترسيخ الفوري لمصداقية المنتج بجودته الأوروبية. هذا التسلسل يضمن انتقال العميل بسلاسة من حالة الوعي بالمشكلة إلى الثقة بالحل، وصولاً إلى الاقتناع بالمنتج كرفيق أساسي في رحلته الرمضانية، محولاً الشك إلى يقين ومحفزاً على الشراء بوعي وثقة.</p></div>
+    </div>
+
+    <div class="hero"><h1>خطة الإنتاج الإبداعي</h1></div>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th style="width: 20%;">الكود والنوع</th><th style="width: 30%;">الهوك (Hook)</th><th style="width: 50%;">المحتوى</th></tr></thead>
+            <tbody><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V1</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">واش رمضان ديالك ولا حلبة مصارعة مع طبسيلك؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('1')">
+                    <div class="preview-text">ف رمضان، كلنا كنقلبو على ديك الروحانية... داك السلام الداخلي.
+ولكن فاش كيأذن المغرب، كتبدا معركة أخر...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-1" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('1')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V1</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-1')">📋 نسخ النص</button>
+                            <div id="script-text-1" class="modal-body">ف رمضان، كلنا كنقلبو على ديك الروحانية... داك السلام الداخلي.<br/><br/>ولكن فاش كيأذن المغرب، كتبدا معركة أخرى.<br/><br/>معركة مع الشهية، مع الجوع ديال النهار كامل لي كيخليك تفقد السيطرة.<br/><br/>و من بعد... كيجي الإحساس بالذنب. الثقل... ماشي غير فالمعدة، حتى فالضمير.<br/><br/>كتفوتك صلاة التراويح، و كتحس بالعبادة ديالك ناقصة.<br/><br/>تخيل معايا رمضان مختلف هاد العام.<br/><br/>رمضان فين كتحكم فشهيتك بكل سهولة.<br/><br/>رمضان ديال الخفة، النشاط، و التركيز فالعبادة.<br/><br/>هادشي ماشي حلم. هادا هو الوعد ديال Nouriva.<br/><br/>Nouriva ماشي مجرد منتج، هو الحليف العلمي ديالك ف رمضان.<br/><br/>تركيبة طبيعية 100%، مصادق عليها و مصنوعة فأوروبا بأعلى معايير الجودة.<br/><br/>كتعاونك تحس بالشبع، تنظم الماكلة ديالك، و تخليك محافظ على طاقتك.<br/><br/>هذا هو الجسر ديالك من رمضان ديال الصراع... لرمضان ديال الصفاء.<br/><br/>آراء الخبراء و شهادات الناس لي جربوه كتبين الفرق.<br/><br/>مستعد تعيش رمضان لي كتمناه بصح؟<br/><br/>عرض رمضان الخاص ديالنا متوفر لفترة محدودة.<br/><br/>Nouriva: شهيتك تحت السيطرة، و رمضانك صحة و عبادة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-1')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-1" class="modal-body">رمضان هادا... خلي صيامك عبادة، ماشي معركة مع الجوع! ⚔️ <br/><br/> كل عام نفس الصراع: نهار كامل ديال الصبر و التقوى، و فدقيقة ديال الفطور كلشي كيضيع بسبب الشهية المفتوحة.<br/><br/>النتيجة؟ ثقل، خمول، و إحساس بالذنب كيخليك تفوت أثمن اللحظات الروحانية.<br/><br/>هاد العام، عندك فرصة تغير كلشي. Nouriva هو الحليف ديالك العلمي والطبيعي، مصنوع بأوروبا باش يضمن ليك جودة وثقة. كيساعدك تتحكم فالشهية، و تسترجع خفتك و نشاطك من بعد الفطور.<br/><br/>عيش رمضان ديال بصح. رمضان ديال العبادة، الخفة، و راحة البال. <br/><br/> اكتشف كيفاش Nouriva يقدر يرجعلك رمضانك صحة و روحانية. اضغط على الرابط باش تعرف كتر واستفد من عرض خاص! <br/><br/> #NourivaMaroc #رمضان_المغرب #صحة_رمضان #تحكم_في_الشهية #صنع_في_اوروبا #رمضان_كريم #المغرب #الدارالبيضاء #الرباط</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Frameworks: PAS + StoryBrand + BAB]<br/>[0-5s] لقطات سريعة ومتباينة: مشهد روحاني هادئ (شخص يقرأ القرآن)، يقطعه مشهد طاولة إفطار مليئة بالأكل بشكل مبالغ فيه. موسيقى هادئة تتحول فجأة إلى صوت صاخب. [Hook]<br/>[6-12s] لقطة مقربة على وجه شخص (رجل/امرأة) ينظر إلى الأكل بشهية مفرطة، ثم يأكل بسرعة. تعابير وجهه تتحول من اللذة إلى عدم الارتياح. [Pain]<br/>[13-18s] نفس الشخص يجلس على الأريكة بعد الإفطار، يبدو متعباً جداً (خمول). يسمع صوت آذان العشاء/التراويح من بعيد، و تبدو على وجهه علامات الندم والإحباط. [Agitation]<br/>[19-25s] انتقال هادئ إلى خلفية بيضاء ونظيفة. ظهور علبة Nouriva ببطء (Slow-mo) مع إضاءة ممتازة. صوت هادئ وموثوق يبدأ. [Introduction of the Guide]<br/>[26-33s] لقطات Motion Graphics بسيطة وراقية تشرح آلية عمل المكونات الطبيعية (مثلاً: ألياف تتمدد بلطف في المعدة). ظهور جملة "صنع في أوروبا" مع أيقونة علم الإتحاد الأوروبي. [Building Trust & Authority]<br/>[34-40s] لقطات B-Roll سريعة ومونتاج متناغم: مكونات طبيعية (Glucomannan)، مختبر نظيف، خبراء جودة. [Bridge]<br/>[41-48s] مشاهد موازية: الشخص الذي كان متعباً، يظهر الآن نشيطاً، يرتدي ملابسه للذهاب للمسجد، أو يقوم بنشاط خفيف مع عائلته بابتسامة. [After]<br/>[49-52s] تلميحات سريعة: لقطة من شهادة خبير (V7) ولقطة من شهادة عميل (V10) كتشويق. [Social Proof Tease]<br/>[53-60s] ظهور العلبة مرة أخرى مع عبارة "عرض رمضان الخاص". الـ CTA يظهر على الشاشة. موسيقى تبعث على الأمل والثقة. [Call to Action]</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C2</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">واش كتحس ببركة رمضان كتهرب ليك مع كل لقمة زايدة؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('2')">
+                    <div class="preview-text">Slide 1: 3 أسرار باش تحافظ على انضباطك فرمضان و تعيش روحانيته كاملة.
+Slide 2: السر الأول: فهم التحدي...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-2" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('2')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C2</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-2')">📋 نسخ النص</button>
+                            <div id="script-text-2" class="modal-body">Slide 1: 3 أسرار باش تحافظ على انضباطك فرمضان و تعيش روحانيته كاملة.<br/><br/>Slide 2: السر الأول: فهم التحدي! الإفراط فالأكل من بعد نهار ديال الجوع كيدير صدمة للجسم، كيسبب الخمول و كيبعدك على التركيز فالعبادة. روحانية رمضان كتبدا من التحكم فالنفس.<br/><br/>Slide 3: السر الثاني: اختار حليف طبيعي! Nouriva، بتركيبته الطبيعية 100%، كيعاونك تحس بالشبع بكمية معقولة. هكا كتحكم فشهيتك بلا ما تحرم راسك، و كتبقى محافظ على صحتك و نشاطك.<br/><br/>Slide 4: السر الثالث: النتائج اللي كتحس بيها! مع Nouriva، ماشي غير كتجنب زيادة الوزن، بل كتكسب طاقة أكثر للتراويح و القيام، و كتحس بواحد الصفاء ذهني كيخليك تستمتع بكل لحظة روحانية.<br/><br/>Slide 5: مستعد تعيش رمضان مختلف هاد العام؟ خلي Nouriva يكون السر ديالك لرمضان صحي و عامر بالبركة. اطلبه الآن!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-2')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-2" class="modal-body">3 أسرار بسيطة لرمضان كله بركة... بعيد على التخمة! <br/><br/> كتقلب على طريقة توازن بيها بين صحتك وروحانياتك فهاد الشهر الكريم؟ السر ماشي فالحرمان، ولكن فالانضباط الذكي.<br/><br/>اكتشف فـ هاد الكاروسيل 3 خطوات عملية باش تتحكم فشهيتك، تحافظ على طاقتك، وتعيش جوهر رمضان الحقيقي.<br/><br/>Nouriva كيلعب دور أساسي فهاد الرحلة. دوز السلايدات باش تعرف كيفاش. <br/><br/> ابدأ رحلتك نحو رمضان صحي وممتلئ بالروحانية. اطلب Nouriva الآن من الرابط! <br/><br/> #نصائح_رمضانية #صحة #رمضان_2024 #Nouriva #المغرب #انضباط #روحانيات #تغذية_صحية</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">الهوية البصرية: راقية وعلمية. استخدام خلفيات نظيفة (أبيض/رمادي فاتح) مع لمسات رمضانية بسيطة (هلال ذهبي أنيق).<br/>Slide 1: عنوان جذاب بخط كبير وواضح. صورة خلفية تلمح إلى الهدوء والروحانية.<br/>Slide 2: استخدام أيقونة بسيطة تمثل 'الألم' (بطن ممتلئ، شخص متعب). النص مقسم لسهولة القراءة.<br/>Slide 3: صورة عالية الجودة لعلبة Nouriva بجانب مكوناتها الطبيعية. التركيز على جملة 'حليف طبيعي'.<br/>Slide 4: أيقونات تمثل 'الفوائد' (طاقة، تركيز، نشاط). استخدام ألوان مريحة.<br/>Slide 5: صورة ملهمة لشخص يبدو مرتاحاً وسعيداً. الـ CTA بلون بارز وزر واضح.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P3</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الثقة قبل ما تحط ففمك. ضمانتك: صنع في أوروبا.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('3')">
+                    <div class="preview-text">Nouriva
+الجودة الأوروبية لراحة بالك في رمضان.
+صنع في أوروبا | 100% طبيعي...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-3" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('3')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P3</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-3')">📋 نسخ النص</button>
+                            <div id="script-text-3" class="modal-body">Nouriva<br/><br/>الجودة الأوروبية لراحة بالك في رمضان.<br/><br/>صنع في أوروبا | 100% طبيعي</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-3')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-3" class="modal-body">فاش كيتعلق الأمر بصحتك، الثقة هي كلشي. ✅ <br/><br/> رمضان شهر ديال راحة البال، و هاد الراحة كتبدا من اختيارك لمنتجات موثوقة.<br/><br/>Nouriva مصنوع بالكامل في أوروبا، وهادشي كيعني أنه خاضع لأعلى معايير الجودة والأمان فالعالم. مكونات طبيعية، فعالية مثبتة، و ثقة ماعندهاش ثمن.<br/><br/>ختار صحتك، ختار Nouriva. <br/><br/> باش تعرف كتر على ضمان الجودة والفعالية ديال Nouriva، زور الموقع ديالنا. <br/><br/> #صنع_في_اوروبا #جودة_عالية #ثقة #NourivaMaroc #صحة #رمضان_آمن #المغرب</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم الصورة: بسيط، راقي جداً، ومباشر. صورة عالية الجودة لعلبة Nouriva على خلفية بيضاء أو رخامية. التركيز يكون على العلبة. في زاوية التصميم، يوضع ختم أو أيقونة أنيقة بعبارة "Made in Europe" مع علم الإتحاد الأوروبي صغير. استخدام خطوط رفيعة وأنيقة (Serif) لإعطاء إحساس بالجودة والثقة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V4</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">واش الميزان كيولي عدوك اللدود فكل رمضان؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('4')">
+                    <div class="preview-text">كل عام نفس القصة... كنصومو النهار كامل، و فالليل كنعوضو كلشي بالدوبل.
+و النتيجة؟ زيادة فالوزن، و إحس...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-4" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('4')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V4</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-4')">📋 نسخ النص</button>
+                            <div id="script-text-4" class="modal-body">كل عام نفس القصة... كنصومو النهار كامل، و فالليل كنعوضو كلشي بالدوبل.<br/><br/>و النتيجة؟ زيادة فالوزن، و إحساس بالفشل.<br/><br/>ولكن شنو هو الحل؟<br/><br/>أولاً: السحور مهم! ركز على البروتينات والألياف باش تشبع مدة أطول.<br/><br/>ثانياً: شرب الماء مزيان بين الفطور والسحور.<br/><br/>ثالثاً: فالفطور، بدا بالتمر والماء، وتسنى شوية عاد كمل ماكلتك.<br/><br/>ولكن... أهم نصيحة!<br/><br/>استعن بحليف ذكي بحال Nouriva.<br/><br/>حبه وحده قبل الوجبات الرئيسية كتعاونك تحس بالشبع بسرعة.<br/><br/>هكا كتاكل أقل، كتحكم فالكميات، وكتجنب السعرات الحرارية الزايدة بلا حرمان.<br/><br/>Nouriva طبيعي وآمن، وكيخليك محافظ على طاقتك.<br/><br/>هاد رمضان، خلي الميزان صاحبك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-4')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-4" class="modal-body">كل رمضان كتزيد فالوزن؟ 🤔 هاد الفيديو فيه الحل النهائي! <br/><br/> ماشي ضروري رمضان يكون شهر زيادة الوزن! ببعض العادات البسيطة وحليف ذكي، تقدر تحافظ على رشاقتك وتستمتع بصحتك.<br/><br/>فهاد الفيديو، عطيناك نصائح عملية ومجربة باش تتجنب فخ السعرات الحرارية الزايدة.<br/><br/>والسر الإضافي؟ هو Nouriva، لي كيخليك تتحكم فشهيتك بطريقة طبيعية وتوصل لأهدافك بسهولة. <br/><br/> تحكم فوزنك وحافظ على نشاطك. شوف كيفاش Nouriva كيعاونك بالضغط على الرابط! <br/><br/> #زيادة_الوزن #رشاقة #رمضان_صحي #نصائح_تغذية #Nouriva #حياة_صحية #المغرب</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Framework: HVC + AIDA]<br/>النمط: فيديو سريع بإيقاع شبابي. مزيج بين Motion Graphics ونصوص متحركة ولقطات UGC Style (تصوير بالهاتف بجودة عالية).<br/>[0-5s] لقطة سريعة لشخص يصعد على الميزان و تبدو على وجهه علامات الصدمة. [Hook]<br/>[6-15s] نصائح تظهر على الشاشة مع أيقونات ورسوم متحركة بسيطة (كأس ماء، طبق صحي...). صوت المعلق سريع وواضح.<br/>[16-25s] لقطات UGC Style: شخص يحضر وجبة سحور صحية، شخص آخر يشرب الماء. التركيز على السلوكيات الإيجابية.<br/>[26-35s] ظهور علبة Nouriva. لقطة UGC لشخص يأخذ حبة مع كأس ماء قبل وجبة الإفطار. الشرح يكون عبر نصوص متحركة على الشاشة توضح الفائدة (الشعور بالشبع).<br/>[36-42s] لقطة لنفس الشخص يأكل وجبته بهدوء وبكميات معقولة، ويبدو راضياً. [Desire]<br/>[43-50s] لقطة أخيرة للشخص على الميزان وهو يبتسم. ظهور العلبة والـ CTA على الشاشة. [Action]</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C5</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">بغيتي رمضان بلا زيادة فالوزن؟ هادو 4 نصائح ذهبية ليك!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('5')">
+                    <div class="preview-text">Slide 1: 4 نصائح ذهبية لرمضان صحي ومتحكم فيه.
+Slide 2: النصيحة 1: سحور الأبطال! ركز على وجبة سحور غن...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-5" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('5')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C5</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-5')">📋 نسخ النص</button>
+                            <div id="script-text-5" class="modal-body">Slide 1: 4 نصائح ذهبية لرمضان صحي ومتحكم فيه.<br/><br/>Slide 2: النصيحة 1: سحور الأبطال! ركز على وجبة سحور غنية بالبروتين (بيض، جبن) والألياف (شوفان، خضر) باش تبقى شبعان و عندك الطاقة نهار كامل.<br/><br/>Slide 3: النصيحة 2: تنظيم ذكي بعد الإفطار! عوض ما تاكل كلشي فدقة، قسم وجباتك. و قبل الوجبة الرئيسية، خود Nouriva باش يعاونك تتحكم فالكمية و تحس بالشبع بسرعة.<br/><br/>Slide 4: النصيحة 3: حركة بركة! ماشي ضروري رياضة قاصحة. نصف ساعة ديال المشي بعد التراويح كافية باش تنشط الدورة الدموية وتحرق شوية السعرات.<br/><br/>Slide 5: مستعد تطبق هاد النصائح؟ زيد عليهم Nouriva وشوف الفرق بعينيك! صحتك هي أولويتك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-5')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-5" class="modal-body">الخطة الكاملة لرمضان بلا كيلوغرامات زايدة! 📋 <br/><br/> الحفاظ على الوزن فرمضان ممكن ومشي صعيب! السر كاين فالتنظيم وشوية ديال المساعدة.<br/><br/>فهاد الكاروسيل، جمعنا ليك 4 ديال العادات الأساسية لي غاديا تخليك تستمتع برمضان ديالك بكل خفة ونشاط.<br/><br/>دوز السلايدات واكتشف الخطة. <br/><br/> طبق هاد النصائح وزيد معاهم Nouriva لنتائج مضمونة. اطلب الآن! <br/><br/> #خطة_رمضان #تغذية_سليمة #رياضة #Nouriva #صحة #حياة_نشيطة #المغرب</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">النمط: تعليمي وتحفيزي. استخدام أيقونات جذابة وألوان مفعمة بالحياة.<br/>Slide 1: عنوان واضح على خلفية ملفتة للنظر.<br/>Slide 2: صورة لطبق سحور صحي وشهي. النص مقسم إلى نقاط.<br/>Slide 3: إنفوجرافيك بسيط يوضح فكرة تقسيم الوجبات مع إبراز دور Nouriva. صورة علبة المنتج.<br/>Slide 4: أيقونة أو صورة لشخص يمشي. نصيحة قصيرة ومباشرة.<br/>Slide 5: سؤال تحفيزي مع CTA واضح. استخدام ألوان البراند بشكل أساسي.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P6</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">التخمة ديال الفطور كتسرق ليك الطاقة ديال التراويح؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('6')">
+                    <div class="preview-text">خمول ما بعد الإفطار؟
+Nouriva
+خفة أكثر، طاقة أكبر للعبادة....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-6" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('6')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P6</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-6')">📋 نسخ النص</button>
+                            <div id="script-text-6" class="modal-body">خمول ما بعد الإفطار؟<br/><br/>Nouriva<br/><br/>خفة أكثر، طاقة أكبر للعبادة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-6')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-6" class="modal-body">ما تخليش طبسيل الفطور يحرمك من أجر التراويح! 🕌 <br/><br/> داك الإحساس بالثقل والخمول من بعد الفطور كلنا كنعرفوه. كيخلينا نأجلو الصلاة أو نصليوها بلا خشوع.<br/><br/>الحل بسيط: كول بعقلك، ماشي بعينك. Nouriva كيعاونك دير هادشي، كيحسسك بالشبع باش تاكل الكمية لي محتاجها بصح. النتيجة هي خفة ونشاط كيخليوك مستعد للعبادة بكل طاقة وحيوية. <br/><br/> ما تخليش رمضان يفوت بلا طاقة. جرب Nouriva وحس بالفرق. اضغط هنا. <br/><br/> #تراويح #طاقة_ايجابية #رمضان_كريم #عبادة #Nouriva #صحة_نفسية #المغرب</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">النمط: إنفوجرافيك بسيط ومباشر. التصميم مقسوم لجزئين: الجزء العلوي يظهر أيقونة شخص متعب وممتلئ (مع لون باهت). الجزء السفلي يظهر أيقونة شخص نشيط ومصلي (مع ألوان زاهية). بينهما توضع صورة علبة Nouriva كأنها هي سبب التحول. استخدام خطوط واضحة وسهلة القراءة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V7</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">واش بصح Nouriva فعال وآمن؟ خبير تغذية كيكشف الحقيقة!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('7')">
+                    <div class="preview-text">(صوت خبير، هادئ وموثوق)
+خلال رمضان، كيجيوني بزاف ديال الأسئلة على كيفية التحكم فالشهية والوزن بطريقة...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-7" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('7')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V7</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-7')">📋 نسخ النص</button>
+                            <div id="script-text-7" class="modal-body">(صوت خبير، هادئ وموثوق)<br/><br/>خلال رمضان، كيجيوني بزاف ديال الأسئلة على كيفية التحكم فالشهية والوزن بطريقة صحية.<br/><br/>بزاف الناس كيخافو من المكملات الغذائية، وهاد الخوف مبرر أحياناً.<br/><br/>ولكن فاش درست تركيبة Nouriva، لقيت أنه كيعتامد على مكونات طبيعية 100%، وأهمها هو الـ Glucomannan.<br/><br/>هذا المكون عبارة على ألياف طبيعية، علميا معروفة بالقدرة ديالها على امتصاص الماء فالجهاز الهضمي.<br/><br/>هادشي كيعطي إحساس طبيعي بالشبع والامتلاء، وكيخليك تلقائيا تنقص من الكميات لي كتاكل.<br/><br/>والأهم، هو منتج مصنوع فأوروبا، يعني خاضع لمعايير صارمة ديال الجودة والأمان.<br/><br/>كخبير تغذية، كنصح بـ Nouriva كحل مساعد وآمن للناس لي باغيين يعيشو رمضان بصحة وخفة، ويركزو على الجانب الروحاني بلا صراعات مع الجوع.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-7')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-7" class="modal-body">ماشي أي حاجة تصلاح لصحتك! اسمع رأي أهل الاختصاص. 👨‍⚕️ <br/><br/> قبل ما تجرب أي منتج، من حقك تعرف الحقيقة كاملة. واش هو آمن؟ واش فعال بصح؟<br/><br/>فهاد الفيديو، خبير تغذية معروف كيشرح لينا بالتفصيل الآلية العلمية ديال Nouriva، وعلاش كيعتابرو حل ذكي وآمن للتحكم فالشهية خلال شهر رمضان.<br/><br/>الثقة كتبنى على العلم ماشي على الإشاعات. <br/><br/> ثقة الخبراء كتخليك تختار صح. تعرف على رأي الخبير حول Nouriva من خلال الرابط. <br/><br/> #رأي_خبير #تغذية_علاجية #صحة #Nouriva #منتج_موثوق #علم #المغرب</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Framework: QUEST]<br/>النمط: فيديو احترافي يجمع بين Motion Graphics و B-rolls عالية الجودة. لا يظهر الخبير، فقط صوته (Voice Over) لزيادة التركيز على المعلومة.<br/>[0-5s] سؤال يظهر على الشاشة بخط كبير وواضح مع موسيقى تثير الفضول. [Qualify/Hook]<br/>[6-12s] لقطات B-roll لأشخاص يبدون حائرين وهم يبحثون عن منتجات صحية في صيدلية أو عبر الإنترنت. [Understand]<br/>[13-30s] رسوم متحركة (Motion Graphics) علمية وبسيطة تشرح مكون الـ Glucomannan وكيف يعمل داخل المعدة. إظهار شهادات الجودة الأوروبية. [Educate]<br/>[31-40s] لقطات B-roll لأشخاص يستمتعون بحياتهم في رمضان: يصلون بخشوع، يلعبون مع أطفالهم بنشاط. [Stimulate]<br/>[41-50s] ظهور علبة Nouriva بشكل بارز، مع اقتباس من الخبير مكتوب على الشاشة. ثم يظهر الـ CTA. [Transition]</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C8</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">شنو هو السر العلمي لي كيخلي Nouriva فعال؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('8')">
+                    <div class="preview-text">Slide 1: العلم وراء Nouriva: كيفاش كيخدم باش يتحكم فالشهية ديالك؟
+Slide 2: المكون الرئيسي: الـ Gluco...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-8" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('8')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C8</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-8')">📋 نسخ النص</button>
+                            <div id="script-text-8" class="modal-body">Slide 1: العلم وراء Nouriva: كيفاش كيخدم باش يتحكم فالشهية ديالك؟<br/><br/>Slide 2: المكون الرئيسي: الـ Glucomannan. هو عبارة على ألياف طبيعية 100% مستخلصة من نبتة الكونجاك. هاد المكون عندو قدرة عجيبة على امتصاص الماء.<br/><br/>Slide 3: الآلية بسيطة وذكية: فاش كتاخد Nouriva مع كأس كبير ديال الماء، ألياف الغلوكومانان كتنفخ فالمعدة وكتشكل واحد الهلام (جل) طبيعي. هاد الهلام كياخد مساحة فالمعدة، وكيعطيك إحساس بالشبع والامتلاء.<br/><br/>Slide 4: النتيجة؟ كتاكل كميات أقل بشكل طبيعي وبلا ما تحس بالحرمان. وهادشي كيساعدك تنقص السعرات الحرارية وتتحكم فوزنك بطريقة صحية وآمنة.<br/><br/>Slide 5: ماشي سحر، هادا علم! Nouriva هو اختيار الخبراء لرمضان صحي ومتحكم فيه. اطلبه الآن.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-8')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-8" class="modal-body">ماشي مجرد كلام... هادي هي الحقيقة العلمية وراء Nouriva! 🔬 <br/><br/> واش عمرك تساءلتي كيفاش منتج طبيعي يقدر يساعدك تتحكم فالشهية ديالك بهاد الفعالية؟<br/><br/>الجواب كاين فالعلم. فهاد الكاروسيل، بسطنا ليك الآلية الذكية لي كيخدم بيها Nouriva باش يمنحك داك الإحساس بالشبع بطريقة آمنة وطبيعية 100%.<br/><br/>دوز السلايدات واكتشف السر. <br/><br/> صحتك أولوية. اختار منتج مدعوم بالدراسات. اطلب Nouriva. <br/><br/> #علوم #تغذية #Glucomannan #صحة_الجهاز_الهضمي #Nouriva #فعالية_مثبتة #المغرب</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">النمط: تعليمي وعلمي مبسط. استخدام إنفوجرافيكس ورسوم توضيحية.<br/>Slide 1: عنوان على شكل سؤال مثير للفضول. خلفية بنمط علمي (مثل بنية جزيئية).<br/>Slide 2: صورة عالية الجودة لنبتة الكونجاك أو لمسحوق الغلوكومانان. النص واضح ومختصر.<br/>Slide 3: رسم توضيحي (إنفوجرافيك) لمعدة فارغة ثم معدة بها هلام الغلوكومانان، لشرح الفكرة بصرياً.<br/>Slide 4: أيقونات بسيطة تلخص النتائج (سعرات حرارية أقل، تحكم فالوزن).<br/>Slide 5: عبارة قوية مثل "Not Magic, It's Science" مترجمة. CTA واضح مع صورة للمنتج.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P9</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الدكتور [اسم الخبير] كيكشف عن سر التحكم في شهية رمضان... Nouriva!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('9')">
+                    <div class="preview-text">"أنصح بـ Nouriva كحل مساعد، طبيعي وآمن، لأنه يعتمد على آلية علمية واضحة لدعم الانضباط الغذائي خلال ر...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-9" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('9')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P9</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-9')">📋 نسخ النص</button>
+                            <div id="script-text-9" class="modal-body">"أنصح بـ Nouriva كحل مساعد، طبيعي وآمن، لأنه يعتمد على آلية علمية واضحة لدعم الانضباط الغذائي خلال رمضان دون حرمان."<br/><br/>- د. [اسم الخبير]، أخصائي في التغذية.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-9')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-9" class="modal-body">شهادة ثقة من أهل الاختصاص! 🩺 <br/><br/> عندما يتعلق الأمر بصحتك، رأي الخبير هو أفضل ضمان.<br/><br/>الدكتور [اسم الخبير]، المعروف بخبرته في مجال التغذية، يشاركنا رأيه المهني حول Nouriva وفعاليته في دعم نظام غذائي صحي خلال شهر رمضان.<br/><br/>هذه الشهادة هي تأكيد آخر على جودة وموثوقية منتجنا. <br/><br/> استشر خبيرك الخاص واكتشف قوة Nouriva. اضغط هنا للمزيد من المعلومات. <br/><br/> #شهادة_خبير #توصية_طبية #ثقة #صحة #NourivaMaroc #تغذية_رمضان #المغرب</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">النمط: تصميم احترافي وموثوق. صورة احترافية للخبير (إذا توفرت) أو أيقونة طبية راقية. الاقتباس مكتوب بخط أنيق وواضح. اسم الخبير والمنصب ديالو مكتوبين تحته. شعار Nouriva يوضع في زاوية التصميم بشكل غير طاغٍ.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V10</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كانت كل ليلة فرمضان كتخسر المعركة مع الشهية... حتى لقات الحل!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('10')">
+                    <div class="preview-text">(صوت عميلة حقيقية، بنبرة صادقة)
+قبل... كان رمضان بالنسبة ليا صعيب. النهار كامل و أنا صابرة، و فاش كي...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-10" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('10')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V10</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-10')">📋 نسخ النص</button>
+                            <div id="script-text-10" class="modal-body">(صوت عميلة حقيقية، بنبرة صادقة)<br/><br/>قبل... كان رمضان بالنسبة ليا صعيب. النهار كامل و أنا صابرة، و فاش كيأذن المغرب، كنفقد السيطرة تماما. كنت كناكل بزاف، لدرجة كنحس بالذنب و بالثقل.<br/><br/>كنت كنعيا دغيا، و التراويح... غالبا كنفوتها.<br/><br/>(تغيير في نبرة الصوت إلى إيجابية)<br/><br/>من بعد، صحبتي نصحاتني بـ Nouriva. فالأول ترددت، ولكن حيت طبيعي ومصنوع فأوروبا، قلت نجرب.<br/><br/>الفرق كان مدهش! وليت كناخد حبة قبل الفطور، كنحس بالشبع دغيا، و كناكل غير القياس.<br/><br/>دابا... رمضان ولا عندو معنى آخر. وليت خفيفة، نشيطة، و الأهم، كنصلي التراويح ديالي كاملة و أنا مرتاحة.<br/><br/>Nouriva رجع ليا رمضان لي كنت كنتمناه.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-10')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-10" class="modal-body">قصة حقيقية: كيفاش تحولت من صراع مع الأكل إلى صفاء فالعبادة. 🙏 <br/><br/> معاناة فاطمة مع الشهية فرمضان كانت حقيقية، وكتشبه لمعاناة بزاف ديال الناس. الإحساس بالذنب، فقدان الطاقة، والبعد عن روحانية الشهر...<br/><br/>ولكنها قررت تغير هادشي. اكتشف فهاد الفيديو القصة الملهمة ديالها، وكيفاش قدرات باستعمال Nouriva تسترجع السيطرة وتعيش رمضان لي كانت كتحلم به.<br/><br/>القصص الحقيقية هي أقوى دليل. <br/><br/> قصص النجاح كتلهمك. ابدا قصتك مع Nouriva اليوم. <br/><br/> #قصة_نجاح #تجربتي #شهادة_عميل #UGC #Nouriva #رمضان_تحول #المغرب</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Framework: BAB]<br/>النمط: UGC Style (User Generated Content). تصوير بسيط وحقيقي، كأنه من هاتف العميل. التركيز على الصدق والعفوية.<br/>[0-15s] لقطات تمثيلية بسيطة للحالة 'Before': سيدة تبدو متعبة بعد الإفطار، تنظر إلى طاولة ممتلئة بالندم. يمكن استخدام فلاتر ألوان باهتة. (صوت العميل يصف معاناته).<br/>[16-25s] لقطة مقربة على يد السيدة وهي تأخذ حبة Nouriva مع الماء. لقطة للعلبة. هذا هو 'Bridge'.<br/>[26-45s] لقطات 'After': نفس السيدة تأكل بابتسامة وهدوء. ثم لقطة لها وهي تلبس جلباب الصلاة بنشاط، أو تمشي وهي سعيدة. استخدام ألوان زاهية وإضاءة جيدة. (صوت العميل يصف التحول).<br/>[46-50s] السيدة تنظر مباشرة إلى الكاميرا وتبتسم. يظهر على الشاشة اسمها (مثال: 'قصة فاطمة') والـ CTA.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C11</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">من صراع رمضان لراحة رمضان: قصة نجاح ملهمة!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('11')">
+                    <div class="preview-text">Slide 1: "كنت كنحس رمضان كيهرب مني..." قصة حقيقية عن استرجاع الانضباط وراحة البال.
+Slide 2: قبل Nour...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-11" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('11')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C11</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-11')">📋 نسخ النص</button>
+                            <div id="script-text-11" class="modal-body">Slide 1: "كنت كنحس رمضان كيهرب مني..." قصة حقيقية عن استرجاع الانضباط وراحة البال.<br/><br/>Slide 2: قبل Nouriva: كانت كل ليلة معركة. شهية مفتوحة، أكل بلا قياس، ونتيجة وحدة: ثقل، خمول، وإحساس بالذنب كيبعدني على العبادة. (صورة 'قبل' تظهر التعب والإرهاق).<br/><br/>Slide 3: نقطة التحول: قرار صغير غيّر كلشي. سمعت على Nouriva وقررت نعطيه فرصة، خصوصا أنه طبيعي و جودته أوروبية. كانت هادي هي البداية.<br/><br/>Slide 4: النتائج: الفرق كان واضح من الأيام الأولى. وليت كنتحكم فالكميات لي كناكل، وليت خفيفة ونشيطة. والأهم، رجعت كنستمتع بالتراويح وبكل لحظة روحانية. (صورة 'بعد' تظهر النشاط والراحة).<br/><br/>Slide 5: رسالتي ليكم: "إيلا كنتي كتعيش نفس الصراع، عرف بلي الحل كاين. Nouriva كان هو الجسر ديالي لرمضان هادئ ومقبول. كنصح به من كل قلبي." - شهادة حقيقية. اطلبوه دابا!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-11')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-11" class="modal-body">حكايتها تقدر تكون هي حكايتك... ✨ <br/><br/> ماكاينش ما أحسن من قصة حقيقية باش نفهمو التأثير ديال أي تغيير فـ حياتنا.<br/><br/>فهاد الكاروسيل، كنشاركو معاكم رحلة عميلة ديالنا، من الإحساس بالضياع بسبب الشهية فرمضان، إلى الإحساس بالسكينة والتحكم.<br/><br/>دوز السلايدات وعيش معاها هاد التحول الملهم. <br/><br/> تقدر تكون أنت القصة الجاية! اطلب Nouriva الآن. <br/><br/> #قصتي #storytelling #تحفيز #الهام #رمضان_مختلف #Nouriva #المغرب</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">النمط: قصصي وإنساني. استخدام صور حقيقية أو صور تعبيرية قوية.<br/>Slide 1: عنوان قوي مع صورة تثير المشاعر.<br/>Slide 2: صورة بالأبيض والأسود أو بألوان باهتة لتعكس الحالة النفسية 'قبل'. النص يركز على الألم.<br/>Slide 3: صورة ليد تأخذ علبة Nouriva. التركيز على لحظة اتخاذ القرار.<br/>Slide 4: صورة ملونة ومشرقة تظهر نتيجة إيجابية. النص يركز على الفوائد.<br/>Slide 5: اقتباس مؤثر من العميل. استخدام خط يدوي لإضفاء المصداقية. CTA واضح ومباشر.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P12</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الفرق واضح! شاهد كيفاش رمضانها تبدل.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('12')">
+                    <div class="preview-text">"قبل كنت كنقاوم الجوع، دابا كنعيش الصيام." 
+Nouriva: رمضانك صحة، انضباط، و بلا جوع....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-12" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('12')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P12</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-12')">📋 نسخ النص</button>
+                            <div id="script-text-12" class="modal-body">"قبل كنت كنقاوم الجوع، دابا كنعيش الصيام." <br/><br/>Nouriva: رمضانك صحة، انضباط، و بلا جوع.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-12')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-12" class="modal-body">صورة وحدة كتساوي ألف كلمة. 🖼️ <br/><br/> هذا هو الفرق لي كيصنعو Nouriva. ماشي غير فالشكل، ولكن فالإحساس براحة البال والقدرة على عيش رمضان بالطريقة الصحيحة.<br/><br/>من صراع يومي مع الجوع، إلى انضباط وصفاء كيخليك تركز على الأهم: العبادة والتقرب من الله.<br/><br/>النتائج حقيقية وملموسة. <br/><br/> النتيجة مضمونة ومجربة. اكتشف Nouriva وابدأ التغيير. <br/><br/> #قبل_بعد #تحول #نتائج_حقيقية #beforeafter #Nouriva #رمضان_2024 #المغرب</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">النمط: تصميم مقارنة (Before & After) بشكل راقي. صورة مقسومة: الجهة اليسرى (Before) تظهر سيدة متعبة مع تعابير وجه حزينة (ألوان باهتة). الجهة اليمنى (After) تظهر نفس السيدة مبتسمة ونشيطة (ألوان زاهية). في الوسط، توضع علبة Nouriva كعنصر فاصل ومحوري. الاقتباس يكتب في الأسفل بخط واضح.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V13</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كيفاش رياضي محترف كيقدر يحافظ على لياقته البدنية وهو صايم؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('13')">
+                    <div class="preview-text">(صوت مدرب رياضي، قوي وواثق)
+أكبر تحدي للرياضيين فرمضان هو الموازنة بين الصيام، التمرين، والحفاظ على ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-13" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('13')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V13</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-13')">📋 نسخ النص</button>
+                            <div id="script-text-13" class="modal-body">(صوت مدرب رياضي، قوي وواثق)<br/><br/>أكبر تحدي للرياضيين فرمضان هو الموازنة بين الصيام، التمرين، والحفاظ على الكتلة العضلية.<br/><br/>الجوع المفرط فالليل كيخليك تاكل أي حاجة، وهادشي كيهدم المجهود ديالك كامل.<br/><br/>السر ديالي؟ الانضباط... وشوية ديال المساعدة الذكية.<br/><br/>كنستعمل Nouriva باش نتحكم فالشهية ديالي بعد التمرين الليلي. كيخليني ناكل وجبة نظيفة ومتوازنة بلا ما نطيح ففخ السكريات والدهون.<br/><br/>مكوناته الطبيعية كتخليني مطمئن على صحتي، وكيساعدني نحافظ على طاقتي ونشاطي لليوم الموالي.<br/><br/>مع Nouriva، كنصوم بقوة، كنتمرن بتركيز، وكنحافظ على لياقتي.<br/><br/>رمضان ماشي عذر باش توقف. رمضان هو فرصة باش تكون أقوى.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-13')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-13" class="modal-body">الرياضة فرمضان؟ ممكنة... وقوية! 💪 <br/><br/> شكون قال الصيام كيعني التوقف عن الرياضة؟<br/><br/>مدرب اللياقة البدنية [اسم المدرب] كيشاركنا الأسرار ديالو باش كيحافظ على الطاقة، القوة، والتركيز خلال شهر رمضان.<br/><br/>واحد من هاد الأسرار هو Nouriva، الحليف ديالو فالتحكم فالشهية والحفاظ على نظام غذائي سليم حتى مع تحديات الصيام.<br/><br/>اسمع النصيحة من المحترفين! <br/><br/> لازم تبقى نشيط فرمضان! جرب Nouriva وحس بالفرق. اطلب الآن. <br/><br/> #رياضة_رمضان #لياقة_بدنية #كمال_اجسام #طاقة #Nouriva #مدرب_معتمد #المغرب</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Framework: QUEST]<br/>النمط: ديناميكي وحماسي. مونتاج سريع يجمع بين لقطات للمدرب وهو يتمرن ولقطات للمنتج.<br/>[0-5s] لقطة قوية لمدرب رياضي يتمرن في الجيم أو في الهواء الطلق، مع موسيقى حماسية. [Hook]<br/>[6-15s] المدرب يتحدث مباشرة للكاميرا (أو صوت فوق لقطات التمرين) عن تحديات الرياضة في رمضان. [Qualify/Understand]<br/>[16-25s] لقطة مقربة للمدرب وهو يأخذ Nouriva بعد التمرين. شرح مبسط للفوائد عبر نصوص متحركة على الشاشة. [Educate]<br/>[26-35s] لقطات متنوعة للمدرب وهو يتمتع بنشاط وحيوية خلال اليوم (يعمل، مع عائلته)، مما يظهر أن طاقته لم تتأثر. [Stimulate]<br/>[36-45s] لقطة أخيرة للمدرب وهو ينظر بثقة للكاميرا، مع ظهور علبة Nouriva والـ CTA. [Transition]</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C14</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">رياضي؟ هادي هي الخطة الكاملة ديالك لرمضان نشيط وقوي!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('14')">
+                    <div class="preview-text">Slide 1: دليلك الكامل لرمضان رياضي وناجح: حافظ على لياقتك و طاقتك!
+Slide 2: أفضل وقت للتمرين؟ كاينة ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-14" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('14')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C14</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-14')">📋 نسخ النص</button>
+                            <div id="script-text-14" class="modal-body">Slide 1: دليلك الكامل لرمضان رياضي وناجح: حافظ على لياقتك و طاقتك!<br/><br/>Slide 2: أفضل وقت للتمرين؟ كاينة جوج اختيارات: إما قبل الفطور بساعة (لتمارين الكارديو الخفيفة)، أو بعد الفطور بساعتين (لتمارين القوة) باش تكون عندك طاقة كافية.<br/><br/>Slide 3: كيفاش Nouriva كيدعمك؟ خوده قبل وجبة ما بعد التمرين. كيعاونك تتحكم فالجوع الشديد، وكيخليك تركز على وجبة غنية بالبروتين للشفاء العضلي، ماشي السكريات لي كتخرب الفورمة.<br/><br/>Slide 4: خطتك الغذائية: ركز على شرب الماء بكثرة، وجبة سحور غنية بالبروتينات بطيئة الامتصاص، ووجبة ما بعد التمرين متوازنة. Nouriva هو مساعدك للانضباط فهاد الخطة.<br/><br/>Slide 5: رمضان هادا، خليك أقوى! بالخطة الصحيحة والمساعدة المناسبة، تقدر توصل لأهدافك الرياضية. اطلب Nouriva الآن وكمل طريقك نحو النجاح.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-14')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-14" class="modal-body">دليلك الكامل باش تبقى فالفورمة فرمضان! 🏋️‍♂️ <br/><br/> التوفيق بين الصيام والتمرين كيبغي خطة ذكية. ماشي ضروري تخسر المجهود ديال شهور كاملة!<br/><br/>جمعنا ليك فهاد الكاروسيل أهم النصائح على أفضل أوقات التمرين، التغذية المناسبة، وكيفاش Nouriva يقدر يكون الحليف ديالك فالوصول لأهدافك.<br/><br/>دوز السلايدات واكتشف الخطة. <br/><br/> خلي رمضانك أقوى مع Nouriva. اطلب المنتج اليوم. <br/><br/> #دليل_الرياضي #رمضان_فتنس #تغذية_رياضية #Nouriva #بناء_اجسام #المغرب</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">النمط: تحفيزي وتعليمي بلمسة رياضية. استخدام ألوان قوية وديناميكية.<br/>Slide 1: عنوان قوي على خلفية صورة رياضية ملهمة.<br/>Slide 2: إنفوجرافيك يقارن بين وقتي التمرين مع أيقونات بسيطة (شمس، هلال).<br/>Slide 3: صورة لـ Nouriva بجانب شيكر بروتين أو أكل صحي. إبراز دوره كمساعد.<br/>Slide 4: تصميم على شكل خطة أو قائمة (Checklist) مع أيقونات (قطرة ماء، دجاج، ...).<br/>Slide 5: صورة رياضية محفزة مع CTA قوي وواضح.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P15</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">حتى الأبطال كيعتمدو على Nouriva باش يصومو بقوة ونشاط!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('15')">
+                    <div class="preview-text">"الانضباط هو مفتاح النجاح، فرمضان و فالتمرين. Nouriva كيساعدني نحافظ على هاد الانضباط."
+- [اسم الريا...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-15" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('15')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P15</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-15')">📋 نسخ النص</button>
+                            <div id="script-text-15" class="modal-body">"الانضباط هو مفتاح النجاح، فرمضان و فالتمرين. Nouriva كيساعدني نحافظ على هاد الانضباط."<br/><br/>- [اسم الرياضي], مدرب لياقة بدنية</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-15')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-15" class="modal-body">اختيار الأبطال. اختيارك أنت. 🏆 <br/><br/> عندما يوصي رياضي محترف بمنتج، فهذا دليل على فعاليته وقوته.<br/><br/>Nouriva ماشي غير للناس لي بغاو ينقصو الوزن، هو أيضا للرياضيين لي باغيين يحافظو على انضباطهم الغذائي، يتحكمو فشهيتهم، ويبقاو فأعلى مستويات الطاقة والأداء حتى وهما صايمين.<br/><br/>ثق فالاختيار ديال المحترفين. <br/><br/> قوتك فرمضان كتبدا من هنا. اطلب Nouriva. <br/><br/> #اختيار_الابطال #تحفيز_رياضي #قوة #اداء_عالي #Nouriva #رمضان_قوة #المغرب</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">النمط: تصميم قوي وملهم. صورة لرياضي في وضعية قوة أو تركيز، وهو يحمل علبة Nouriva. الإضاءة درامية والتركيز على العضلات واللياقة. الاقتباس مكتوب بخط عريض وقوي. اسم الرياضي ومنصبه تحته.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V16</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">رمضان على الأبواب! واش وجدتي راسك؟ عرض Nouriva ماكيتفوتش!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('16')">
+                    <div class="preview-text">(صوت سريع، حماسي، ومباشر مع موسيقى سريعة)
+العد التنازلي بدأ!
+أيام قليلة و يبدا شهر رمضان.
+شهر الانضب...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-16" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('16')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V16</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-16')">📋 نسخ النص</button>
+                            <div id="script-text-16" class="modal-body">(صوت سريع، حماسي، ومباشر مع موسيقى سريعة)<br/><br/>العد التنازلي بدأ!<br/><br/>أيام قليلة و يبدا شهر رمضان.<br/><br/>شهر الانضباط، الصحة، والروحانية.<br/><br/>واش أنت مستعد؟<br/><br/>باش تعاون راسك، Nouriva كيقدم ليك عرض خاص ومحدود!<br/><br/>الحليف ديالك الطبيعي للتحكم فالشهية.<br/><br/>صنع في أوروبا، جودة مضمونة.<br/><br/>باش تبدا رمضانك خفيف، نشيط، ومركز فالعبادة.<br/><br/>هادي هي فرصتك!<br/><br/>الكمية محدودة والعرض سينتهي قريباً!<br/><br/>ماتضيعش الوقت!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-16')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-16" class="modal-body">⏳ الوقت كيجري! آخر فرصة باش تستعد لرمضان صحي! <br/><br/> بقات أيام قليلة على بداية الشهر الفضيل، وهذا هو الوقت المثالي باش توجد راسك صحيا ونفسيا.<br/><br/>Nouriva كيقدم ليك عرض خاص ماكيتعوضش باش تبدا رحلتك نحو رمضان خفيف ونشيط. تحكم فشهيتك من اليوم الأول وعيش رمضان لي كتمناه.<br/><br/>ولكن حذاري، العرض غادي يسالي والكمية محدودة! <br/><br/> الكمية محدودة والعرض ينتهي قريباً! اطلب Nouriva الآن وابدا رمضان صحي. <br/><br/> #عرض_خاص #رمضان_قرب #تخفيضات #فرصة #Nouriva #استعدادات_رمضان #المغرب</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Framework: AIDA + Urgency]<br/>النمط: فيديو Motion Graphics سريع ومباشر. استخدام نصوص كبيرة ومتحركة، ألوان جذابة، ومؤثرات صوتية تخلق الإحساس بالاستعجال (مثل صوت عداد تنازلي).<br/>[0-5s] عداد تنازلي كبير على الشاشة (3...2...1) ثم تظهر جملة 'رمضان على الأبواب!'. [Attention]<br/>[6-15s] عرض سريع لفوائد المنتج (تحكم فالشهية، طاقة، صنع فأوروبا) عبر أيقونات ونصوص متحركة. [Interest/Desire]<br/>[16-25s] ظهور تفاصيل العرض بشكل واضح وبارز (مثلاً: خصم خاص، توصيل مجاني...). استخدام كلمات مثل 'حصري'، 'خاص برمضان'.<br/>[26-35s] ظهور عناصر الإلحاح: 'الكمية محدودة جداً'، 'العرض ينتهي قريباً!' مع شريط تحميل أو ساعة رملية. [Urgency]<br/>[36-40s] الـ CTA يظهر بحجم كبير على الشاشة مع زر واضح ومحفز. [Action]</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C17</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">عرض Nouriva الرمضاني... آخر نداء قبل مايسالي!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('17')">
+                    <div class="preview-text">Slide 1: آخر فرصة لرمضانك الصحي! عرض Nouriva الحصري سينتهي قريباً جداً!
+Slide 2: شنو كتستافد من هاد ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-17" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('17')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C17</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-17')">📋 نسخ النص</button>
+                            <div id="script-text-17" class="modal-body">Slide 1: آخر فرصة لرمضانك الصحي! عرض Nouriva الحصري سينتهي قريباً جداً!<br/><br/>Slide 2: شنو كتستافد من هاد العرض؟<br/><br/>- سعر خاص بمناسبة الشهر الفضيل.<br/><br/>- الحليف ديالك باش تتحكم فالشهية وتجنب زيادة الوزن.<br/><br/>- ضمان الجودة الأوروبية والثقة.<br/><br/>Slide 3: علاش خاصك تطلب دابا؟ لأن الكمية المخصصة للعرض قربات تسالي، وفاش يسالي العرض، السعر الأصلي غادي يرجع. هادي هي فرصتك باش تستثمر فصحتك بأفضل ثمن.<br/><br/>Slide 4: ماتبقاش تفكر! رمضان مغاديش يتسناك. اضغط على الرابط، اطلب Nouriva ديالك، ووجد راسك لأفضل رمضان.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-17')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-17" class="modal-body">🚨 انتباه! العرض الخاص برمضان قرب يسالي! <br/><br/> إذا كنتي مزال كتفكر، هادي هي اللحظة باش تاخد القرار!<br/><br/>العرض الحصري ديالنا على Nouriva غادي ينتهي قريباً جداً، والطلب عليه كبير. هادي هي فرصتك الأخيرة باش تستافد من سعر خاص وتبدا رمضان وأنت متحكم فصحتك وشهيتك.<br/><br/>دوز السلايدات باش تعرف علاش خاصك تزرب! <br/><br/> اغتنم الفرصة الآن وابدا رمضانك صحي! اطلب Nouriva. <br/><br/> #عرض_محدود #lastchance #تخفيضات_رمضان #زرب #Nouriva #المغرب</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">النمط: ترويجي وعاجل. استخدام ألوان قوية (مثل الأحمر والأصفر) لخلق الإحساس بالإلحاح. خطوط عريضة وواضحة.<br/>Slide 1: عنوان كبير مع أيقونات ساعات أو عدادات. التركيز على كلمة 'آخر فرصة'.<br/>Slide 2: تفاصيل العرض على شكل قائمة (checklist) مع أيقونات جذابة.<br/>Slide 3: استخدام صور أو رموز تعبر عن الندرة (مثل 'Sold Out' بشكل باهت في الخلفية). النص مباشر ويحفز على الشراء الفوري.<br/>Slide 4: CTA كبير وواضح جداً، مع عبارات مثل 'اطلب الآن' أو 'اغتنم الفرصة'.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P18</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">العد التنازلي بدأ! خصم Nouriva لرمضان سينتهي قريباً!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('18')">
+                    <div class="preview-text">عرض رمضان الخاص
+سينتهي قريباً!
+الكمية محدودة جداً
+اطلب الآن...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-18" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('18')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P18</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-18')">📋 نسخ النص</button>
+                            <div id="script-text-18" class="modal-body">عرض رمضان الخاص<br/><br/>سينتهي قريباً!<br/><br/>الكمية محدودة جداً<br/><br/>اطلب الآن</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-18')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-18" class="modal-body">Tic-Tac... Tic-Tac... ⏰ الفرصة كضيع! <br/><br/> هذا تذكير أخير بأن عرضنا الرمضاني الاستثنائي على Nouriva في ساعاته الأخيرة.<br/><br/>ماتخليش الندم يكون شعورك فالأيام الجاية. استثمر فصحتك وراحتك النفسية فهاد الشهر الكريم بأفضل سعر ممكن.<br/><br/>الوقت محدود، والكمية أيضا! <br/><br/> رمضان جاي! ما تفوتش الفرصة! اطلب Nouriva الآن. <br/><br/> #عرض_عاجل #سينتهي_قريبا #اطلب_الان #لا_تفوت #Nouriva #رمضان_2024 #المغرب</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">النمط: تصميم بانر إعلاني مباشر وجذاب. استخدام ألوان البراند مع إضافة لون قوي (أحمر) لكلمات مثل 'قريباً' و 'محدودة'. يمكن إضافة صورة لعداد تنازلي أو ساعة رملية في التصميم. النص كبير وواضح جداً، والهدف هو إيصال رسالة الإلحاح في أقل من 3 ثواني.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr></tbody></table></div>
+
+    <div class="disclaimer-card">
+        <span style="font-size: 1.2em;">⚠️</span>
+        <span>قد تخضع هذه الاستراتيجية لبعض التعديلات والتحسينات، حسب المواد الإعلامية المتوفرة أو لغرض تحقيق أفضل النتائج.</span>
+    </div>
+
+    <div class="summary-box">
+        <span style="font-weight: 700; color: #FFD700;">الميزانية الإجمالية المعتمدة</span>
+        <span class="total-amount">123000 دج</span>
+        <a href="https://wa.me/213770820431" class="cta-btn">تواصل معنا للاعتماد</a>
+        <div style="border: 1px dashed #FFD700; padding: 25px; border-radius: 15px; margin-top: 20px;">
+            <h3 style="color:#FFD700; margin:0;">الخطوة التالية</h3>
+            <p style="margin:10px 0;">مكالمة قصيرة لنكيّف هذه الاستراتيجية حسب مشروعك ونبدأ العمل فوراً.</p>
+            <div class="phones-list">
+                <div class="phone-item">0770 82 04 31</div>
+                <div class="phone-item">0770 55 01 51</div>
+                <div class="phone-item">0770 82 01 45</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+function openModal(id) { document.getElementById('modal-' + id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
+function closeModal(id) { document.getElementById('modal-' + id).style.display = 'none'; document.body.style.overflow = 'auto'; }
+window.onclick = function(event) { if (event.target.className === 'modal') { event.target.style.display = 'none'; document.body.style.overflow = 'auto'; } }
+
+// وظيفة النسخ الجديدة
+function copyToClipboard(elementId) {
+    const el = document.getElementById(elementId);
+    const text = el.innerText || el.textContent; // نسخ النص بدون HTML tags
+    navigator.clipboard.writeText(text).then(() => {
+        alert("تم نسخ النص بنجاح! ✅");
+    }).catch(err => {
+        console.error('Failed to copy', err);
+    });
+}
+</script></body></html>
