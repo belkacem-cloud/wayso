@@ -1,0 +1,810 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>علامة تجارية جزائرية Strategy</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+<style>
+    body { background: #FFFFFF; color: #1A1A1A; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; line-height: 1.6; overflow-x: hidden; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 15px; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 2px solid #000; }
+    .wayso-logo { height: 45px; }
+    .brand-name { font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 1.4em; color: #000; text-transform: uppercase; border-right: 4px solid #FFD700; padding-right: 12px; }
+    
+    .analysis-section { margin: 30px 0; }
+    .card-philosophy { padding: 30px; border-radius: 20px; background: #000; color: #FFF; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+    .card-philosophy h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #FFD700; }
+    
+    .card-why { padding: 30px; border-radius: 20px; background: #F9F9F9; color: #333; margin-bottom: 20px; border: 1px solid #EDECE9; }
+    .card-why h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #000; display: flex; align-items: center; gap: 10px; }
+    .card-why h2::after { content: ''; flex-grow: 1; height: 1px; background: #EDECE9; margin-right: 15px; }
+
+    .hero { margin: 35px 0 20px 0; border-right: 6px solid #FFD700; padding-right: 15px; }
+    .hero h1 { font-size: 2.5em; font-weight: 700; margin: 0; }
+    .table-wrapper { margin-top: 25px; border-radius: 12px; overflow: hidden; border: 1px solid #EDECE9; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #000; color: #FFF; padding: 15px; text-align: right; font-size: 0.95em; }
+    td { padding: 20px 12px; border-bottom: 1px solid #EDECE9; vertical-align: top; }
+    
+    .code-badge { font-family: 'Montserrat', sans-serif; font-weight: 700; background: #FFD700; color: #000; padding: 5px 12px; border-radius: 6px; font-size: 1.1em; display: inline-block; margin-bottom: 5px; }
+    .type-label { display: block; font-weight: 700; color: #555; font-size: 0.95em; }
+    
+    .hook-pill { background: #000; color: #FFD700; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 1.1em; display: block; border-right: 5px solid #FFD700; }
+    
+    /* تحسين زر المودال */
+    .script-trigger { background: #F8F9FA; border: 1px solid #EDECE9; padding: 15px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; position: relative; }
+    .script-trigger:hover { background: #FFF; border-color: #FFD700; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transform: translateY(-2px); }
+    
+    .preview-text { font-size: 0.95em; color: #333; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; white-space: pre-wrap; }
+    
+    /* ستايل المودال */
+    .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); }
+    .modal-content { background: #FFF; margin: 5% auto; padding: 30px; border-radius: 20px; width: 90%; max-width: 750px; position: relative; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+    .close-modal { position: absolute; top: 20px; left: 20px; font-size: 30px; cursor: pointer; color: #999; line-height: 1; transition: color 0.2s; }
+    .close-modal:hover { color: #000; }
+    
+    .modal-section { margin-bottom: 25px; padding: 20px; border-radius: 12px; background: #fbfbfa; border: 1px solid #eee; position: relative; }
+    
+    /* زر النسخ */
+    .copy-btn { position: absolute; top: 10px; left: 10px; background: #fff; border: 1px solid #ddd; padding: 5px 10px; border-radius: 6px; cursor: pointer; font-size: 0.8em; font-weight: bold; color: #555; display: flex; align-items: center; gap: 5px; transition: all 0.2s; }
+    .copy-btn:hover { border-color: #FFD700; color: #000; background: #FFD70020; }
+    .copy-btn:active { transform: scale(0.95); }
+    
+    .modal-body { font-size: 1.15em; color: #1A1A1A; line-height: 1.9; word-wrap: break-word; white-space: pre-wrap; }
+    
+    .disclaimer-card { margin: 25px 0; padding: 20px; background: #FFF9E6; border-radius: 12px; border-right: 5px solid #FFC107; font-size: 1.05em; color: #856404; display: flex; align-items: center; gap: 12px; }
+    .summary-box { margin-top: 50px; background: #000; color: #FFF; padding: 40px 20px; border-radius: 25px; text-align: center; }
+    .total-amount { font-family: 'Montserrat'; font-size: 3.5em; font-weight: 700; display: block; color: #FFD700; margin: 10px 0; }
+    .cta-btn { display: inline-block; background: #FFD700; color: #000; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.2em; margin-bottom: 25px; transition: transform 0.2s; }
+    .cta-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px #FFD70060; }
+    
+    .phones-list { margin-top: 15px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; direction: ltr; } 
+    .phone-item { background: #1A1A1A; padding: 8px 15px; border-radius: 8px; border: 1px solid #333; color: #FFF; font-family: 'Montserrat'; font-weight: 700; font-size: 1.2em; white-space: nowrap; }
+
+    @media (max-width: 768px) {
+        thead { display: none; }
+        tr { display: block; border: 1px solid #EDECE9; border-radius: 15px; margin-bottom: 20px; padding: 15px; background: #FFF; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        td { display: block; padding: 10px 0; text-align: right; border-bottom: 1px dashed #eee; }
+        td:last-child { border-bottom: none; }
+        td::before { content: attr(data-label); font-weight: 700; color: #BBB; display: block; font-size: 0.8em; margin-bottom: 6px; text-transform: uppercase; }
+        .brand-name { font-size: 1.1em; }
+        .modal-content { width: 95%; padding: 20px; margin: 10% auto; }
+        .total-amount { font-size: 2.5em; }
+    }
+</style></head><body>
+
+<div class="container">
+    <div class="header">
+        <img src="https://storage.googleapis.com/msgsndr/GwIPQCjstTzxnzDQ1B32/media/68fddb5534bb1597bc934f89.png" class="wayso-logo">
+        <div class="brand-name">علامة تجارية جزائرية</div>
+    </div>
+
+    <div class="analysis-section">
+        <div class="card-philosophy"><h2>🎯 فلسفة الاستراتيجية</h2><p>نحن في Wayso، نرى أن نجاحكم هو نجاحنا. لذا، اخترنا لكم مزيجاً استراتيجياً من الفيديو الماستر والكاروسالات التعليمية، لأنه يمثل الاستثمار الأمثل لنموكم. هذا المزيج لا يخاطب العقل فحسب، بل يلامس الوجدان، ويبني جسور الثقة الراسخة مع جمهوركم المستهدف.
+
+من خلال تقديم حلول متكاملة تبرز جودة منتجكم بمعايير عالمية، سنضمن لكم تميزاً لا يُعلى عليه في السوق. نحن هنا لنتجاوز توقعاتكم، ونحول رؤيتكم إلى واقع ملموس، مستندين إلى خبرتنا العميقة في هندسة البيانات والتسويق الاستراتيجي.
+
+إنها ليست مجرد حملة، بل هي شراكة استراتيجية طويلة الأمد نحو النمو والازدهار المستمر. ثقتكم هي وقودنا، ونتائجكم هي معيار نجاحنا.</p></div>
+        <div class="card-why"><h2>💡 لماذا هذه الخطة؟</h2><p>بدأنا بـ V1 لخطف الانتباه ومعالجة المخاوف الجوهرية للجمهور، مقدّمين الحل الشامل. ثم انتقلنا إلى الكاروسالات والصور التعليمية (C2, P3) لترسيخ أسس الثقة والجودة الأوروبية، مما يعزز الفهم العميق للمنتج.
+
+يُشكل هذا التسلسل رحلة منطقية متكاملة: من إثارة الاهتمام وبناء المصداقية، إلى تقديم الأدلة الاجتماعية (UGC) والتأكيد على نقاط الألم (PAS)، وصولاً إلى دعوة واضحة للشراء. هذه الاستراتيجية تضمن بناء علاقة قوية مع العميل، وتحويله من مجرد مشاهد إلى مشترٍ واثق.</p></div>
+    </div>
+
+    <div class="hero"><h1>خطة الإنتاج الإبداعي</h1></div>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th style="width: 20%;">الكود والنوع</th><th style="width: 30%;">الهوك (Hook)</th><th style="width: 50%;">المحتوى</th></tr></thead>
+            <tbody><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V1</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كليت السم ونت حاسب روحك تشيان؟ 🛑 الحقيقة المُرّة ورا منتجات التخسيس اللي دمرت صحة آلاف الجزائريين.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('1')">
+                    <div class="preview-text">(صوت هادئ وواثق)
+شحال من مرة وقفت قدام المرايا، وحسيت بالإحباط؟
+جربت كلش... ريجيمات قاسية، سبور متعب...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-1" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('1')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V1</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-1')">📋 نسخ النص</button>
+                            <div id="script-text-1" class="modal-body">(صوت هادئ وواثق)<br/><br/>شحال من مرة وقفت قدام المرايا، وحسيت بالإحباط؟<br/><br/>جربت كلش... ريجيمات قاسية، سبور متعب، وحتى منتجات واعدوك بالمعجزات.<br/><br/>وفي كل مرة، ترجع لنفس النقطة... تعب، ضياع دراهم، والأسوأ من هذا كامل... خوف.<br/><br/>خوف على صحتك من مكونات ما تعرفش أصلها، ومن أعراض جانبية قادرة تندمك حياتك كامل.<br/><br/>(تتغير نبرة الصوت لتصبح أكثر إيجابية وأملاً)<br/><br/>بصح اليوم، هاد الدائرة راح تتكسر.<br/><br/>لأول مرة في الجزائر، جبنالك الحل اللي يجمع بين زوج حوايج كنت تحسبهم ما يتلاقاوش: الجودة تاع برا، والثقة تاع الدار.<br/><br/>نقدمولك منتجنا الطبيعي 100% لإنقاص الوزن.<br/><br/>السر تاعو؟ ماشي في الخلطات السحرية... السر تاعو في الأمان.<br/><br/>كل غرام من هاد المنتج مصنوع في أوروبا، تحت رقابة ومعايير هي الأكثر صرامة في العالم.<br/><br/>يعني مكانش مواد كيميائية خطيرة، مكانش أعراض جانبية، ومكانش وعود كاذبة.<br/><br/>كاين غير مكونات طبيعية نقية، مدروسة علمياً باش تخدم مع جسمك، ماشي ضدو.<br/><br/>تحرق الدهون، تنقص الشهية، وتزيدلك الطاقة... بطريقة صحية وآمنة.<br/><br/>والنتيجة؟ ماشي مجرد رقم في الميزان.<br/><br/>النتيجة هي ثقة في روحك تسترجعها، لبسة كنت متمنيها، وراحة بال ما تتقدرش بثمن.<br/><br/>كيما الآلاف اللي جربوه ورجعولنا شهاداتهم بفرحة.<br/><br/>(نبرة حماسية ومباشرة)<br/><br/>هادي هي فرصتك باش تبدا التغيير اللي تستاهلو! <br/><br/>اضغط على الرابط أسفل الفيديو، واكتشف كيفاش تقدر تنقص وزنك وأنت مطمن.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-1')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-1" class="modal-body">🚨 تعبت من التجارب الفاشلة والخوف على صحتك؟ الحل راهو هنا! <br/><br/> كلنا جربنا حلول لإنقاص الوزن خلاتنا نحسو بالإحباط والخوف. منتجات كيميائية، وعود كاذبة، ودراهم ضايعة...<br/>حان الوقت باش نوقفو هاد المهزلة! اكتشف في هذا الفيديو المنتج الطبيعي الأول في الجزائر المصنوع بمعايير أوروبية صارمة. الأمان، الفعالية، وراحة البال... هاد هو وعدنا ليك.<br/>الجودة تاع برا، والثقة تاع الدار. انقص وزنك وأنت مطمن. <br/><br/> هادي هي فرصتك تبدا التغيير لي تستاهلو! اضغط على الرابط باش تبدا رحلة التحول تاعك اليوم. <br/><br/> #صحة #تخسيس_آمن #منتج_جزائري #جودة_أوروبية #الجزائر #انقاص_الوزن #طبيعي100%</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">مونتاج احترافي (بن صايبي). يبدأ الفيديو بلقطات سريعة بالأبيض والأسود توحي بالإحباط (ميزان، ملابس ضيقة، علب أدوية مجهولة). استخدام موسيقى تصويرية متوترة.<br/>عند ذكر الحل، تتحول الألوان إلى لوحة العلامة (أخضر، بيج، ذهبي) وتصبح الموسيقى ملهمة. لقطات Macro عالية الجودة للمكونات الطبيعية (أوراق، بذور). لقطات نظيفة ومشرقة للمنتج والعبوة.<br/>إظهار أيقونات موشن جرافيك للشهادات الأوروبية (ISO, GMP). الانتقال إلى لقطات لعملاء سعداء (ممثلين أو UGC) يمارسون حياتهم بثقة. زوايا تصوير سينمائية. إضاءة ناعمة ودافئة تعكس الفخامة والأمان.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C2</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">علاه المنتج هذا بالاك هو آخر منتج تخسيس تشريه في حياتك؟ (الجواب في 30 ثانية)</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('2')">
+                    <div class="preview-text">Slide 1: العنوان الرئيسي: سرّ التنحيف الآمن والفعال... اللي رجّع الأمل لآلاف الجزائريين.
+Slide 2: عل...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-2" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('2')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C2</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-2')">📋 نسخ النص</button>
+                            <div id="script-text-2" class="modal-body">Slide 1: العنوان الرئيسي: سرّ التنحيف الآمن والفعال... اللي رجّع الأمل لآلاف الجزائريين.<br/><br/>Slide 2: علاش 'صنع في أوروبا' تبدل كلش؟ لأنها تعني: رقابة صارمة، مكونات نقية، ومعايير أمان عالمية. ماشي مجرد كلمة، هادي هي ضمانة صحتك.<br/><br/>Slide 3: مكوناتنا طبيعية وتخدم صح! ماشي مجرد أعشاب مخلطة. كل مكون مدروس علمياً باش يحرق الدهون ويسد الشهية بأمان، بلا ما يضر جسمك.<br/><br/>Slide 4: قول وداعاً للخوف والقلق! منتجنا 0% مواد كيميائية، 0% أعراض جانبية خطيرة. استعملو وأنت مرتاح البال ومهنّي.<br/><br/>Slide 5: واش هي النتائج الحقيقية؟ ماشي غير نقص في الميزان، بل راحة نفسية، ثقة بالنفس، وطاقة يومية. رحلة ممتعة نحو هدفك.<br/><br/>Slide 6: الفرق اللي تحس بيه! شوف بعينك الفرق بين منتج يضمنلك صحتك، ومنتجات السوق المجهولة المصدر. الاختيار واضح.<br/><br/>Slide 7: مستعد تبدا رحلتك وأنت مطمن؟ اكتشف كامل تفاصيل المنتج الطبيعي الوحيد اللي يضمنلك الجودة تاع برا، والثقة تاع الدار.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-2')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-2" class="modal-body">🔍 سر التنحيف الآمن والفعال... اكتشف علاه منتجنا ماشي كيما أي حاجة في السوق! <br/><br/> ماشي كامل المنتجات كيف كيف! كاين فرق كبير بين منتج يغامر بصحتك، ومنتج يستثمر فيها.<br/>في هاد الكاروسال، شرحنالك بالتفصيل الركائز الأساسية اللي تخلي منتجنا هو الخيار الأكثر أماناً وفعالية في الجزائر: الجودة الأوروبية، المكونات الطبيعية المدروسة، والأمان التام.<br/>اسحب لليسار واكتشف الحقيقة بنفسك! <br/><br/> تعرف على التفاصيل الكاملة اللي تخليك تنقص وزنك وأنت مطمن! الرابط في البايو! <br/><br/> #تخسيس_صحي #جودة_عالمية #صنع_في_أوروبا #مكونات_طبيعية #ثقة #الجزائر #dzpower</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم (عبد الرحمن). استخدام هوية العلامة البصرية (الألوان والخطوط). كل سلايد بخلفية نظيفة ومشرقة. استخدام أيقونات بسيطة لتوضيح الأفكار (درع للأمان، ورقة شجر للطبيعة، شهادة للجودة). صور عالية الجودة للمكونات الطبيعية والمنتج. تصميم احترافي ومرتب يعكس الفخامة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P3</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كاين اللي يبيعلك الوهم... وكاين اللي يبيعلك الضمان. الجودة الأوروبية ماشي كلمة، هي عقد ثقة بينك وبين صحتك.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('3')">
+                    <div class="preview-text">(نص كبير وواضح على التصميم)
+واش الفرق بين منتج ينقص الوزن... ومنتج يضمنلك صحتك؟
+(نص أصغر وأنيق)
+الجو...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-3" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('3')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P3</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-3')">📋 نسخ النص</button>
+                            <div id="script-text-3" class="modal-body">(نص كبير وواضح على التصميم)<br/><br/>واش الفرق بين منتج ينقص الوزن... ومنتج يضمنلك صحتك؟<br/><br/>(نص أصغر وأنيق)<br/><br/>الجودة الأوروبية هي الإجابة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-3')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-3" class="modal-body">🛡️ صحتك ماشي لعبة! اختار الضمان، ماشي المغامرة. <br/><br/> في سوق التخسيس، الخيار الأصعب هو الثقة. كيفاش تتأكد بلي المنتج اللي راك تستعملو ماراحش يضرك؟<br/>الإجابة بسيطة: بالضمان. 'الجودة الأوروبية' هي ضمانك الوحيد بلي كل مكون آمن، نقي، وفعال. هي اللي تخليك تستثمر في صحتك وأنت مطمن.<br/>#الجودة_الأوروبية #الثقة_أولا <br/><br/> اضغط للرابط باش تعرف أكثر على ضمان الجودة تاعنا، ورجع ثقتك في المنتجات الطبيعية! <br/><br/> #جودة #أمان #صحة_الجزائر #منتجات_طبيعية #ثقة #صنع_في_أوروبا #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم (عبد الرحمن). صورة عالية الجودة للمنتج موضوعة على خلفية فاخرة (رخامية أو خشبية). بجانب المنتج، يظهر ختم ذهبي أنيق مكتوب عليه 'European Quality Guaranteed'. استخدام خطوط فاخرة. التركيز على البساطة والرقي لترسيخ الثقة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V4</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كي تشري منتج تخسيس، راك في الحقيقة تلعب بحياتك! 😨 شوف واش لازم تعرف قبل ما تحط غرام واحد منو في فمك.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('4')">
+                    <div class="preview-text">(صوت جاد وموثوق، كأنه من وثائقي)
+في سوق مليان بالمجهول، شكون يضمنلك بلي الشي اللي راك تاكلو آمن وصحي...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-4" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('4')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V4</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-4')">📋 نسخ النص</button>
+                            <div id="script-text-4" class="modal-body">(صوت جاد وموثوق، كأنه من وثائقي)<br/><br/>في سوق مليان بالمجهول، شكون يضمنلك بلي الشي اللي راك تاكلو آمن وصحي؟<br/><br/>شكون يضمنلك بلي المصنع اللي تخدم فيه نظيف ومعقم؟<br/><br/>شكون يضمنلك بلي المكونات ماشي مغشوشة؟<br/><br/>(موسيقى تصبح أكثر إيجابية)<br/><br/>الجواب... يكمن في الضمانات والشهادات.<br/><br/>منتجنا ماشي مجرد خلطة، هو نتيجة معايير أوروبية صارمة.<br/><br/>كل مرحلة، من اختيار المكونات حتى للتغليف، تخضع لرقابة عالمية.<br/><br/>حاصل على شهادات مثل ISO 22000 و GMP.<br/><br/>هذا واش يعني؟<br/><br/>يعني أنك تستهلك منتج تم تحليله واختباره لضمان خلوه من أي شوائب.<br/><br/>يعني أنك تضع ثقتك في نظام جودة عالمي، ماشي في مجرد كلام.<br/><br/>(نبرة مباشرة)<br/><br/>لأن ثقتك هي أغلى حاجة عندنا.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-4')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-4" class="modal-body">🔒 كيفاش تتأكد 100% أن منتج التخسيس تاعك آمن؟ <br/><br/> في سوق معمر بالمنتجات المجهولة، الكلام وحدو مايكفيش. الثقة تُبنى بالأدلة والضمانات الحقيقية.<br/>في هاد الفيديو، نكشفولك على المعايير والشهادات الأوروبية العالمية اللي تضمنلك بلي منتجنا هو الخيار الأكثر أماناً لصحتك.<br/>ما تخاطرش بروحك، اختار المضمون. <br/><br/> بناء ثقتك أولويتنا! اضغط على الرابط باش تشوف الشهادات والمعايير الأوروبية العالمية اللي نخدمو بيها! <br/><br/> #مصداقية #شهادات_عالمية #ISO22000 #GMP #صحة #أمان #الجودة_الأوروبية #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو موشن جرافيك (أحمد وإسلام). يبدأ الفيديو بعلامات استفهام وأيقونات خطر باللون الأحمر. ثم ينتقل بسلاسة إلى عرض شعارات الشهادات (ISO, GMP) بألوان العلامة التجارية. استخدام رسوم بيانية بسيطة توضح مراحل التصنيع النظيفة والمراقبة. خطوط واضحة ورسوم متحركة سلسة واحترافية. التركيز على بناء المصداقية من خلال البساطة والوضوح.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C5</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">من المصنع الأوروبي لدارك 🇩🇿: رحلة الأمان والجودة اللي تخليك تثق في كل غرام من منتجنا.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('5')">
+                    <div class="preview-text">Slide 1: العنوان: الجودة الأوروبية من الداخل: رحلة كل غرام من منتجنا، من المزرعة إلى دارك.
+Slide 2: ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-5" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('5')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C5</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-5')">📋 نسخ النص</button>
+                            <div id="script-text-5" class="modal-body">Slide 1: العنوان: الجودة الأوروبية من الداخل: رحلة كل غرام من منتجنا، من المزرعة إلى دارك.<br/><br/>Slide 2: الخطوة 1: المصادر الموثوقة. نختار مكوناتنا الطبيعية من أفضل المزارع المعتمدة في أوروبا لضمان نقائها وفعاليتها.<br/><br/>Slide 3: الخطوة 2: معايير تصنيع صارمة. مصانعنا مجهزة بأحدث التكنولوجيات وتتبع بروتوكولات نظافة وتعقيم عالمية. ماشي كيما أي مصنع آخر.<br/><br/>Slide 4: الخطوة 3: شهادات عالمية. منتجنا حاصل على شهادات مثل ISO و GMP، وهي أعلى ضمانات الجودة والأمان الغذائي في العالم.<br/><br/>Slide 5: الخطوة 4: اختبارات دورية. كل دفعة إنتاج تخضع لتحاليل دقيقة في المخابر لضمان خلوها من أي شوائب أو مواد ضارة. صحتك هي أولويتنا.<br/><br/>Slide 6: التزامنا بالشفافية الكاملة. لأن صحتك غالية، نضمنلك منتج شفاف، آمن، وفعال 100%.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-5')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-5" class="modal-body">🔬 رحلة منتجنا من أوروبا إلى الجزائر... خطوة بخطوة! <br/><br/> هل تساءلت يوماً عن معنى 'الجودة الأوروبية'؟ إنها ليست مجرد شعار، بل هي رحلة دقيقة من الأمان والصرامة.<br/>في هذا الكاروسال، نأخذك في جولة حصرية داخل كواليس تصنيع منتجنا، من اختيار أفضل المكونات الطبيعية إلى الحصول على الشهادات العالمية.<br/>اسحب لليسار واكتشف لماذا نحن الخيار الأكثر ثقة. <br/><br/> اكتشف معايير التصنيع اللي تخلي منتجنا الأفضل والأكثر أماناً في الجزائر! <br/><br/> #جودة_عالية #شفافية #صناعة_أوروبية #معايير_عالمية #صحتك_أولا #الجزائر #dz</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم (عبد الرحمن). تصميم إنفوجرافيك جذاب. كل سلايد يمثل مرحلة مع أيقونة خاصة بها (نبتة، مصنع، شهادة، مجهر). استخدام خط زمني بصري يربط بين السلايدات. ألوان هادئة ومحترفة تعكس الثقة والجدية. تجنب ازدحام النصوص.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P6</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">هذا ماشي مجرد لوغو، هذا هو الختم اللي يضمنلك بلي صحتك في أمان تام. تعرف عليه.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('6')">
+                    <div class="preview-text">(نص واضح على التصميم)
+هل تعلم أن منتجنا حاصل على شهادة 'ISO 22000'؟
+(نص أصغر)
+هذا هو ضمانك الرسمي لج...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-6" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('6')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P6</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-6')">📋 نسخ النص</button>
+                            <div id="script-text-6" class="modal-body">(نص واضح على التصميم)<br/><br/>هل تعلم أن منتجنا حاصل على شهادة 'ISO 22000'؟<br/><br/>(نص أصغر)<br/><br/>هذا هو ضمانك الرسمي لجودة وسلامة الغذاء العالمية. صحتك تستاهل الأفضل.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-6')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-6" class="modal-body">شهادة ISO 22000 ✅... واش تعني ليك كمستهلك؟ <br/><br/> تعني الأمان المطلق! شهادة ISO 22000 هي اعتراف عالمي بأن منتجنا يتبع أعلى معايير السلامة الغذائية في كل خطوة من خطوات إنتاجه. <br/>مع هذا الضمان، يمكنك استهلاك منتجنا بكل ثقة وطمأنينة، مع العلم أن صحتك محمية بمعايير عالمية. <br/><br/> اقرا المزيد عن شهاداتنا الرسمية وتأكد بنفسك من مصداقيتنا! <br/><br/> #ISO22000 #ضمان_الجودة #سلامة_الغذاء #ثقة #أمان #منتج_موثوق #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم (عبد الرحمن). تصميم أنيق يركز على شعار شهادة ISO 22000 بشكل بارز وذهبي. بجانبه صورة لعبوة المنتج. الخلفية بسيطة ومحترفة (بيج أو أبيض). التركيز على إعطاء قيمة وأهمية للشهادة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V7</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">بالدارجة، واش كاين داخل هاد العلبة؟ وكيفاش يذوّب الشحمة بلا ما يمس صحتك؟ 🤔</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('7')">
+                    <div class="preview-text">(صوت واضح وبسيط)
+كي تسمع 'منتج طبيعي'، ممكن تتخايل مجرد أعشاب مخلطة.
+بصح الحقيقة أعمق من هذا.
+منتجنا...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-7" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('7')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V7</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-7')">📋 نسخ النص</button>
+                            <div id="script-text-7" class="modal-body">(صوت واضح وبسيط)<br/><br/>كي تسمع 'منتج طبيعي'، ممكن تتخايل مجرد أعشاب مخلطة.<br/><br/>بصح الحقيقة أعمق من هذا.<br/><br/>منتجنا هو علم الطبيعة في علبة.<br/><br/>كل مكون طبيعي تم اختياره بدقة لسبب معين.<br/><br/>مثلاً، عندنا مكون (أ) اللي يخدم كأنه 'شرطي المرور' في جسمك، يوجه الدهون باش تتحرق وتولي طاقة، ماشي تتخزن.<br/><br/>وعندنا المكون (ب) اللي يرسل إشارة للمخ ويقولو 'خلاص رانا شبعانين'، فينقص الجوع وتقدر تتحكم في شهيتك.<br/><br/>والمكون (ج) يساعد على تنظيف الجسم من السموم، ويخلي عملية الهضم أحسن.<br/><br/>(نبرة مطمئنة)<br/><br/>التركيبة الذكية هادي تخلي المكونات تخدم مع بعضها بأمان تام، وتمدلك نتائج حقيقية ومستمرة.<br/><br/>ماشي سحر، علم بسيط وفعال.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-7')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-7" class="modal-body">🌿 كيفاش مكوناتنا الطبيعية تخدم في جسمك وتذوّب الدهون بأمان؟ <br/><br/> بعيداً عن المصطلحات المعقدة، حبينا نشرحولك بالدارجة كيفاش منتجنا الطبيعي يخدم بذكاء داخل جسمك باش يساعدك توصل لهدفك.<br/>شاهد هذا الفيديو القصير والمبسط، وافهم العلم وراء الفعالية. كي تفهم، راح تزيد ثقتك وتطمئن! <br/><br/> فهم كيفاش يخدم المنتج يخليك مطمن! شوف الفيديو كامل واعرف كل التفاصيل هنا، بلا ما تدور على معلومات غالطة. <br/><br/> #علم_مبسط #مكونات_طبيعية #حرق_دهون #صحة #تثقيف #فعالية #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو موشن جرافيك تعليمي (أحمد وإسلام). استخدام رسوم متحركة بسيطة وجذابة لشرح آلية العمل. مثلاً، رسم كاريكاتوري لجزيء دهن يتم تحويله إلى طاقة. رسم بياني يوضح انخفاض الشهية. أسلوب بصري سهل الفهم وممتع، يركز على تبسيط العلم وجعله في متناول الجميع. استخدام ألوان العلامة التجارية.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C8</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">ماشي مجرد أعشاب! اكتشف الأبطال الطبيعية الثلاثة في منتجنا اللي راح يغيرو رحلتك مع الوزن.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('8')">
+                    <div class="preview-text">Slide 1: العنوان: سر الطبيعة اللي يخليك تنقص وزنك: اكتشف المكونات الذكية في منتجنا.
+Slide 2: البطل ا...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-8" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('8')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C8</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-8')">📋 نسخ النص</button>
+                            <div id="script-text-8" class="modal-body">Slide 1: العنوان: سر الطبيعة اللي يخليك تنقص وزنك: اكتشف المكونات الذكية في منتجنا.<br/><br/>Slide 2: البطل الأول: الشاي الأخضر (مثال). معروف بقدرته على تسريع عملية الأيض وحرق الدهون. هو محرك الطاقة في تركيبتنا!<br/><br/>Slide 3: البطل الثاني: الغارسينيا كامبوجيا (مثال). تساعد على كبح الشهية بشكل طبيعي وتقليل الرغبة في الأكل بين الوجبات. هي اللي تخليك تحكم في روحك!<br/><br/>Slide 4: البطل الثالث: الزنجبيل (مثال). يحسن الهضم ويقلل من الانتفاخ، ويساعد الجسم على امتصاص العناصر الغذائية بشكل أفضل. يضمنلك راحة الجهاز الهضمي.<br/><br/>Slide 5: علاش هاد المزيج هو الأفضل؟ لأن المكونات تخدم مع بعضها بتناغم (Synergy) لتعظيم النتائج بأمان تام، كل مكون يكمل عمل الآخر.<br/><br/>Slide 6: الطبيعة في خدمتك، لنتائج حقيقية ومستدامة. قوة طبيعية بدون أي خطر على صحتك.<br/><br/>Slide 7: حاب تعرف أكثر على مكوناتنا وفوائدها العلمية؟ تفضل بزيارة موقعنا!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-8')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-8" class="modal-body">🌿 قوة الطبيعة بين يديك! تعرف على أهم المكونات في منتجنا. <br/><br/> الفعالية الحقيقية تكمن في قوة المكونات. في هذا الكاروسال، نسلط الضوء على بعض المكونات الطبيعية الرئيسية في منتجنا، ونشرح لك ببساطة كيف تساهم في رحلتك لإنقاص الوزن بأمان.<br/>اسحب لليسار واكتشف أسرار الطبيعة! <br/><br/> اكتشف قوة الطبيعة في مساعدتك على تحقيق هدفك بدون أي مخاوف! اضغط هنا! <br/><br/> #مكونات_طبيعية #شاي_أخضر #غارسينيا #صحة #تخسيس #أسرار_الطبيعة #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم (عبد الرحمن). كل سلايد مخصص لمكون واحد، مع صورة عالية الجودة للمكون في حالته الطبيعية (أوراق شاي أخضر، حبة غارسينيا). استخدام أيقونات بسيطة بجانب كل فائدة (لهب لحرق الدهون، تفاحة مشطوبة للشهية). تصميم جذاب ومريح للعين.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P9</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">هذا المكون الصغير هو كابوس الدهون العنيدة! 🔥 اكتشف قوتو الخفية.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('9')">
+                    <div class="preview-text">(نص على التصميم)
+هل تعلم أن الشاي الأخضر في منتجنا...
+يحتوي على مضادات أكسدة تسرّع حرق الدهون بنسبة ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-9" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('9')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P9</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-9')">📋 نسخ النص</button>
+                            <div id="script-text-9" class="modal-body">(نص على التصميم)<br/><br/>هل تعلم أن الشاي الأخضر في منتجنا...<br/><br/>يحتوي على مضادات أكسدة تسرّع حرق الدهون بنسبة تصل إلى 17%؟<br/><br/>(نص أصغر)<br/><br/>الطبيعة هي الحل الأقوى والآمن.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-9')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-9" class="modal-body">🍵 السر الأخضر لحرق الدهون! 🍵 <br/><br/> الشاي الأخضر ليس مجرد مشروب! إنه واحد من أقوى المكونات الطبيعية لحرق الدهون وتسريع عملية الأيض. تركيزه العالي في منتجنا يضمنلك فعالية مضاعفة وآمنة.<br/>اكتشف قوة كل مكون طبيعي نستخدمه. <br/><br/> تعرف على فوائد كل مكون في منتجنا وكيفاش يخدم لصحتك و هدفك! <br/><br/> #الشاي_الأخضر #حارق_دهون #طبيعي #مضادات_أكسدة #صحة #تخسيس #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم (عبد الرحمن). صورة فنية ومقربة لأوراق الشاي الأخضر عالية الجودة. النص مكتوب بخط أنيق وواضح. يمكن إضافة أيقونة صغيرة على شكل 'لهب' بجانب النص. التركيز على إبراز جمال وقوة المكون الطبيعي.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V10</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الهدرة ساهلة، بصح النتائج الحقيقية هي اللي تهدر! اسمع واش قالو ناس كيما نتا جربوه.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('10')">
+                    <div class="preview-text">(مجموعة من الشهادات الحقيقية لعملاء جزائريين - UGC)
+العميل 1 (سيدة): والله غير كنت فاقدة الأمل، جربت...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-10" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('10')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V10</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-10')">📋 نسخ النص</button>
+                            <div id="script-text-10" class="modal-body">(مجموعة من الشهادات الحقيقية لعملاء جزائريين - UGC)<br/><br/>العميل 1 (سيدة): والله غير كنت فاقدة الأمل، جربت كلش وضيعت دراهمي. مع هاد المنتج، أول مرة نحس روحي نقص صح وبلا ما نتعب ولا نخاف. في شهر نقصت 6 كيلو وأنا فرحانة بزاف.<br/><br/>العميل 2 (رجل): أنا مشكلتي كانت الكرش، والخدمة تاعي تخليني قاعد بزاف. نصحني به صاحبي، قالي طبيعي ومصنوع في أوروبا. والله غير نتيجة روعة، رجعلي الثقة في روحي.<br/><br/>العميل 3 (شابة): كنت خايفة من الأعراض الجانبية، بصح كي قريت عليه وشفت الضمانات، تشجعت. الحمد لله، ماحسيت بوالو غير بالخفة والنشاط، والميزان كل سمانة يفرحني.<br/><br/>(صوت المعلق في النهاية)<br/><br/>قصصهم حقيقية، ونتائجهم هي أكبر دليل. وأنت، وقتاش تبدا قصتك؟</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-10')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-10" class="modal-body">🗣️ ماشي حنا اللي نقولو... هوما اللي قالو! شهادات حقيقية من زبائننا في الجزائر. <br/><br/> أفضل طريقة باش تعرف فعالية منتج هي أنك تسمع من الناس اللي جربوه قبلك.<br/>في هذا الفيديو، جمعنالكم شهادات حقيقية وعفوية من زبائننا اللي تغيرت حياتهم للأفضل بفضل منتجنا الطبيعي والآمن.<br/>النتائج تتكلم عن نفسها! <br/><br/> قصص النجاح الحقيقية ما تكذبش! انضم ليهم وابدا قصتك انت ثاني اليوم. اضغط هنا وما تخليش الفرصة تفوتك! <br/><br/> #شهادات_حقيقية #زبائن_راضون #نتائج_مضمونة #قصص_نجاح #تجارب #الجزائر #UGC</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">مونتاج (أحمد وإسلام). تجميع فيديوهات UGC (User-Generated Content) من العملاء. يجب أن تكون الفيديوهات عفوية وحقيقية. يمكن إضافة ترجمة (Subtitles) بالدارجة بخط واضح. إضافة موسيقى خلفية ملهمة ومؤثرة. في بداية ونهاية الفيديو، يظهر شعار ومعلومات المنتج بشكل احترافي.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C11</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">مستحيل ولا حقيقة؟ 🤯 شوف بعينك التحولات اللي حققوها زبائننا مع منتجنا الطبيعي.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('11')">
+                    <div class="preview-text">Slide 1: العنوان: النتائج أبلغ من الكلام! شوف كيفاش تبدلت حياة زبائننا في الجزائر.
+Slide 2: قصة أمل:...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-11" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('11')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C11</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-11')">📋 نسخ النص</button>
+                            <div id="script-text-11" class="modal-body">Slide 1: العنوان: النتائج أبلغ من الكلام! شوف كيفاش تبدلت حياة زبائننا في الجزائر.<br/><br/>Slide 2: قصة أمل: 'بعد سنين تاع إحباط، أخيراً لقيت الحل الآمن اللي رجعلي ثقتي في روحي'. (صورة قبل وبعد لأمل).<br/><br/>Slide 3: قصة رضوان: 'كنت نظن بلي مستحيل نقص الوزن بلا ما نضر صحتي، بصح هاد المنتج غيرلي رأيي'. (صورة قبل وبعد لرضوان).<br/><br/>Slide 4: قصة خديجة: 'الفرق ماشي غير في الميزان، حتى في طاقتي وراحتي النفسية. شكراً بزاف!'. (صورة قبل وبعد لخديجة).<br/><br/>Slide 5: انضم لعائلتنا السعيدة! آلاف الجزائريين وضعوا ثقتهم فينا وحققوا أهدافهم. دورك أنت الآن.<br/><br/>Slide 6: حاب تعرف كيفاش وصلو لهاد النتائج الرائعة بأمان تام؟ السر في الجودة الأوروبية والمكونات الطبيعية.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-11')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-11" class="modal-body">📸 قبل وبعد: صور حقيقية تحكي قصص نجاح ملهمة! <br/><br/> الصورة بألف كلمة! جمعنالكم في هذا الكاروسال مجموعة من التحولات الرائعة لزبائننا اللي قرروا يغيروا حياتهم للأفضل مع منتجنا الطبيعي والآمن.<br/>اسحب لليسار وشوف بنفسك النتائج المبهرة. إذا هما قدروا، أنت ثاني تقدر! <br/><br/> شوف المزيد من شهادات النجاح على موقعنا وكون واحد منهم! <br/><br/> #قبل_وبعد #تحول #قصة_نجاح #إلهام #نتائج_حقيقية #زبائن #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم (عبد الرحمن). تصميم جذاب يركز على صور 'قبل وبعد'. يجب الحصول على موافقة العملاء. استخدام تصميم إطار موحد لكل الشهادات. كتابة الاقتباس بخط يشبه خط اليد لإعطاء لمسة شخصية. الخلفية بسيطة لتركيز الانتباه على الصور والنصوص.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P12</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كلمات هذه السيدة تلخص معاناة الآلاف... وفرحة إيجاد الحل الحقيقي. اقرأ قصتها.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('12')">
+                    <div class="preview-text">(اقتباس كبير ومؤثر على التصميم)
+'والله غير رجعتولي ثقتي في روحي وفي المنتجات الطبيعية بعد سنين تاع إ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-12" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('12')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P12</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-12')">📋 نسخ النص</button>
+                            <div id="script-text-12" class="modal-body">(اقتباس كبير ومؤثر على التصميم)<br/><br/>'والله غير رجعتولي ثقتي في روحي وفي المنتجات الطبيعية بعد سنين تاع إحباط وخوف من الغش. شكراً من القلب!'<br/><br/>- السيدة فاطمة، 42 سنة، وهران.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-12')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-12" class="modal-body">❤️ 'رجعتولي ثقتي...' - رسالة من زبونتنا فاطمة. <br/><br/> هذه الكلمات ليست مجرد شهادة، بل هي تلخيص لرحلة طويلة من البحث عن حل آمن وفعال. قصة السيدة فاطمة هي قصة الكثيرين منا الذين فقدوا الثقة بسبب التجارب السيئة.<br/>فخورون بأننا كنا جزءاً من تغيير حياتها للأفضل. <br/><br/> أقرأ قصة فاطمة كاملة واعرف كيفاش قدرت تنقص وزنها بأمان وفعالية! <br/><br/> #شهادة_مؤثرة #قصة_حقيقية #ثقة #أمل #تغيير #زبائننا #الجزائر #وهران</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم (عبد الرحمن). صورة خلفية مؤثرة (بدون إظهار وجه العميل، ممكن صورة رمزية لسيدة تنظر بأمل من النافذة). النص مكتوب بخط أنيق وواضح، مع التركيز على اسم العميل. تصميم بسيط وعاطفي يلمس القلوب.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V13</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">شحال من مرة قلت 'هادي هي المرة الأخيرة'؟ 💔 إذا ملّيت من الوعود الكاذبة وضياع الدراهم، هاد الفيديو ليك.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('13')">
+                    <div class="preview-text">(موسيقى درامية هادئة. لقطات سريعة ليد ترمي علبة دواء في سلة المهملات، شخص ينظر للميزان بحزن)
+ملّيت م...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-13" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('13')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V13</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-13')">📋 نسخ النص</button>
+                            <div id="script-text-13" class="modal-body">(موسيقى درامية هادئة. لقطات سريعة ليد ترمي علبة دواء في سلة المهملات، شخص ينظر للميزان بحزن)<br/><br/>ملّيت من الوعود الكاذبة؟<br/><br/>من التجارب اللي ما تدي لوين؟<br/><br/>من ضياع الفلوس على منتجات خطيرة ما جابت حتى نتيجة؟<br/><br/>(تصاعد في حدة الموسيقى والنبرة)<br/><br/>تحس روحك تدور في حلقة مفرغة... كل مرة تبدا بأمل، وتكمل بإحباط.<br/><br/>والخوف يزيد... الخوف على صحتك، على جيبك، وعلى وقتك اللي راهو يضيع.<br/><br/>(صمت قصير، ثم تعود الموسيقى ملهمة)<br/><br/>بصح... كاين حل.<br/><br/>كاين طريقة باش تخرج من هاد الدائرة للأبد.<br/><br/>الحل ماشي في وعود جديدة، الحل في 'الضمان'.<br/><br/>ضمان الجودة الأوروبية.<br/><br/>ضمان المكونات الطبيعية.<br/><br/>وضمان الأمان التام لصحتك.<br/><br/>منتجنا مصمم باش يكون آخر محطة في رحلة معاناتك.<br/><br/>(نبرة حماسية)<br/><br/>حان الوقت باش تستثمر في حل حقيقي. حل يرجعلك ثقتك، صحتك، وراحة بالك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-13')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-13" class="modal-body">😓 إلى كل من فقد الأمل في إنقاص الوزن... هناك ضوء في آخر النفق. <br/><br/> نعرفو مليح شعور الإحباط بعد كل محاولة فاشلة. نعرفو الخوف من المنتجات المجهولة والقلق على صحتنا. نعرفو مرارة ضياع المال.<br/>لهذا السبب، صنعنا منتجاً لا يقدم وعوداً، بل يقدم حلاً نهائياً مبنياً على الأمان والضمان. شاهد الفيديو واكتشف كيف يمكنك إنهاء دائرة المعاناة اليوم. <br/><br/> ما تخليش اليأس يتحكم فيك! اكتشف الحل اللي ينهي معاناتك ويبدأ رحلتك الحقيقية لإنقاص الوزن بأمان وفعالية. اضغط هنا. <br/><br/> #معاناة #إحباط #أمل #حل_نهائي #تخسيس_آمن #صحة_نفسية #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">مونتاج (أحمد وإسلام). فيديو يعتمد على السرد القصصي العاطفي. استخدام لقطات رمزية تعبر عن الألم والإحباط (Stock Footage أو تمثيل). التركيز على التباين بين مشاهد الألم (ألوان باهتة) ومشاهد الحل (ألوان زاهية ومشرقة). استخدام تقنية الـ Slow Motion لتعميق التأثير العاطفي. الساوند ديزاين مهم جداً لتعزيز الشعور.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C14</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">إذا جاوبت 'نعم' على واحد من هاد الأسئلة... فاعرف أنك ماشي وحدك، والحل راهو قريب.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('14')">
+                    <div class="preview-text">Slide 1: العنوان: هل حسيت بهادشي من قبل؟ الإحباط، الخوف، ضياع الوقت والمال... أنت لست وحدك!
+Slide 2:...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-14" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('14')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C14</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-14')">📋 نسخ النص</button>
+                            <div id="script-text-14" class="modal-body">Slide 1: العنوان: هل حسيت بهادشي من قبل؟ الإحباط، الخوف، ضياع الوقت والمال... أنت لست وحدك!<br/><br/>Slide 2: هل ملّيت من المنتجات الكيميائية اللي تسببلك أعراض جانبية وتضر صحتك على المدى الطويل؟<br/><br/>Slide 3: هل صرفت بزاف دراهم على حلول ومنتجات ما جابت حتى نتيجة حقيقية وزادت من إحباطك؟<br/><br/>Slide 4: هل وليت خايف تعاود تجرب أي منتج جديد وتندم مرة أخرى على قرارك؟<br/><br/>Slide 5: إذا كانت إجابتك 'نعم'... فاطمئن! الحل الآمن، الفعال، والمضمون راهو هنا باش ينهي هاد المعاناة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-14')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-14" class="modal-body">جاوب بصراحة... هل مريت بهذه التجارب المؤلمة؟ 😥 <br/><br/> الكثير منا عانى في صمت من تجارب إنقاص الوزن الفاشلة. الخوف، ضياع المال، والإحباط... مشاعر نعرفها جيداً.<br/>في هذا المنشور، نطرح عليك الأسئلة التي قد تكون في قلبك. اسحب لليسار، وإذا وجدت نفسك في هذه الكلمات، فاعلم أن الحل الذي تبحث عنه موجود. <br/><br/> حان الوقت باش تتخلصي من المعاناة وتلقاي الأمان والفعالية لي تستاهليهم! اكتشفي الحل الآن. <br/><br/> #مشاعر #ألم #تجربة_فاشلة #لست_وحدك #حلول #صحة #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم (عبد الرحمن). تصميم بسيط يعتمد على النصوص القوية. كل سلايد يحتوي على سؤال واحد كبير وواضح. استخدام خلفيات بألوان هادئة ومتدرجة. في السلايد الأخير، يظهر المنتج كأنه شعاع أمل، مع تغيير في الألوان لتصبح أكثر إشراقاً.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P15</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">سؤال مباشر: شحال من مليون صرفت على منتجات ما نفعتكش؟ 💸 الوقت باش تحبس نزيف الجيب والصحة.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('15')">
+                    <div class="preview-text">(نص كبير ومباشر على التصميم)
+شحال صرفت على منتجات ما جابت حتى نتيجة؟
+(نص أصغر)
+المال اللي راح ممكن ي...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-15" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('15')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P15</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-15')">📋 نسخ النص</button>
+                            <div id="script-text-15" class="modal-body">(نص كبير ومباشر على التصميم)<br/><br/>شحال صرفت على منتجات ما جابت حتى نتيجة؟<br/><br/>(نص أصغر)<br/><br/>المال اللي راح ممكن يتعوض، بصح صحتك؟ حان وقت الاستثمار الصحيح.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-15')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-15" class="modal-body">💰 حسبتها شحال ضيعت دراهم على الأوهام؟ <br/><br/> الوقت والمال اللي راحو في تجارب فاشلة، شكون يعوضهم؟ كل دينار صرفتو على منتج غير فعال هو استثمار ضائع.<br/>حان الوقت للتوقف عن إهدار أموالك والمخاطرة بصحتك. استثمر مرة واحدة في حل مضمون، آمن، وفعال. <br/><br/> حان الوقت للاستثمار في حل يخدم حقاً ويضمنلك الأمان والنتائج! اضغط هنا! <br/><br/> #استثمار #صحتك_أغلى #أموال_ضائعة #قرار_صحيح #توفير #الجزائر #dz</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم (عبد الرحمن). صورة رمزية قوية: حصالة نقود مكسورة أو يد تفرغ محفظتها. النص مكتوب بطريقة تثير الانتباه والتفكير. استخدام ألوان داكنة قليلاً لتعزيز جدية السؤال. التركيز على إثارة نقطة الألم المالية.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V16</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">راك تبع فينا وشفت كلش؟ خلاص جا وقت القرار! 🔥 فرصة ذهبية بين يديك، والعرض محدود جداً.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('16')">
+                    <div class="preview-text">(وجه إعلامي يتكلم مباشرة للكاميرا بحماس وثقة، أو صوت معلق على لقطات سريعة للمنتج)
+راك هنا معانا، يعن...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-16" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('16')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V16</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-16')">📋 نسخ النص</button>
+                            <div id="script-text-16" class="modal-body">(وجه إعلامي يتكلم مباشرة للكاميرا بحماس وثقة، أو صوت معلق على لقطات سريعة للمنتج)<br/><br/>راك هنا معانا، يعني راك قررت تبدل حياتك.<br/><br/>شفت الجودة الأوروبية، وشفت المكونات الطبيعية، وسمعت شهادات الناس اللي جربو.<br/><br/>دروك، بقا خطوة وحدة برك تفصلك على بداية رحلة التحول تاعك.<br/><br/>وباش نشجعوك تاخذ هاد الخطوة، درنالك عرض خاص ما يتعاودش.<br/><br/>(تظهر تفاصيل العرض على الشاشة بموشن جرافيك جذاب)<br/><br/>بصح لازم تعرف، هاد العرض محدود بزاف، والكمية اللي خصصناها ليه راح تخلص بالخف.<br/><br/>هادي فرصتك باش تستثمر في صحتك بأفضل سعر ممكن.<br/><br/>ماتخليش التردد يضيع عليك هاد الفرصة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-16')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-16" class="modal-body">⏳ الفرصة راهي قدامك الآن! عرض خاص ومحدود للجادين فقط! <br/><br/> إذا كنت قد قررت أن تبدأ رحلتك نحو وزن مثالي وصحة أفضل، فهذا هو الوقت المناسب!<br/>أطلقنا عرضاً خاصاً لفترة محدودة جداً لمساعدتك على اتخاذ الخطوة الأولى بثقة وبأفضل سعر.<br/>الكمية محدودة والطلب كبير، لا تضيع هذه الفرصة الذهبية! <br/><br/> العرض محدود والكمية قليلة! ما تخليش الفرصة تفوتك. اطلبي منتجك دروك وابداي رحلة التحول بكل ثقة وأمان! <br/><br/> #عرض_خاص #تخفيضات #فرصة #كمية_محدودة #اطلب_الآن #الجزائر #dz</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">مونتاج (أحمد وإسلام). فيديو قصير ومباشر (15-30 ثانية). إيقاع سريع وموسيقى حماسية. التركيز على المنتج وإظهار العرض بشكل واضح وجذاب (مثلاً: 'عرض خاص' بـ 'timer' للعد التنازلي). استخدام لقطات سريعة لأفضل ميزات المنتج التي تم عرضها في الفيديوهات السابقة (لقطة شهادة، لقطة مكون، لقطة جودة).</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C17</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">عندك أسئلة على عرضنا الخاص؟ 🤔 كل الأجوبة اللي تحتاجها باش تقرر وأنت مطمن راهي هنا!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('17')">
+                    <div class="preview-text">Slide 1: العنوان: كلش تحتاج تعرفو على عرضنا الخاص باش تبدا رحلتك اليوم بلا تردد!
+Slide 2: تفاصيل الع...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-17" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('17')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C17</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-17')">📋 نسخ النص</button>
+                            <div id="script-text-17" class="modal-body">Slide 1: العنوان: كلش تحتاج تعرفو على عرضنا الخاص باش تبدا رحلتك اليوم بلا تردد!<br/><br/>Slide 2: تفاصيل العرض: [اكتب هنا تفاصيل العرض بوضوح: مثلاً، علبتين بسعر علبة + توصيل مجاني]. عرض صالح لمدة محدودة فقط!<br/><br/>Slide 3: أسئلة متكررة (1): كيفاش طريقة الاستعمال؟ [جواب بسيط وواضح]. وقتاش تبان النتائج؟ [جواب واقعي ومطمئن].<br/><br/>Slide 4: أسئلة متكررة (2): كيفاش تتم عملية التوصيل؟ [جواب يوضح السهولة والسرعة]. هل المنتج معتمد؟ نعم، ومصنوع بمعايير أوروبية عالمية.<br/><br/>Slide 5: ما تترددش! هادي هي فرصتك الذهبية باش تستثمر في صحتك وتستفاد من أفضل عرض. قرارك اليوم يغير غدك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-17')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-17" class="modal-body">🚨 عرض خاص + إجابات لكل أسئلتك! 🚨 <br/><br/> قبل ما تاخذ قرار، طبيعي تكون عندك أسئلة. في هذا الكاروسال، جمعنالك كل تفاصيل عرضنا الحصري، وأجبنا على الأسئلة الأكثر شيوعاً اللي توصلنا.<br/>هدفنا هو أنك تتخذ قرارك بكل ثقة ووضوح.<br/>اسحب لليسار واكتشف كل شي! <br/><br/> عرض حصري ما يتفوتش! اطلبي منتجك قبل ما يخلص وينتهي العرض! <br/><br/> #عرض_حصري #أسئلة_شائعة #FAQ #توضيح #اطلب_الآن #لا_تتردد #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم (عبد الرحمن). تصميم واضح ومباشر. السلايد الأول بخلفية جذابة تعلن عن العرض. باقي السلايدات بأسلوب سؤال وجواب (Q&A) مع أيقونات بسيطة. استخدام ألوان زاهية ومحفزة للشراء. خطوط سهلة القراءة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P18</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">Tic-Tac... Tic-Tac... ⏳ الوقت يمشي والعرض قريب يكمل! آخر فرصة باش تلحق.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('18')">
+                    <div class="preview-text">(نص كبير وواضح على التصميم مع إيموجي ساعة رملية)
+⏳ آخر فرصة!
+(نص أصغر حجماً)
+عرضنا الخاص على وشك الا...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-18" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('18')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P18</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-18')">📋 نسخ النص</button>
+                            <div id="script-text-18" class="modal-body">(نص كبير وواضح على التصميم مع إيموجي ساعة رملية)<br/><br/>⏳ آخر فرصة!<br/><br/>(نص أصغر حجماً)<br/><br/>عرضنا الخاص على وشك الانتهاء. الكمية المتبقية محدودة جداً.<br/><br/>اطلب الآن قبل فوات الأوان!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-18')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-18" class="modal-body">⏳ tic-tac... آخر نداء للاستفادة من عرضنا الخاص! <br/><br/> الفرص الثمينة لا تدوم طويلاً! الكمية المخصصة لعرضنا الخاص على وشك النفاذ، والوقت ينتهي.<br/>إذا كنت تفكر في البدء، فالوقت هو الآن. لا تدع التردد يفوت عليك هذه الفرصة للاستثمار في صحتك بأفضل سعر. <br/><br/> اضغطي هنا باش تطلبي منتجك دروك وتضمني مكانك قبل فوات الأوان! <br/><br/> #آخر_فرصة #عرض_محدود #استعجال #الكمية_محدودة #اطلب #لا_تفوت #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم (عبد الرحمن). تصميم يخلق شعوراً بالاستعجال (Urgency). استخدام لون أحمر أو برتقالي بشكل استراتيجي للفت الانتباه. يمكن وضع صورة للمنتج مع شريط يمر فوقه مكتوب عليه 'الكمية محدودة'. استخدام عداد تنازلي بصري إن أمكن.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr></tbody></table></div>
+
+    <div class="disclaimer-card">
+        <span style="font-size: 1.2em;">⚠️</span>
+        <span>قد تخضع هذه الاستراتيجية لبعض التعديلات والتحسينات، حسب المواد الإعلامية المتوفرة أو لغرض تحقيق أفضل النتائج.</span>
+    </div>
+
+    <div class="summary-box">
+        <span style="font-weight: 700; color: #FFD700;">الميزانية الإجمالية المعتمدة</span>
+        <span class="total-amount">123000 دج</span>
+        <a href="https://wa.me/213770820431" class="cta-btn">تواصل معنا للاعتماد</a>
+        <div style="border: 1px dashed #FFD700; padding: 25px; border-radius: 15px; margin-top: 20px;">
+            <h3 style="color:#FFD700; margin:0;">الخطوة التالية</h3>
+            <p style="margin:10px 0;">مكالمة قصيرة لنكيّف هذه الاستراتيجية حسب مشروعك ونبدأ العمل فوراً.</p>
+            <div class="phones-list">
+                <div class="phone-item">0770 82 04 31</div>
+                <div class="phone-item">0770 55 01 51</div>
+                <div class="phone-item">0770 82 01 45</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+function openModal(id) { document.getElementById('modal-' + id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
+function closeModal(id) { document.getElementById('modal-' + id).style.display = 'none'; document.body.style.overflow = 'auto'; }
+window.onclick = function(event) { if (event.target.className === 'modal') { event.target.style.display = 'none'; document.body.style.overflow = 'auto'; } }
+
+// وظيفة النسخ الجديدة
+function copyToClipboard(elementId) {
+    const el = document.getElementById(elementId);
+    const text = el.innerText || el.textContent; // نسخ النص بدون HTML tags
+    navigator.clipboard.writeText(text).then(() => {
+        alert("تم نسخ النص بنجاح! ✅");
+    }).catch(err => {
+        console.error('Failed to copy', err);
+    });
+}
+</script></body></html>
