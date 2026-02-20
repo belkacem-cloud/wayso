@@ -1,0 +1,155 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wayso Strategy | نسائم الإيمان - Nassaim El Imen</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root { --gold: #FFD700; --dark-bg: #0a0a0a; --card-bg: #141414; --border: #252525; }
+        body { background: var(--dark-bg); color: #fff; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; }
+        .hero { height: 40vh; display: flex; flex-direction: column; justify-content: center; align-items: center; background: linear-gradient(to bottom, rgba(0,0,0,0.8), var(--dark-bg)), url('https://images.unsplash.com/photo-1557683316-973673baf926?auto=format&fit=crop&q=80'); background-size: cover; border-bottom: 2px solid var(--gold); text-align: center; }
+        .hero h1 { font-size: 3.5rem; color: var(--gold); margin: 0; font-weight: 900; }
+        .container { max-width: 1200px; margin: -50px auto 50px; padding: 0 20px; }
+        .stats-bar { background: var(--gold); color: #000; padding: 20px; border-radius: 12px; display: flex; justify-content: space-around; font-weight: 900; box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2); margin-bottom: 40px; }
+        .strategy-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 25px; }
+        .task-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 25px; transition: 0.4s; position: relative; }
+        .task-card:hover { border-color: var(--gold); transform: translateY(-10px); }
+        .code-badge { background: #000; color: var(--gold); border: 1px solid var(--gold); padding: 5px 15px; border-radius: 8px; font-weight: 900; }
+        .hook-box { font-size: 1.3rem; font-weight: 700; margin: 20px 0; border-right: 4px solid var(--gold); padding-right: 15px; }
+        .view-btn { width: 100%; background: transparent; border: 1px solid #333; color: #fff; padding: 12px; border-radius: 8px; cursor: pointer; font-family: 'Cairo'; font-weight: bold; }
+        .view-btn:hover { background: var(--gold); color: #000; }
+        .modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); backdrop-filter: blur(10px); }
+        .modal-content { background: #111; margin: 5% auto; padding: 40px; width: 70%; border-radius: 20px; border: 1px solid var(--gold); position: relative; }
+        .close { position: absolute; left: 30px; top: 30px; color: var(--gold); font-size: 35px; cursor: pointer; }
+        .content-box { background: #000; padding: 20px; border-radius: 12px; margin-bottom: 25px; line-height: 1.8; color: #ccc; }
+        footer { text-align: center; padding: 50px; color: #444; }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <h1>نسائم الإيمان - Nassaim El Imen</h1>
+        <p>في Wayso، نؤمن بأن الوصول لقلوب العملاء يتطلب أكثر من مجرد إعلان. ندمج الفيروسية العاطفية التي تخلق صدى عميقاً مع الثقة المطلقة التي يبنيها المنتج والضمان الصريح، لنصنع براندات لا تُنسى ولا تُقاوم.</p>
+    </section>
+    <div class="container">
+        <div class="stats-bar">
+            <span>الاستثمار: 39000 دج</span>
+            <span>المهام: 10</span>
+            <span>ID: 4984</span>
+        </div>
+        <div class="strategy-grid">
+            
+                <div class="task-card">
+                    <div style="display:flex; justify-content:space-between;">
+                        <span class="code-badge">STRAT-01</span>
+                        <span style="color:#666; font-size:0.9rem;">Strategy & Analysis</span>
+                    </div>
+                    <div class="hook-box">رؤية استراتيجية...</div>
+                    <button class="view-btn" onclick="openModal(0)">فتح التفاصيل ⚡</button>
+                </div>
+            
+                <div class="task-card">
+                    <div style="display:flex; justify-content:space-between;">
+                        <span class="code-badge">V1</span>
+                        <span style="color:#666; font-size:0.9rem;">Cinematic Hybrid</span>
+                    </div>
+                    <div class="hook-box">بين هذا الألم... وهذا الخشوع... خيط واحد.</div>
+                    <button class="view-btn" onclick="openModal(1)">فتح التفاصيل ⚡</button>
+                </div>
+            
+                <div class="task-card">
+                    <div style="display:flex; justify-content:space-between;">
+                        <span class="code-badge">V2</span>
+                        <span style="color:#666; font-size:0.9rem;">Wow Effect</span>
+                    </div>
+                    <div class="hook-box">رؤية استراتيجية...</div>
+                    <button class="view-btn" onclick="openModal(2)">فتح التفاصيل ⚡</button>
+                </div>
+            
+                <div class="task-card">
+                    <div style="display:flex; justify-content:space-between;">
+                        <span class="code-badge">V3</span>
+                        <span style="color:#666; font-size:0.9rem;">UGC (User Generated Content)</span>
+                    </div>
+                    <div class="hook-box">رؤية استراتيجية...</div>
+                    <button class="view-btn" onclick="openModal(3)">فتح التفاصيل ⚡</button>
+                </div>
+            
+                <div class="task-card">
+                    <div style="display:flex; justify-content:space-between;">
+                        <span class="code-badge">C1</span>
+                        <span style="color:#666; font-size:0.9rem;">Carousel</span>
+                    </div>
+                    <div class="hook-box">رؤية استراتيجية...</div>
+                    <button class="view-btn" onclick="openModal(4)">فتح التفاصيل ⚡</button>
+                </div>
+            
+                <div class="task-card">
+                    <div style="display:flex; justify-content:space-between;">
+                        <span class="code-badge">C2</span>
+                        <span style="color:#666; font-size:0.9rem;">Carousel</span>
+                    </div>
+                    <div class="hook-box">رؤية استراتيجية...</div>
+                    <button class="view-btn" onclick="openModal(5)">فتح التفاصيل ⚡</button>
+                </div>
+            
+                <div class="task-card">
+                    <div style="display:flex; justify-content:space-between;">
+                        <span class="code-badge">P1</span>
+                        <span style="color:#666; font-size:0.9rem;">Static Image</span>
+                    </div>
+                    <div class="hook-box">رؤية استراتيجية...</div>
+                    <button class="view-btn" onclick="openModal(6)">فتح التفاصيل ⚡</button>
+                </div>
+            
+                <div class="task-card">
+                    <div style="display:flex; justify-content:space-between;">
+                        <span class="code-badge">P2</span>
+                        <span style="color:#666; font-size:0.9rem;">Static Image</span>
+                    </div>
+                    <div class="hook-box">رؤية استراتيجية...</div>
+                    <button class="view-btn" onclick="openModal(7)">فتح التفاصيل ⚡</button>
+                </div>
+            
+                <div class="task-card">
+                    <div style="display:flex; justify-content:space-between;">
+                        <span class="code-badge">P3</span>
+                        <span style="color:#666; font-size:0.9rem;">Static Image</span>
+                    </div>
+                    <div class="hook-box">رؤية استراتيجية...</div>
+                    <button class="view-btn" onclick="openModal(8)">فتح التفاصيل ⚡</button>
+                </div>
+            
+                <div class="task-card">
+                    <div style="display:flex; justify-content:space-between;">
+                        <span class="code-badge">P4</span>
+                        <span style="color:#666; font-size:0.9rem;">Static Image</span>
+                    </div>
+                    <div class="hook-box">رؤية استراتيجية...</div>
+                    <button class="view-btn" onclick="openModal(9)">فتح التفاصيل ⚡</button>
+                </div>
+            
+        </div>
+    </div>
+    <div id="m-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="m-header" style="color:var(--gold);"></h2>
+            <div class="content-box" id="m-script"></div>
+            <div class="content-box" id="m-adcopy" style="color:#fff;"></div>
+        </div>
+    </div>
+    <script>
+        const items = [{"Content_Code":"STRAT-01","Content_Type":"Strategy & Analysis","Hook":"","Script_Full":"بناء الاستراتيجية وتحليل البراند الفيروسي.","Ad_Copy":"بناء الاستراتيجية وتحليل البراند الفيروسي. يتضمن هذا العنصر كافة التحليلات العميقة للسوق والجمهور، وتحديد الهوية البصرية والنبرة الصوتية للعلامة التجارية لضمان انتشارها الواسع وبناء الثقة.","Assigned_To":"Wayso Team","Partial_Budget":"5,000 دج"},{"Content_Code":"V1","Content_Type":"Cinematic Hybrid","Hook":"بين هذا الألم... وهذا الخشوع... خيط واحد.","Script_Full":"(صوت أنثوي، هادئ وواثق)\n\nشحال من مرة، تخافي من لحظة السجود... ماشي لأنك ما تحبيش الصلاة، حاشا لله...\n\nبصح لأن ركبتيك وظهرك ولاو يوجعوك من قسوة الأرض. الصلاة اللي المفروض تكون راحة وطمأنينة... ولات تزيد عليك في التعب والألم.\n\nعلى جال هاد الشي، جبنالك ماشي مجرد سجادة... جبنالك \"نسائم الإيمان\".\n\nتجربة صلاة ملكية، مصممة خصيصا ليكِ. سجادة طبية مبطنة بالميموري فوم، ترفد عليك الثقل وتنسيك في وجع المفاصل.\n\nتجي معاها خمار من الحرير البارد، خفيف ومتناسق... ومصحف مغلف بنفس الفخامة اللي تعبر على هويتنا البصرية الراقية.\n\nهذا ماشي مجرد طقم صلاة، هذي هدية تعلي الشّان والهمّة. تفرحي بيها يماك، عزيزتك، ولا تجهزي بيها بنتك لدارها.\n\nولأننا في نسائم الإيمان واثقين من فخامة منتجنا، نقدّمولك **الضمان الذهبي**. نلحقوهالك لباب الدار في 58 ولاية... حلّي العلبة، شوفي بعينك، وقيسي بنفسك. إذا ما حسيتيش بالفرق والراحة الفورية، ما تخلصيش. رضاك هو أولويتنا المطلقة.\n\n[ملاحظات الإنتاج]\nالمخرج: بن صايبي\n\n- **البداية (Hook):** تباين بصري حاد. لقطة سينمائية (slow-motion) ليد تضغط على أرضية باردة وصلبة (إضاءة زرقاء باردة) مع تعابير ألم خفيفة. قطع فوري (Match Cut) لنفس اليد وهي تغوص في السجادة المبطنة الفاخرة (إضاءة دافئة وذهبية) مع تعابير راحة وسكينة.\n\n- **لقطات مقربة (Close-ups):** التركيز على تفاصيل المنتج بجودة عالية. لقطة على نسيج الحرير وهو ينسدل بنعومة. لقطة لضغط الإصبع على السجادة لإظهار سماكة الميموري فوم. لقطة مقربة على شعار \"نسائم الإيمان\" المطرز بأناقة على السجادة والمصحف.\n\n- **الهوية البصرية:** إبراز العلبة الفاخرة التي تحمل شعار وألوان البراند الملكية (الذهبي والبيج) بشكل واضح ومستمر. يجب أن تكون الهوية البصرية جزءاً لا يتجزأ من كل لقطة لإرساء صورة البراند الفاخرة.\n\n- **المونتاج:** إيقاع هادئ وروحاني في البداية، ثم ينتقل إلى مونتاج أسرع قليلاً (Bite-sized cuts) لعرض مكونات الطقم الثلاث (السجادة، الخمار، المصحف) بشكل متناسق. ينتهي بلقطة واسعة وساكنة لامرأة تصلي بخشوع وراحة تامة.\n\n- **الصوت:** موسيقى تصويرية روحانية ومؤثرة، تبدأ بنبرة حزينة قليلاً ثم تتحول إلى نبرة مريحة ومطمئنة عند ظهور المنتج. التعليق الصوتي يكون هادئاً وواثقاً.","Ad_Copy":"عييتي من وجع الظهر والركبتين في الصلاة؟ ردّي لصلاتك الخشوع ولجسمك الراحة اللي يستاهلها.\n\nكل سجْدة المفروض تكون لحظة خشوع وراحة، ماشي مصدر ألم وقلق.\n\nطقم الصلاة الملكي من \"نسائم الإيمان\" مصمم خصيصاً ليكِ، يا المرأة الجزائرية الأصيلة.\n\n✅ سجادة طبية مبطنة بالميموري فوم تنسيك في وجع المفاصل.\n✅ خمار من الحرير البارد، خفيف ومريح.\n✅ تصميم راقي ومتناسق، الهدية المثالية لي تحمر الوجه وتفرّح القلب.\n\nماشي مجرد سجادة، هديّة تعلي الشّان والهمّة.\n\nاضغطي على 'شراء الآن' واطلبي راحتك اليوم!\n\n✨ **درع الأمان والضمان الذهبي من نسائم الإيمان:**\n🚚 توصيل سريع ومؤمّن لـ 58 ولاية.\n📦 افتحي و عايني سلعتك قبل ما تخلصي.\n⚜️ **ضمان ذهبي:** إذا لم يكن المنتج بنفس الفخامة والراحة الموصوفة، حقك مضمون بالكامل.\n\nالكمية جد محدودة نظراً لجودة التصنيع الحرفي.","Assigned_To":"بن صايبي"},{"Content_Code":"V2","Content_Type":"Wow Effect","Hook":"","Script_Full":"سكربت فيديو Wow Effect يهدف لإثارة الدهشة والجاذبية الفورية للمنتج، مع التركيز على تجربة فتح العلبة (Unboxing) الفاخرة والميزات الفريدة.","Ad_Copy":"استعدي لتجربة لا مثيل لها! فيديو 'Wow Effect' من نسائم الإيمان سيبهرك بجمال وفخامة طقم الصلاة الملكي. اكتشفي كيف يمكن لمنتجاتنا أن تحول لحظاتك اليومية إلى تجربة راقية ومريحة.\n\n✨ **درع الأمان والضمان الذهبي من نسائم الإيمان:**\n🚚 توصيل سريع ومؤمّن لـ 58 ولاية.\n📦 افتحي و عايني سلعتك قبل ما تخلصي.\n⚜️ **ضمان ذهبي:** إذا لم يكن المنتج بنفس الفخامة والراحة الموصوفة، حقك مضمون بالكامل.","Assigned_To":"أحمد وإسلام"},{"Content_Code":"V3","Content_Type":"UGC (User Generated Content)","Hook":"","Script_Full":"سكربت فيديو UGC يركز على قصص وتجارب حقيقية لعملاء 'نسائم الإيمان'، يظهرون فيها استخدامهم للمنتج وراحتهم وسعادتهم، لتعزيز المصداقية والارتباط العاطفي.","Ad_Copy":"اسمعي من اللي جربوا! فيديو UGC يعرض تجارب حقيقية لنساء جزائريات استمتعن بالراحة والجمال مع طقم الصلاة الملكي من نسائم الإيمان. انضمي إليهن وشاركينا تجربتك المميزة.\n\n✨ **درع الأمان والضمان الذهبي من نسائم الإيمان:**\n🚚 توصيل سريع ومؤمّن لـ 58 ولاية.\n📦 افتحي و عايني سلعتك قبل ما تخلصي.\n⚜️ **ضمان ذهبي:** إذا لم يكن المنتج بنفس الفخامة والراحة الموصوفة، حقك مضمون بالكامل.","Assigned_To":"أحمد وإسلام"},{"Content_Code":"C1","Content_Type":"Carousel","Hook":"","Script_Full":"كاروسال تفصيلي يقدم طقم الصلاة الملكي (السجادة، الخمار، المصحف) في 3 أجزاء، مع إبراز الميزات والمواد الفاخرة لكل مكون.","Ad_Copy":"اكتشفي أدق تفاصيل الفخامة! كاروسال '3-Part Prayer Set Breakdown' يأخذك في جولة مفصلة على كل قطعة من طقم الصلاة الملكي من نسائم الإيمان، لتعرفي جودة المواد وروعة التصميم.\n\n✨ **درع الأمان والضمان الذهبي من نسائم الإيمان:**\n🚚 توصيل سريع ومؤمّن لـ 58 ولاية.\n📦 افتحي و عايني سلعتك قبل ما تخلصي.\n⚜️ **ضمان ذهبي:** إذا لم يكن المنتج بنفس الفخامة والراحة الموصوفة، حقك مضمون بالكامل.","Assigned_To":"عبد الرحمن"},{"Content_Code":"C2","Content_Type":"Carousel","Hook":"","Script_Full":"كاروسال قوالب شهادات العملاء (Testimonial Template) يعرض آراء إيجابية وصور حقيقية لعملاء راضين، لتعزيز الثقة والمصداقية.","Ad_Copy":"كلمات من القلب! كاروسال 'Testimonial Template' يعرض شهادات عملائنا الكرام الذين وجدوا الراحة والتميز في منتجات نسائم الإيمان. انضمي إلى عائلتنا الكبيرة من الراضيات.\n\n✨ **درع الأمان والضمان الذهبي من نسائم الإيمان:**\n🚚 توصيل سريع ومؤمّن لـ 58 ولاية.\n📦 افتحي و عايني سلعتك قبل ما تخلصي.\n⚜️ **ضمان ذهبي:** إذا لم يكن المنتج بنفس الفخامة والراحة الموصوفة، حقك مضمون بالكامل.","Assigned_To":"عبد الرحمن"},{"Content_Code":"P1","Content_Type":"Static Image","Hook":"","Script_Full":"صورة ثابتة مقربة للسجادة الطبية المبطنة، تظهر جودة الخامة وسمك الميموري فوم.","Ad_Copy":"راحة بلا حدود! استكشفي جودة سجادتنا الطبية المبطنة بالميموري فوم من نسائم الإيمان، مصممة خصيصاً لراحة ركبتيك وظهرك أثناء الصلاة.\n\n✨ **درع الأمان والضمان الذهبي من نسائم الإيمان:**\n🚚 توصيل سريع ومؤمّن لـ 58 ولاية.\n📦 افتحي و عايني سلعتك قبل ما تخلصي.\n⚜️ **ضمان ذهبي:** إذا لم يكن المنتج بنفس الفخامة والراحة الموصوفة، حقك مضمون بالكامل.","Assigned_To":"عبد الرحمن"},{"Content_Code":"P2","Content_Type":"Static Image","Hook":"","Script_Full":"صورة ثابتة للطقم الكامل (سجادة، خمار، مصحف) داخل العلبة الفاخرة، مع إبراز الهوية البصرية للبراند.","Ad_Copy":"هدية تليق بكِ! صورة تعرض طقم الصلاة الملكي من نسائم الإيمان كاملاً داخل علبته الفاخرة، تجسيداً للأناقة والجودة التي تستحقينها.\n\n✨ **درع الأمان والضمان الذهبي من نسائم الإيمان:**\n🚚 توصيل سريع ومؤمّن لـ 58 ولاية.\n📦 افتحي و عايني سلعتك قبل ما تخلصي.\n⚜️ **ضمان ذهبي:** إذا لم يكن المنتج بنفس الفخامة والراحة الموصوفة، حقك مضمون بالكامل.","Assigned_To":"عبد الرحمن"},{"Content_Code":"P3","Content_Type":"Static Image","Hook":"","Script_Full":"صورة ثابتة بأسلوب حياة (Lifestyle) تبرز فكرة الإهداء (Gift Concept)، مثل فتاة تهدي والدتها الطقم.","Ad_Copy":"أجمل هدية... لأغلى الناس! صورة تعبر عن مفهوم الإهداء مع طقم الصلاة الملكي من نسائم الإيمان، الهدية المثالية التي تجمع بين القيمة الروحية والفخامة.\n\n✨ **درع الأمان والضمان الذهبي من نسائم الإيمان:**\n🚚 توصيل سريع ومؤمّن لـ 58 ولاية.\n📦 افتحي و عايني سلعتك قبل ما تخلصي.\n⚜️ **ضمان ذهبي:** إذا لم يكن المنتج بنفس الفخامة والراحة الموصوفة، حقك مضمون بالكامل.","Assigned_To":"عبد الرحمن"},{"Content_Code":"P4","Content_Type":"Static Image","Hook":"","Script_Full":"تصميم جرافيكي ثابت يوضح العرض الحالي أو حزمة المنتج، مع عبارة تحفيزية للشراء.","Ad_Copy":"فرصة لا تعوض! تصميم جرافيكي يوضح عرضنا الخاص على طقم الصلاة الملكي من نسائم الإيمان. لا تفوتي هذه الفرصة لامتلاك الفخامة والراحة.\n\n✨ **درع الأمان والضمان الذهبي من نسائم الإيمان:**\n🚚 توصيل سريع ومؤمّن لـ 58 ولاية.\n📦 افتحي و عايني سلعتك قبل ما تخلصي.\n⚜️ **ضمان ذهبي:** إذا لم يكن المنتج بنفس الفخامة والراحة الموصوفة، حقك مضمون بالكامل.","Assigned_To":"عبد الرحمن"}];
+        function openModal(i) {
+            const item = items[i];
+            document.getElementById('m-header').innerText = item.Content_Code + " | " + item.Content_Type;
+            document.getElementById('m-script').innerText = item.Script_Full || item.Script_or_Text || '';
+            document.getElementById('m-adcopy').innerText = item.Ad_Copy || item.Ad_Copy_Caption || '';
+            document.getElementById('m-modal').style.display = 'block';
+        }
+        function closeModal() { document.getElementById('m-modal').style.display = 'none'; }
+    </script>
+</body>
+</html>
