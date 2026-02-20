@@ -1,0 +1,164 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>استراتيجية نسائم الإيمان - Nassaim El Imen | Wayso</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --gold: #FFD700; --dark: #000; --card-bg: #111; --text: #fff; }
+        body { background: var(--dark); color: var(--text); font-family: 'Cairo', sans-serif; margin: 0; padding: 20px; }
+        .container { max-width: 1100px; margin: auto; }
+        .header { text-align: center; border-bottom: 2px solid var(--gold); padding: 20px 0; margin-bottom: 30px; }
+        .brand-name { color: var(--gold); font-size: 2.8em; margin: 0; }
+        
+        /* Table Style */
+        table { width: 100%; border-collapse: collapse; background: var(--card-bg); border-radius: 8px; overflow: hidden; }
+        th { background: var(--gold); color: black; padding: 15px; text-align: right; }
+        td { padding: 15px; border-bottom: 1px solid #222; }
+        .code-tag { background: #333; color: var(--gold); padding: 4px 10px; border-radius: 4px; font-weight: bold; }
+        
+        /* Modal Style */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); overflow-y: auto; }
+        .modal-content { background: #1a1a1a; margin: 5% auto; padding: 30px; width: 80%; border-radius: 10px; border: 1px solid var(--gold); position: relative; }
+        .close { position: absolute; left: 20px; top: 20px; color: var(--gold); font-size: 30px; cursor: pointer; }
+        
+        .btn-view { background: var(--gold); color: black; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; font-weight: bold; font-family: 'Cairo'; }
+        .btn-view:hover { background: #fff; }
+        
+        .section-box { background: #000; padding: 15px; border-radius: 8px; margin-top: 15px; border-right: 3px solid var(--gold); }
+        .label { color: var(--gold); font-weight: bold; display: block; margin-bottom: 5px; }
+        pre { white-space: pre-wrap; font-family: 'Cairo'; color: #ddd; margin: 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="brand-name">نسائم الإيمان - Nassaim El Imen</h1>
+            <p style="color: #888;">في Wayso، نؤمن بأن الوصول لقلوب العملاء يتطلب أكثر من مجرد إعلان. ندمج الفيروسية العاطفية التي تخلق صدى عميقاً مع الثقة المطلقة التي يبنيها المنتج والضمان الصريح، لنصنع براندات لا تُنسى ولا تُقاوم.</p>
+            <div style="background: var(--gold); color: black; display: inline-block; padding: 10px 20px; border-radius: 50px; font-weight: bold; margin-top: 10px;">
+                الميزانية: 39000 دج
+            </div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>الكود</th>
+                    <th>نوع المحتوى</th>
+                    <th>الهوك (Hook)</th>
+                    <th>التفاصيل</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                <tr>
+                    <td><span class="code-tag">STRAT-01</span></td>
+                    <td>Strategy & Analysis</td>
+                    <td style="color: var(--gold); font-weight: bold;">توسع في الرؤية...</td>
+                    <td><button class="btn-view" onclick="showDetails(0)">فتح السكربت</button></td>
+                </tr>
+                
+                <tr>
+                    <td><span class="code-tag">V1</span></td>
+                    <td>Cinematic Hybrid</td>
+                    <td style="color: var(--gold); font-weight: bold;">بين هذا الألم... وهذا الخشوع... خيط واحد.</td>
+                    <td><button class="btn-view" onclick="showDetails(1)">فتح السكربت</button></td>
+                </tr>
+                
+                <tr>
+                    <td><span class="code-tag">V2</span></td>
+                    <td>Wow Effect</td>
+                    <td style="color: var(--gold); font-weight: bold;">توسع في الرؤية...</td>
+                    <td><button class="btn-view" onclick="showDetails(2)">فتح السكربت</button></td>
+                </tr>
+                
+                <tr>
+                    <td><span class="code-tag">V3</span></td>
+                    <td>UGC (User Generated Content)</td>
+                    <td style="color: var(--gold); font-weight: bold;">توسع في الرؤية...</td>
+                    <td><button class="btn-view" onclick="showDetails(3)">فتح السكربت</button></td>
+                </tr>
+                
+                <tr>
+                    <td><span class="code-tag">C1</span></td>
+                    <td>Carousel</td>
+                    <td style="color: var(--gold); font-weight: bold;">توسع في الرؤية...</td>
+                    <td><button class="btn-view" onclick="showDetails(4)">فتح السكربت</button></td>
+                </tr>
+                
+                <tr>
+                    <td><span class="code-tag">C2</span></td>
+                    <td>Carousel</td>
+                    <td style="color: var(--gold); font-weight: bold;">توسع في الرؤية...</td>
+                    <td><button class="btn-view" onclick="showDetails(5)">فتح السكربت</button></td>
+                </tr>
+                
+                <tr>
+                    <td><span class="code-tag">P1</span></td>
+                    <td>Static Image</td>
+                    <td style="color: var(--gold); font-weight: bold;">توسع في الرؤية...</td>
+                    <td><button class="btn-view" onclick="showDetails(6)">فتح السكربت</button></td>
+                </tr>
+                
+                <tr>
+                    <td><span class="code-tag">P2</span></td>
+                    <td>Static Image</td>
+                    <td style="color: var(--gold); font-weight: bold;">توسع في الرؤية...</td>
+                    <td><button class="btn-view" onclick="showDetails(7)">فتح السكربت</button></td>
+                </tr>
+                
+                <tr>
+                    <td><span class="code-tag">P3</span></td>
+                    <td>Static Image</td>
+                    <td style="color: var(--gold); font-weight: bold;">توسع في الرؤية...</td>
+                    <td><button class="btn-view" onclick="showDetails(8)">فتح السكربت</button></td>
+                </tr>
+                
+                <tr>
+                    <td><span class="code-tag">P4</span></td>
+                    <td>Static Image</td>
+                    <td style="color: var(--gold); font-weight: bold;">توسع في الرؤية...</td>
+                    <td><button class="btn-view" onclick="showDetails(9)">فتح السكربت</button></td>
+                </tr>
+                
+            </tbody>
+        </table>
+
+        <div id="detailsModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2 id="m-title" style="color: var(--gold);"></h2>
+                <div class="section-box">
+                    <span class="label">📜 السكربت والتوجيهات:</span>
+                    <pre id="m-script"></pre>
+                </div>
+                <div class="section-box">
+                    <span class="label">✍️ نص الإعلان (Ad Copy):</span>
+                    <pre id="m-adcopy"></pre>
+                </div>
+                <div id="m-notes" class="section-box" style="border-right-color: #fff; font-size: 0.9em;"></div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px; color: #555;">
+            <p>WAYSO &copy; 2026 | Universal Strategy Engine</p>
+        </div>
+    </div>
+
+    <script>
+        const data = [{"Content_Code":"STRAT-01","Content_Type":"Strategy & Analysis","Hook":"","Script_Full":"بناء الاستراتيجية وتحليل البراند الفيروسي.","Ad_Copy":"بناء الاستراتيجية وتحليل البراند الفيروسي. يتضمن هذا العنصر كافة التحليلات العميقة للسوق والجمهور، وتحديد الهوية البصرية والنبرة الصوتية للعلامة التجارية لضمان انتشارها الواسع وبناء الثقة.","Assigned_To":"Wayso Team","Partial_Budget":"5,000 دج"},{"Content_Code":"V1","Content_Type":"Cinematic Hybrid","Hook":"بين هذا الألم... وهذا الخشوع... خيط واحد.","Script_Full":"(صوت أنثوي، هادئ وواثق)\n\nشحال من مرة، تخافي من لحظة السجود... ماشي لأنك ما تحبيش الصلاة، حاشا لله...\n\nبصح لأن ركبتيك وظهرك ولاو يوجعوك من قسوة الأرض. الصلاة اللي المفروض تكون راحة وطمأنينة... ولات تزيد عليك في التعب والألم.\n\nعلى جال هاد الشي، جبنالك ماشي مجرد سجادة... جبنالك \"نسائم الإيمان\".\n\nتجربة صلاة ملكية، مصممة خصيصا ليكِ. سجادة طبية مبطنة بالميموري فوم، ترفد عليك الثقل وتنسيك في وجع المفاصل.\n\nتجي معاها خمار من الحرير البارد، خفيف ومتناسق... ومصحف مغلف بنفس الفخامة اللي تعبر على هويتنا البصرية الراقية.\n\nهذا ماشي مجرد طقم صلاة، هذي هدية تعلي الشّان والهمّة. تفرحي بيها يماك، عزيزتك، ولا تجهزي بيها بنتك لدارها.\n\nولأننا في نسائم الإيمان واثقين من فخامة منتجنا، نقدّمولك **الضمان الذهبي**. نلحقوهالك لباب الدار في 58 ولاية... حلّي العلبة، شوفي بعينك، وقيسي بنفسك. إذا ما حسيتيش بالفرق والراحة الفورية، ما تخلصيش. رضاك هو أولويتنا المطلقة.\n\n[ملاحظات الإنتاج]\nالمخرج: بن صايبي\n\n- **البداية (Hook):** تباين بصري حاد. لقطة سينمائية (slow-motion) ليد تضغط على أرضية باردة وصلبة (إضاءة زرقاء باردة) مع تعابير ألم خفيفة. قطع فوري (Match Cut) لنفس اليد وهي تغوص في السجادة المبطنة الفاخرة (إضاءة دافئة وذهبية) مع تعابير راحة وسكينة.\n\n- **لقطات مقربة (Close-ups):** التركيز على تفاصيل المنتج بجودة عالية. لقطة على نسيج الحرير وهو ينسدل بنعومة. لقطة لضغط الإصبع على السجادة لإظهار سماكة الميموري فوم. لقطة مقربة على شعار \"نسائم الإيمان\" المطرز بأناقة على السجادة والمصحف.\n\n- **الهوية البصرية:** إبراز العلبة الفاخرة التي تحمل شعار وألوان البراند الملكية (الذهبي والبيج) بشكل واضح ومستمر. يجب أن تكون الهوية البصرية جزءاً لا يتجزأ من كل لقطة لإرساء صورة البراند الفاخرة.\n\n- **المونتاج:** إيقاع هادئ وروحاني في البداية، ثم ينتقل إلى مونتاج أسرع قليلاً (Bite-sized cuts) لعرض مكونات الطقم الثلاث (السجادة، الخمار، المصحف) بشكل متناسق. ينتهي بلقطة واسعة وساكنة لامرأة تصلي بخشوع وراحة تامة.\n\n- **الصوت:** موسيقى تصويرية روحانية ومؤثرة، تبدأ بنبرة حزينة قليلاً ثم تتحول إلى نبرة مريحة ومطمئنة عند ظهور المنتج. التعليق الصوتي يكون هادئاً وواثقاً.","Ad_Copy":"عييتي من وجع الظهر والركبتين في الصلاة؟ ردّي لصلاتك الخشوع ولجسمك الراحة اللي يستاهلها.\n\nكل سجْدة المفروض تكون لحظة خشوع وراحة، ماشي مصدر ألم وقلق.\n\nطقم الصلاة الملكي من \"نسائم الإيمان\" مصمم خصيصاً ليكِ، يا المرأة الجزائرية الأصيلة.\n\n✅ سجادة طبية مبطنة بالميموري فوم تنسيك في وجع المفاصل.\n✅ خمار من الحرير البارد، خفيف ومريح.\n✅ تصميم راقي ومتناسق، الهدية المثالية لي تحمر الوجه وتفرّح القلب.\n\nماشي مجرد سجادة، هديّة تعلي الشّان والهمّة.\n\nاضغطي على 'شراء الآن' واطلبي راحتك اليوم!\n\n✨ **درع الأمان والضمان الذهبي من نسائم الإيمان:**\n🚚 توصيل سريع ومؤمّن لـ 58 ولاية.\n📦 افتحي و عايني سلعتك قبل ما تخلصي.\n⚜️ **ضمان ذهبي:** إذا لم يكن المنتج بنفس الفخامة والراحة الموصوفة، حقك مضمون بالكامل.\n\nالكمية جد محدودة نظراً لجودة التصنيع الحرفي.","Assigned_To":"بن صايبي"},{"Content_Code":"V2","Content_Type":"Wow Effect","Hook":"","Script_Full":"سكربت فيديو Wow Effect يهدف لإثارة الدهشة والجاذبية الفورية للمنتج، مع التركيز على تجربة فتح العلبة (Unboxing) الفاخرة والميزات الفريدة.","Ad_Copy":"استعدي لتجربة لا مثيل لها! فيديو 'Wow Effect' من نسائم الإيمان سيبهرك بجمال وفخامة طقم الصلاة الملكي. اكتشفي كيف يمكن لمنتجاتنا أن تحول لحظاتك اليومية إلى تجربة راقية ومريحة.\n\n✨ **درع الأمان والضمان الذهبي من نسائم الإيمان:**\n🚚 توصيل سريع ومؤمّن لـ 58 ولاية.\n📦 افتحي و عايني سلعتك قبل ما تخلصي.\n⚜️ **ضمان ذهبي:** إذا لم يكن المنتج بنفس الفخامة والراحة الموصوفة، حقك مضمون بالكامل.","Assigned_To":"أحمد وإسلام"},{"Content_Code":"V3","Content_Type":"UGC (User Generated Content)","Hook":"","Script_Full":"سكربت فيديو UGC يركز على قصص وتجارب حقيقية لعملاء 'نسائم الإيمان'، يظهرون فيها استخدامهم للمنتج وراحتهم وسعادتهم، لتعزيز المصداقية والارتباط العاطفي.","Ad_Copy":"اسمعي من اللي جربوا! فيديو UGC يعرض تجارب حقيقية لنساء جزائريات استمتعن بالراحة والجمال مع طقم الصلاة الملكي من نسائم الإيمان. انضمي إليهن وشاركينا تجربتك المميزة.\n\n✨ **درع الأمان والضمان الذهبي من نسائم الإيمان:**\n🚚 توصيل سريع ومؤمّن لـ 58 ولاية.\n📦 افتحي و عايني سلعتك قبل ما تخلصي.\n⚜️ **ضمان ذهبي:** إذا لم يكن المنتج بنفس الفخامة والراحة الموصوفة، حقك مضمون بالكامل.","Assigned_To":"أحمد وإسلام"},{"Content_Code":"C1","Content_Type":"Carousel","Hook":"","Script_Full":"كاروسال تفصيلي يقدم طقم الصلاة الملكي (السجادة، الخمار، المصحف) في 3 أجزاء، مع إبراز الميزات والمواد الفاخرة لكل مكون.","Ad_Copy":"اكتشفي أدق تفاصيل الفخامة! كاروسال '3-Part Prayer Set Breakdown' يأخذك في جولة مفصلة على كل قطعة من طقم الصلاة الملكي من نسائم الإيمان، لتعرفي جودة المواد وروعة التصميم.\n\n✨ **درع الأمان والضمان الذهبي من نسائم الإيمان:**\n🚚 توصيل سريع ومؤمّن لـ 58 ولاية.\n📦 افتحي و عايني سلعتك قبل ما تخلصي.\n⚜️ **ضمان ذهبي:** إذا لم يكن المنتج بنفس الفخامة والراحة الموصوفة، حقك مضمون بالكامل.","Assigned_To":"عبد الرحمن"},{"Content_Code":"C2","Content_Type":"Carousel","Hook":"","Script_Full":"كاروسال قوالب شهادات العملاء (Testimonial Template) يعرض آراء إيجابية وصور حقيقية لعملاء راضين، لتعزيز الثقة والمصداقية.","Ad_Copy":"كلمات من القلب! كاروسال 'Testimonial Template' يعرض شهادات عملائنا الكرام الذين وجدوا الراحة والتميز في منتجات نسائم الإيمان. انضمي إلى عائلتنا الكبيرة من الراضيات.\n\n✨ **درع الأمان والضمان الذهبي من نسائم الإيمان:**\n🚚 توصيل سريع ومؤمّن لـ 58 ولاية.\n📦 افتحي و عايني سلعتك قبل ما تخلصي.\n⚜️ **ضمان ذهبي:** إذا لم يكن المنتج بنفس الفخامة والراحة الموصوفة، حقك مضمون بالكامل.","Assigned_To":"عبد الرحمن"},{"Content_Code":"P1","Content_Type":"Static Image","Hook":"","Script_Full":"صورة ثابتة مقربة للسجادة الطبية المبطنة، تظهر جودة الخامة وسمك الميموري فوم.","Ad_Copy":"راحة بلا حدود! استكشفي جودة سجادتنا الطبية المبطنة بالميموري فوم من نسائم الإيمان، مصممة خصيصاً لراحة ركبتيك وظهرك أثناء الصلاة.\n\n✨ **درع الأمان والضمان الذهبي من نسائم الإيمان:**\n🚚 توصيل سريع ومؤمّن لـ 58 ولاية.\n📦 افتحي و عايني سلعتك قبل ما تخلصي.\n⚜️ **ضمان ذهبي:** إذا لم يكن المنتج بنفس الفخامة والراحة الموصوفة، حقك مضمون بالكامل.","Assigned_To":"عبد الرحمن"},{"Content_Code":"P2","Content_Type":"Static Image","Hook":"","Script_Full":"صورة ثابتة للطقم الكامل (سجادة، خمار، مصحف) داخل العلبة الفاخرة، مع إبراز الهوية البصرية للبراند.","Ad_Copy":"هدية تليق بكِ! صورة تعرض طقم الصلاة الملكي من نسائم الإيمان كاملاً داخل علبته الفاخرة، تجسيداً للأناقة والجودة التي تستحقينها.\n\n✨ **درع الأمان والضمان الذهبي من نسائم الإيمان:**\n🚚 توصيل سريع ومؤمّن لـ 58 ولاية.\n📦 افتحي و عايني سلعتك قبل ما تخلصي.\n⚜️ **ضمان ذهبي:** إذا لم يكن المنتج بنفس الفخامة والراحة الموصوفة، حقك مضمون بالكامل.","Assigned_To":"عبد الرحمن"},{"Content_Code":"P3","Content_Type":"Static Image","Hook":"","Script_Full":"صورة ثابتة بأسلوب حياة (Lifestyle) تبرز فكرة الإهداء (Gift Concept)، مثل فتاة تهدي والدتها الطقم.","Ad_Copy":"أجمل هدية... لأغلى الناس! صورة تعبر عن مفهوم الإهداء مع طقم الصلاة الملكي من نسائم الإيمان، الهدية المثالية التي تجمع بين القيمة الروحية والفخامة.\n\n✨ **درع الأمان والضمان الذهبي من نسائم الإيمان:**\n🚚 توصيل سريع ومؤمّن لـ 58 ولاية.\n📦 افتحي و عايني سلعتك قبل ما تخلصي.\n⚜️ **ضمان ذهبي:** إذا لم يكن المنتج بنفس الفخامة والراحة الموصوفة، حقك مضمون بالكامل.","Assigned_To":"عبد الرحمن"},{"Content_Code":"P4","Content_Type":"Static Image","Hook":"","Script_Full":"تصميم جرافيكي ثابت يوضح العرض الحالي أو حزمة المنتج، مع عبارة تحفيزية للشراء.","Ad_Copy":"فرصة لا تعوض! تصميم جرافيكي يوضح عرضنا الخاص على طقم الصلاة الملكي من نسائم الإيمان. لا تفوتي هذه الفرصة لامتلاك الفخامة والراحة.\n\n✨ **درع الأمان والضمان الذهبي من نسائم الإيمان:**\n🚚 توصيل سريع ومؤمّن لـ 58 ولاية.\n📦 افتحي و عايني سلعتك قبل ما تخلصي.\n⚜️ **ضمان ذهبي:** إذا لم يكن المنتج بنفس الفخامة والراحة الموصوفة، حقك مضمون بالكامل.","Assigned_To":"عبد الرحمن"}];
+        function showDetails(index) {
+            const item = data[index];
+            document.getElementById('m-title').innerText = (item.Content_Code || '') + " | " + (item.Content_Type || '');
+            document.getElementById('m-script').innerText = item.Script_Full || item.Script_or_Text || 'لا يوجد سكربت محدد';
+            document.getElementById('m-adcopy').innerText = item.Ad_Copy || item.Ad_Copy_Caption || 'لا يوجد نص إعلان';
+            document.getElementById('m-notes').innerHTML = "<strong>المكلف بالتنفيذ:</strong> " + (item.Assigned_To || 'فريق Wayso');
+            document.getElementById('detailsModal').style.display = "block";
+        }
+        function closeModal() { document.getElementById('detailsModal').style.display = "none"; }
+        window.onclick = function(event) { if (event.target.className == 'modal') closeModal(); }
+    </script>
+</body>
+</html>
