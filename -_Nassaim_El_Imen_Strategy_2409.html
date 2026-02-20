@@ -1,0 +1,367 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wayso Strategy | نسائم الإيمان - Nassaim El Imen</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+    :root { --gold: #FFD700; --dark: #000; --border: #eee; --bg: #f9f9f9; }
+    body { background: #fff; color: #1a1a1a; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; line-height: 1.6; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+    
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 25px 0; border-bottom: 4px solid var(--dark); margin-bottom: 40px; }
+    .brand-name { font-weight: 900; font-size: 1.8em; border-right: 6px solid var(--gold); padding-right: 15px; }
+
+    .philosophy-card { background: var(--dark); color: #fff; padding: 40px; border-radius: 20px; margin-bottom: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+    .philosophy-card h2 { color: var(--gold); margin-top: 0; font-size: 1.5em; }
+
+    /* Table Styling - Clean & Modern */
+    .table-container { border-radius: 15px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+    table { width: 100%; border-collapse: collapse; background: #fff; }
+    thead { background: var(--dark); color: #fff; }
+    th { padding: 20px; text-align: right; font-weight: 700; font-size: 0.95em; }
+    td { padding: 20px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    
+    .code-badge { background: var(--gold); color: #000; padding: 6px 12px; border-radius: 6px; font-weight: 900; font-size: 1em; display: inline-block; }
+    .hook-text { font-weight: 700; color: #333; font-size: 1.1em; border-right: 3px solid var(--gold); padding-right: 10px; }
+    
+    .btn-open { background: var(--dark); color: var(--gold); border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-family: 'Cairo'; font-weight: 700; transition: 0.3s; }
+    .btn-open:hover { background: var(--gold); color: #000; }
+
+    /* Modal System */
+    .modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); }
+    .modal-content { background: #fff; margin: 5% auto; padding: 35px; width: 80%; max-width: 750px; border-radius: 25px; position: relative; max-height: 85vh; overflow-y: auto; border: 1px solid var(--gold); }
+    .close { position: absolute; left: 25px; top: 25px; font-size: 30px; cursor: pointer; color: #999; }
+    
+    .modal-section { background: var(--bg); padding: 20px; border-radius: 15px; margin-bottom: 20px; border-right: 5px solid var(--gold); }
+    .modal-label { font-weight: 900; display: block; margin-bottom: 10px; color: var(--dark); border-bottom: 1px solid #ddd; padding-bottom: 5px; }
+    
+    .total-box { background: var(--dark); color: #fff; padding: 50px; border-radius: 30px; text-align: center; margin-top: 60px; }
+    .price-tag { font-size: 3.5em; font-weight: 900; color: var(--gold); margin: 15px 0; display: block; }
+    .wa-btn { display: inline-block; background: var(--gold); color: #000; padding: 18px 45px; border-radius: 50px; text-decoration: none; font-weight: 900; font-size: 1.2em; transition: 0.3s; }
+
+    @media (max-width: 768px) {
+        th { display: none; }
+        td { display: block; text-align: right; border-bottom: 1px solid #eee; position: relative; padding-top: 40px; }
+        td:before { content: attr(data-label); position: absolute; top: 10px; right: 20px; font-size: 0.75em; color: #999; font-weight: 900; }
+        .brand-name { font-size: 1.4em; }
+    }
+</style></head><body>
+
+<div class="container">
+    <div class="header">
+        <img src="https://storage.googleapis.com/msgsndr/GwIPQCjstTzxnzDQ1B32/media/68fddb5534bb1597bc934f89.png" height="50">
+        <div class="brand-name">نسائم الإيمان - Nassaim El Imen</div>
+    </div>
+
+    <div class="philosophy-card">
+        <h2>🎯 فلسفة الاستراتيجية</h2>
+        <p>في Wayso، نؤمن بأن الوصول لقلوب العملاء يتطلب أكثر من مجرد إعلان. ندمج الفيروسية العاطفية التي تخلق صدى عميقاً مع الثقة المطلقة التي يبنيها المنتج والضمان الصريح، لنصنع براندات لا تُنسى ولا تُقاوم.</p>
+    </div>
+
+    <h1 style="border-right: 8px solid var(--gold); padding-right: 15px; margin-bottom: 30px;">جدول خطة الإنتاج</h1>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 15%;">الكود</th>
+                    <th style="width: 50%;">الهوك (Hook)</th>
+                    <th style="width: 35%;">التفاصيل</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-label="الكود">
+                        <span class="code-badge">V1</span><br/>
+                        <small style="color:#888; font-weight:700;">Cinematic Hybrid</small>
+                    </td>
+                    <td data-label="الهوك (Hook)">
+                        <div class="hook-text">بين هذا الألم... وهذا الخشوع... خيط واحد.</div>
+                    </td>
+                    <td data-label="التفاصيل">
+                        <button class="btn-open" onclick="openModal('1')">فتح السكربت 📄</button>
+                        
+                        <div id="modal-1" class="modal">
+                            <div class="modal-content">
+                                <span class="close" onclick="closeModal('1')">&times;</span>
+                                <h2 style="font-weight:900; border-bottom:3px solid var(--gold); padding-bottom:10px; margin-bottom:20px;">V1 | تفاصيل المحتوى</h2>
+                                
+                                <div class="modal-section">
+                                    <span class="modal-label">🎬 السيناريو والحوار:</span>
+                                    <div style="white-space: pre-wrap;">(صوت أنثوي، هادئ وواثق)<br/><br/>شحال من مرة، تخافي من لحظة السجود... ماشي لأنك ما تحبيش الصلاة، حاشا لله...<br/><br/>بصح لأن ركبتيك وظهرك ولاو يوجعوك من قسوة الأرض. الصلاة اللي المفروض تكون راحة وطمأنينة... ولات تزيد عليك في التعب والألم.<br/><br/>على جال هاد الشي، جبنالك ماشي مجرد سجادة... جبنالك "نسائم الإيمان".<br/><br/>تجربة صلاة ملكية، مصممة خصيصا ليكِ. سجادة طبية مبطنة بالميموري فوم، ترفد عليك الثقل وتنسيك في وجع المفاصل.<br/><br/>تجي معاها خمار من الحرير البارد، خفيف ومتناسق... ومصحف مغلف بنفس الفخامة اللي تعبر على هويتنا البصرية الراقية.<br/><br/>هذا ماشي مجرد طقم صلاة، هذي هدية تعلي الشّان والهمّة. تفرحي بيها يماك، عزيزتك، ولا تجهزي بيها بنتك لدارها.<br/><br/>ولأننا في نسائم الإيمان واثقين من فخامة منتجنا، نقدّمولك **الضمان الذهبي**. نلحقوهالك لباب الدار في 58 ولاية... حلّي العلبة، شوفي بعينك، وقيسي بنفسك. إذا ما حسيتيش بالفرق والراحة الفورية، ما تخلصيش. رضاك هو أولويتنا المطلقة.<br/><br/>[ملاحظات الإنتاج]<br/>المخرج: بن صايبي<br/><br/>- **البداية (Hook):** تباين بصري حاد. لقطة سينمائية (slow-motion) ليد تضغط على أرضية باردة وصلبة (إضاءة زرقاء باردة) مع تعابير ألم خفيفة. قطع فوري (Match Cut) لنفس اليد وهي تغوص في السجادة المبطنة الفاخرة (إضاءة دافئة وذهبية) مع تعابير راحة وسكينة.<br/><br/>- **لقطات مقربة (Close-ups):** التركيز على تفاصيل المنتج بجودة عالية. لقطة على نسيج الحرير وهو ينسدل بنعومة. لقطة لضغط الإصبع على السجادة لإظهار سماكة الميموري فوم. لقطة مقربة على شعار "نسائم الإيمان" المطرز بأناقة على السجادة والمصحف.<br/><br/>- **الهوية البصرية:** إبراز العلبة الفاخرة التي تحمل شعار وألوان البراند الملكية (الذهبي والبيج) بشكل واضح ومستمر. يجب أن تكون الهوية البصرية جزءاً لا يتجزأ من كل لقطة لإرساء صورة البراند الفاخرة.<br/><br/>- **المونتاج:** إيقاع هادئ وروحاني في البداية، ثم ينتقل إلى مونتاج أسرع قليلاً (Bite-sized cuts) لعرض مكونات الطقم الثلاث (السجادة، الخمار، المصحف) بشكل متناسق. ينتهي بلقطة واسعة وساكنة لامرأة تصلي بخشوع وراحة تامة.<br/><br/>- **الصوت:** موسيقى تصويرية روحانية ومؤثرة، تبدأ بنبرة حزينة قليلاً ثم تتحول إلى نبرة مريحة ومطمئنة عند ظهور المنتج. التعليق الصوتي يكون هادئاً وواثقاً.</div>
+                                </div>
+                                
+                                <div class="modal-section" style="background:#fff9e6;">
+                                    <span class="modal-label">📝 نص المنشور (Caption):</span>
+                                    <div style="white-space: pre-wrap; font-weight:700;">عييتي من وجع الظهر والركبتين في الصلاة؟ ردّي لصلاتك الخشوع ولجسمك الراحة اللي يستاهلها.<br/><br/>كل سجْدة المفروض تكون لحظة خشوع وراحة، ماشي مصدر ألم وقلق.<br/><br/>طقم الصلاة الملكي من "نسائم الإيمان" مصمم خصيصاً ليكِ، يا المرأة الجزائرية الأصيلة.<br/><br/>✅ سجادة طبية مبطنة بالميموري فوم تنسيك في وجع المفاصل.<br/>✅ خمار من الحرير البارد، خفيف ومريح.<br/>✅ تصميم راقي ومتناسق، الهدية المثالية لي تحمر الوجه وتفرّح القلب.<br/><br/>ماشي مجرد سجادة، هديّة تعلي الشّان والهمّة.<br/><br/>اضغطي على 'شراء الآن' واطلبي راحتك اليوم!<br/><br/>✨ **درع الأمان والضمان الذهبي من نسائم الإيمان:**<br/>🚚 توصيل سريع ومؤمّن لـ 58 ولاية.<br/>📦 افتحي و عايني سلعتك قبل ما تخلصي.<br/>⚜️ **ضمان ذهبي:** إذا لم يكن المنتج بنفس الفخامة والراحة الموصوفة، حقك مضمون بالكامل.<br/><br/>الكمية جد محدودة نظراً لجودة التصنيع الحرفي.</div>
+                                </div>
+                                
+                                <div style="font-size:0.9em; color:#666;">المكلف بالتنفيذ: بن صايبي</div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-label="الكود">
+                        <span class="code-badge">C1</span><br/>
+                        <small style="color:#888; font-weight:700;">Carousel</small>
+                    </td>
+                    <td data-label="الهوك (Hook)">
+                        <div class="hook-text">توسيع الرؤية الاستراتيجية...</div>
+                    </td>
+                    <td data-label="التفاصيل">
+                        <button class="btn-open" onclick="openModal('2')">فتح السكربت 📄</button>
+                        
+                        <div id="modal-2" class="modal">
+                            <div class="modal-content">
+                                <span class="close" onclick="closeModal('2')">&times;</span>
+                                <h2 style="font-weight:900; border-bottom:3px solid var(--gold); padding-bottom:10px; margin-bottom:20px;">C1 | تفاصيل المحتوى</h2>
+                                
+                                <div class="modal-section">
+                                    <span class="modal-label">🎬 السيناريو والحوار:</span>
+                                    <div style="white-space: pre-wrap;">كاروسال تفصيلي يقدم طقم الصلاة الملكي (السجادة، الخمار، المصحف) في 3 أجزاء، مع إبراز الميزات والمواد الفاخرة لكل مكون.</div>
+                                </div>
+                                
+                                <div class="modal-section" style="background:#fff9e6;">
+                                    <span class="modal-label">📝 نص المنشور (Caption):</span>
+                                    <div style="white-space: pre-wrap; font-weight:700;">اكتشفي أدق تفاصيل الفخامة! كاروسال '3-Part Prayer Set Breakdown' يأخذك في جولة مفصلة على كل قطعة من طقم الصلاة الملكي من نسائم الإيمان، لتعرفي جودة المواد وروعة التصميم.<br/><br/>✨ **درع الأمان والضمان الذهبي من نسائم الإيمان:**<br/>🚚 توصيل سريع ومؤمّن لـ 58 ولاية.<br/>📦 افتحي و عايني سلعتك قبل ما تخلصي.<br/>⚜️ **ضمان ذهبي:** إذا لم يكن المنتج بنفس الفخامة والراحة الموصوفة، حقك مضمون بالكامل.</div>
+                                </div>
+                                
+                                <div style="font-size:0.9em; color:#666;">المكلف بالتنفيذ: عبد الرحمن</div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-label="الكود">
+                        <span class="code-badge">P1</span><br/>
+                        <small style="color:#888; font-weight:700;">Static Image</small>
+                    </td>
+                    <td data-label="الهوك (Hook)">
+                        <div class="hook-text">توسيع الرؤية الاستراتيجية...</div>
+                    </td>
+                    <td data-label="التفاصيل">
+                        <button class="btn-open" onclick="openModal('3')">فتح السكربت 📄</button>
+                        
+                        <div id="modal-3" class="modal">
+                            <div class="modal-content">
+                                <span class="close" onclick="closeModal('3')">&times;</span>
+                                <h2 style="font-weight:900; border-bottom:3px solid var(--gold); padding-bottom:10px; margin-bottom:20px;">P1 | تفاصيل المحتوى</h2>
+                                
+                                <div class="modal-section">
+                                    <span class="modal-label">🎬 السيناريو والحوار:</span>
+                                    <div style="white-space: pre-wrap;">صورة ثابتة مقربة للسجادة الطبية المبطنة، تظهر جودة الخامة وسمك الميموري فوم.</div>
+                                </div>
+                                
+                                <div class="modal-section" style="background:#fff9e6;">
+                                    <span class="modal-label">📝 نص المنشور (Caption):</span>
+                                    <div style="white-space: pre-wrap; font-weight:700;">راحة بلا حدود! استكشفي جودة سجادتنا الطبية المبطنة بالميموري فوم من نسائم الإيمان، مصممة خصيصاً لراحة ركبتيك وظهرك أثناء الصلاة.<br/><br/>✨ **درع الأمان والضمان الذهبي من نسائم الإيمان:**<br/>🚚 توصيل سريع ومؤمّن لـ 58 ولاية.<br/>📦 افتحي و عايني سلعتك قبل ما تخلصي.<br/>⚜️ **ضمان ذهبي:** إذا لم يكن المنتج بنفس الفخامة والراحة الموصوفة، حقك مضمون بالكامل.</div>
+                                </div>
+                                
+                                <div style="font-size:0.9em; color:#666;">المكلف بالتنفيذ: عبد الرحمن</div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-label="الكود">
+                        <span class="code-badge">V2</span><br/>
+                        <small style="color:#888; font-weight:700;">Wow Effect</small>
+                    </td>
+                    <td data-label="الهوك (Hook)">
+                        <div class="hook-text">توسيع الرؤية الاستراتيجية...</div>
+                    </td>
+                    <td data-label="التفاصيل">
+                        <button class="btn-open" onclick="openModal('4')">فتح السكربت 📄</button>
+                        
+                        <div id="modal-4" class="modal">
+                            <div class="modal-content">
+                                <span class="close" onclick="closeModal('4')">&times;</span>
+                                <h2 style="font-weight:900; border-bottom:3px solid var(--gold); padding-bottom:10px; margin-bottom:20px;">V2 | تفاصيل المحتوى</h2>
+                                
+                                <div class="modal-section">
+                                    <span class="modal-label">🎬 السيناريو والحوار:</span>
+                                    <div style="white-space: pre-wrap;">سكربت فيديو Wow Effect يهدف لإثارة الدهشة والجاذبية الفورية للمنتج، مع التركيز على تجربة فتح العلبة (Unboxing) الفاخرة والميزات الفريدة.</div>
+                                </div>
+                                
+                                <div class="modal-section" style="background:#fff9e6;">
+                                    <span class="modal-label">📝 نص المنشور (Caption):</span>
+                                    <div style="white-space: pre-wrap; font-weight:700;">استعدي لتجربة لا مثيل لها! فيديو 'Wow Effect' من نسائم الإيمان سيبهرك بجمال وفخامة طقم الصلاة الملكي. اكتشفي كيف يمكن لمنتجاتنا أن تحول لحظاتك اليومية إلى تجربة راقية ومريحة.<br/><br/>✨ **درع الأمان والضمان الذهبي من نسائم الإيمان:**<br/>🚚 توصيل سريع ومؤمّن لـ 58 ولاية.<br/>📦 افتحي و عايني سلعتك قبل ما تخلصي.<br/>⚜️ **ضمان ذهبي:** إذا لم يكن المنتج بنفس الفخامة والراحة الموصوفة، حقك مضمون بالكامل.</div>
+                                </div>
+                                
+                                <div style="font-size:0.9em; color:#666;">المكلف بالتنفيذ: أحمد وإسلام</div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-label="الكود">
+                        <span class="code-badge">C2</span><br/>
+                        <small style="color:#888; font-weight:700;">Carousel</small>
+                    </td>
+                    <td data-label="الهوك (Hook)">
+                        <div class="hook-text">توسيع الرؤية الاستراتيجية...</div>
+                    </td>
+                    <td data-label="التفاصيل">
+                        <button class="btn-open" onclick="openModal('5')">فتح السكربت 📄</button>
+                        
+                        <div id="modal-5" class="modal">
+                            <div class="modal-content">
+                                <span class="close" onclick="closeModal('5')">&times;</span>
+                                <h2 style="font-weight:900; border-bottom:3px solid var(--gold); padding-bottom:10px; margin-bottom:20px;">C2 | تفاصيل المحتوى</h2>
+                                
+                                <div class="modal-section">
+                                    <span class="modal-label">🎬 السيناريو والحوار:</span>
+                                    <div style="white-space: pre-wrap;">كاروسال قوالب شهادات العملاء (Testimonial Template) يعرض آراء إيجابية وصور حقيقية لعملاء راضين، لتعزيز الثقة والمصداقية.</div>
+                                </div>
+                                
+                                <div class="modal-section" style="background:#fff9e6;">
+                                    <span class="modal-label">📝 نص المنشور (Caption):</span>
+                                    <div style="white-space: pre-wrap; font-weight:700;">كلمات من القلب! كاروسال 'Testimonial Template' يعرض شهادات عملائنا الكرام الذين وجدوا الراحة والتميز في منتجات نسائم الإيمان. انضمي إلى عائلتنا الكبيرة من الراضيات.<br/><br/>✨ **درع الأمان والضمان الذهبي من نسائم الإيمان:**<br/>🚚 توصيل سريع ومؤمّن لـ 58 ولاية.<br/>📦 افتحي و عايني سلعتك قبل ما تخلصي.<br/>⚜️ **ضمان ذهبي:** إذا لم يكن المنتج بنفس الفخامة والراحة الموصوفة، حقك مضمون بالكامل.</div>
+                                </div>
+                                
+                                <div style="font-size:0.9em; color:#666;">المكلف بالتنفيذ: عبد الرحمن</div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-label="الكود">
+                        <span class="code-badge">P2</span><br/>
+                        <small style="color:#888; font-weight:700;">Static Image</small>
+                    </td>
+                    <td data-label="الهوك (Hook)">
+                        <div class="hook-text">توسيع الرؤية الاستراتيجية...</div>
+                    </td>
+                    <td data-label="التفاصيل">
+                        <button class="btn-open" onclick="openModal('6')">فتح السكربت 📄</button>
+                        
+                        <div id="modal-6" class="modal">
+                            <div class="modal-content">
+                                <span class="close" onclick="closeModal('6')">&times;</span>
+                                <h2 style="font-weight:900; border-bottom:3px solid var(--gold); padding-bottom:10px; margin-bottom:20px;">P2 | تفاصيل المحتوى</h2>
+                                
+                                <div class="modal-section">
+                                    <span class="modal-label">🎬 السيناريو والحوار:</span>
+                                    <div style="white-space: pre-wrap;">صورة ثابتة للطقم الكامل (سجادة، خمار، مصحف) داخل العلبة الفاخرة، مع إبراز الهوية البصرية للبراند.</div>
+                                </div>
+                                
+                                <div class="modal-section" style="background:#fff9e6;">
+                                    <span class="modal-label">📝 نص المنشور (Caption):</span>
+                                    <div style="white-space: pre-wrap; font-weight:700;">هدية تليق بكِ! صورة تعرض طقم الصلاة الملكي من نسائم الإيمان كاملاً داخل علبته الفاخرة، تجسيداً للأناقة والجودة التي تستحقينها.<br/><br/>✨ **درع الأمان والضمان الذهبي من نسائم الإيمان:**<br/>🚚 توصيل سريع ومؤمّن لـ 58 ولاية.<br/>📦 افتحي و عايني سلعتك قبل ما تخلصي.<br/>⚜️ **ضمان ذهبي:** إذا لم يكن المنتج بنفس الفخامة والراحة الموصوفة، حقك مضمون بالكامل.</div>
+                                </div>
+                                
+                                <div style="font-size:0.9em; color:#666;">المكلف بالتنفيذ: عبد الرحمن</div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-label="الكود">
+                        <span class="code-badge">V3</span><br/>
+                        <small style="color:#888; font-weight:700;">UGC (User Generated Content)</small>
+                    </td>
+                    <td data-label="الهوك (Hook)">
+                        <div class="hook-text">توسيع الرؤية الاستراتيجية...</div>
+                    </td>
+                    <td data-label="التفاصيل">
+                        <button class="btn-open" onclick="openModal('7')">فتح السكربت 📄</button>
+                        
+                        <div id="modal-7" class="modal">
+                            <div class="modal-content">
+                                <span class="close" onclick="closeModal('7')">&times;</span>
+                                <h2 style="font-weight:900; border-bottom:3px solid var(--gold); padding-bottom:10px; margin-bottom:20px;">V3 | تفاصيل المحتوى</h2>
+                                
+                                <div class="modal-section">
+                                    <span class="modal-label">🎬 السيناريو والحوار:</span>
+                                    <div style="white-space: pre-wrap;">سكربت فيديو UGC يركز على قصص وتجارب حقيقية لعملاء 'نسائم الإيمان'، يظهرون فيها استخدامهم للمنتج وراحتهم وسعادتهم، لتعزيز المصداقية والارتباط العاطفي.</div>
+                                </div>
+                                
+                                <div class="modal-section" style="background:#fff9e6;">
+                                    <span class="modal-label">📝 نص المنشور (Caption):</span>
+                                    <div style="white-space: pre-wrap; font-weight:700;">اسمعي من اللي جربوا! فيديو UGC يعرض تجارب حقيقية لنساء جزائريات استمتعن بالراحة والجمال مع طقم الصلاة الملكي من نسائم الإيمان. انضمي إليهن وشاركينا تجربتك المميزة.<br/><br/>✨ **درع الأمان والضمان الذهبي من نسائم الإيمان:**<br/>🚚 توصيل سريع ومؤمّن لـ 58 ولاية.<br/>📦 افتحي و عايني سلعتك قبل ما تخلصي.<br/>⚜️ **ضمان ذهبي:** إذا لم يكن المنتج بنفس الفخامة والراحة الموصوفة، حقك مضمون بالكامل.</div>
+                                </div>
+                                
+                                <div style="font-size:0.9em; color:#666;">المكلف بالتنفيذ: أحمد وإسلام</div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-label="الكود">
+                        <span class="code-badge">P3</span><br/>
+                        <small style="color:#888; font-weight:700;">Static Image</small>
+                    </td>
+                    <td data-label="الهوك (Hook)">
+                        <div class="hook-text">توسيع الرؤية الاستراتيجية...</div>
+                    </td>
+                    <td data-label="التفاصيل">
+                        <button class="btn-open" onclick="openModal('8')">فتح السكربت 📄</button>
+                        
+                        <div id="modal-8" class="modal">
+                            <div class="modal-content">
+                                <span class="close" onclick="closeModal('8')">&times;</span>
+                                <h2 style="font-weight:900; border-bottom:3px solid var(--gold); padding-bottom:10px; margin-bottom:20px;">P3 | تفاصيل المحتوى</h2>
+                                
+                                <div class="modal-section">
+                                    <span class="modal-label">🎬 السيناريو والحوار:</span>
+                                    <div style="white-space: pre-wrap;">صورة ثابتة بأسلوب حياة (Lifestyle) تبرز فكرة الإهداء (Gift Concept)، مثل فتاة تهدي والدتها الطقم.</div>
+                                </div>
+                                
+                                <div class="modal-section" style="background:#fff9e6;">
+                                    <span class="modal-label">📝 نص المنشور (Caption):</span>
+                                    <div style="white-space: pre-wrap; font-weight:700;">أجمل هدية... لأغلى الناس! صورة تعبر عن مفهوم الإهداء مع طقم الصلاة الملكي من نسائم الإيمان، الهدية المثالية التي تجمع بين القيمة الروحية والفخامة.<br/><br/>✨ **درع الأمان والضمان الذهبي من نسائم الإيمان:**<br/>🚚 توصيل سريع ومؤمّن لـ 58 ولاية.<br/>📦 افتحي و عايني سلعتك قبل ما تخلصي.<br/>⚜️ **ضمان ذهبي:** إذا لم يكن المنتج بنفس الفخامة والراحة الموصوفة، حقك مضمون بالكامل.</div>
+                                </div>
+                                
+                                <div style="font-size:0.9em; color:#666;">المكلف بالتنفيذ: عبد الرحمن</div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-label="الكود">
+                        <span class="code-badge">P4</span><br/>
+                        <small style="color:#888; font-weight:700;">Static Image</small>
+                    </td>
+                    <td data-label="الهوك (Hook)">
+                        <div class="hook-text">توسيع الرؤية الاستراتيجية...</div>
+                    </td>
+                    <td data-label="التفاصيل">
+                        <button class="btn-open" onclick="openModal('9')">فتح السكربت 📄</button>
+                        
+                        <div id="modal-9" class="modal">
+                            <div class="modal-content">
+                                <span class="close" onclick="closeModal('9')">&times;</span>
+                                <h2 style="font-weight:900; border-bottom:3px solid var(--gold); padding-bottom:10px; margin-bottom:20px;">P4 | تفاصيل المحتوى</h2>
+                                
+                                <div class="modal-section">
+                                    <span class="modal-label">🎬 السيناريو والحوار:</span>
+                                    <div style="white-space: pre-wrap;">تصميم جرافيكي ثابت يوضح العرض الحالي أو حزمة المنتج، مع عبارة تحفيزية للشراء.</div>
+                                </div>
+                                
+                                <div class="modal-section" style="background:#fff9e6;">
+                                    <span class="modal-label">📝 نص المنشور (Caption):</span>
+                                    <div style="white-space: pre-wrap; font-weight:700;">فرصة لا تعوض! تصميم جرافيكي يوضح عرضنا الخاص على طقم الصلاة الملكي من نسائم الإيمان. لا تفوتي هذه الفرصة لامتلاك الفخامة والراحة.<br/><br/>✨ **درع الأمان والضمان الذهبي من نسائم الإيمان:**<br/>🚚 توصيل سريع ومؤمّن لـ 58 ولاية.<br/>📦 افتحي و عايني سلعتك قبل ما تخلصي.<br/>⚜️ **ضمان ذهبي:** إذا لم يكن المنتج بنفس الفخامة والراحة الموصوفة، حقك مضمون بالكامل.</div>
+                                </div>
+                                
+                                <div style="font-size:0.9em; color:#666;">المكلف بالتنفيذ: عبد الرحمن</div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="total-box">
+        <p style="opacity:0.7; letter-spacing:2px;">الميزانية الإجمالية للاستثمار</p>
+        <span class="price-tag">0 دج</span>
+        <a href="https://wa.me/213770820431" class="wa-btn">اعتماد الاستراتيجية والبدء 🚀</a>
+        <p style="margin-top:40px; opacity:0.5; font-size:0.8em;">WAYSO AGENCY &copy; 2026 | Universal Strategy Engine v2.7</p>
+    </div>
+</div>
+
+<script>
+    function openModal(id) { document.getElementById('modal-' + id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
+    function closeModal(id) { document.getElementById('modal-' + id).style.display = 'none'; document.body.style.overflow = 'auto'; }
+    window.onclick = function(e) { if (e.target.className === 'modal') { e.target.style.display = 'none'; document.body.style.overflow = 'auto'; } }
+</script></body></html>
