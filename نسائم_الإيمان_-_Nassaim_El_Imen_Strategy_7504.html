@@ -1,0 +1,458 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>نسائم الإيمان - Nassaim El Imen Strategy</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+<style>
+    body { background: #FFFFFF; color: #1A1A1A; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; line-height: 1.6; overflow-x: hidden; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 15px; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 2px solid #000; }
+    .wayso-logo { height: 45px; }
+    .brand-name { font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 1.4em; color: #000; text-transform: uppercase; border-right: 4px solid #FFD700; padding-right: 12px; }
+    
+    .analysis-section { margin: 30px 0; }
+    .card-philosophy { padding: 30px; border-radius: 20px; background: #000; color: #FFF; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+    .card-philosophy h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #FFD700; }
+    
+    .card-why { padding: 30px; border-radius: 20px; background: #F9F9F9; color: #333; margin-bottom: 20px; border: 1px solid #EDECE9; }
+    .card-why h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #000; display: flex; align-items: center; gap: 10px; }
+    .card-why h2::after { content: ''; flex-grow: 1; height: 1px; background: #EDECE9; margin-right: 15px; }
+
+    .hero { margin: 35px 0 20px 0; border-right: 6px solid #FFD700; padding-right: 15px; }
+    .hero h1 { font-size: 2.5em; font-weight: 700; margin: 0; }
+    .table-wrapper { margin-top: 25px; border-radius: 12px; overflow: hidden; border: 1px solid #EDECE9; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #000; color: #FFF; padding: 15px; text-align: right; font-size: 0.95em; }
+    td { padding: 20px 12px; border-bottom: 1px solid #EDECE9; vertical-align: top; }
+    
+    .code-badge { font-family: 'Montserrat', sans-serif; font-weight: 700; background: #FFD700; color: #000; padding: 5px 12px; border-radius: 6px; font-size: 1.1em; display: inline-block; margin-bottom: 5px; }
+    .type-label { display: block; font-weight: 700; color: #555; font-size: 0.95em; }
+    
+    .hook-pill { background: #000; color: #FFD700; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 1.1em; display: block; border-right: 5px solid #FFD700; }
+    
+    /* تحسين زر المودال */
+    .script-trigger { background: #F8F9FA; border: 1px solid #EDECE9; padding: 15px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; position: relative; }
+    .script-trigger:hover { background: #FFF; border-color: #FFD700; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transform: translateY(-2px); }
+    
+    .preview-text { font-size: 0.95em; color: #333; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; white-space: pre-wrap; }
+    
+    /* ستايل المودال */
+    .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); }
+    .modal-content { background: #FFF; margin: 5% auto; padding: 30px; border-radius: 20px; width: 90%; max-width: 750px; position: relative; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+    .close-modal { position: absolute; top: 20px; left: 20px; font-size: 30px; cursor: pointer; color: #999; line-height: 1; transition: color 0.2s; }
+    .close-modal:hover { color: #000; }
+    
+    .modal-section { margin-bottom: 25px; padding: 20px; border-radius: 12px; background: #fbfbfa; border: 1px solid #eee; position: relative; }
+    
+    /* زر النسخ */
+    .copy-btn { position: absolute; top: 10px; left: 10px; background: #fff; border: 1px solid #ddd; padding: 5px 10px; border-radius: 6px; cursor: pointer; font-size: 0.8em; font-weight: bold; color: #555; display: flex; align-items: center; gap: 5px; transition: all 0.2s; }
+    .copy-btn:hover { border-color: #FFD700; color: #000; background: #FFD70020; }
+    .copy-btn:active { transform: scale(0.95); }
+    
+    .modal-body { font-size: 1.15em; color: #1A1A1A; line-height: 1.9; word-wrap: break-word; white-space: pre-wrap; }
+    
+    .disclaimer-card { margin: 25px 0; padding: 20px; background: #FFF9E6; border-radius: 12px; border-right: 5px solid #FFC107; font-size: 1.05em; color: #856404; display: flex; align-items: center; gap: 12px; }
+    .summary-box { margin-top: 50px; background: #000; color: #FFF; padding: 40px 20px; border-radius: 25px; text-align: center; }
+    .total-amount { font-family: 'Montserrat'; font-size: 3.5em; font-weight: 700; display: block; color: #FFD700; margin: 10px 0; }
+    .cta-btn { display: inline-block; background: #FFD700; color: #000; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.2em; margin-bottom: 25px; transition: transform 0.2s; }
+    .cta-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px #FFD70060; }
+    
+    .phones-list { margin-top: 15px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; direction: ltr; } 
+    .phone-item { background: #1A1A1A; padding: 8px 15px; border-radius: 8px; border: 1px solid #333; color: #FFF; font-family: 'Montserrat'; font-weight: 700; font-size: 1.2em; white-space: nowrap; }
+
+    @media (max-width: 768px) {
+        thead { display: none; }
+        tr { display: block; border: 1px solid #EDECE9; border-radius: 15px; margin-bottom: 20px; padding: 15px; background: #FFF; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        td { display: block; padding: 10px 0; text-align: right; border-bottom: 1px dashed #eee; }
+        td:last-child { border-bottom: none; }
+        td::before { content: attr(data-label); font-weight: 700; color: #BBB; display: block; font-size: 0.8em; margin-bottom: 6px; text-transform: uppercase; }
+        .brand-name { font-size: 1.1em; }
+        .modal-content { width: 95%; padding: 20px; margin: 10% auto; }
+        .total-amount { font-size: 2.5em; }
+    }
+</style></head><body>
+
+<div class="container">
+    <div class="header">
+        <img src="https://storage.googleapis.com/msgsndr/GwIPQCjstTzxnzDQ1B32/media/68fddb5534bb1597bc934f89.png" class="wayso-logo">
+        <div class="brand-name">نسائم الإيمان - Nassaim El Imen</div>
+    </div>
+
+    <div class="analysis-section">
+        <div class="card-philosophy"><h2>🎯 فلسفة الاستراتيجية</h2><p>نؤمن بأن استثمارك في هذه الحملة هو استثمار في نمو علامتك التجارية. لقد صممنا هذا المزيج المتكامل بعناية لضمان تحقيق أقصى عائد على استثمارك، مستفيدين من قوة الفيديو الرئيسي لتأسيس الوعي، والكاروسالات التعليمية لتعميق الفهم، وصولاً إلى تعزيز الولاء عبر محتوى مؤثر ومقنع.</p></div>
+        <div class="card-why"><h2>💡 لماذا هذه الخطة؟</h2><p>بدأنا بـ V1 لخطف الانتباه وإثارة الفضول حول الحل المتكامل، ثم انتقلنا إلى C2 لتقديم معلومات تفصيلية تعليمية، وصولاً إلى P3 لترسيخ الثقة ومعالجة نقاط الألم المحددة، مما يخلق رحلة عميل سلسة ومقنعة تقود إلى الشراء.</p></div>
+    </div>
+
+    <div class="hero"><h1>خطة الإنتاج الإبداعي</h1></div>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th style="width: 20%;">الكود والنوع</th><th style="width: 30%;">الهوك (Hook)</th><th style="width: 50%;">المحتوى</th></tr></thead>
+            <tbody><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V1</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">ما لقيتيش الهدية لي تعمّر العين؟ و ظهرك يوجعك في الصلاة؟ حبسي هنا، الحل وصل.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('1')">
+                    <div class="preview-text">شحال من خطرة تحوسي على كادو 'همّة' و في التالي تلقاي روحك حايرة؟
+و لاّ تبداي صلاتك... و مع السجدة لو...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-1" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('1')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V1</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-1')">📋 نسخ النص</button>
+                            <div id="script-text-1" class="modal-body">شحال من خطرة تحوسي على كادو 'همّة' و في التالي تلقاي روحك حايرة؟<br/><br/>و لاّ تبداي صلاتك... و مع السجدة لولة ظهرك و ركابيك يبداو يوجعوك، و يروحلك كامل الخشوع.<br/><br/>علابالنا بلي هاد الحيرة و الوجع يخيّبو الأمل.<br/><br/>بصح تخايلي تهديلهم هدية، من أول نظرة في العلبة، عينيهم يلمعو بالفرحة.<br/><br/>تخايلي تصلي التراويح و نتي مرتاحة، في كل سجدة تحسي بالسكينة ماشي بالوجع.<br/><br/>هذا هو الإحساس لي يمدولك طقم 'نسائم الإيمان' الملكي.<br/><br/>كلش مخدوم باتقان... خمار من الحرير، مصحف مغلف بنفس القماش، و سجادة مبطنة تنسيك في وجع المفاصل.<br/><br/>الهدية لي تحمّر الوجه، والراحة لي تخليك تذوقي حلاوة العبادة.<br/><br/>طقم 'نسائم الإيمان': هديتك همّة... وصلاتك قمّة.<br/><br/>و المفاجأة ماشي هنا... كي تطلبي زوج أطقم، عندك تخفيض 15%، و العلبة الفاخرة باطل، مع توصيل لـ 58 ولاية.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-1')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-1" class="modal-body">🎁✨ الهدية لي تحمّر الوجه... والراحة لي تكمّل الخشوع! <br/><br/> راكِي تحوسي على هدية 'همّة وشأن' تفرحي بيها لي عزاز عليك؟ ولاّ حابة ترجعي لصلاتك حلاوتها بلا وجع ظهر ولا ركبتين؟<br/><br/>مع طقم 'نسائم الإيمان' الملكي، جبنالك الحل في علبة واحدة فاخرة:<br/><br/>💎 **فخامة تليق بيك:** خمار حريري ناعم، مصحف بتغليف راقٍ، وسجادة بتصميم يجمع بين الأصالة والعصرية.<br/>☁️ **راحة تنسيك في التعب:** سجادة مبطنة خصيصاً باش توفرلك راحة استثنائية في كل سجدة، خاصة في صلاة التراويح.<br/>🎁 **هدية جاهزة:** كل هذا يجيك في علبة هدايا فخمة، ماعليك غير تقدميها!<br/><br/>طقم 'نسائم الإيمان'... هديتك همّة، وصلاتك قمّة.<br/><br/>🔥 **عرض خاص ومحدود:** اطلبي طقمين واستفيدي من تخفيض 15% + علبة فاخرة مجانية! <br/><br/> اطلبي طقمك الملكي الآن من موقعنا قبل نفاذ الكمية. التوصيل متوفر لـ 58 ولاية والدفع عند الاستلام. <br/><br/> #نسائم_الإيمان #هدايا_راقية #طقم_صلاة #صنع_في_الجزائر #الجزائر #هدية_عروس #راحة_العبادة #فخامة_جزائرية #رمضان_كريم</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[Master Video - إخراج بن صايبي]<br/>- **افتتاحية (0-3 ثواني):** لقطات سريعة ومتقطعة. يد امرأة تمررها على هدايا عادية في محل (لقطة). امرأة أخرى تتململ بألم خفيف وهي تنهض من الصلاة (لقطة). إيقاع سريع وموسيقى استفهامية.<br/>- **مرحلة الألم (4-10 ثواني):** لقطة مقربة على وجه امرأة تبدو حائرة ومحبطة وهي تبحث في هاتفها. ثم لقطة مقربة على ركبتيها وهي على سجادة عادية ورقيقة. النبرة في التعليق الصوتي تكون متعاطفة وتصف المشكلة بدقة.<br/>- **الكشف عن الحل (11-20 ثواني):** لقطة Unboxing بطيئة وفاخرة لعلبة 'نسائم الإيمان'. تفتح العلبة ليكشف عن الطقم المتناسق. إضاءة دافئة وناعمة. الموسيقى تصبح هادئة وراقية. (نبرة الصوت: مطمئنة وكأنها تكشف سراً).<br/>- **عرض التفاصيل (21-35 ثواني):** لقطات Macro (مقربة جداً) على تفاصيل الجودة: ملمس قماش الخمار الحريري وهو ينساب. لمعان تغليف المصحف. لقطة تظهر سمك البطانة في السجادة بالضغط عليها باليد لتبيان راحتها. (نبرة الصوت: فخورة وواثقة).<br/>- **مشهد الاستخدام (36-45 ثواني):** امرأة تصلي بخشوع وسكينة تامة على السجادة المبطنة في غرفة ذات ديكور راقٍ. التركيز على ملامح وجهها المرتاحة. امرأة أخرى تقدم العلبة كهدية والأخرى تستلمها بفرحة عارمة. (نبرة الصوت: دافئة وملهمة).<br/>- **الختام والعرض (46-60 ثواني):** ظهور الطقم الكامل مع العلبة بشكل احترافي. عرض التخفيض (-15% على طقمين)، والعلبة المجانية، وعبارة 'توصيل 58 ولاية' تظهر على الشاشة بخط أنيق. نبرة الصوت تصبح مقنعة ومباشرة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C2</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">فتحنا علبة 'نسائم الإيمان'... شوفو الكنز لي لقيناه لداخل!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('2')">
+                    <div class="preview-text">Slide 1: كل قطعة في طقم 'نسائم الإيمان' تحكي قصة من الفخامة والاتقان. اسحبي الشاشة واكتشفيها معنا.
+S...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-2" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('2')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C2</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-2')">📋 نسخ النص</button>
+                            <div id="script-text-2" class="modal-body">Slide 1: كل قطعة في طقم 'نسائم الإيمان' تحكي قصة من الفخامة والاتقان. اسحبي الشاشة واكتشفيها معنا.<br/><br/>Slide 2: **الخمار الحريري:** لمسة نعومة تكمّل أناقتك. قماش حريري خفيف وبارد، يضمنلك الراحة والثبات طوال صلاتك.<br/><br/>Slide 3: **المصحف الشريف:** كلام ربي في حلة تليق به. مغلف بنفس قماش الخمار الفاخر، بتصميم يجمع بين الوقار والجمال.<br/><br/>Slide 4: **السجادة المبطنة:** سر الخشوع الكامل. بطانة سميكة وعالية الجودة صُممت خصيصاً لراحة مفاصلك في كل سجدة وركعة.<br/><br/>Slide 5: **العلبة الملكية:** القصة تبدأ من أول لمسة. كل هذا الجمال يجيك في علبة فاخرة، جاهزة باش تكون أروع هدية تقدميها.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-2')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-2" class="modal-body">👑✨ وش مخبي في علبة 'نسائم الإيمان'؟ اكتشفي سر الفخامة قطعة بقطعة! <br/><br/> ماشي مجرد طقم صلاة، بل هي تحفة فنية متكاملة صُممت باش تهديك تجربة روحانية فريدة.<br/><br/>اسحبي الشاشة لليمين واكتشفي تفاصيل الجمال:<br/><br/>1️⃣ **الخمار الحريري:** نعومة لا تضاهى لأناقة لا مثيل لها.<br/>2️⃣ **المصحف الشريف:** تصميم راقٍ يجمع كلام الله بأجمل حلة.<br/>3️⃣ **السجادة المبطنة:** وداعاً لآلام المفاصل، مرحباً بالخشوع التام.<br/>4️⃣ **العلبة الملكية:** فخامة تبدأ من التغليف وتكتمل مع المحتوى.<br/><br/>كل تفصيلة مدروسة بعناية لتوفر لكِ 'الهمّة' في هديتك و'القمّة' في صلاتك. <br/><br/> اضغطي على الصور باش تشوفي كل التفاصيل، واطلبي طقمك من موقعنا الآن! <br/><br/> #تفاصيل_الجودة #طقم_صلاة_فاخر #نسائم_الإيمان #خمار_حرير #سجادة_مبطنة #مصحف_مغلف #هدايا_الجزائر #منتج_جزائري</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[كاروسال - إخراج عبد الرحمن]<br/>- **التصميم العام:** خلفية موحدة بألوان البراند الهادئة والراقية (بيج، ذهبي خفيف). استخدام خط عربي أنيق وواضح.<br/>- **Slide 1:** صورة للعلبة وهي شبه مفتوحة، يظهر منها جزء من الطقم. النص يكون في الأعلى بشكل جذاب.<br/>- **Slide 2:** صورة مقربة جداً للخمار وهو موضوع بشكل فني، مع التركيز على ملمس القماش. النص بجانبه مع أيقونة صغيرة تدل على النعومة (ريشة مثلاً).<br/>- **Slide 3:** صورة للمصحف المغلف وهو مفتوح على سورة قرآنية، بزاوية تصوير فنية. النص بجانبه مع أيقونة زخرفة إسلامية.<br/>- **Slide 4:** صورة تُظهر مقطعاً عرضياً للسجادة لإبراز سمك البطانة، أو صورة لقدمين على السجادة لإظهار الراحة. النص بجانبه مع أيقونة تدل على الراحة (سحابة مثلاً).<br/>- **Slide 5:** صورة للطقم كاملاً داخل العلبة المفتوحة، مع الـ CTA في الأسفل. تصميم موحد يجمع كل العناصر.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P3</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">ركابيك وظهرك يوجعوك في كل سجدة؟ ماشي وحدك. الحل راهو هنا.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('3')">
+                    <div class="preview-text">صلاتك خشوع... ماشي وجع....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-3" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('3')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P3</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-3')">📋 نسخ النص</button>
+                            <div id="script-text-3" class="modal-body">صلاتك خشوع... ماشي وجع.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-3')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-3" class="modal-body">💔 هل وجع المفاصل يسرق منك حلاوة الصلاة؟ <br/><br/> نعرفو مليح الإحساس هذاك... تبداي الصلاة بكل خشوع، لكن مع كل سجدة، وجع الركبتين والظهر يبدا يشتت تركيزك. هذا هو الوجع المسكوت عنه لي يعانيو منو بزاف، خاصة كبار السن وأصحاب الصلوات الطويلة.<br/><br/>لهذا السبب صممنا سجادة 'نسائم الإيمان' المبطنة. ماهيش مجرد سجادة، هي الحل باش ترجعي لصلاتك راحتها وسكينتها.<br/><br/>بطانتها السميكة والمريحة تخفف الضغط على مفاصلك وتخليك تركزي في عبادتك وبس.<br/><br/>لأن صلاتك هي لحظة لقاء مع ربي، لازم تكون قمة في الراحة والخشوع. <br/><br/> ما تخليش الوجع يحرمك من لذة السجود. اطلبي سجادتك المبطنة اليوم عبر موقعنا. <br/><br/> #راحة_المفاصل #صلاة_بخشوع #سجادة_طبية #كبار_السن #نسائم_الإيمان #وداعا_للألم #خشوع #صلاة_التراويح #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[منشور مفرد - إخراج عبد الرحمن]<br/>- **الصورة:** صورة عالية الجودة، بتركيز شديد (Focus) على امرأة كبيرة في السن وهي تسجد براحة وسكينة على السجادة المبطنة. يجب أن تكون زاوية التصوير منخفضة لإظهار سمك السجادة بوضوح. الإضاءة دافئة وخافتة لتعزيز الشعور بالهدوء والروحانية.<br/>- **النص على التصميم:** جملة "صلاتك خشوع... ماشي وجع." تُكتب بخط أنيق وواضح في زاوية من الصورة لا تطغى على المشهد الرئيسي.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V4</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">أجمل هدية تبدا بيها العروسة حياتها؟ ماشي ذهب، ماشي مال... شوفو واش!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('4')">
+                    <div class="preview-text">(صوت امرأة يحكي بدفء وعاطفة)
+كي تكون أعز صحبتك راح تتزوج، تحوسي تهديلها حاجة تبقى معاها العمر كامل.
+...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-4" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('4')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V4</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-4')">📋 نسخ النص</button>
+                            <div id="script-text-4" class="modal-body">(صوت امرأة يحكي بدفء وعاطفة)<br/><br/>كي تكون أعز صحبتك راح تتزوج، تحوسي تهديلها حاجة تبقى معاها العمر كامل.<br/><br/>حاجة ماشي مادية برك... حاجة تجبلها البركة لحياتها الجديدة.<br/><br/>خممت بزاف... وفي التالي لقيت الهدية المثالية.<br/><br/>طقم 'نسائم الإيمان'.<br/><br/>كي مدتولها، وشفت الفرحة في عينيها... عرفت بلي خياري كان صواب.<br/><br/>قالتلي: "هذي أحلى هدية جاتني، راح نبدا بيها حياتي الزوجية بالصلاة والدعاء".<br/><br/>ماشي مجرد طقم صلاة... هو دعوة بالخير، هو فال خير يبداو بيه زوج حياتهم.<br/><br/>هديتك للعروس لازم تكون عندها معنى... وهذا هو المعنى الحقيقي.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-4')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-4" class="modal-body">👰‍♀️💍 خير من الذهب... الهدية لي تبدا بيها العروسة حياتها بالبركة! <br/><br/> كل عروس تستاهل هدية تبقى معاها العمر كامل، هدية تذكرها بأجمل بداية... بداية كلها خير وبركة.<br/><br/>طقم 'نسائم الإيمان' ليس مجرد هدية، بل هو رسالة حب ودعاء.<br/><br/>✨ **فخامة تليق بليلتها:** تصميم راقٍ يجمع بين الأناقة والروحانية.<br/>💖 **معنى عميق:** هدية تعينها على العبادة وتكون فال خير على دارها الجديدة.<br/>🎁 **ذكرى لا تُنسى:** في كل مرة تستعمله، راح تتفكر محبتك ودعواتك ليها.<br/><br/>إذا عندك عروسة عزيزة عليك، هذا هو خيارك الأمثل. <br/><br/> اجعلي هديتك للعروس ذكرى لا تُنسى! اكتشفي طقم 'نسائم الإيمان' الملكي عبر موقعنا. <br/><br/> #هدية_عروس #جهاز_العروس #عروس_جزائرية #أفكار_هدايا #نسائم_الإيمان #بركة_الزواج #زواج #الجزائر #هدايا_فخمة</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[فيديو UGC/Storytelling - إخراج أحمد وإسلام]<br/>- **الأسلوب:** تصوير بأسلوب سينمائي دافئ، يشبه الذكريات. استخدام إضاءة ناعمة وألوان فاتحة (بيضاء، ذهبية).<br/>- **المشاهد:<br/>  - (0-5 ثواني):** لقطة ليدين تكتبان بطاقة تهنئة للعروس.<br/>  - (6-15 ثواني):** لقطة للراوية وهي تفتح علبة 'نسائم الإيمان' وتتأملها بحب.<br/>  - (16-25 ثواني):** مشهد فلاش باك (Flashback) لعروس بفستان أبيض (لا يظهر وجهها بالكامل) وهي تبتسم وتستلم الهدية من صديقتها.<br/>  - (26-35 ثواني):** لقطات مقربة للطقم في ديكور غرفة عروس (على السرير، قرب باقة ورد...).<br/>  - (36-45 ثواني):** لقطة ختامية للعلبة المغلقة مع بطاقة التهنئة فوقها.<br/>- **الصوت:** تعليق صوتي نسائي هادئ وعاطفي. موسيقى تصويرية مؤثرة وناعمة جداً.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C5</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">حايرة واش تهدي لعروسة عزيزة عليك؟ اسحبي الشاشة وشوفي الحكاية.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('5')">
+                    <div class="preview-text">Slide 1: لكل عروس... هدية تبدأ بها حياتها ببركة وسكينة.
+Slide 2: حكاية تبدا بطقم صلاة يجمع الفخامة ب...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-5" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('5')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C5</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-5')">📋 نسخ النص</button>
+                            <div id="script-text-5" class="modal-body">Slide 1: لكل عروس... هدية تبدأ بها حياتها ببركة وسكينة.<br/><br/>Slide 2: حكاية تبدا بطقم صلاة يجمع الفخامة بالبركة، باش يرافقها في أول خطواتها.<br/><br/>Slide 3: بتفاصيله الأنيقة... من حرير الخمار إلى تصميم المصحف، هو لمسة 'كلاس' تليق بيومها المميز.<br/><br/>Slide 4: ومع سجادته المبطنة... هي هدية لراحة جسدها وسكينة قلبها. كوني أنتِ صاحبة الهدية التي لا تُنسى.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-5')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-5" class="modal-body">💖✨ احكي قصة حبك لصديقتك العروس... بأجمل هدية! <br/><br/> الهدية المثالية للعروس هي التي تحمل معنى عميقاً وتجمع بين الجمال والبركة.<br/><br/>في هذا الكاروسال، نروي لك قصة الهدية التي ستفرح قلبها وتكون بداية خير لحياتها الجديدة.<br/><br/>اسحبي الشاشة واكتشفي لماذا طقم 'نسائم الإيمان' هو الخيار الأمثل لكل عروس عصرية وأصيلة. <br/><br/> اهديها طقم 'نسائم الإيمان' باش تكوني الأفضل في عينها. اكتشفيه الآن على موقعنا! <br/><br/> #قصة_هدية #عروسة_2024 #هدايا_معنى #جهاز_عروسة #نسائم_الإيمان #أفكار_هدايا_زواج #الجزائر #صديقتي_العروس</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[كاروسال قصصي - إخراج عبد الرحمن]<br/>- **التصميم العام:** طابع عرائسي، استخدام اللون الأبيض والوردي الفاتح والذهبي. خطوط أنيقة ورومانسية.<br/>- **Slide 1:** صورة ليد عروس مزينة بالحناء تمسك بيدها وردة بيضاء، مع النص بشكل شاعري.<br/>- **Slide 2:** صورة للعلبة المفتوحة موضوعة على قماش ساتان أبيض، مع بعض بتلات الورد حولها.<br/>- **Slide 3:** صورة مقربة تجمع بين المصحف والخمار، مع التركيز على تناسقهما.<br/>- **Slide 4:** صورة للسجادة مفروشة في زاوية أنيقة من غرفة نوم، مع النص والـ CTA في الأسفل.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P6</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">شريتي كادو شباب... بصح حاصلة في التغليف؟ الحل في صورة واحدة!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('6')">
+                    <div class="preview-text">هديتك 'همّة'... تبدا من العلبة....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-6" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('6')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P6</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-6')">📋 نسخ النص</button>
+                            <div id="script-text-6" class="modal-body">هديتك 'همّة'... تبدا من العلبة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-6')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-6" class="modal-body">🎁 وقتك ثمين... وهديتك تستاهل تكون فخمة بلا تعب! <br/><br/> نعرفو مليح هذاك السيناريو: تلقاي الهدية المثالية، ومن بعد تبدا رحلة البحث عن تغليف يليق بيها... تضيعي وقتك وجهدك وفي الأخير النتيجة ماشي كيما حبيتي.<br/><br/>هذا هو الوجع المسكوت عنه لي حليناهولك!<br/><br/>مع كل طقم 'نسائم الإيمان'، تجيك علبة هدايا ملكية مجاناً! مصممة بنفس روح الفخامة والجودة.<br/><br/>مهمتك الوحيدة هي تقديم الهدية، ومهمتنا هي نضمنولك أنها تبان 'همّة وشأن' من أول نظرة. <br/><br/> وفّري وقتك وجهدك! علبة 'نسائم الإيمان' توصلك جاهزة للإهداء. اطلبيها اليوم من موقعنا. <br/><br/> #تغليف_هدايا #علبة_فاخرة #هدية_جاهزة #راحة_البال #نسائم_الإيمان #توفير_الوقت #هدايا_انيقة #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[منشور مفرد - إخراج عبد الرحمن]<br/>- **الصورة:** لقطة احترافية جداً للعلبة الفاخرة وهي مغلقة، موضوعة على خلفية بسيطة وراقية. يتم التركيز على جودة العلبة وشعار 'نسائم الإيمان' المطبوع بأناقة. يمكن وضع شريط ساتان بجانب العلبة لإضافة لمسة جمالية.<br/>- **النص على التصميم:** جملة "هديتك 'همّة'... تبدا من العلبة." بخط ذهبي أنيق.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V7</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">رمضان على الأبواب... والتراويح طويلة. هل ظهرك مستعد؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('7')">
+                    <div class="preview-text">(صوت هادئ وروحاني، مع صوت خفيف للقرآن في الخلفية)
+رمضان يقترب... شهر السكينة والخشوع.
+تطول فيه السجد...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-7" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('7')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V7</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-7')">📋 نسخ النص</button>
+                            <div id="script-text-7" class="modal-body">(صوت هادئ وروحاني، مع صوت خفيف للقرآن في الخلفية)<br/><br/>رمضان يقترب... شهر السكينة والخشوع.<br/><br/>تطول فيه السجدات، وتكثر فيه الركعات... خاصة في صلاة التراويح.<br/><br/>لكن ساعات، وجع الظهر والمفاصل يسرق منا لذة العبادة هذي.<br/><br/>تولي تخمم في الوجع كثر من الخشوع.<br/><br/>بصح... كاين حل.<br/><br/>حل يخليك تعيشي كل لحظة من رمضان براحة وطمأنينة.<br/><br/>سجادة 'نسائم الإيمان' المبطنة... رفيقتك في هذا الشهر الفضيل.<br/><br/>باش تكون صلاتك... قمة في الخشوع... وقمة في الراحة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-7')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-7" class="modal-body">🌙✨ استعدي لرمضان بقلب خاشع... وجسد مرتاح! <br/><br/> أيام قليلة تفصلنا عن أعظم الشهور، شهر رمضان الذي ننتظره بشوق لنعيش أجوائه الروحانية وصلواته الطويلة.<br/><br/>لكن هل فكرتِ في راحتك الجسدية خلال صلاة التراويح؟ الإرهاق وألم المفاصل قد يقلل من خشوعك.<br/><br/>طقم 'نسائم الإيمان' بسجادته المبطنة خصيصاً هو الحل المثالي لتعبدي ربك براحة تامة، وتركزي في صلاتك ودعائك فقط.<br/><br/>استثمري في راحتك... لتكون عبادتك أكمل. <br/><br/> استعدي لرمضان بقلب مرتاح وجسد هادئ! اطلبي طقم 'نسائم الإيمان' قبل فوات الأوان. <br/><br/> #رمضان_2024 #استعدادات_رمضان #صلاة_التراويح #خشوع_وراحة #نسائم_الإيمان #شهر_الخير #راحة_جسدية #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[فيديو Motion Graphics/Storytelling - إخراج أحمد وإسلام]<br/>- **الأسلوب:** فيديو برسوم متحركة (Motion Graphics) أنيقة وبسيطة، مع دمج لقطات حقيقية.<br/>- **المشاهد:<br/>  - (0-5 ثواني):** رسم هلال رمضان يظهر في سماء ليلية هادئة، مع عبارة 'رمضان يقترب'.<br/>  - (6-15 ثواني):** رسم متحرك لشخصية كرتونية (ظل امرأة) تصلي وتشعر بعدم الراحة، مع ظهور أيقونات ألم خفيفة عند الظهر والركب.<br/>  - (16-25 ثواني):** انتقال سلس لمشهد حقيقي Slow-motion للسجادة وهي تُفرش على الأرض، مع إظهار بطانتها المريحة.<br/>  - (26-35 ثواني):** تعود الشخصية الكرتونية لتصلي على السجادة الجديدة، ويظهر حولها نور وهالة من الراحة والسكينة.<br/>  - (36-45 ثواني):** ظهور الطقم الكامل مع العلبة في مشهد رمضاني (فانوس، تمر...).<br/>- **الصوت:** تعليق صوتي بطيء وهادئ جداً. موسيقى روحانية بدون إيقاع صاخب.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C8</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">التراويح طويلة و وجع الركب يقطعلك خشوعك؟ الحل في 5 صور.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('8')">
+                    <div class="preview-text">Slide 1: هل تعانين من آلام الركب والظهر في صلاة التراويح؟ لستِ وحدكِ.
+Slide 2: الحل بسيط! قولي وداعا...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-8" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('8')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C8</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-8')">📋 نسخ النص</button>
+                            <div id="script-text-8" class="modal-body">Slide 1: هل تعانين من آلام الركب والظهر في صلاة التراويح؟ لستِ وحدكِ.<br/><br/>Slide 2: الحل بسيط! قولي وداعاً للألم مع سجادة 'نسائم الإيمان' المبطنة.<br/><br/>Slide 3: السر؟ بطانة عالية الكثافة مصممة لامتصاص الضغط على المفاصل وتوفير دعم لا مثيل له.<br/><br/>Slide 4: النتيجة؟ خشوع تام وتركيز كامل في صلاتك، من التكبيرة الأولى حتى التسليم.<br/><br/>Slide 5: استمتعي بكل لحظة من رمضان. صلاتك تستحق هذه الراحة. اطلبيها الآن!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-8')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-8" class="modal-body">🌙 5 أسباب تخلي سجادة 'نسائم الإيمان' رفيقتك المثالية في رمضان! <br/><br/> صلاة التراويح من أعظم متع رمضان، لكن الألم الجسدي قد يفسدها.<br/><br/>اكتشفي في هذا الكاروسال كيف يمكن لسجادتنا المبطنة أن تغير تجربتك في الصلاة هذا العام.<br/><br/>اسحبي الشاشة وتعرفي على الحل الذي سيعيد لك الراحة والخشوع. <br/><br/> رمضان هذا صلّي براحة تامة! اكتشفي السجادة المبطنة واطلبيها اليوم عبر موقعنا. <br/><br/> #صلاة_التراويح_2024 #رمضان_كريم #راحة_المفاصل #سجادة_مريحة #نسائم_الإيمان #حلول_عملية #عبادة_براحة #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[كاروسال تعليمي - إخراج عبد الرحمن]<br/>- **التصميم العام:** تصميم واضح ومباشر. استخدام أيقونات ورسوم توضيحية بسيطة. كل سلايد يعالج نقطة واحدة.<br/>- **Slide 1:** صورة لامرأة تضع يدها على ركبتها بألم خفيف، مع خلفية رمضانية. السؤال مكتوب بخط كبير وواضح.<br/>- **Slide 2:** صورة للسجادة بشكل جذاب، مع علامة 'صح' كبيرة بجانبها.<br/>- **Slide 3:** رسم توضيحي (Infographic) يظهر طبقات السجادة والبطانة الداخلية، مع أسهم تشرح كيفية عملها.<br/>- **Slide 4:** صورة لامرأة تصلي بسكينة وراحة، مع هالة نور حولها لترمز للخشوع.<br/>- **Slide 5:** صورة للطقم الكامل مع دعوة صريحة للشراء.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P9</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">بقالك وقت قليل على رمضان... هل حضرتي روحك ودارك لأعظم ضيف؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('9')">
+                    <div class="preview-text">رمضانك يبدأ من هنا... بالراحة والجمال....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-9" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('9')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P9</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-9')">📋 نسخ النص</button>
+                            <div id="script-text-9" class="modal-body">رمضانك يبدأ من هنا... بالراحة والجمال.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-9')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-9" class="modal-body">⏳ الوقت يمضي... وضيفنا العزيز على الأبواب! هل أنتِ مستعدة؟ <br/><br/> الاستعداد لرمضان ليس فقط بالقلب والنية، بل بتهيئة كل ما يعيننا على العبادة بأفضل حال.<br/><br/>تجهيز ركن الصلاة الخاص بك، واقتناء ما يريحك ويجملك في وقوفك بين يدي الله هو جزء من هذا الاستعداد.<br/><br/>طقم 'نسائم الإيمان' صُمم ليكون رفيقك في هذا الشهر، ليضيف لمسة من الجمال لصلاتك، وقمة من الراحة لعبادتك.<br/><br/>لا تنتظري اللحظة الأخيرة. <br/><br/> اجعلي رمضانك هذا استثنائياً. اطلبي طقم 'نسائم الإيمان' وتهنّاي من اليوم! <br/><br/> #تحضيرات_رمضان #رمضان_يقترب #ركن_الصلاة #نسائم_الإيمان #عبادة #روحانيات #الجزائر #شهر_العبادة</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[منشور مفرد - إخراج عبد الرحمن]<br/>- **الصورة:** صورة ذات طابع فني وروحاني. جزء من طقم الصلاة (مثلاً المصحف المغلف) موضوع بجانب فانوس مضاء وتمرات في صحن أنيق. الأجواء هادئة ودافئة، والألوان توحي بقدوم رمضان.<br/>- **النص على التصميم:** جملة "رمضانك يبدأ من هنا... بالراحة والجمال" تُكتب بخط عربي جميل ومميز.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr></tbody></table></div>
+
+    <div class="disclaimer-card">
+        <span style="font-size: 1.2em;">⚠️</span>
+        <span>قد تخضع هذه الاستراتيجية لبعض التعديلات والتحسينات، حسب المواد الإعلامية المتوفرة أو لغرض تحقيق أفضل النتائج.</span>
+    </div>
+
+    <div class="summary-box">
+        <span style="font-weight: 700; color: #FFD700;">الميزانية الإجمالية المعتمدة</span>
+        <span class="total-amount">64000 دج</span>
+        <a href="https://wa.me/213770820431" class="cta-btn">تواصل معنا للاعتماد</a>
+        <div style="border: 1px dashed #FFD700; padding: 25px; border-radius: 15px; margin-top: 20px;">
+            <h3 style="color:#FFD700; margin:0;">الخطوة التالية</h3>
+            <p style="margin:10px 0;">مكالمة قصيرة لنكيّف هذه الاستراتيجية حسب مشروعك ونبدأ العمل فوراً.</p>
+            <div class="phones-list">
+                <div class="phone-item">0770 82 04 31</div>
+                <div class="phone-item">0770 55 01 51</div>
+                <div class="phone-item">0770 82 01 45</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+function openModal(id) { document.getElementById('modal-' + id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
+function closeModal(id) { document.getElementById('modal-' + id).style.display = 'none'; document.body.style.overflow = 'auto'; }
+window.onclick = function(event) { if (event.target.className === 'modal') { event.target.style.display = 'none'; document.body.style.overflow = 'auto'; } }
+
+// وظيفة النسخ الجديدة
+function copyToClipboard(elementId) {
+    const el = document.getElementById(elementId);
+    const text = el.innerText || el.textContent; // نسخ النص بدون HTML tags
+    navigator.clipboard.writeText(text).then(() => {
+        alert("تم نسخ النص بنجاح! ✅");
+    }).catch(err => {
+        console.error('Failed to copy', err);
+    });
+}
+</script></body></html>
