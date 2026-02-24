@@ -1,0 +1,797 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Oleum Strategy</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+<style>
+    body { background: #FFFFFF; color: #1A1A1A; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; line-height: 1.6; overflow-x: hidden; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 15px; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 2px solid #000; }
+    .wayso-logo { height: 45px; }
+    .brand-name { font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 1.4em; color: #000; text-transform: uppercase; border-right: 4px solid #FFD700; padding-right: 12px; }
+    
+    .analysis-section { margin: 30px 0; }
+    .card-philosophy { padding: 30px; border-radius: 20px; background: #000; color: #FFF; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+    .card-philosophy h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #FFD700; }
+    
+    .card-why { padding: 30px; border-radius: 20px; background: #F9F9F9; color: #333; margin-bottom: 20px; border: 1px solid #EDECE9; }
+    .card-why h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #000; display: flex; align-items: center; gap: 10px; }
+    .card-why h2::after { content: ''; flex-grow: 1; height: 1px; background: #EDECE9; margin-right: 15px; }
+
+    .hero { margin: 35px 0 20px 0; border-right: 6px solid #FFD700; padding-right: 15px; }
+    .hero h1 { font-size: 2.5em; font-weight: 700; margin: 0; }
+    .table-wrapper { margin-top: 25px; border-radius: 12px; overflow: hidden; border: 1px solid #EDECE9; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #000; color: #FFF; padding: 15px; text-align: right; font-size: 0.95em; }
+    td { padding: 20px 12px; border-bottom: 1px solid #EDECE9; vertical-align: top; }
+    
+    .code-badge { font-family: 'Montserrat', sans-serif; font-weight: 700; background: #FFD700; color: #000; padding: 5px 12px; border-radius: 6px; font-size: 1.1em; display: inline-block; margin-bottom: 5px; }
+    .type-label { display: block; font-weight: 700; color: #555; font-size: 0.95em; }
+    
+    .hook-pill { background: #000; color: #FFD700; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 1.1em; display: block; border-right: 5px solid #FFD700; }
+    
+    /* تحسين زر المودال */
+    .script-trigger { background: #F8F9FA; border: 1px solid #EDECE9; padding: 15px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; position: relative; }
+    .script-trigger:hover { background: #FFF; border-color: #FFD700; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transform: translateY(-2px); }
+    
+    .preview-text { font-size: 0.95em; color: #333; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; white-space: pre-wrap; }
+    
+    /* ستايل المودال */
+    .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); }
+    .modal-content { background: #FFF; margin: 5% auto; padding: 30px; border-radius: 20px; width: 90%; max-width: 750px; position: relative; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+    .close-modal { position: absolute; top: 20px; left: 20px; font-size: 30px; cursor: pointer; color: #999; line-height: 1; transition: color 0.2s; }
+    .close-modal:hover { color: #000; }
+    
+    .modal-section { margin-bottom: 25px; padding: 20px; border-radius: 12px; background: #fbfbfa; border: 1px solid #eee; position: relative; }
+    
+    /* زر النسخ */
+    .copy-btn { position: absolute; top: 10px; left: 10px; background: #fff; border: 1px solid #ddd; padding: 5px 10px; border-radius: 6px; cursor: pointer; font-size: 0.8em; font-weight: bold; color: #555; display: flex; align-items: center; gap: 5px; transition: all 0.2s; }
+    .copy-btn:hover { border-color: #FFD700; color: #000; background: #FFD70020; }
+    .copy-btn:active { transform: scale(0.95); }
+    
+    .modal-body { font-size: 1.15em; color: #1A1A1A; line-height: 1.9; word-wrap: break-word; white-space: pre-wrap; }
+    
+    .disclaimer-card { margin: 25px 0; padding: 20px; background: #FFF9E6; border-radius: 12px; border-right: 5px solid #FFC107; font-size: 1.05em; color: #856404; display: flex; align-items: center; gap: 12px; }
+    .summary-box { margin-top: 50px; background: #000; color: #FFF; padding: 40px 20px; border-radius: 25px; text-align: center; }
+    .total-amount { font-family: 'Montserrat'; font-size: 3.5em; font-weight: 700; display: block; color: #FFD700; margin: 10px 0; }
+    .cta-btn { display: inline-block; background: #FFD700; color: #000; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.2em; margin-bottom: 25px; transition: transform 0.2s; }
+    .cta-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px #FFD70060; }
+    
+    .phones-list { margin-top: 15px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; direction: ltr; } 
+    .phone-item { background: #1A1A1A; padding: 8px 15px; border-radius: 8px; border: 1px solid #333; color: #FFF; font-family: 'Montserrat'; font-weight: 700; font-size: 1.2em; white-space: nowrap; }
+
+    @media (max-width: 768px) {
+        thead { display: none; }
+        tr { display: block; border: 1px solid #EDECE9; border-radius: 15px; margin-bottom: 20px; padding: 15px; background: #FFF; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        td { display: block; padding: 10px 0; text-align: right; border-bottom: 1px dashed #eee; }
+        td:last-child { border-bottom: none; }
+        td::before { content: attr(data-label); font-weight: 700; color: #BBB; display: block; font-size: 0.8em; margin-bottom: 6px; text-transform: uppercase; }
+        .brand-name { font-size: 1.1em; }
+        .modal-content { width: 95%; padding: 20px; margin: 10% auto; }
+        .total-amount { font-size: 2.5em; }
+    }
+</style></head><body>
+
+<div class="container">
+    <div class="header">
+        <img src="https://storage.googleapis.com/msgsndr/GwIPQCjstTzxnzDQ1B32/media/68fddb5534bb1597bc934f89.png" class="wayso-logo">
+        <div class="brand-name">Oleum</div>
+    </div>
+
+    <div class="analysis-section">
+        <div class="card-philosophy"><h2>🎯 فلسفة الاستراتيجية</h2><p>في Wayso، نؤمن بأن النجاح الحقيقي لعملائنا هو انعكاس لخبرتنا الاستراتيجية. هذه الخطة ليست مجرد تسلسل محتوى، بل هي هندسة دقيقة لرحلة العميل، مصممة لتحويل الشك إلى ثقة، والاهتمام إلى ولاء. نحن شركاء نجاحك، ونقدم لك استثماراً مدروساً بعناية فائقة يضمن لك تحقيق أهدافك التجارية، بل وتجاوزها.</p></div>
+        <div class="card-why"><h2>💡 لماذا هذه الخطة؟</h2><p>بدأنا بـ V1 لخطف الانتباه ومعالجة نقطة الألم الرئيسية فوراً، ثم تدرجنا عبر الكاروسالات والصور (C2, P3...) لتقديم إثبات اجتماعي وعلمي وبناء الثقة تدريجياً. هذا التسلسل النفسي يقود العميل من حالة اللاوعي بالمشكلة إلى الاقتناع بالحل، وصولاً إلى قرار الشراء الواثق.</p></div>
+    </div>
+
+    <div class="hero"><h1>خطة الإنتاج الإبداعي</h1></div>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th style="width: 20%;">الكود والنوع</th><th style="width: 30%;">الهوك (Hook)</th><th style="width: 50%;">المحتوى</th></tr></thead>
+            <tbody><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V1</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الدراهم لي خسرتيهم على زيوت الشعر كون لميتيهم كون شريتي ذهب! بصح النتيجة؟ والو.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('1')">
+                    <div class="preview-text">شحال من مرة شريتي زيت غالي، و درتيه لشعرك بكل أمل... 
+و في الأخير؟ والو. نفس الفراغات، نفس الشعر لي ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-1" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('1')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V1</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-1')">📋 نسخ النص</button>
+                            <div id="script-text-1" class="modal-body">شحال من مرة شريتي زيت غالي، و درتيه لشعرك بكل أمل... <br/><br/>و في الأخير؟ والو. نفس الفراغات، نفس الشعر لي يطيح، و نفس الإحباط.<br/><br/>المشكل ماشي فيك... و ماشي حتى في الزيت.<br/><br/>المشكل الحقيقي هو أن فروة رأسك لا تمتصه كما يجب.<br/><br/>الزيت يبقى على السطح، يغلق المسامات، و ما يوصلش للبصيلات باش يغذيها.<br/><br/>هذا هو السبب لي يخليك تدوري في حلقة مفرغة.<br/><br/>بصح اليوم، هذه الحلقة ستُكسر.<br/><br/>نقدم لكِ Oleum. ماشي مجرد زيت، هو نظام علاجي متكامل.<br/><br/>بفضل جهازه الذي يعمل بالذبذبات الدقيقة والحرارة الخفيفة، Oleum يفتح مسامات فروة الرأس ويضمن وصول كل قطرة زيت لأعماق البصيلات.<br/><br/>امتصاص كامل يعني تغذية حقيقية... ونتائج تبدئين برؤيتها بعينيك.<br/><br/>تخيلي شعرك يعود حيوياً، قوياً، والفراغات تبدأ بالامتلاء...<br/><br/>تخيلي أن تعودي لعمل أي تسريحة تحبينها بكل ثقة.<br/><br/>هذا هو وعد Oleum.<br/><br/>وكي نؤكد لك أن هذا ليس مجرد كلام، نقدم لك ضماناً لم تريه من قبل.<br/><br/>لديكِ 45 يوماً لتجربة نظام Oleum.<br/><br/>إذا لم تري الفرق الذي يرضيكِ، أعيديه وسنعيد لكِ أموالك بالكامل.<br/><br/>المخاطرة علينا، والنتيجة لكِ.<br/><br/>انتهى وقت التجارب الفاشلة. حان وقت الحل النهائي والمضمون.<br/><br/>اضغطي على الرابط في الأسفل، وابدئي رحلة استرجاع جمال شعرك وثقتك بنفسك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-1')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-1" class="modal-body">🚨 انتهى وقت التجارب الفاشلة! الحل النهائي لشعرك هنا... ومضمون.<br/><br/>لماذا Oleum ليس كأي منتج جربتيه من قبل؟ لأنه ليس مجرد زيت، بل نظام علمي متكامل يحل المشكلة من جذورها!<br/><br/>يضمن امتصاصاً كاملاً للزيت بفضل تقنيته الفريدة، ويوصل التغذية مباشرة للبصيلات.<br/><br/>ولأننا واثقون من النتيجة 100%، نمنحك ضمان استرجاع أموالك لمدة 45 يوماً. إما أن يعود شعرك، أو تعود أموالك.<br/><br/>ليس لديكِ ما تخسرينه، سوى الشعر الذي يتساقط!<br/><br/>اكتشفي نظام Oleum الذي أعاد الثقة لآلاف السيدات! اضغطي هنا وشاهدي الفرق بعينيك!<br/><br/>#OleumDZ #عناية_بالشعر #تساقط_الشعر #الحل_النهائي #ضمان_ذهبي #صنع_في_الجزائر #جمالك</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">مونتاج احترافي (بن صايبي). يبدأ الفيديو بمشاهد سريعة بالأبيض والأسود لسيدات محبطات وهن يستعملن زيوت تقليدية (يدين مزيتة، فوضى). ثم انتقال بطيء بالألوان لمشهد هادئ وفاخر يظهر جهاز Oleum. لقطات مقربة (Close-up) على الجهاز وهو يعمل على فروة الرأس، مع رسوم متحركة (Motion Graphics) تظهر الزيت وهو يتغلغل عميقاً للبصيلات. موسيقى تصويرية درامية في البداية، ثم تصبح ملهمة وواثقة. عندما يذكر الضمان، يظهر ختم 'ضمان 45 يوم' بشكل بارز على الشاشة. ينتهي بمشهد لسيدة تنظر في المرآة بثقة وسعادة وشعرها يبدو كثيفاً. نبرة الصوت: تبدأ حزينة ومتعاطفة، ثم تصبح علمية وواثقة، وتنتهي قوية ومقنعة عند ذكر الضمان.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C2</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">خايفة تخسري دراهمك في باطل؟ Oleum تقولك: 'يا يرجعلك شعرك، يا يرجعولك دراهمك'.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('2')">
+                    <div class="preview-text">Slide 1: ضمان حقيقي، ليس مجرد حبر على ورق!
+لديكِ ضمان فعلي لمدة 45 يوماً لاسترجاع أموالك.
+Slide 2: ا...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-2" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('2')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C2</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-2')">📋 نسخ النص</button>
+                            <div id="script-text-2" class="modal-body">Slide 1: ضمان حقيقي، ليس مجرد حبر على ورق!<br/><br/>لديكِ ضمان فعلي لمدة 45 يوماً لاسترجاع أموالك.<br/><br/>Slide 2: الشروط؟ بسيطة وواضحة.<br/><br/>استخدمي نظامنا بانتظام كما هو موضح في التعليمات. هذا كل شيء!<br/><br/>Slide 3: وإذا لم أرَ نتائج؟<br/><br/>بكل بساطة، تواصلي مع خدمة العملاء، أعيدي المنتج، وأموالك ستعود إليكِ كاملة. بدون أسئلة معقدة.<br/><br/>Slide 4: لماذا نقدم هذا الضمان؟<br/><br/>لأننا نثق في العلم وراء Oleum وفي النتائج التي سيحققها. ثقتنا في المنتج هي ضمانك.<br/><br/>Slide 5: كلمتنا الأخيرة لكِ:<br/><br/>النظام الذي يعيد لك شعرك، أو يعيد لك أموالك. الاختيار سهل.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-2')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-2" class="modal-body">🔐 ضمان لم تريه من قبل في الجزائر!<br/><br/>نحن نسمعكِ... نعلم أنكِ سئمتِ من الوعود الكاذبة والمنتجات غير الفعالة.<br/><br/>لهذا السبب في Oleum، لا نبيعكِ الكلام، بل نبيعكِ نتيجة مضمونة.<br/><br/>جرّبي نظامنا لمدة 45 يوماً كاملاً. إذا لم تعجبكِ النتيجة، سنعيد لكِ أموالك 100%.<br/><br/>هذا هو الفرق بين منتج عادي، ونظام علمي واثق من فعاليته.<br/><br/>شاهدي كيف يضمن Oleum حقكِ بضمان حقيقي! اضغطي هنا لمعرفة كل التفاصيل!<br/><br/>#ضمان_Oleum #ثقة #بدون_مخاطرة #الجزائر #عناية_بالشعر #منتج_جزائري #شعر_صحي</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم إنفوجرافيك نظيف وفاخر. استخدام أيقونات بسيطة لكل سلايد (أيقونة شهادة، أيقونة قائمة شروط، أيقونة بنك، أيقونة ثقة). الخلفية بألوان الماركة الهادئة. الخط واضح وسهل القراءة. في السلايد الأخير، صورة واضحة للمنتج مع شعار الضمان الذهبي.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P3</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">السر ليس في الزيت... السر يكمن تحت فروة رأسك!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('3')">
+                    <div class="preview-text">95% من الزيوت التقليدية تبقى على السطح.
+نظام Oleum يضمن امتصاصاً عميقاً بنسبة تفوق 80%.
+الفرق؟ هو ال...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-3" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('3')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P3</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-3')">📋 نسخ النص</button>
+                            <div id="script-text-3" class="modal-body">95% من الزيوت التقليدية تبقى على السطح.<br/><br/>نظام Oleum يضمن امتصاصاً عميقاً بنسبة تفوق 80%.<br/><br/>الفرق؟ هو الفرق بين 'لا نتيجة' و 'نتيجة حقيقية'.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-3')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-3" class="modal-body">🔬 لماذا Oleum مختلف عن أي زيت آخر؟ السر في الامتصاص.<br/><br/>يمكنكِ استخدام أغلى زيت في العالم، لكن إذا لم يصل إلى البصيلة، فلم تفعلي شيئاً.<br/><br/>تقنية Oleum تضمن أن كل مكون فعال في الزيت يصل إلى حيث يجب أن يصل. هكذا تبدأ النتائج بالظهور.<br/><br/>كفى من الحلول السطحية، حان وقت الحلول العميقة.<br/><br/>اكتشفي سر الامتصاص الكامل الذي يجعل شعرك يستفيد 100%! زوري موقعنا الآن!<br/><br/>#علم_الشعر #امتصاص_كامل #تقنية_Oleum #فعالية_مضمونة #شعر_قوي #الجزائر #dzpower</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم نظيف جداً. صورة عبوة Oleum في جهة، وفي الجهة الأخرى رسم بياني بسيط يوضح الفرق في عمق الامتصاص بين الزيت التقليدي ونظام Oleum. استخدام أرقام ونسب مئوية واضحة. الألوان هادئة وعلمية.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V4</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">فوضى الزيوت، الأيدي اللزجة، والنتيجة غير مضمونة! انتهى هذا الكابوس.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('4')">
+                    <div class="preview-text">السلام عليكم، أعلم أننا جميعاً نحب عمل حمام زيت لشعرنا.
+لكن لنكن صريحين... العملية فوضوية.
+الزيت ينس...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-4" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('4')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V4</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-4')">📋 نسخ النص</button>
+                            <div id="script-text-4" class="modal-body">السلام عليكم، أعلم أننا جميعاً نحب عمل حمام زيت لشعرنا.<br/><br/>لكن لنكن صريحين... العملية فوضوية.<br/><br/>الزيت ينسكب في كل مكان، يداكِ تتسخان، والرائحة تلتصق بكِ.<br/><br/>وفي النهاية، لا نكون متأكدين إذا وضعنا الكمية المناسبة أو إذا وزعناها جيداً.<br/><br/>كل هذه الفوضى أصبحت من الماضي مع نظام Oleum.<br/><br/>شاهدوا معي كم هو سهل.<br/><br/>تفتحين الجهاز، تملئينه بالزيت المخصص له، وتغلقينه. كل شيء نظيف ومقنن.<br/><br/>بعد ذلك، بضغطة زر، تبدئين بتدليك فروة رأسك بلطف.<br/><br/>الجهاز يوزع الزيت مباشرة على الجذور، بالكمية المثالية، دون أن يتسخ شعرك أو يداكِ.<br/><br/>لا فوضى، لا زيت مهدر، ولا رائحة مزعجة.<br/><br/>هذا هو الحل العلمي الذي يجعلكِ تستمتعين بفوائد الزيت دون متاعبه.<br/><br/>الجمال يجب أن يكون متعة، لا فوضى.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-4')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-4" class="modal-body">وداعاً لفوضى الزيوت التقليدية! 👋<br/><br/>هل ترغبين بعمل حمام زيت لكنكِ تكرهين الفوضى والأيدي الدهنية؟<br/><br/>الحل العلمي وصل! نظام Oleum يجعلكِ تستفيدين من كل قطرة زيت، بطريقة نظيفة، سهلة، وفعالة.<br/><br/>شاهدي الفيديو واكتشفي كيف يمكن للتكنولوجيا أن تغير روتين العناية الخاص بكِ للأفضل.<br/><br/>شاهدي كيف يحل Oleum مشكلة فوضى الزيوت مرة واحدة وإلى الأبد! اضغطي هنا لرؤية النظام!<br/><br/>#نظافة #سهولة_الاستعمال #روتين_العناية #شعر_جميل #تكنولوجيا_الجمال #Oleum_System #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">الوجه الإعلامي (أحمد/إسلام) يتحدث مباشرة للكاميرا في بيئة منزلية نظيفة وأنيقة. يبدأ وهو يمثل بطريقة كوميدية معاناة استعمال الزيت التقليدي. ثم ينتقل ليظهر جهاز Oleum ويقوم بعرض توضيحي (Demo) لكل خطوة بسهولة ونظافة. لقطات مقربة على نظافة اليدين بعد الاستعمال. نبرة الصوت: ودودة، متعاطفة في البداية، ثم تصبح عملية ومتحمسة عند شرح الحل.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C5</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">شعرك يستحق العناية، وليس الفوضى. شاهدي كيف يعيد Oleum اللمعان في 3 خطوات نظيفة.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('5')">
+                    <div class="preview-text">Slide 1: نظام Oleum في 3 خطوات بسيطة: بلا فوضى، بلا عناء!
+Slide 2: الخطوة 1: املئي.
+افتحي الجهاز وام...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-5" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('5')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C5</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-5')">📋 نسخ النص</button>
+                            <div id="script-text-5" class="modal-body">Slide 1: نظام Oleum في 3 خطوات بسيطة: بلا فوضى، بلا عناء!<br/><br/>Slide 2: الخطوة 1: املئي.<br/><br/>افتحي الجهاز واملئيه بالزيت المخصص بطريقة نظيفة ومقننة.<br/><br/>Slide 3: الخطوة 2: دلّكي.<br/><br/>مرري الجهاز على فروة رأسك. استمتعي بتدليك موجه وفعال يوزع الزيت مباشرة على الجذور.<br/><br/>Slide 4: الخطوة 3: استمتعي.<br/><br/>اتركي الزيت يتغلغل بعمق. لا يترك أثراً دهنياً على الشعر أو اليدين.<br/><br/>Slide 5: الفرق واضح.<br/><br/>صورة جنب لجنب: 'الطريقة التقليدية (فوضى)' مقابل 'نظام Oleum (نظافة ودقة)'.<br/><br/>Slide 6: الجمال بلا عناء.<br/><br/>تقنية Oleum تجعلكِ تستمتعين بالنتيجة، دون عناء التحضير والتنظيف!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-5')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-5" class="modal-body">👌 3 خطوات فقط لشعر أحلامك... دون أن تتسخ يداكِ!<br/><br/>من قال إن العناية بالشعر يجب أن تكون معقدة وتسبب الفوضى؟<br/><br/>مع نظام Oleum، روتين العناية الخاص بكِ يصبح أسهل، أنظف، وأكثر فعالية.<br/><br/>اسحبي الشاشة وشاهدي بنفسك كم هو سهل أن تبدئي رحلتك نحو شعر صحي وقوي.<br/><br/>شاهدي كم هو سهل استخدام Oleum والاستمتاع بالنتائج! اضغطي هنا!<br/><br/>#دليل_الاستخدام #سهل_وسريع #شعر_صحي #العناية_بالشعر #Oleum #الجزائر #dz</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم تعليمي مع رسومات توضيحية (Illustrations) لكل خطوة. الألوان زاهية وواضحة. استخدام أسهم وأرقام لتوجيه عين المشاهد. في السلايد 5، صورة حقيقية أو رسم واقعي يوضح الفرق بشكل درامي. الخط كبير ومقروء.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P6</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">ليست مجرد نتائج لشعرك... بل وداعاً لـ 'الأيدي الدهنية'!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('6')">
+                    <div class="preview-text">النتيجة في شعرك، لا في يديك.
+نظام Oleum: نظافة، دقة، وفعالية....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-6" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('6')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P6</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-6')">📋 نسخ النص</button>
+                            <div id="script-text-6" class="modal-body">النتيجة في شعرك، لا في يديك.<br/><br/>نظام Oleum: نظافة، دقة، وفعالية.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-6')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-6" class="modal-body">أجمل ميزة في Oleum؟ النظافة!<br/><br/>استمتعي بكل فوائد الزيوت الطبيعية لشعرك، ودعي يديكِ نظيفتين ومرتاحتين.<br/><br/>نظام Oleum مصمم خصيصاً للراحة والفعالية.<br/><br/>جربي الراحة والنظافة مع Oleum! اكتشفي المزيد!<br/><br/>#راحة #نظافة #عناية_ذكية #جمال #Oleum_DZ #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم بسيط وأنيق (Minimalist). صورة ليد امرأة نظيفة وأنيقة تمسك بجهاز Oleum برشاقة. التركيز على النظافة والراحة. النص مكتوب بخط فاخر وصغير نسبياً.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V7</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">لماذا تدفعين الملايين في العيادات والحل بنفس الفعالية موجود في منزلك؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('7')">
+                    <div class="preview-text">جلسة علاج واحدة في عيادة متخصصة للشعر، كم تكلفتها؟
+وكم جلسة تحتاجين؟
+دون الحديث عن الوقت الضائع في ا...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-7" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('7')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V7</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-7')">📋 نسخ النص</button>
+                            <div id="script-text-7" class="modal-body">جلسة علاج واحدة في عيادة متخصصة للشعر، كم تكلفتها؟<br/><br/>وكم جلسة تحتاجين؟<br/><br/>دون الحديث عن الوقت الضائع في الطريق والانتظار.<br/><br/>الحلول الاحترافية ممتازة، لكنها باهظة الثمن وليست دائماً في متناول الجميع.<br/><br/>ولكن ماذا لو أخبرتكِ أنه يمكنكِ الحصول على نتائج احترافية في منزلك؟<br/><br/>نظام Oleum هو عيادتك الخاصة في بيتك.<br/><br/>بنفس التقنيات التي تضمن الامتصاص العميق والتغذية المباشرة للبصيلات.<br/><br/>وبتلفة أقل بكثير على المدى الطويل.<br/><br/>تستخدمينه وقتما تشائين، براحة وخصوصية منزلك.<br/><br/>Oleum ليس مجرد توفير للمال، بل هو استثمار ذكي في جمال شعرك وراحتك.<br/><br/>وفري وقتك، وفري مالك، واستثمري في الحل الذي يدوم معك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-7')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-7" class="modal-body">💰 وفّري مالك ووقتك! عيادة شعرك الخاصة الآن في منزلك.<br/><br/>تكاليف علاجات الشعر في العيادات يمكن أن تكون عبئاً كبيراً على الميزانية.<br/><br/>نظام Oleum يقدم لكِ حلاً بنفس الفعالية الاحترافية، ولكن بتكلفة أقل وبراحة تامة في بيتك.<br/><br/>شاهدي الفيديو واكتشفي كيف يمكنكِ الاستثمار بذكاء في جمالك.<br/><br/>وفّري وقتك ومالك مع Oleum، عيادتك الخاصة في بيتك! اضغطي هنا للتعرف على عروضنا!<br/><br/>#توفير #استثمار_ذكي #عناية_احترافية #عيادة_منزلية #Oleum_Value #الجزائر #dz</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو Motion Graphics سريع وحيوي. تبدأ بظهور أرقام كبيرة تمثل تكلفة الجلسات في العيادات مع أيقونات (ساعة، سيارة) لتمثيل الوقت الضائع. ثم انتقال سلس لمقارنة بسيطة تظهر جهاز Oleum كحل اقتصادي ومريح. استخدام رسوم بيانية متحركة لمقارنة التكلفة والوقت. الموسيقى عصرية وسريعة. نبرة الصوت: منطقية، مقنعة، وذكية.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C8</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كم تكلفك زيارات العيادات؟ Oleum يمنحك نفس النتائج بتكلفة أقل وراحة تامة!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('8')">
+                    <div class="preview-text">Slide 1: جلسات العيادة: تكسر الميزانية وتضيع الوقت! Oleum هو الحل.
+Slide 2: مقارنة التكلفة:
+عمود 'ال...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-8" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('8')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C8</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-8')">📋 نسخ النص</button>
+                            <div id="script-text-8" class="modal-body">Slide 1: جلسات العيادة: تكسر الميزانية وتضيع الوقت! Oleum هو الحل.<br/><br/>Slide 2: مقارنة التكلفة:<br/><br/>عمود 'العيادة': تكلفة عالية ومتكررة. عمود 'Oleum': استثمار لمرة واحدة بنتائج مستمرة.<br/><br/>Slide 3: مقارنة الوقت:<br/><br/>عمود 'العيادة': ساعات من التنقل والانتظار. عمود 'Oleum': دقائق في راحة بيتك.<br/><br/>Slide 4: مقارنة الراحة:<br/><br/>عمود 'العيادة': مواعيد محددة وانتظار. عمود 'Oleum': في أي وقت تشائين، وبخصوصية تامة.<br/><br/>Slide 5: الخلاصة:<br/><br/>النتائج الاحترافية... بتكلفة وراحة تناسبك!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-8')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-8" class="modal-body">📊 المعادلة واضحة: Oleum يوفر لكِ أكثر.<br/><br/>قبل أن تقرري الاستثمار في علاج باهظ الثمن، شاهدي هذه المقارنة البسيطة.<br/><br/>نظام Oleum مصمم ليمنحكِ أفضل قيمة مقابل نقودك: نتائج احترافية، راحة، وتوفير كبير على المدى الطويل.<br/><br/>اسحبي الشاشة واحكمي بنفسك!<br/><br/>شاهدي كيف يعيد Oleum قيمة أموالك ويريحك من عناء العيادات! اضغطي هنا!<br/><br/>#مقارنة #قيمة_مقابل_سعر #الاختيار_الذكي #توفير #Oleum_DZ #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم إنفوجرافيك على شكل جدول مقارنة واضح. استخدام أيقونات لتمثيل التكلفة (دينار)، الوقت (ساعة)، والراحة (منزل). الألوان متباينة لتسهيل القراءة. في السلايد الأخير، صورة للمنتج مع عبارة 'الاختيار الذكي'.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P9</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">عيادتك الخاصة لشعرك... أصبحت بين يديك.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('9')">
+                    <div class="preview-text">عيادتك الخاصة للعناية بالشعر، في راحة منزلك....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-9" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('9')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P9</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-9')">📋 نسخ النص</button>
+                            <div id="script-text-9" class="modal-body">عيادتك الخاصة للعناية بالشعر، في راحة منزلك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-9')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-9" class="modal-body">💆‍♀️ لحظة العناية الخاصة بكِ، أصبحت أكثر رفاهية.<br/><br/>حوّلي روتين العناية بشعرك إلى طقس من الاسترخاء والرفاهية.<br/><br/>مع Oleum، العناية الاحترافية أصبحت جزءاً من راحتك اليومية في بيتك.<br/><br/>استمتعي بالعناية الاحترافية لشعرك في بيتك! اكتشفي Oleum!<br/><br/>#رفاهية #راحة #عناية_شخصية #وقتي_الخاص #Lifestyle #Oleum #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">صورة Lifestyle عالية الجودة. امرأة تبدو مسترخية على أريكة أنيقة، ترتدي ملابس منزلية فاخرة (بيجامة حرير مثلاً)، وهي تستخدم جهاز Oleum بسهولة وابتسامة رضا. الإضاءة دافئة وناعمة. التركيز على الشعور بالرفاهية والراحة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V10</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الزيت الذي تستخدمينه لا يعمل؟ السر ليس في الزيت... بل في طريقة الامتصاص!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('10')">
+                    <div class="preview-text">هل تعلمين أن فروة رأسك هي حاجز دفاعي طبيعي؟
+هذا يعني أنها مصممة لمنع الأشياء من الدخول... بما في ذلك...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-10" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('10')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V10</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-10')">📋 نسخ النص</button>
+                            <div id="script-text-10" class="modal-body">هل تعلمين أن فروة رأسك هي حاجز دفاعي طبيعي؟<br/><br/>هذا يعني أنها مصممة لمنع الأشياء من الدخول... بما في ذلك الزيوت المفيدة.<br/><br/>عندما تضعين الزيت بالطريقة التقليدية، معظمه يبقى على السطح.<br/><br/>ولكن ماذا لو استطعنا فتح الباب مؤقتاً لهذه الفوائد؟<br/><br/>نظام Oleum يستخدم تقنية الذبذبات الدقيقة لتدليك فروة الرأس بلطف.<br/><br/>هذا التدليك ينشط الدورة الدموية ويفتح المسامات بشكل مؤقت.<br/><br/>مما يسمح للزيت بالنزول مباشرة إلى بصيلات الشعر، حيث يحدث السحر الحقيقي.<br/><br/>هذا هو الامتصاص المجهري، وهذا هو سر فعالية Oleum.<br/><br/>نحن لا نضع الزيت على شعرك فقط، بل نوصله إلى المكان الذي يحتاجه بالضبط.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-10')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-10" class="modal-body">🔬 شاهدي ما يحدث تحت المجهر عند استخدام Oleum.<br/><br/>فعالية أي منتج للشعر تعتمد على قدرته على الوصول إلى الجذور.<br/><br/>في هذا الفيديو، نكشف لكِ بالرسوم المتحركة العلمية كيف يضمن نظام Oleum وصول كل قطرة من الزيت إلى أعماق فروة رأسك لتحقيق أقصى استفادة.<br/><br/>التكنولوجيا في خدمة جمالك.<br/><br/>اكتشفي كيف يضمن Oleum وصول الزيوت لأعماق فروة رأسك! شاهدي الفيديو الآن!<br/><br/>#علم #تكنولوجيا #امتصاص_عميق #فعالية #شعر_صحي #Oleum_Science #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو Motion Graphics بتصميم علمي دقيق. يبدأ بتصوير طبقات الجلد وفروة الرأس. رسوم متحركة تظهر قطرات الزيت التقليدية وهي 'ترتد' عن السطح. ثم يظهر جهاز Oleum وهو يرسل 'ذبذبات' تفتح المسامات، وتسمح للزيت بالتدفق إلى البصيلات. استخدام تسميات علمية مبسطة. الموسيقى هادئة ومركزة. نبرة الصوت: علمية، واضحة، وموثوقة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C11</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">هل تساءلتِ لماذا الزيوت السابقة لم تأتِ بنتيجة؟ السر في الامتصاص... شاهديه هنا!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('11')">
+                    <div class="preview-text">Slide 1: الامتصاص السطحي مقابل الامتصاص العميق: الفرق الذي يصنع النتيجة!
+Slide 2: الطريقة التقليدية:...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-11" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('11')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C11</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-11')">📋 نسخ النص</button>
+                            <div id="script-text-11" class="modal-body">Slide 1: الامتصاص السطحي مقابل الامتصاص العميق: الفرق الذي يصنع النتيجة!<br/><br/>Slide 2: الطريقة التقليدية: الزيت يبقى على السطح، يغلق المسام ولا يغذي البصيلة. (رسم بياني يوضح ذلك).<br/><br/>Slide 3: نظام Oleum: الذبذبات الدقيقة تفتح المسام وتوصل الزيت مباشرة لقلب البصيلة لتغذية حقيقية. (رسم بياني يوضح الاختراق العميق).<br/><br/>Slide 4: الخلاصة: المشكلة ليست في الزيت... المشكلة في طريقة التوصيل! Oleum هو الحل.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-11')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-11" class="modal-body">🖼️ صورة واحدة تساوي ألف كلمة... الفرق بين Oleum وغيره.<br/><br/>لماذا ينجح نظام Oleum حيث تفشل الطرق التقليدية؟<br/><br/>الجواب بسيط ومصور في هذا الكاروسال التعليمي.<br/><br/>اسحبي الشاشة لتري بعينيك كيف تضمن تقنيتنا وصول التغذية إلى المكان الذي يصنع الفارق حقًا.<br/><br/>شاهدي بالعين المجردة كيف يعمل Oleum في أعماق شعرك! اضغطي هنا!<br/><br/>#تعليمي #انفوجرافيك #علم_الشعر #شعر_قوي #امتصاص #OleumDZ #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم علمي بحت. استخدام رسوم بيانية واضحة ومقارنة جنب لجنب. الألوان المستخدمة هي ألوان العلامة التجارية مع إضافة لون ثالث للتباين (مثل الأحمر للإشارة إلى المشكلة والأخضر للحل). الخط المستخدم يجب أن يكون ذا طابع علمي ونظيف.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P12</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">مع Oleum، كل قطرة لها قيمتها.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('12')">
+                    <div class="preview-text">كل قطرة محسوبة.
+تغذية عميقة. نمو حقيقي....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-12" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('12')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P12</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-12')">📋 نسخ النص</button>
+                            <div id="script-text-12" class="modal-body">كل قطرة محسوبة.<br/><br/>تغذية عميقة. نمو حقيقي.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-12')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-12" class="modal-body">💧 لا تضيعي أي قطرة.<br/><br/>عندما يتعلق الأمر بتغذية شعرك، الدقة هي كل شيء.<br/><br/>نظام Oleum يضمن أن كل قطرة من الزيت تعمل لصالحك، وتصل إلى حيث يجب أن تكون لتحقيق نمو حقيقي وصحة تدوم.<br/><br/>غذي شعرك من الجذور بأقصى فعالية! اعرفي كيف!<br/><br/>#تغذية_الشعر #نمو_الشعر #فعالية #دقة #عناية_مركزة #Oleum #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">صورة فنية مقربة جداً ومصممة (Stylized) لبصيلة شعر صحية، مع قطرة زيت نقية على وشك الدخول إليها. الخلفية نظيفة وبسيطة. التركيز على النقاء والفعالية. النص مكتوب بخط أنيق.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V13</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كم مرة تجنبتِ الخروج من المنزل بسبب شعرك؟ قصصهن ستغير حياتك.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('13')">
+                    <div class="preview-text">(صوت سيدة 1) كنت أخجل من الفراغات في شعري، لدرجة أنني أصبحت أغطي رأسي دائماً.
+(صوت سيدة 2) جربت كل ش...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-13" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('13')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V13</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-13')">📋 نسخ النص</button>
+                            <div id="script-text-13" class="modal-body">(صوت سيدة 1) كنت أخجل من الفراغات في شعري، لدرجة أنني أصبحت أغطي رأسي دائماً.<br/><br/>(صوت سيدة 2) جربت كل شيء، وكدت أفقد الأمل... ظننت أن شعري انتهى، ولن يعود كما كان.<br/><br/>(صوت سيدة 3) ثقتي بنفسي انهارت بالكامل، كلما نظرت في المرآة كنت أرى تلك المشكلة فقط.<br/><br/>(انتقال للموسيقى الملهمة)<br/><br/>(سيدة 1 تظهر أمام الكاميرا بثقة) مع Oleum، كل شيء تغير. عادت إليّ الثقة التي كانت ضائعة.<br/><br/>(سيدة 2) في البداية كنت خائفة، لكن ضمان الـ 45 يوماً شجعني. والحمد لله، كانت أفضل خطوة اتخذتها.<br/><br/>(سيدة 3) اليوم، لا أخاف من إظهار شعري. Oleum أعاد لي شعري، وأعاد لي ضحكتي.<br/><br/>(نص على الشاشة) قصتكِ يمكن أن تكون قصة النجاح التالية.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-13')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-13" class="modal-body">💖 من الشك إلى الثقة المتجددة... قصص حقيقية من عميلات Oleum.<br/><br/>وراء كل طلبية Oleum، هناك قصة أمل وتحدي.<br/><br/>في هذا الفيديو، نشارك معكم بعض القصص الملهمة لسيدات جزائريات استطعن استرجاع جمال شعرهن وثقتهن بأنفسهن بفضل نظام Oleum.<br/><br/>قصتكِ يمكن أن تكون التالية!<br/><br/>استرجعي ثقتك وجمال شعرك مثلهن! شاهدي قصص النجاح وانضمي إلينا!<br/><br/>#شهادات_حية #قصص_نجاح #ثقة_بالنفس #تحول #Oleum_Stories #الجزائر #algerie</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">مونتاج يعتمد على أسلوب شهادات العملاء (UGC) أو إعادة تمثيلها. البداية تكون بلقطات معتمة مع أصوات حزينة فقط. ثم تظهر السيدات في لقطات مشرقة وواضحة، وهن يتحدثن بثقة وسعادة. عرض صور 'قبل وبعد' بشكل سريع ومؤثر. التركيز على التحول العاطفي وليس فقط الجسدي. نبرة الصوت: تنتقل من اليأس إلى الأمل والثقة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C14</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">شعرك ليس مجرد خصلات... إنه تاجك! شاهدي كيف يعيد Oleum لكِ جمالك وثقتك.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('14')">
+                    <div class="preview-text">Slide 1: مع كل شعرة تسقط... قطعة من ثقتك تتلاشى.
+Slide 2: صورة تظهر امرأة قلقة تنظر إلى شعرها الخفيف...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-14" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('14')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C14</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-14')">📋 نسخ النص</button>
+                            <div id="script-text-14" class="modal-body">Slide 1: مع كل شعرة تسقط... قطعة من ثقتك تتلاشى.<br/><br/>Slide 2: صورة تظهر امرأة قلقة تنظر إلى شعرها الخفيف في المرآة. (قبل)<br/><br/>Slide 3: نظام Oleum: الجسر بين اليأس والأمل. (صورة للمنتج بشكل أنيق).<br/><br/>Slide 4: صورة لنفس المرأة مبتسمة بثقة، وشعرها يبدو أكثر كثافة وحيوية. (بعد)<br/><br/>Slide 5: استرجعي تاجك. استرجعي ثقتك. Oleum هنا من أجلك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-14')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-14" class="modal-body">👑 حان وقت استرجاع تاجك.<br/><br/>مشكلة تساقط الشعر ليست مجرد مشكلة جمالية، إنها تؤثر على ثقتنا بأنفسنا ونظرتنا للحياة.<br/><br/>نظام Oleum مصمم ليعيد لك ليس فقط شعرك، بل تلك الثقة التي لا تقدر بثمن.<br/><br/>اسحبي الشاشة وشاهدي رحلة التحول.<br/><br/>حان الوقت لاسترجاع تاجك! اضغطي هنا وشاهدي كيف!<br/><br/>#ثقة_بالنفس #تحول_عاطفي #جمالك #تاجك #استرجاع_الثقة #Oleum #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم عاطفي وسينمائي. استخدام صور عالية الجودة تركز على تعابير الوجه. في السلايد 2، الألوان باهتة وباردة. في السلايد 4، الألوان دافئة ومشرقة. الخط المستخدم أنيق ورقيق.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P15</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كوني أجمل نسخة منكِ... بداية من شعرك!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('15')">
+                    <div class="preview-text">استثمري في شعرك، فهو التاج الذي لا تخلعينه أبداً....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-15" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('15')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P15</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-15')">📋 نسخ النص</button>
+                            <div id="script-text-15" class="modal-body">استثمري في شعرك، فهو التاج الذي لا تخلعينه أبداً.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-15')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-15" class="modal-body">✨ رسالة اليوم لكِ.<br/><br/>جمالك يبدأ من الداخل، وينعكس على ثقتك بنفسك. وشعرك هو جزء أساسي من هذه الثقة.<br/><br/>دللي نفسك، واعتني بتاجك.<br/><br/>خطوتك الأولى نحو ثقة لا متناهية تبدأ هنا! اكتشفي Oleum!<br/><br/>#إلهام #تحفيز #جمال_المرأة #ثقة #عناية_بالذات #اقتباسات #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم ملهم وأنيق. خلفية راقية وبسيطة. الاقتباس مكتوب بخط فني جميل (Calligraphy). يمكن إضافة عنصر بصري صغير وأنيق مثل رسم خطي لغصن زيتون أو شعار Oleum بشكل مصغر.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V16</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">سئمتِ من التجارب وخسارة المال؟ مع Oleum، لن تخسري شيئاً!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('16')">
+                    <div class="preview-text">أعلم بماذا تفكرين الآن.
+'لقد جربت كل شيء من قبل، لماذا سيكون هذا مختلفاً؟'
+'ربما لن ينجح معي أنا بال...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-16" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('16')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V16</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-16')">📋 نسخ النص</button>
+                            <div id="script-text-16" class="modal-body">أعلم بماذا تفكرين الآن.<br/><br/>'لقد جربت كل شيء من قبل، لماذا سيكون هذا مختلفاً؟'<br/><br/>'ربما لن ينجح معي أنا بالذات.'<br/><br/>'أخاف أن أضيع أموالي مرة أخرى.'<br/><br/>هذه المخاوف طبيعية ومشروعة، خاصة بعد تجارب فاشلة.<br/><br/>وهذا هو بالضبط سبب وجود ضمان الـ 45 يوماً.<br/><br/>نحن نزيل عنكِ كل المخاطر.<br/><br/>السيناريو الأسوأ؟ أنكِ جربتِ حلاً احترافياً لمدة شهر ونصف، مجاناً.<br/><br/>والسيناريو الأفضل؟ أنكِ وجدتِ الحل النهائي الذي كنتِ تبحثين عنه طوال حياتك.<br/><br/>في كلتا الحالتين، أنتِ الرابحة.<br/><br/>لقد صممنا Oleum ليكون آخر منتج تحتاجين إلى تجربته.<br/><br/>نحن نتحمل المخاطرة لأننا نؤمن بالعلم الذي صنعنا به هذا النظام.<br/><br/>لا تدعي تجارب الماضي تمنعكِ من فرصة حقيقية في المستقبل.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-16')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-16" class="modal-body">خائفة من أن تكون تجربة فاشلة أخرى؟ 🤔 اسمعي هذا الكلام.<br/><br/>نفهم تماماً شعور الشك والخوف من إهدار المزيد من المال والوقت.<br/><br/>لهذا السبب، يأتي Oleum مع وعد بسيط وقوي: جربيه لمدة 45 يوماً. إما أن تحصلي على النتائج التي تحلمين بها، أو تسترجعي أموالك بالكامل.<br/><br/>المخاطرة 0%. الفائدة 100%.<br/><br/>هذه هي فرصتك الأخيرة لاستعادة شعرك بدون أي مخاطرة! اطلبي Oleum الآن واستفيدي من الضمان!<br/><br/>#بدون_مخاطرة #ضمان_ذهبي #ثقة #حل_نهائي #لا_للتردد #Oleum_Guarantee #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">الوجه الإعلامي يتحدث مباشرة إلى الكاميرا بنبرة هادئة ومتفهمة جداً. التواصل البصري مباشر وقوي. لا توجد مؤثرات كثيرة، التركيز على صدق الكلام. عندما يذكر الضمان، يظهر ختم الضمان على الشاشة بوضوح. الإضاءة ناعمة. الهدف هو بناء علاقة ثقة مباشرة مع المشاهد.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C17</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">هل لديك شك في حقيقة الضمان؟ نجيب على كل أسئلتك هنا!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('17')">
+                    <div class="preview-text">Slide 1: ضمان Oleum: كل الأسئلة التي تدور في ذهنك، وإجاباتها الواضحة.
+Slide 2: س: كيف أسترجع أموالي؟...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-17" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('17')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C17</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-17')">📋 نسخ النص</button>
+                            <div id="script-text-17" class="modal-body">Slide 1: ضمان Oleum: كل الأسئلة التي تدور في ذهنك، وإجاباتها الواضحة.<br/><br/>Slide 2: س: كيف أسترجع أموالي؟<br/><br/>ج: ببساطة، تواصلي مع فريق خدمة العملاء عبر الهاتف أو الإيميل، وسيقومون بإرشادك خلال العملية السهلة والسريعة.<br/><br/>Slide 3: س: ما هي الشروط الدقيقة؟<br/><br/>ج: الشرط الوحيد هو استخدام المنتج بانتظام حسب التعليمات المرفقة. نحن نريد أن تمنحي المنتج فرصة حقيقية للعمل.<br/><br/>Slide 4: س: كم لدي من الوقت بالضبط؟<br/><br/>ج: لديك 45 يوماً كاملاً من تاريخ استلام المنتج لتجربته وتقييم النتائج بنفسك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-17')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-17" class="modal-body">❓ كل أسئلتك حول ضمان الـ 45 يوماً... تمت الإجابة عليها.<br/><br/>الشفافية هي أساس الثقة.<br/><br/>في هذا المنشور، نجيب مباشرة على أهم الأسئلة المتعلقة بضمان استرجاع الأموال لكي تكوني على دراية كاملة بحقوقك.<br/><br/>مع Oleum، لا توجد مفاجآت سيئة.<br/><br/>لا تتركي أي سؤال بلا إجابة! اطلعي على كل تفاصيل ضماننا!<br/><br/>#أسئلة_وأجوبة #شفافية #ضمان #حقوق_العميل #ثقة #Oleum #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم على شكل سؤال وجواب (FAQ). كل سلايد يحتوي على سؤال بخط عريض وإجابة بخط أصغر. استخدام أيقونات علامات الاستفهام. التصميم يجب أن يكون نظيفاً ومباشراً، الهدف منه هو الوضوح وإزالة أي غموض.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P18</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">ليس مجرد وعد... بل هو ضمان حقيقي!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('18')">
+                    <div class="preview-text">النظام الذي يعيد لكِ شعرك، أو يعيد لكِ أموالك.
+ضمان 45 يوماً....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-18" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('18')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P18</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-18')">📋 نسخ النص</button>
+                            <div id="script-text-18" class="modal-body">النظام الذي يعيد لكِ شعرك، أو يعيد لكِ أموالك.<br/><br/>ضمان 45 يوماً.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-18')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-18" class="modal-body">✅ كلمتنا هي ضمانك.<br/><br/>لا يوجد مجال للشك أو التردد. وعدنا واضح ومباشر.<br/><br/>نظام Oleum هو استثمار مضمون في جمالك وثقتك.<br/><br/>القرار الآن بين يديك.<br/><br/>النظام الذي يعيد لكِ شعرك، أو يعيد لكِ أموالك. اشتري الآن دون تردد!<br/><br/>#وعد_Oleum #ضمان_حقيقي #شعر_كثيف #ثقة_مطلقة #تسوق_بأمان #الجزائر #dzair</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم جريء ومباشر. صورة المنتج واضحة في المنتصف. الشعار (Slogan) مكتوب بخط كبير وعريض. ختم 'ضمان 45 يوم' بارز جداً في زاوية التصميم. الألوان قوية وتعبر عن الثقة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr></tbody></table></div>
+
+    <div class="disclaimer-card">
+        <span style="font-size: 1.2em;">⚠️</span>
+        <span>قد تخضع هذه الاستراتيجية لبعض التعديلات والتحسينات، حسب المواد الإعلامية المتوفرة أو لغرض تحقيق أفضل النتائج.</span>
+    </div>
+
+    <div class="summary-box">
+        <span style="font-weight: 700; color: #FFD700;">الميزانية الإجمالية المعتمدة</span>
+        <span class="total-amount">128000 دج</span>
+        <a href="https://wa.me/213770820431" class="cta-btn">تواصل معنا للاعتماد</a>
+        <div style="border: 1px dashed #FFD700; padding: 25px; border-radius: 15px; margin-top: 20px;">
+            <h3 style="color:#FFD700; margin:0;">الخطوة التالية</h3>
+            <p style="margin:10px 0;">مكالمة قصيرة لنكيّف هذه الاستراتيجية حسب مشروعك ونبدأ العمل فوراً.</p>
+            <div class="phones-list">
+                <div class="phone-item">0770 82 04 31</div>
+                <div class="phone-item">0770 55 01 51</div>
+                <div class="phone-item">0770 82 01 45</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+function openModal(id) { document.getElementById('modal-' + id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
+function closeModal(id) { document.getElementById('modal-' + id).style.display = 'none'; document.body.style.overflow = 'auto'; }
+window.onclick = function(event) { if (event.target.className === 'modal') { event.target.style.display = 'none'; document.body.style.overflow = 'auto'; } }
+
+// وظيفة النسخ الجديدة
+function copyToClipboard(elementId) {
+    const el = document.getElementById(elementId);
+    const text = el.innerText || el.textContent; // نسخ النص بدون HTML tags
+    navigator.clipboard.writeText(text).then(() => {
+        alert("تم نسخ النص بنجاح! ✅");
+    }).catch(err => {
+        console.error('Failed to copy', err);
+    });
+}
+</script></body></html>
