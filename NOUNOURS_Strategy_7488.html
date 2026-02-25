@@ -1,0 +1,802 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>NOUNOURS Strategy</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+<style>
+    body { background: #FFFFFF; color: #1A1A1A; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; line-height: 1.6; overflow-x: hidden; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 15px; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 2px solid #000; }
+    .wayso-logo { height: 45px; }
+    .brand-name { font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 1.4em; color: #000; text-transform: uppercase; border-right: 4px solid #FFD700; padding-right: 12px; }
+    
+    .analysis-section { margin: 30px 0; }
+    .card-philosophy { padding: 30px; border-radius: 20px; background: #000; color: #FFF; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+    .card-philosophy h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #FFD700; }
+    
+    .card-why { padding: 30px; border-radius: 20px; background: #F9F9F9; color: #333; margin-bottom: 20px; border: 1px solid #EDECE9; }
+    .card-why h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #000; display: flex; align-items: center; gap: 10px; }
+    .card-why h2::after { content: ''; flex-grow: 1; height: 1px; background: #EDECE9; margin-right: 15px; }
+
+    .hero { margin: 35px 0 20px 0; border-right: 6px solid #FFD700; padding-right: 15px; }
+    .hero h1 { font-size: 2.5em; font-weight: 700; margin: 0; }
+    .table-wrapper { margin-top: 25px; border-radius: 12px; overflow: hidden; border: 1px solid #EDECE9; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #000; color: #FFF; padding: 15px; text-align: right; font-size: 0.95em; }
+    td { padding: 20px 12px; border-bottom: 1px solid #EDECE9; vertical-align: top; }
+    
+    .code-badge { font-family: 'Montserrat', sans-serif; font-weight: 700; background: #FFD700; color: #000; padding: 5px 12px; border-radius: 6px; font-size: 1.1em; display: inline-block; margin-bottom: 5px; }
+    .type-label { display: block; font-weight: 700; color: #555; font-size: 0.95em; }
+    
+    .hook-pill { background: #000; color: #FFD700; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 1.1em; display: block; border-right: 5px solid #FFD700; }
+    
+    /* تحسين زر المودال */
+    .script-trigger { background: #F8F9FA; border: 1px solid #EDECE9; padding: 15px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; position: relative; }
+    .script-trigger:hover { background: #FFF; border-color: #FFD700; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transform: translateY(-2px); }
+    
+    .preview-text { font-size: 0.95em; color: #333; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; white-space: pre-wrap; }
+    
+    /* ستايل المودال */
+    .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); }
+    .modal-content { background: #FFF; margin: 5% auto; padding: 30px; border-radius: 20px; width: 90%; max-width: 750px; position: relative; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+    .close-modal { position: absolute; top: 20px; left: 20px; font-size: 30px; cursor: pointer; color: #999; line-height: 1; transition: color 0.2s; }
+    .close-modal:hover { color: #000; }
+    
+    .modal-section { margin-bottom: 25px; padding: 20px; border-radius: 12px; background: #fbfbfa; border: 1px solid #eee; position: relative; }
+    
+    /* زر النسخ */
+    .copy-btn { position: absolute; top: 10px; left: 10px; background: #fff; border: 1px solid #ddd; padding: 5px 10px; border-radius: 6px; cursor: pointer; font-size: 0.8em; font-weight: bold; color: #555; display: flex; align-items: center; gap: 5px; transition: all 0.2s; }
+    .copy-btn:hover { border-color: #FFD700; color: #000; background: #FFD70020; }
+    .copy-btn:active { transform: scale(0.95); }
+    
+    .modal-body { font-size: 1.15em; color: #1A1A1A; line-height: 1.9; word-wrap: break-word; white-space: pre-wrap; }
+    
+    .disclaimer-card { margin: 25px 0; padding: 20px; background: #FFF9E6; border-radius: 12px; border-right: 5px solid #FFC107; font-size: 1.05em; color: #856404; display: flex; align-items: center; gap: 12px; }
+    .summary-box { margin-top: 50px; background: #000; color: #FFF; padding: 40px 20px; border-radius: 25px; text-align: center; }
+    .total-amount { font-family: 'Montserrat'; font-size: 3.5em; font-weight: 700; display: block; color: #FFD700; margin: 10px 0; }
+    .cta-btn { display: inline-block; background: #FFD700; color: #000; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.2em; margin-bottom: 25px; transition: transform 0.2s; }
+    .cta-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px #FFD70060; }
+    
+    .phones-list { margin-top: 15px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; direction: ltr; } 
+    .phone-item { background: #1A1A1A; padding: 8px 15px; border-radius: 8px; border: 1px solid #333; color: #FFF; font-family: 'Montserrat'; font-weight: 700; font-size: 1.2em; white-space: nowrap; }
+
+    @media (max-width: 768px) {
+        thead { display: none; }
+        tr { display: block; border: 1px solid #EDECE9; border-radius: 15px; margin-bottom: 20px; padding: 15px; background: #FFF; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        td { display: block; padding: 10px 0; text-align: right; border-bottom: 1px dashed #eee; }
+        td:last-child { border-bottom: none; }
+        td::before { content: attr(data-label); font-weight: 700; color: #BBB; display: block; font-size: 0.8em; margin-bottom: 6px; text-transform: uppercase; }
+        .brand-name { font-size: 1.1em; }
+        .modal-content { width: 95%; padding: 20px; margin: 10% auto; }
+        .total-amount { font-size: 2.5em; }
+    }
+</style></head><body>
+
+<div class="container">
+    <div class="header">
+        <img src="https://storage.googleapis.com/msgsndr/GwIPQCjstTzxnzDQ1B32/media/68fddb5534bb1597bc934f89.png" class="wayso-logo">
+        <div class="brand-name">NOUNOURS</div>
+    </div>
+
+    <div class="analysis-section">
+        <div class="card-philosophy"><h2>🎯 فلسفة الاستراتيجية</h2><p>نحن في Wayso نرى في شراكتنا معكم استثماراً حقيقياً في مستقبلكم. هذه الخطة ليست مجرد حملة تسويقية، بل هي هندسة دقيقة لتجربة عميل متكاملة، تهدف إلى ترسيخ علامتكم التجارية كمرجع للجودة والثقة. لقد صممنا هذا المزيج من الفيديو والكاروسالات التعليمية لضمان أقصى قدر من التفاعل والتحويل، مستهدفين النمو المستدام والولاء العميق.</p></div>
+        <div class="card-why"><h2>💡 لماذا هذه الخطة؟</h2><p>بدأنا بالفيديو الرئيسي (V1) لخطف الانتباه وبناء سرد شامل عن قيمتكم، ثم انتقلنا إلى الكاروسالات التعليمية (مثل C2) لتعميق فهم المزايا وتقديم حلول ملموسة. هذا التسلسل النفسي يقود العميل من الفضول الأولي إلى الاقتناع بالمنتج، ومن ثم إلى اتخاذ قرار الشراء بثقة، مؤسساً علاقة قوية وطويلة الأمد.</p></div>
+    </div>
+
+    <div class="hero"><h1>خطة الإنتاج الإبداعي</h1></div>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th style="width: 20%;">الكود والنوع</th><th style="width: 30%;">الهوك (Hook)</th><th style="width: 50%;">المحتوى</th></tr></thead>
+            <tbody><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V1</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">وصفتك على شعرة من الفشل والموردين دايرين بيك؟ شوف الحل!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('1')">
+                    <div class="preview-text">(صوت متوتر، يتحدث بسرعة)
+كل يوم نفس الحكاية... 
+خايف على سمعتك؟
+على وقتك لي يروح؟
+على بنة القاطو لي ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-1" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('1')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V1</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-1')">📋 نسخ النص</button>
+                            <div id="script-text-1" class="modal-body">(صوت متوتر، يتحدث بسرعة)<br/><br/>كل يوم نفس الحكاية... <br/><br/>خايف على سمعتك؟<br/><br/>على وقتك لي يروح؟<br/><br/>على بنة القاطو لي لازم تكون هي هي؟<br/><br/>(وقفة، تغير النبرة إلى هادئة وواثقة)<br/><br/>هذا القلق... خلاص.<br/><br/>Nounours هنا.<br/><br/>لمّة وحدة لكل لوازم البنة.<br/><br/>السكر... النشاء... العسل... كلش!<br/><br/>بجودة ثابتة تضمنلك نتيجة وحدة: النجاح.<br/><br/>نتا شاف، صاحب فندق، ولا ربة بيت... Nounours هو شريكك.<br/><br/>نضمنولك الجودة، نوفرولك الوقت، ونعطولك راحة البال.<br/><br/>هذي ماشي مجرد مكونات.<br/><br/>هذا هو ضمان النجاح تاعك.<br/><br/>انضم لآلاف الحرفيين والعائلات لي حطو ثقتهم فينا.<br/><br/>Nounours. البنة والأمان، في لمّة وحدة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-1')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-1" class="modal-body">القلق على جودة حلوياتك خلاص! ✅ <br/><br/> كل حرفي وكل دار تخاف من حاجة وحدة: فشل الوصفة وضياع الوقت مع موردين مافيهمش ثقة. 😟<br/><br/>علامة Nounours جات باش تنهي هاد المشكل. نوفرولك كل لوازم الحلويات لي تحتاجها، من السكر للعسل، بجودة وحدة مضمونة وثابتة، توصلك حتى لعندك.<br/><br/>مع Nounours، اربح وقتك، اضمن سمعتك، وركز على الإبداع ديالك. 🤝 <br/><br/> اكتشف كيف يضمنلك 'Nounours' نجاح كل وصفاتك ويوفرلك راحتك! اضغط هنا باش تبدا رحلتك. <br/><br/> #Nounours_DZ #حلويات_جزائرية #باتيسري_جزائري #مخابز_الجزائر #الجودة_مضمونة #صنع_في_الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">المشهد 1 (Before): لقطات سريعة ومتقطعة. شاف متوتر يمسح جبينه. يد تقلب في قائمة موردين. حلوى شكلها غير ناجح. إضاءة باردة وقلقة. حركة الكاميرا مهتزة قليلاً. الموسيقى سريعة ومتوترة.<br/>المشهد 2 (The Bridge): لقطة انتقالية سريعة لشعار Nounours يظهر ببطء. الموسيقى تهدأ وتصبح ملهمة.<br/>المشهد 3 (After): لقطات سينمائية واسعة وبطيئة. نفس الشاف الآن مبتسم وواثق. يد تفتح بكيس سكر Nounours الناصع. لقطات مقربة (Close-up) على قوام العسل والشونتيي. حلويات متقنة وشهية تخرج من الفرن. عائلة سعيدة تتذوق الحلوى. إضاءة دافئة ومريحة. حركة الكاميرا ناعمة (Slider shots).<br/>التعليق الصوتي: يبدأ بنبرة قلقة وسريعة، ثم يتحول إلى نبرة هادئة، موثوقة، ودافئة جداً عند ذكر 'Nounours'.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C2</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">تخيل كل لوازم القاطو تاعك في بلاصة وحدة وبجودة توب... هذا ماشي خيال، هذا Nounours!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('2')">
+                    <div class="preview-text">Slide 1: Nounours: لمّة وحدة لكل لوازم البنة.
+Slide 2: مليت من الدوران على الموردين؟ كل واحد بسلعة و...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-2" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('2')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C2</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-2')">📋 نسخ النص</button>
+                            <div id="script-text-2" class="modal-body">Slide 1: Nounours: لمّة وحدة لكل لوازم البنة.<br/><br/>Slide 2: مليت من الدوران على الموردين؟ كل واحد بسلعة وشكل؟ وقتك يضيع والجودة ماشي مضمونة... نعرفو هاد الشعور مليح.<br/><br/>Slide 3: الحل بين يديك! Nounours يجمعلك كلش: سكر، نشاء، عسل، شونتيي، ماء زهر... كل لوازمك في مكان واحد، بجودة احترافية.<br/><br/>Slide 4: كيفاش تخدم معانا؟ بسيطة! اختار منتجاتك، اطلب بكل سهولة، والتوصيل يلحقك في وقت قياسي. الكفاءة هي شعارنا.<br/><br/>Slide 5: النتيجة؟ راحة بال ما تتقدرش بثمن، جودة ثابتة تخليك تخدم وعينيك مغمضين، ووقت ثمين تربحو لمشروعك وعايلتك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-2')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-2" class="modal-body">وداعاً للفوضى... أهلاً براحة البال! 😌 <br/><br/> الدوران على عشرين مورد باش تكمل وصفة وحدة... هادي حكاية قديمة!<br/><br/>مع Nounours، كل لوازم الحلويات اللي تحتاجها راهي في مكان واحد. وفّر على روحك الوقت، الجهد، والقلق. نضمنولك جودة ثابتة في كل منتج، من السكر للشانتيي.<br/><br/>ركز على واش يهم صح: البنة والإبداع. <br/><br/> اسحب لتعرف كيف 'Nounours' يغير تجربتك مع لوازم الحلويات! اضغط هنا لزيارة المتجر. <br/><br/> #لمة_وحدة #حلويات_سهلة #مكونات_الحلويات #الجزائر #شريك_النجاح #Nounours</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Slide 1: صورة غلاف جذابة جداً تعرض تشكيلة من منتجات Nounours بشكل فني على خلفية نظيفة. العنوان بخط أنيق وواضح. <br/>Slide 2: صورة تعبيرية تظهر شخص محتار أو متعب أمام عدة خيارات. استخدام أيقونات (ساعة رملية، علامة استفهام). الألوان تميل للرمادي.<br/>Slide 3: صورة مشرقة ومبهجة تعرض منتجات Nounours كحل مركزي. استخدام شعار Nounours بوضوح. الألوان زاهية.<br/>Slide 4: تصميم إنفوجرافيك بسيط يوضح خطوات الطلب (أيقونة سلة، أيقونة هاتف، أيقونة شاحنة توصيل). <br/>Slide 5: صورة نهائية لشاف حلويات أو عائلة سعيدة يستمتعون بالنتيجة النهائية (حلوى رائعة). النص يبرز الفوائد النهائية.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P3</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كي يتعلق الأمر بالبنة، الثقة هي كلش. Nounours هو ضمانك.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('3')">
+                    <div class="preview-text">جودة ثابتة. راحة بال مضمونة.
+Nounours: شريكك الموثوق في كل وصفة....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-3" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('3')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P3</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-3')">📋 نسخ النص</button>
+                            <div id="script-text-3" class="modal-body">جودة ثابتة. راحة بال مضمونة.<br/><br/>Nounours: شريكك الموثوق في كل وصفة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-3')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-3" class="modal-body">الأمان يبدأ من المكونات. 🔒 <br/><br/> في عالم الحلويات، تغيير بسيط في جودة المكونات يقدر يفسدلك كلش. لهذا السبب، الأمان والثقة هوما أساس خدمتنا في Nounours.<br/><br/>نلتزم بتقديم جودة ثابتة وموثوقة في كل منتج، باش تكون دايماً مطمئن على النتيجة النهائية. خدمتك وسمعتك في أيد أمينة. <br/><br/> لمزيد من المعلومات حول ضمان الجودة، تواصل معنا! <br/><br/> #ضمان_الجودة #ثقة #احترافية #حلويات_الجزائر #Nounours_أمان</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم بصري راقي ونظيف جداً. صورة عالية الجودة لأحد منتجات Nounours (مثلاً، كيس سكر ناعم) مع ختم ذهبي أو علامة جودة بارزة بجانبه. الخلفية هادئة (رخامية أو خشبية فاتحة). النص مكتوب بخط serif أنيق يعكس الثقة والاحترافية. شعار Nounours في زاوية بشكل واضح.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V4</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كي تكون شاف، الغلطة ممنوعة. شوف كيفاش Nounours رجع شريك النجاح الأول للشاف كريم.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('4')">
+                    <div class="preview-text">(صوت الشاف كريم، نبرة صادقة وواقعية)
+في خدمتنا، السمعة هي راس مالك.
+كنت نتعامل مع بزاف موردين... كل ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-4" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('4')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V4</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-4')">📋 نسخ النص</button>
+                            <div id="script-text-4" class="modal-body">(صوت الشاف كريم، نبرة صادقة وواقعية)<br/><br/>في خدمتنا، السمعة هي راس مالك.<br/><br/>كنت نتعامل مع بزاف موردين... كل مرة مشكل.<br/><br/>مرة السلعة ناقصة جودة، مرة تتعطل... قلق كبير.<br/><br/>حتى النهار لي عرفت Nounours.<br/><br/>في الأول جربت على حسابي... بصح تم تم فهمت الفرق.<br/><br/>جودة ثابتة، كلمة وحدة، وتوصيل في وقته.<br/><br/>الزبائن تاعي لاحظوا الفرق في البنة... وأنا لاحظت الفرق في راحة بالي.<br/><br/>Nounours ماشي مجرد مورد، هوما الصح شريك في النجاح.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-4')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-4" class="modal-body">قصة نجاح حقيقية، بطلها شاف جزائري و سرها Nounours! 👨‍🍳 <br/><br/> النجاح في عالم الحلويات الاحترافي مايجيش بالصدفة. كل تفصيلة صغيرة تحسب.<br/><br/>نخليو الشاف فلان يحكيلكم بنفسه كيفاش التعامل مع شريك موثوق كيما Nounours غيّر طريقة عمله وضمن له جودة ثابتة حافظت على سمعته وزبائنه.<br/><br/>النجاح تاعك يبدا من اختيار الشريك الصح. <br/><br/> تواصل معنا اليوم باش 'Nounours' يكون شريكك في النجاح. اضغط هنا للتعاون. <br/><br/> #قصص_نجاح #شاف_جزائري #B2B #شراكة #تموين #فنادق_الجزائر #Nounours</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">يبدأ الفيديو بلقطات حقيقية من داخل مخبز أو محل حلويات (B-roll). التركيز على الشاف 'فلان' وهو يعمل بتركيز. الكاميرا تتبعه بأسلوب وثائقي. <br/>مقابلة مع الشاف وهو يتحدث مباشرة للكاميرا، بصدق وعفوية. <br/>لقطات تظهر منتجات Nounours وهي تُستخدم في وصفاته. <br/>لقطات للزبائن وهم يستمتعون بالمنتجات النهائية. <br/>النهاية: لقطة للشاف وهو يصافح ممثل Nounours (أو يتحدث في الهاتف بابتسامة). <br/>الإضاءة طبيعية. الصوت يجب أن يكون واضحاً جداً مع موسيقى خلفية هادئة وملهمة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C5</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">مشروعك تاع الحلويات يستاهل شريك يفهمك ماشي غير يبيعلك. هل لقيتو؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('5')">
+                    <div class="preview-text">Slide 1: Nounours: ماشي مجرد مورد، شريك في نجاحك.
+Slide 2: توريد مستمر وموثوق ✅: معانا، ماتخافش السل...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-5" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('5')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C5</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-5')">📋 نسخ النص</button>
+                            <div id="script-text-5" class="modal-body">Slide 1: Nounours: ماشي مجرد مورد، شريك في نجاحك.<br/><br/>Slide 2: توريد مستمر وموثوق ✅: معانا، ماتخافش السلعة تخلص ولا تتعطل. نضمنولك استمرارية عملك بلا انقطاع.<br/><br/>Slide 3: جودة ثابتة تحمي سمعتك 🏆: البنة تاعك لازم تكون هي هي كل يوم. منتجاتنا تضمنلك نفس الجودة العالية في كل مرة، باش تحافظ على ثقة زبائنك.<br/><br/>Slide 4: توفير للوقت والجهد ⏱️: علاش تضيّع وقتك مع 10 موردين؟ مع Nounours، كلش في بلاصة وحدة. ركز على خدمتك وخلي الباقي علينا.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-5')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-5" class="modal-body">ارتقِ بمشروعك مع الشريك المناسب! 📈 <br/><br/> إدارة محل حلويات أو مخبز ماشي ساهلة. بين الإنتاج والبيع وخدمة الزبائن، آخر حاجة تحتاجها هي القلق على لوازمك الأساسية.<br/><br/>Nounours يفهم احتياجاتك المهنية ويوفرلك أكثر من مجرد منتجات. نوفرلك: <br/>✅ استمرارية في التوريد.<br/>✅ جودة تحمي اسمك.<br/>✅ توفير هائل في الوقت والجهد.<br/><br/>خلينا نكونو شركاء في قصة نجاحك. <br/><br/> اسحب لتعرف كيف 'Nounours' يقوي مشروعك الاحترافي! راسلنا الآن! <br/><br/> #شريك_احترافي #تموين_مطاعم #مخابز #حلويات_راقية #B2B_Algeria #Nounours</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Slide 1: تصميم احترافي يظهر شعار Nounours مع أيقونة مصافحة أو شراكة. العنوان بخط جريء وواضح.<br/>Slide 2: صورة لمستودع منظم أو شاحنة توصيل تابعة لـ Nounours. استخدام أيقونة تقويم أو ساعة للتأكيد على الالتزام بالوقت.<br/>Slide 3: صورة مقربة (close-up) لح حلوى متقنة جداً، مع أيقونة درع أو شهادة جودة. التركيز على الجاذبية البصرية للمنتج النهائي.<br/>Slide 4: تصميم يقارن بين سيناريوهين: الأول فوضوي (عدة شعارات موردين)، والثاني منظم (شعار Nounours فقط). استخدام أيقونات توفير الوقت.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P6</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">قايمة فيها 20 مورد... و 20 مكالمة... و 20 مشكل؟ كاين حل أسهل!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('6')">
+                    <div class="preview-text">مليت من فوضى الموردين؟
+Nounours: لمّة وحدة. جودة وحدة....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-6" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('6')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P6</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-6')">📋 نسخ النص</button>
+                            <div id="script-text-6" class="modal-body">مليت من فوضى الموردين؟<br/><br/>Nounours: لمّة وحدة. جودة وحدة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-6')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-6" class="modal-body">ركز على خدمتك، ماشي على قائمة الموردين! 📋 <br/><br/> تخيل شحال من وقت وطاقة تضيعهم كل شهر في التنسيق مع موردين مختلفين، كل واحد بمشاكله ومواعيده...<br/><br/>Nounours ينهي هذه الفوضى. كنقطة اتصال واحدة لكل لوازم الحلويات، نرجعولك أهم حاجة تملكها: وقتك وراحة بالك.<br/><br/>نظام واحد. جودة وحدة. شريك واحد. <br/><br/> نظم عملك اليوم مع 'Nounours'. اتصل بنا للاستفادة من عروض المحترفين. <br/><br/> #تنظيم_العمل #كفاءة #حلول_احترافية #توفير_الوقت #B2B_DZ #Nounours</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم بصري ذكي ومباشر. الجهة اليسرى من الصورة تظهر قائمة طويلة ومزدحمة بأسماء موردين وهميين بشكل فوضوي. الجهة اليمنى نظيفة ومنظمة، لا يظهر فيها سوى شعار Nounours بشكل بارز. سهم واضح ينتقل من الفوضى إلى النظام. استخدام ألوان متباينة للتأكيد على الفكرة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V7</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">تساءلت كيفاش توصلك مكونات Nounours بهذيك الجودة؟ تبع معانا الرحلة.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('7')">
+                    <div class="preview-text">(صوت معلق، نبرة موثوقة وواضحة)
+رحلة الجودة تبدأ من هنا...
+أولاً: نختارو أجود المواد الخام.
+ثانياً: ت...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-7" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('7')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V7</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-7')">📋 نسخ النص</button>
+                            <div id="script-text-7" class="modal-body">(صوت معلق، نبرة موثوقة وواضحة)<br/><br/>رحلة الجودة تبدأ من هنا...<br/><br/>أولاً: نختارو أجود المواد الخام.<br/><br/>ثانياً: تدخل لمصانعنا وتخضع لرقابة صارمة.<br/><br/>ثالثاً: كل منتج يتغلف بعناية للحفاظ على نكهته.<br/><br/>رابعاً: يوصلك طازج ومضمون، جاهز باش يبدع في يديك.<br/><br/>هذه هي شفافيتنا... وهذا هو التزامنا بالجودة.<br/><br/>من المادة الخام... إلى يديك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-7')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-7" class="modal-body">من الحقل إلى مطبخك: رحلة الجودة الشفافة مع Nounours! 🌿 <br/><br/> الجودة ماشي كلمة نقولوها برك، هي عملية نعيشوها كل يوم.<br/><br/>في هذا الفيديو، نكشفلكم بكل شفافية المراحل الدقيقة اللي تمر بيها منتجاتنا، من انتقاء أفضل المواد الخام، إلى غاية وصولها إليكم مع ضمان أعلى معايير الجودة والنظافة.<br/><br/>ثقتكم هي أولويتنا. <br/><br/> اكتشف بنفسك الشفافية والجودة! اطلب عينة اليوم. <br/><br/> #شفافية #جودة_عالية #صناعة_جزائرية #من_المزرعة_إليك #معايير_الجودة #Nounours</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو Motion Graphics سريع وجذاب.<br/>المشهد 1: أيقونة لمادة خام (حبة سكر، زهرة البرتقال) تتحول إلى منتج Nounours.<br/>المشهد 2: رسوم متحركة تظهر خط إنتاج نظيف وحديث مع أيقونات فحص الجودة (علامة صح، مجهر).<br/>المشهد 3: أنيميشن لعملية التغليف الأنيقة.<br/>المشهد 4: خريطة الجزائر مع شاحنة Nounours متحركة تصل إلى أيقونة مخبز أو منزل.<br/>استخدام ألوان العلامة التجارية. الموسيقى إيجابية و ديناميكية. النصوص تظهر على الشاشة بشكل متزامن مع التعليق الصوتي.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C8</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الجودة ماشي صدفة، الجودة هي اختيار. اكتشف أسرار ومعايير Nounours.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('8')">
+                    <div class="preview-text">Slide 1: الجودة تبدأ من الاختيار: معايير Nounours الصارمة.
+Slide 2: المعيار 1: انتقاء دقيق للمواد ال...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-8" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('8')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C8</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-8')">📋 نسخ النص</button>
+                            <div id="script-text-8" class="modal-body">Slide 1: الجودة تبدأ من الاختيار: معايير Nounours الصارمة.<br/><br/>Slide 2: المعيار 1: انتقاء دقيق للمواد الخام. نختارو الأفضل فقط، من مزارع محلية موثوقة ومن أفضل المصادر العالمية، باش نضمنو أساس بنين لكل منتج.<br/><br/>Slide 3: المعيار 2: رقابة مستمرة في كل مرحلة. مختبراتنا تضمن أن كل دفعة إنتاج تطابق معاييرنا العالية قبل ما تخرج من المصنع.<br/><br/>Slide 4: المعيار 3: التزام بالأصالة والطزاجة. نضمنولك أن المنتج يوصلك محافظ على كامل نكهته وجودته الأصلية، كأنه تقطف اليوم.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-8')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-8" class="modal-body">الجودة عندنا ماشي كلمة، هي 3 معايير صارمة! 📜 <br/><br/> علاش المحترفين يثقو في Nounours؟ لأننا نبني خدمتنا على أسس متينة من الجودة لا نقبل التنازل عنها.<br/><br/>اسحب واكتشف معاييرنا الثلاثة الذهبية اللي تضمنلك منتج استثنائي في كل مرة: من الاختيار الدقيق للمواد الخام، إلى الرقابة المستمرة، وصولاً لضمان الأصالة والطزاجة. <br/><br/> اسحب لتعرف أكثر عن التزامنا بالجودة. زوروا موقعنا. <br/><br/> #معايير_الجودة #أسرار_النجاح #صناعة_متقنة #أصالة_جزائرية #التزام #Nounours</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Slide 1: تصميم أنيق بخلفية بيضاء، العنوان مكتوب بخط احترافي. صورة مقربة جداً لمنتج نقي (سكر كريستالي، قطرة عسل ذهبية).<br/>Slide 2: صورة مقسمة: نصف يظهر مادة خام عالية الجودة (مثل زهرة البرتقال)، والنصف الآخر المنتج النهائي المعبأ.<br/>Slide 3: صورة لمختبر حديث ونظيف أو أيقونة مجهر مع علامة صح خضراء. التركيز على الدقة والصرامة.<br/>Slide 4: صورة لمنتج Nounours معبأ وجاهز، عليه ختم 'ضمان الطزاجة'. الخلفية توحي بالأصالة (خشب، قماش تقليدي).</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P9</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">البنة تاع بكري، بجودة تاع اليوم. هذا هو وعد Nounours.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('9')">
+                    <div class="preview-text">بنة زمان... جودة اليوم.
+Nounours: الأصالة في كل مكوّن....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-9" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('9')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P9</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-9')">📋 نسخ النص</button>
+                            <div id="script-text-9" class="modal-body">بنة زمان... جودة اليوم.<br/><br/>Nounours: الأصالة في كل مكوّن.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-9')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-9" class="modal-body">نرجعولك بنة حلويات جداتنا! ❤️🇩🇿 <br/><br/> كاين بنة خاصة في حلويات زمان... بنة الأصالة والجودة الحقيقية.<br/><br/>في Nounours، مهمتنا هي الحفاظ على هذا الإرث. نقدملكم مكونات عصرية بأعلى معايير الجودة، لكن بروح ونكهة جزائرية أصيلة تحكي قصة وتقاليد.<br/><br/>مع Nounours، كل وصفة هي رحلة في الذاكرة. <br/><br/> جرب مكونات 'Nounours' واكتشف سر البنة الجزائرية الأصيلة. <br/><br/> #أصالة #بنة_زمان #حلويات_تقليدية #تراث_جزائري #مطبخ_جزائري #Nounours_أصيل</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم يدمج بين التقليدي والعصري. صورة عالية الجودة لمنتج Nounours (مثل قارورة ماء الزهر) موضوعة على طاولة خشبية عتيقة بجانب حلوى جزائرية تقليدية (مقروط، بقلاوة). الإضاءة دافئة وناعمة. الخط المستخدم يجمع بين الأناقة والأصالة. يمكن إضافة لمسة زخرفة تقليدية في زاوية التصميم.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V10</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">هاد الوصفة مستحيل تفشل! السر ماشي فيا، السر في المكونات.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('10')">
+                    <div class="preview-text">(شخصية مرحة وودودة تتحدث للكاميرا من مطبخها)
+ألو! اليوم جبتلكم وصفة تاع... (اسم حلوى سهلة) لي تنجحلك...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-10" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('10')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V10</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-10')">📋 نسخ النص</button>
+                            <div id="script-text-10" class="modal-body">(شخصية مرحة وودودة تتحدث للكاميرا من مطبخها)<br/><br/>ألو! اليوم جبتلكم وصفة تاع... (اسم حلوى سهلة) لي تنجحلكم 100%.<br/><br/>شوفو شحال ساهلة!<br/><br/>نحتاجو... (تذكر المكونات وتظهر منتجات Nounours بوضوح).<br/><br/>السر الأول هو في الشونتيي تاع Nounours، شوفو كيفاش تطلع تم تم وتجي شادة روحها!<br/><br/>والسر الثاني... الفانيلا تاعهم! الريحة وحدها تحكي.<br/><br/>(لقطات سريعة ومونتاج ممتع لخطوات التحضير).<br/><br/>وهاهي ليكم النتيجة! شكل يشهي والبنة ما نحكيلكمش.<br/><br/>جربوها على ضمانتي، بصح لازم بمكونات Nounours!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-10')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-10" class="modal-body">وصفة مضمونة النجاح 100%... السر في الفيديو! 😉 <br/><br/> شكون قال الحلويات الناجحة لازم تكون صعيبة؟<br/><br/>تبعوا معانا هذي الوصفة السهلة والسريعة، وشوفوا كيفاش المكونات الصح تقدر دير فرق كبير. السر كامل راه في جودة وثبات منتجات Nounours اللي تخلي أي واحد يقدر يبدع في الكوزينة.<br/><br/>جربوها وادعولنا! <br/><br/> طبق الوصفة خطوة بخطوة وشاركنا إبداعك! تلقى المكونات كاملة في متجرنا. <br/><br/> #وصفات_سهلة #مطبخ #UGC #حلويات_منزلية #السر_في_الجودة #Nounours_B2C</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو بأسلوب UGC (User-Generated Content). تصوير منزلي لكن بجودة عالية (إضاءة جيدة وصوت واضح). الشخصية تتحدث بعفوية وحماس. مونتاج سريع وديناميكي مع نصوص تظهر على الشاشة (المقادير، نصائح سريعة). التركيز على إظهار سهولة استخدام منتجات Nounours والنتيجة النهائية الشهية. موسيقى خلفية عصرية ومبهجة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C11</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">القاطو تاعك مرة ينجح ومرة يخسرك؟ بالاك العيب ماشي في يدك!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('11')">
+                    <div class="preview-text">Slide 1: سر نجاح كل حلوياتك في 3 نصائح من Nounours.
+Slide 2: 💡 النصيحة 1: الجودة هي الأساس. مهما كا...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-11" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('11')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C11</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-11')">📋 نسخ النص</button>
+                            <div id="script-text-11" class="modal-body">Slide 1: سر نجاح كل حلوياتك في 3 نصائح من Nounours.<br/><br/>Slide 2: 💡 النصيحة 1: الجودة هي الأساس. مهما كانت يدك خفيفة، مكونات ذات جودة رديئة تفسد الوصفة. استثمر دايماً في مكونات عالية الجودة كيما تاع Nounours لضمان نتيجة ثابتة.<br/><br/>Slide 3: 💡 النصيحة 2: التخزين الصحيح. منتجاتنا طازجة! باش تحافظ على جودتها، خزن السكر والنشاء في مكان جاف وبارد، والعسل وماء الزهر بعيداً عن الضوء المباشر.<br/><br/>Slide 4: 💡 النصيحة 3: الدقة في المقادير. استعمل ميزان المطبخ! حتى أفضل المكونات تحتاج مقادير مضبوطة باش تعطيك أفضل نتيجة. الدقة هي مفتاح الحلويات المتقنة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-11')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-11" class="modal-body">3 أسرار يخبيوها عليك لي شاف باش ينجحلك القاطو كل مرة! 🤫 <br/><br/> النجاح في الحلويات ماشي مجرد وصفة تتبعيها، هو علم وأسرار صغيرة دير كل الفرق.<br/><br/>في Nounours، ماناش نبيعولك مكونات برك، نحبو نكونو معاك خطوة بخطوة. اسحبي واكتشفي 3 نصائح ذهبية من خبرائنا باش تضمني أنو حلوياتك تجي دايماً parfaite! <br/><br/> اسحب لتعرف أسرار الشاف اللي يخلوك تحضّر حلويات عالمية! زوروا متجرنا. <br/><br/> #نصائح_مطبخية #أسرار_الحلويات #تعليم #ربة_بيت #مطبخ_عصري #Nounours_نصائح</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Slide 1: تصميم جذاب ومشرق مع أيقونة لمبة مضيئة. العنوان بخط واضح ومغري.<br/>Slide 2: صورة مقارنة بين حلوى ناجحة وحلوى فاشلة. التركيز على أهمية جودة المكونات.<br/>Slide 3: إنفوجرافيك بسيط يوضح طرق التخزين الصحيحة بأيقونات سهلة الفهم (أيقونة شمس مشطوبة، أيقونة قطرة ماء مشطوبة).<br/>Slide 4: صورة لميزان مطبخ أنيق بجانب منتجات Nounours. التأكيد على فكرة الدقة والاحترافية.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P12</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الخوف من النتيجة هو اللي يفسد متعة التحضير. ارتاح، Nounours هنا.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('12')">
+                    <div class="preview-text">وداعاً لقلق فشل الوصفات!
+Nounours: نتيجة مضمونة... ومتعة مضمونة....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-12" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('12')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P12</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-12')">📋 نسخ النص</button>
+                            <div id="script-text-12" class="modal-body">وداعاً لقلق فشل الوصفات!<br/><br/>Nounours: نتيجة مضمونة... ومتعة مضمونة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-12')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-12" class="modal-body">حضّري حلوياتك بحب، ماشي بخوف! ❤️ <br/><br/> أجمل لحظة هي كي تبداي تحضري حلوى لعائلتك أو لمناسبة عزيزة. بصح القلق من النتيجة يقدر يسرق منك هاد المتعة.<br/><br/>مع جودة Nounours المضمونة، تقدري تدخلي للكوزينة ونتي مرتاحة ومطمئنة. النتيجة راح تكون دايماً تفرحك وتفرح اللي تحبيهم. ركزي على الحب، وخلي الجودة علينا. <br/><br/> اكتشف مجموعة منتجاتنا المصممة لضمان نجاح كل وصفاتك. <br/><br/> #راحة_البال #مطبخ_بحب #حلويات_للعائلة #لا_للخوف #متعة_الطبخ #Nounours_اطمئنان</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم عاطفي ومريح. صورة ليدين (سيدة) وهي تزين حلوى بابتسامة وثقة. التركيز على تعابير الرضا والراحة على وجهها (بدون إظهار الوجه كاملاً). النص مكتوب بخط يدوي أنيق ودافئ. الألوان هادئة ومريحة (باستيل).</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V13</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">يقولك كل العسل كيف كيف؟ أرواح تشوف وتذوق الفرق بعينيك!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('13')">
+                    <div class="preview-text">(وجه إعلامي معروف، يبتسم للكاميرا)
+السلام عليكم! بزاف منكم يسقسيوني على سر البنة في وصفاتي.
+اليوم نك...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-13" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('13')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V13</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-13')">📋 نسخ النص</button>
+                            <div id="script-text-13" class="modal-body">(وجه إعلامي معروف، يبتسم للكاميرا)<br/><br/>السلام عليكم! بزاف منكم يسقسيوني على سر البنة في وصفاتي.<br/><br/>اليوم نكشفلكم سر من الأسرار: اختيار المكون الصح.<br/><br/>جبتلكم نوعين تاع عسل... واحد عادي، وواحد عسل Nounours.<br/><br/>(يفتح القارورتين)<br/><br/>أول حاجة، شوفو اللون والقوام. تاع Nounours صافي وثقيل... شوفو!<br/><br/>(يُظهر قوام العسل بالملعقة).<br/><br/>والآن الريحة... (يشم النوعين) هنا الفرق يبان صح! ريحة أصيلة.<br/><br/>والأهم، البنة! (يتذوق) مممم... حلاوة طبيعية ماشي قاطعة.<br/><br/>الفرق ماشي كبير، الفرق كلش!<br/><br/>لهذا السبب نختار Nounours.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-13')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-13" class="modal-body">ماشي كامل المكونات تخلقو كيف كيف! شوف التجربة واحكم بنفسك. 👀 <br/><br/> الجودة ماشي مجرد كلمة على الغلاف. هي لون، قوام، رائحة، وبنة تقدر تحس بيهم.<br/><br/>تبعوا معانا التجربة الحية هذي وشوفوا بعينيكم علاش مكونات Nounours ماشي كيما أي مكونات أخرى في السوق. الفرق في التفاصيل هو اللي يصنع التميز. <br/><br/> شاهد الفرق بنفسك! اطلب الآن مكونك المفضل من 'Nounours'. <br/><br/> #تجربة_منتج #مقارنة #الجودة_تتحدث #الفرق_واضح #عسل_طبيعي #Nounours_تجربة</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو يظهر فيه وجه إعلامي (شخصية محبوبة وموثوقة). تصوير احترافي في استوديو أو مطبخ أنيق. إضاءة ممتازة.<br/>الكاميرا تركز على المنتج وعلى تعابير وجه الشخصية. لقطات مقربة جداً (Extreme close-up) على قوام ولون المنتج للمقارنة. <br/>الصوت يجب أن يكون عالي الجودة. الشخصية تتحدث بصدق وحماس، كأنها تشارك سراً مع أصدقائها. <br/>في النهاية، يظهر شعار Nounours مع اسم المنتج الذي تم استعراضه.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C14</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">بين سلعة عادية ومنتج Nounours... كاين فرق كبير في البنة والنتيجة. شوف!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('14')">
+                    <div class="preview-text">Slide 1: علاش Nounours هو الخيار الأفضل لدارك؟ مقارنة سريعة.
+Slide 2: النكهة: منتج عادي (نكهة خفيفة ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-14" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('14')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C14</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-14')">📋 نسخ النص</button>
+                            <div id="script-text-14" class="modal-body">Slide 1: علاش Nounours هو الخيار الأفضل لدارك؟ مقارنة سريعة.<br/><br/>Slide 2: النكهة: منتج عادي (نكهة خفيفة وقد تكون اصطناعية) 🆚 Nounours (نكهة مركزة، طبيعية، وأصيلة تبقى في الفم).<br/><br/>Slide 3: الجودة: منتج عادي (جودة متذبذبة، مرة مليحة ومرة لا) 🆚 Nounours (جودة ثابتة ومضمونة في كل علبة، كل مرة).<br/><br/>Slide 4: النتيجة: منتج عادي (نتيجة غير مضمونة، قد تفشل الوصفة) 🆚 Nounours (نتيجة احترافية مضمونة، تنجحلك الوصفة وعينيك مغمضين).</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-14')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-14" class="modal-body">ماترضاش بالأقل من الأفضل! ✨ <br/><br/> في الطبخ، كل مكون عندو دور. واختيار مكون عادي ممكن يضيعلك كامل تعبك.<br/><br/>اسحب وشوف المقارنة البسيطة هذه اللي توضحلك علاش الاستثمار في جودة Nounours هو في الحقيقة استثمار في نجاح وصفاتك وفي فرحة عائلتك. الفرق يستاهل! <br/><br/> اسحب وشوف علاش الملايين يثقو في 'Nounours'. تسوق الآن! <br/><br/> #مقارنة_جودة #الأفضل #لا_تقبل_بالعادي #استثمار_في_البنة #عائلتي_أولا #Nounours</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم يعتمد على المقارنة البصرية (Side-by-side). <br/>Slide 1: العنوان في المنتصف مع شعار Nounours.<br/>Slides 2-4: كل سلايد مقسوم لجزئين. جزء 'منتج عادي' بألوان باهتة وأيقونات حيادية. جزء 'Nounours' بألوان زاهية، وصور شهية، وأيقونات إيجابية (نجمة، كأس ذهبي). استخدام خطوط واضحة ومباشرة للمقارنة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P15</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">البنة اللي تحلمي بيها، مضمونة في كل مرة. مع Nounours، كل يوم عيد.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('15')">
+                    <div class="preview-text">البنة في يدك.
+100% مضمونة....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-15" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('15')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P15</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-15')">📋 نسخ النص</button>
+                            <div id="script-text-15" class="modal-body">البنة في يدك.<br/><br/>100% مضمونة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-15')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-15" class="modal-body">حوّل كل يوم إلى مناسبة خاصة! 🎉 <br/><br/> مع Nounours، ماشي لازم تستنى العيد باش تحضّر حاجة بنينة وتفرح بيها عائلتك. مكوناتنا عالية الجودة والمضمونة تخليك تبدع كل يوم وتحقق نتائج احترافية بكل سهولة.<br/><br/>البنة الحقيقية هي اللي تقدر تصنعها في أي وقت. <br/><br/> ابدأ يومك ببنة 'Nounours'. تسوق الآن. <br/><br/> #كل_يوم_عيد #البنة_في_يدك #حلويات_يومية #صنع_بحب #مطبخي #Nounours</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">صورة بسيطة، مؤثرة، وشهية جداً. لقطة مقربة (close-up) على قطعة حلوى متقنة جداً تُقدم باليد. التركيز على جمالية الحلوى. الخلفية بسيطة وغير مشتتة. النص مكتوب بحجم صغير وأنيق. شعار Nounours يظهر بشكل ناعم في الأسفل.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V16</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">شحال من قاطو فسدلك؟ شحال من وقت ضاع؟ خلاص! جا وقت التغيير!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('16')">
+                    <div class="preview-text">(صوت قوي ومحفز)
+تعبت من المكونات لي تخذلك؟
+من الوقت لي يضيع في البحث؟
+من القلق على النتيجة؟
+حياتك قب...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-16" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('16')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V16</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-16')">📋 نسخ النص</button>
+                            <div id="script-text-16" class="modal-body">(صوت قوي ومحفز)<br/><br/>تعبت من المكونات لي تخذلك؟<br/><br/>من الوقت لي يضيع في البحث؟<br/><br/>من القلق على النتيجة؟<br/><br/>حياتك قبل Nounours كانت هكذا.<br/><br/>(انتقال)<br/><br/>الآن، تخيل...<br/><br/>كل لوازمك في مكان واحد.<br/><br/>جودة مضمونة في كل مرة.<br/><br/>راحة بال ماعندهاش ثمن.<br/><br/>هذا هو عالم Nounours.<br/><br/>الجسر بين القلق والاحترافية... بين التعب والراحة.<br/><br/>ما تبقاش في الماضي. حان وقت التغيير!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-16')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-16" class="modal-body">ماتخليش المكونات الغالطة تسرق منك فرحة النجاح! ⏳ <br/><br/> كل دقيقة تقضيها قلقان على جودة لوازمك هي دقيقة ضايعة من وقت إبداعك.<br/><br/>Nounours جا باش يغير هذه المعادلة. نقدملك الحل المتكامل اللي يوفرلك الجودة، الوقت، وراحة البال.<br/><br/>التغيير نحو الأفضل يبدأ بخطوة وحدة. ديرها اليوم. <br/><br/> زور متجر 'Nounours' الآن واستمتع بالجودة، الراحة، والأصالة. متخلاش الفرصة تفوتك! <br/><br/> #حان_وقت_التغيير #كفاءة #جودة #حلول_ذكية #طور_نفسك #Nounours_الحل</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو Motion Graphics سريع ومؤثر.<br/>الجزء الأول (Before): مشاهد سريعة بالأبيض والأسود أو بألوان باهتة. أيقونات تعبر عن الفشل (X)، الوقت الضائع (ساعة تدور بسرعة)، القلق (وجه عابس).<br/>الجزء الثاني (After): انتقال مفاجئ إلى الألوان الزاهية. أيقونات تعبر عن النجاح (كأس ذهبي)، الكفاءة (علامة صح)، والراحة (وجه مبتسم). ظهور منتجات Nounours بشكل جذاب.<br/>الموسيقى تبدأ متوترة ثم تتحول إلى حماسية وملهمة. النصوص تظهر على الشاشة لتأكيد الرسالة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C17</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">مازالك تخمم؟ الجودة، السهولة، والربح... كلش في Nounours!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('17')">
+                    <div class="preview-text">Slide 1: Nounours: لمّة وحدة لكل لوازم البنة. علاش مازالك تنتظر؟
+Slide 2: لأنك تستاهل جودة عالمية ✅:...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-17" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('17')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C17</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-17')">📋 نسخ النص</button>
+                            <div id="script-text-17" class="modal-body">Slide 1: Nounours: لمّة وحدة لكل لوازم البنة. علاش مازالك تنتظر؟<br/><br/>Slide 2: لأنك تستاهل جودة عالمية ✅: منتجاتنا تضمنلك نجاح كل وصفاتك، وتحافظ على سمعتك المهنية أو فرحة عائلتك.<br/><br/>Slide 3: لأن وقتك ثمين ⏱️: مع Nounours، تنهي فوضى الموردين. كلش في مكان واحد، بطلب واحد، يوصلك في وقت واحد.<br/><br/>Slide 4: لأن راحة بالك هي الأهم 😌: كن شريكاً موثوقاً يضمنلك الأمان والاستمرارية. اخدم وأنت مطمئن. Nounours هو ضمانك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-17')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-17" class="modal-body">الخلاصة في 3 نقاط... وعلاش لازم تختار Nounours اليوم! 👇 <br/><br/> إذا كنت مازلت متردد، هذا المنشور ليك.<br/><br/>لخصنالك أهم 3 أسباب تخلي آلاف المحترفين والعائلات يختارو Nounours كل يوم:<br/>1️⃣ جودة لا تضاهى.<br/>2️⃣ توفير هائل للوقت.<br/>3️⃣ راحة بال مضمونة.<br/><br/>المعادلة واضحة. القرار بين يديك. <br/><br/> اسحب لتعرف علاش الآلاف يختارو 'Nounours' كل يوم! اطلب الآن قبل نفاذ الكمية! <br/><br/> #الخلاصة #لماذا_Nounours #قرار_ذكي #جودة_وقت_أمان #اطلب_الآن #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم تلخيصي مباشر وقوي. كل سلايد يركز على فائدة واحدة رئيسية.<br/>Slide 1: صورة غلاف تعرض أفضل منتجات Nounours مع سؤال مباشر ومحفز.<br/>Slides 2-4: كل سلايد يحتوي على أيقونة كبيرة تعبر عن الفائدة (جودة، وقت، أمان)، مع نص قصير ومباشر. استخدام خلفيات بألوان مختلفة لكل سلايد للحفاظ على الانتباه. التصميم نظيف وموجه للفعل (Action-oriented).</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P18</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">مستعد تبدا رحلة جديدة من البنة وراحة البال؟ الباب مفتوح.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('18')">
+                    <div class="preview-text">جاهز تكتشف عالم البنة الحقيقية؟
+ابدأ رحلتك مع Nounours اليوم....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-18" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('18')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P18</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-18')">📋 نسخ النص</button>
+                            <div id="script-text-18" class="modal-body">جاهز تكتشف عالم البنة الحقيقية؟<br/><br/>ابدأ رحلتك مع Nounours اليوم.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-18')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-18" class="modal-body">خطوتك الأولى نحو عالم من الاحترافية وراحة البال! ✨ <br/><br/> كل قصة نجاح تبدأ بقرار. قرار باختيار الأفضل، قرار باختيار الشريك الصح.<br/><br/>اليوم، ندعوك لبدء رحلتك مع Nounours. رحلة نحو جودة مضمونة، كفاءة أكبر، وإبداع بلا حدود.<br/><br/>نحن هنا لنرافقك في كل خطوة. <br/><br/> انضم لعائلة 'Nounours' اليوم! اضغط هنا للتسوق. <br/><br/> #ابدأ_الآن #رحلة_النجاح #انضم_إلينا #عائلة_Nounours #مستقبل_أفضل #تسوق_الآن</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم بسيط، جذاب، ويدعو للفعل. صورة جميلة جداً تظهر طريقاً أو باباً يفتح على منظر طبيعي مشرق وجميل (يمكن دمجه مع منتجات Nounours بشكل فني). النص مكتوب في المنتصف بخط كبير وواضح. شعار Nounours وزر دعوة للعمل (CTA button style) في الأسفل.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr></tbody></table></div>
+
+    <div class="disclaimer-card">
+        <span style="font-size: 1.2em;">⚠️</span>
+        <span>قد تخضع هذه الاستراتيجية لبعض التعديلات والتحسينات، حسب المواد الإعلامية المتوفرة أو لغرض تحقيق أفضل النتائج.</span>
+    </div>
+
+    <div class="summary-box">
+        <span style="font-weight: 700; color: #FFD700;">الميزانية الإجمالية المعتمدة</span>
+        <span class="total-amount">123000 دج</span>
+        <a href="https://wa.me/213770820431" class="cta-btn">تواصل معنا للاعتماد</a>
+        <div style="border: 1px dashed #FFD700; padding: 25px; border-radius: 15px; margin-top: 20px;">
+            <h3 style="color:#FFD700; margin:0;">الخطوة التالية</h3>
+            <p style="margin:10px 0;">مكالمة قصيرة لنكيّف هذه الاستراتيجية حسب مشروعك ونبدأ العمل فوراً.</p>
+            <div class="phones-list">
+                <div class="phone-item">0770 82 04 31</div>
+                <div class="phone-item">0770 55 01 51</div>
+                <div class="phone-item">0770 82 01 45</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+function openModal(id) { document.getElementById('modal-' + id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
+function closeModal(id) { document.getElementById('modal-' + id).style.display = 'none'; document.body.style.overflow = 'auto'; }
+window.onclick = function(event) { if (event.target.className === 'modal') { event.target.style.display = 'none'; document.body.style.overflow = 'auto'; } }
+
+// وظيفة النسخ الجديدة
+function copyToClipboard(elementId) {
+    const el = document.getElementById(elementId);
+    const text = el.innerText || el.textContent; // نسخ النص بدون HTML tags
+    navigator.clipboard.writeText(text).then(() => {
+        alert("تم نسخ النص بنجاح! ✅");
+    }).catch(err => {
+        console.error('Failed to copy', err);
+    });
+}
+</script></body></html>
