@@ -1,0 +1,464 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>مشروع بيع قطع غيار السيارات Strategy</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+<style>
+    body { background: #FFFFFF; color: #1A1A1A; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; line-height: 1.6; overflow-x: hidden; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 15px; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 2px solid #000; }
+    .wayso-logo { height: 45px; }
+    .brand-name { font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 1.4em; color: #000; text-transform: uppercase; border-right: 4px solid #FFD700; padding-right: 12px; }
+    
+    .analysis-section { margin: 30px 0; }
+    .card-philosophy { padding: 30px; border-radius: 20px; background: #000; color: #FFF; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+    .card-philosophy h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #FFD700; }
+    
+    .card-why { padding: 30px; border-radius: 20px; background: #F9F9F9; color: #333; margin-bottom: 20px; border: 1px solid #EDECE9; }
+    .card-why h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #000; display: flex; align-items: center; gap: 10px; }
+    .card-why h2::after { content: ''; flex-grow: 1; height: 1px; background: #EDECE9; margin-right: 15px; }
+
+    .hero { margin: 35px 0 20px 0; border-right: 6px solid #FFD700; padding-right: 15px; }
+    .hero h1 { font-size: 2.5em; font-weight: 700; margin: 0; }
+    .table-wrapper { margin-top: 25px; border-radius: 12px; overflow: hidden; border: 1px solid #EDECE9; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #000; color: #FFF; padding: 15px; text-align: right; font-size: 0.95em; }
+    td { padding: 20px 12px; border-bottom: 1px solid #EDECE9; vertical-align: top; }
+    
+    .code-badge { font-family: 'Montserrat', sans-serif; font-weight: 700; background: #FFD700; color: #000; padding: 5px 12px; border-radius: 6px; font-size: 1.1em; display: inline-block; margin-bottom: 5px; }
+    .type-label { display: block; font-weight: 700; color: #555; font-size: 0.95em; }
+    
+    .hook-pill { background: #000; color: #FFD700; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 1.1em; display: block; border-right: 5px solid #FFD700; }
+    
+    /* تحسين زر المودال */
+    .script-trigger { background: #F8F9FA; border: 1px solid #EDECE9; padding: 15px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; position: relative; }
+    .script-trigger:hover { background: #FFF; border-color: #FFD700; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transform: translateY(-2px); }
+    
+    .preview-text { font-size: 0.95em; color: #333; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; white-space: pre-wrap; }
+    
+    /* ستايل المودال */
+    .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); }
+    .modal-content { background: #FFF; margin: 5% auto; padding: 30px; border-radius: 20px; width: 90%; max-width: 750px; position: relative; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+    .close-modal { position: absolute; top: 20px; left: 20px; font-size: 30px; cursor: pointer; color: #999; line-height: 1; transition: color 0.2s; }
+    .close-modal:hover { color: #000; }
+    
+    .modal-section { margin-bottom: 25px; padding: 20px; border-radius: 12px; background: #fbfbfa; border: 1px solid #eee; position: relative; }
+    
+    /* زر النسخ */
+    .copy-btn { position: absolute; top: 10px; left: 10px; background: #fff; border: 1px solid #ddd; padding: 5px 10px; border-radius: 6px; cursor: pointer; font-size: 0.8em; font-weight: bold; color: #555; display: flex; align-items: center; gap: 5px; transition: all 0.2s; }
+    .copy-btn:hover { border-color: #FFD700; color: #000; background: #FFD70020; }
+    .copy-btn:active { transform: scale(0.95); }
+    
+    .modal-body { font-size: 1.15em; color: #1A1A1A; line-height: 1.9; word-wrap: break-word; white-space: pre-wrap; }
+    
+    .disclaimer-card { margin: 25px 0; padding: 20px; background: #FFF9E6; border-radius: 12px; border-right: 5px solid #FFC107; font-size: 1.05em; color: #856404; display: flex; align-items: center; gap: 12px; }
+    .summary-box { margin-top: 50px; background: #000; color: #FFF; padding: 40px 20px; border-radius: 25px; text-align: center; }
+    .total-amount { font-family: 'Montserrat'; font-size: 3.5em; font-weight: 700; display: block; color: #FFD700; margin: 10px 0; }
+    .cta-btn { display: inline-block; background: #FFD700; color: #000; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.2em; margin-bottom: 25px; transition: transform 0.2s; }
+    .cta-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px #FFD70060; }
+    
+    .phones-list { margin-top: 15px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; direction: ltr; } 
+    .phone-item { background: #1A1A1A; padding: 8px 15px; border-radius: 8px; border: 1px solid #333; color: #FFF; font-family: 'Montserrat'; font-weight: 700; font-size: 1.2em; white-space: nowrap; }
+
+    @media (max-width: 768px) {
+        thead { display: none; }
+        tr { display: block; border: 1px solid #EDECE9; border-radius: 15px; margin-bottom: 20px; padding: 15px; background: #FFF; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        td { display: block; padding: 10px 0; text-align: right; border-bottom: 1px dashed #eee; }
+        td:last-child { border-bottom: none; }
+        td::before { content: attr(data-label); font-weight: 700; color: #BBB; display: block; font-size: 0.8em; margin-bottom: 6px; text-transform: uppercase; }
+        .brand-name { font-size: 1.1em; }
+        .modal-content { width: 95%; padding: 20px; margin: 10% auto; }
+        .total-amount { font-size: 2.5em; }
+    }
+</style></head><body>
+
+<div class="container">
+    <div class="header">
+        <img src="https://storage.googleapis.com/msgsndr/GwIPQCjstTzxnzDQ1B32/media/68fddb5534bb1597bc934f89.png" class="wayso-logo">
+        <div class="brand-name">مشروع بيع قطع غيار السيارات</div>
+    </div>
+
+    <div class="analysis-section">
+        <div class="card-philosophy"><h2>🎯 فلسفة الاستراتيجية</h2><p>نحن في Wayso، نفهم أن نجاحك لا يقتصر على مجرد بيع المنتجات، بل هو بناء علاقات ثقة طويلة الأمد. هذا المزيج من الفيديوهات والكاروسالات التعليمية المصممة بعناية هو استثمار استراتيجي يهدف إلى تثقيف جمهورك، تبديد مخاوفهم، وتأكيد مكانتك كشريك موثوق به.
+لقد قمنا بهندسة كل قطعة محتوى لترسخ في أذهان عملائك القيمة الحقيقية للأصالة والأمان، مما يضمن لك نمواً مستداماً وولاءً لا يتزعزع.
+هذه ليست حملة إعلانية فحسب، بل هي خطة متكاملة لتأسيس علامتك التجارية كرمز للجودة وراحة البال.</p></div>
+        <div class="card-why"><h2>💡 لماذا هذه الخطة؟</h2><p>بدأنا بـ V1 لخطف الانتباه وإثارة المشكلة الكبرى للقطع المقلدة بأسلوب مؤثر، ثم انتقلنا إلى C2 و P3 لتقديم حلول ملموسة وتعزيز الثقة من خلال الشرح والتأكيد على راحة البال.
+هذا التسلسل النفسي يقود العميل من مرحلة الوعي بالمشكلة إلى الاقتناع بالحل، وصولاً إلى اتخاذ قرار الشراء بثقة تامة.</p></div>
+    </div>
+
+    <div class="hero"><h1>خطة الإنتاج الإبداعي</h1></div>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th style="width: 20%;">الكود والنوع</th><th style="width: 30%;">الهوك (Hook)</th><th style="width: 50%;">المحتوى</th></tr></thead>
+            <tbody><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V1</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">Économiser 10,000 DA aujourd'hui pour risquer la vie de votre famille demain ? Le vrai prix des pièces contrefaites.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('1')">
+                    <div class="preview-text">Vous roulez tranquillement, la famille à bord... et soudain, un bruit étrange.
+Votre voiture s'arrêt...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-1" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('1')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V1</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-1')">📋 نسخ النص</button>
+                            <div id="script-text-1" class="modal-body">Vous roulez tranquillement, la famille à bord... et soudain, un bruit étrange.<br/><br/>Votre voiture s'arrête au milieu de nulle part. Un cauchemar.<br/><br/>Ce n'est pas de la malchance. C'est souvent le résultat d'une pièce de rechange de mauvaise qualité.<br/><br/>Une pièce qui vous a fait économiser un peu d'argent... mais qui vous coûte aujourd'hui votre sécurité, votre temps et bien plus cher en réparations.<br/><br/>Arrêtez de jouer à la loterie avec votre voiture. Vous, votre famille, vous méritez mieux.<br/><br/>Chez Wayso, nous ne vendons pas de simples pièces. Nous vous offrons la tranquillité d'esprit.<br/><br/>Chaque pièce est 100% originale. Garantie.<br/><br/>Filtres, freins, suspensions, kits de distribution... Tout ce dont votre voiture a besoin pour rester fiable et performante.<br/><br/>Imaginez conduire sans cette anxiété. Sans la peur d'une panne.<br/><br/>C'est ça, la promesse Wayso.<br/><br/>Ne laissez pas une fausse économie mettre votre vie en danger.<br/><br/>Visitez notre site web ou contactez-nous dès maintenant pour trouver la pièce d'origine certifiée pour votre véhicule.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-1')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-1" class="modal-body">Le bas prix coûte cher... Surtout quand il s'agit de la sécurité de votre famille. <br/><br/> Combien de fois avons-nous entendu parler de problèmes et d'accidents causés par une pièce de rechange contrefaite ?<br/>Chez Wayso, votre sécurité est notre priorité. Nous fournissons des pièces 100% originales et garanties, pour que vous puissiez conduire l'esprit tranquille.<br/>Choisissez la fiabilité. Choisissez la sérénité. <br/><br/> Pour garantir votre sécurité et celle de vos proches, contactez Wayso maintenant et installez l'original ! <br/><br/> #Wayso #PiècesAuto #Algérie #SécuritéRoutière #PiècesOriginales #AutoDZ #Mécanique</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Scène 1 (Problème): Famille souriante dans une voiture. Travelling avant sur le visage du conducteur. Soudain, son expression change en entendant un bruit. Caméra extérieure, la voiture ralentit et s'arrête sur le bas-côté, capot fumant. Lumière dramatique. Ton de la voix: Inquiet.<br/>Scène 2 (Agitation): Gros plan sur le visage frustré du conducteur. Inserts rapides sur une dépanneuse, un garagiste secouant la tête, une facture élevée. Ton: Accusateur, grave.<br/>Scène 3 (Solution): Le logo Wayso apparaît en fondu, avec une musique rassurante. Un expert Wayso, souriant et confiant, montre une pièce dans son emballage d'origine. Éclairage clair et professionnel. Ton: Rassurant, autoritaire.<br/>Scène 4 (Désir): Montage dynamique de différentes pièces de rechange de haute qualité. Plans macro sur les détails, les logos des marques. Scènes de voitures roulant parfaitement sur de belles routes. Une famille heureuse et en sécurité. Ton: Inspirant, confiant.<br/>Scène 5 (Action): Le visage de l'expert Wayso revient à l'écran. Il pointe vers un bandeau affichant l'URL du site et le numéro de téléphone. Le slogan 'Wayso: La pièce d'origine, la route tranquille.' apparaît en texte final. Ton: Direct, clair, appel à l'action.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C2</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">عينك هي الميزان! شوف بعينك الفرق بين قطعة تخدمك و قطعة تخدعك.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('2')">
+                    <div class="preview-text">Slide 1: السر الحقيقي لأمان سيارتك ماشي في السياقة برك... راهو مخبي لداخل!
+Slide 2: على اليمين: قطعة...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-2" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('2')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C2</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-2')">📋 نسخ النص</button>
+                            <div id="script-text-2" class="modal-body">Slide 1: السر الحقيقي لأمان سيارتك ماشي في السياقة برك... راهو مخبي لداخل!<br/><br/>Slide 2: على اليمين: قطعة أصلية بختم المصنع و مواد عالية الجودة. على اليسار: قطعة مقلدة، تبان كيفها بصح المواد تاعها رديئة و فيها عيوب تصنيع واضحة.<br/><br/>Slide 3: الضمان تاعنا ماشي كلمة برك! كل قطعة من عند Wayso تجي بالضمان تاعها لي يحميك و يحمي سيارتك. الثقة تبنى بالأفعال.<br/><br/>Slide 4: سيارة بقطع غيار أصلية محافظة على قيمتها عند البيع. استثمارك اليوم هو ربحك غدوة!<br/><br/>Slide 5: ما تزيدش تخمم. اكتشف مجموعتنا الكاملة من قطع الغيار الأصلية و المضمونة. سلامتك تبدأ من هنا.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-2')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-2" class="modal-body">ما تخدعش روحك بـ 'شبيه الأصلي'! <br/><br/> تعرف بلي كاينة فروقات ما تبانش بالعين المجردة بين قطعة غيار أصلية و قطعة مقلدة؟<br/>هاد الفروقات الصغيرة قادرة تسببلك مشاكل كبيرة في الطريق.<br/>في هذا الكاروسال، راح نورولك كيفاش تحمي استثمارك و سلامتك. <br/><br/> اكتشف الفرق بنفسك. مرر الصور للتفاصيل! <br/><br/> #الأصلي_يضمن #قطع_غيار_سيارات #الفرق_واضح #WaysoDZ #نصائح_ميكانيك #الجودة_أولا #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Slide 1: صورة عالية الجودة لسيارة حديثة على طريق جميل، مع العنوان بخط عريض وواضح. الخلفية هادئة.<br/>Slide 2: تصميم بأسلوب 'Side-by-Side'. إضاءة واضحة على القطعة الأصلية، و إضاءة خافتة على المقلدة مع أسهم تشير للعيوب (تشققات، مواد رديئة). استخدام أيقونات (صح/خطأ).<br/>Slide 3: تصميم يركز على أيقونة درع أو ختم ضمان كبير. استخدام خط يوحي بالثقة والمصداقية. الخلفية تكون شعار Wayso بشكل شفاف.<br/>Slide 4: انفوجرافيك بسيط يوضح منحنى قيمة السيارة مع القطع الأصلية (ينزل ببطء) مقابل منحنى مع القطع المقلدة (ينزل بسرعة). استخدام ألوان واضحة (أخضر/أحمر).<br/>Slide 5: شبكة صور (Grid) لقطع غيار مختلفة مع شعار Wayso في الوسط. دعوة للعمل تكون داخل زر بارز بصريا.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P3</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كي تكون تسوق بعايلتك، كاينة حاجة وحدة ماعندهاش سعر: راحة بالك.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('3')">
+                    <div class="preview-text">قيادة آمنة تبدأ من إختيار موثوق.
+Wayso. ركّب الأصلي وتهنّى من الطريق....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-3" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('3')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P3</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-3')">📋 نسخ النص</button>
+                            <div id="script-text-3" class="modal-body">قيادة آمنة تبدأ من إختيار موثوق.<br/><br/>Wayso. ركّب الأصلي وتهنّى من الطريق.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-3')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-3" class="modal-body">واش تسوى راحة بالك و أنت تسوق مع عائلتك؟ <br/><br/> شعور لا يقدر بثمن أنك تعرف بلي سيارتك آمنة 100%، و كل قطعة فيها تخدم كيما لازم.<br/>هذا هو الأمان لي نوفروه في Wayso.<br/>لأن سلامة عائلتك مافيهاش حل وسط. <br/><br/> ركّب الأصلي وتهنّى من الطريق. زورونا لتجربة قيادة آمنة. <br/><br/> #راحة_البال #عائلتي_أولا #أمان_الطريق #Wayso #قطع_غيار_أصلية #الجزائر #سياقة_آمنة</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">صورة عاطفية عالية الجودة: سائق (أب) ينظر في المرآة الخلفية مبتسما لأطفاله في المقعد الخلفي. التركيز على وجه الأب ونظرة الطمأنينة. الإضاءة دافئة وطبيعية. النص يوضع في زاوية من الصورة بخط أنيق وواضح. شعار Wayso في الأسفل.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V4</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">Une seule pièce contrefaite peut transformer votre voiture en piège. Protégez votre famille.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('4')">
+                    <div class="preview-text">Votre voiture. Des milliers de pièces qui travaillent ensemble en parfaite harmonie.
+Mais il suffit ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-4" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('4')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V4</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-4')">📋 نسخ النص</button>
+                            <div id="script-text-4" class="modal-body">Votre voiture. Des milliers de pièces qui travaillent ensemble en parfaite harmonie.<br/><br/>Mais il suffit d'UNE seule pièce défectueuse... pour que tout bascule.<br/><br/>Un système de freinage qui lâche au mauvais moment.<br/><br/>Une courroie de distribution qui casse et détruit votre moteur.<br/><br/>Les pièces contrefaites sont une bombe à retardement.<br/><br/>Elles vous exposent à des pannes graves, des accidents, et des réparations qui coûtent une fortune.<br/><br/>Ne prenez pas ce risque.<br/><br/>La solution est simple : exigez toujours l'original.<br/><br/>Chez Wayso, nous vous garantissons des pièces 100% certifiées par le constructeur.<br/><br/>Pour votre sécurité, et celle de ceux que vous aimez.<br/><br/>Wayso. Ne laissez aucune place au hasard.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-4')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-4" class="modal-body">Une catastrophe peut commencer avec une seule pièce contrefaite ! <br/><br/> En un instant, une pièce non garantie peut transformer un trajet ordinaire en tragédie.<br/>Les risques des pièces contrefaites sont réels et menacent directement votre sécurité.<br/>Regardez la vidéo pour savoir comment vous protéger, vous et votre famille. <br/><br/> Ne risquez pas votre vie. Visitez-nous aujourd'hui et choisissez la sécurité que votre voiture mérite ! <br/><br/> #Danger #PiècesContrefaites #SécuritéAvantTout #WaysoDZ #Avertissement #Accidents #Algérie</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Motion Graphics فيديو.<br/>Style: سريع، مؤثر، باستخدام أيقونات ورسوم متحركة بسيطة وواضحة.<br/>Scène 1 (Problème): رسم متحرك يظهر انفجار (Exploded view) لسيارة مع آلاف القطع. ثم زووم سريع على قطعة واحدة تومض باللون الأحمر.<br/>Scène 2 (Agitation): أيقونات تحذيرية تظهر بسرعة. رسم لسيارة تفقد فراملها. رسم لعداد أموال ينقص بسرعة لتمثيل تكاليف الإصلاح. استخدام مؤثرات صوتية قوية (صوت فرامل، انفجار صغير). النص يظهر على الشاشة بشكل متزامن مع الصوت.<br/>Scène 3 (Solution): شاشة حمراء تتحول إلى شاشة خضراء مع ظهور شعار Wayso و درع حماية حول رسم سيارة. النص '100% Original' يظهر بوضوح. الرسوم تصبح هادئة ومطمئنة.<br/>النبرة الصوتية: تبدأ بقلق وتوتر، ثم تصبح حازمة ومباشرة، وتنتهي بنبرة قوية ومطمئنة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C5</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">سيارتك راهي تعطيك في إشارات! 5 علامات تكشفلك القطع المقلدة قبل ما يفوت الفوت.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('5')">
+                    <div class="preview-text">Slide 1: 5 علامات تحذيرية تدل على أن سيارتك تعاني من قطع غيار مقلدة!
+Slide 2: الخطر الأمني: أصوات غر...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-5" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('5')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C5</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-5')">📋 نسخ النص</button>
+                            <div id="script-text-5" class="modal-body">Slide 1: 5 علامات تحذيرية تدل على أن سيارتك تعاني من قطع غيار مقلدة!<br/><br/>Slide 2: الخطر الأمني: أصوات غريبة عند الفرملة؟ اهتزاز غير عادي في المحرك؟ هذه ماشي تفاصيل، هذه علامات خطر على سلامتك و سلامة لي معاك.<br/><br/>Slide 3: الخطر المالي: هل سيارتك أصبحت تزور الميكانيكي أكثر منك؟ القطع المقلدة تتعطل بسرعة و تتسبب في أعطال أخرى، و تكلّف أكثر من سعرها أضعاف المرات.<br/><br/>Slide 4: ما تستناش حتى يفوت الأوان. تواصل معنا اليوم لفحص إحترافي و تأكد من أن كل قطعة في سيارتك أصلية و آمنة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-5')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-5" class="modal-body">ما تخليش سيارتك تكون قنبلة موقوتة! <br/><br/> أحياناً، سيارتك تحاول تخبرك بوجود مشكلة. أصوات، اهتزازات، أعطال متكررة... كلها إشارات تحذيرية.<br/>تعلّم كيف تتعرف على علامات الخطر الناتجة عن قطع الغيار المقلدة. <br/><br/> أحمي عائلتك و فلوسك. مرر الصور باش تعرف أكثر! <br/><br/> #علامات_الخطر #صيانة_السيارات #نصائح_Wayso #قطع_غيار #ميكانيك_الجزائر #الأمان_في_الطريق</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Slide 1: تصميم قوي بخلفية داكنة وعنوان بارز باللون الأحمر أو الأصفر التحذيري. استخدام أيقونة علامة تعجب كبيرة.<br/>Slide 2: استخدام أيقونات تمثل الخطر (مثل أيقونة فرامل عليها علامة X، أيقونة محرك يهتز). نص قصير ومباشر. خلفية فيها صورة مكبرة لقرص فرامل متآكل.<br/>Slide 3: انفوجرافيك بسيط يظهر كيس نقود فارغ بجانب أيقونة سيارة على رافعة. استخدام أرقام لبيان التكلفة المتزايدة.<br/>Slide 4: صورة واضحة ومشرقة لميكانيكي Wayso محترف يفحص سيارة. دعوة للعمل تكون واضحة وفي زر بارز.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P6</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">أكثر من 30% من الحوادث... سببها قطعة غيار ما تسواش.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('6')">
+                    <div class="preview-text">هل تعلم؟
+أكثر من 30% من حوادث السير سببها المباشر أعطال ميكانيكية ناتجة عن قطع غيار رديئة.
+(المصدر: ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-6" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('6')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P6</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-6')">📋 نسخ النص</button>
+                            <div id="script-text-6" class="modal-body">هل تعلم؟<br/><br/>أكثر من 30% من حوادث السير سببها المباشر أعطال ميكانيكية ناتجة عن قطع غيار رديئة.<br/><br/>(المصدر: تقارير السلامة المرورية العالمية)<br/><br/>لا تكن جزءاً من هذه الإحصائية.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-6')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-6" class="modal-body">رقم صادم لازم تعرفو! <br/><br/> الحقيقة مرة: جزء كبير من الحوادث المأساوية لي نشوفوها كل يوم كان يمكن تفاديها.<br/>الاختيار الخاطئ لقطعة غيار يقدر يكون عندو عواقب وخيمة.<br/>سلامتك وسلامة غيرك مسؤولية. <br/><br/> لا تكن الرقم التالي. اختر الأمان مع Wayso. <br/><br/> #إحصائيات #السلامة_المرورية #حوادث_الجزائر #Wayso #قطع_غيار_أصلية #تحذير #مسؤولية</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم بصري قوي ومباشر. خلفية داكنة. الرقم '30%' مكتوب بحجم كبير جداً وبلون أحمر صارخ. النص المتبقي يكون تحته بخط أصغر ولكن واضح. شعار Wayso في الأسفل مع دعوة للعمل 'اختر الأمان. اختر Wayso'.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V7</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">Vous payez pour la même réparation encore et encore ? L'économie intelligente, c'est de payer une seule fois.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('7')">
+                    <div class="preview-text">Voici l'histoire de Karim. (BEFORE)
+Karim aime sa voiture, mais sa voiture ne semble pas l'aimer.
+Ch...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-7" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('7')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V7</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-7')">📋 نسخ النص</button>
+                            <div id="script-text-7" class="modal-body">Voici l'histoire de Karim. (BEFORE)<br/><br/>Karim aime sa voiture, mais sa voiture ne semble pas l'aimer.<br/><br/>Chaque mois, une nouvelle panne. Un nouveau bruit. Un nouveau voyage chez le mécanicien.<br/><br/>Il pensait faire des économies en achetant des pièces moins chères.<br/><br/>En réalité, il dépensait le double en réparations constantes. Son temps, son argent, sa patience... tout était perdu. (BRIDGE)<br/><br/>Jusqu'au jour où un ami lui a parlé de Wayso.<br/><br/>Au début, Karim était sceptique. 'Les pièces d'origine sont trop chères' disait-il.<br/><br/>Mais il a fait le calcul. Une seule pièce d'origine garantie lui coûterait moins cher que trois réparations avec des pièces contrefaites. (AFTER)<br/><br/>Aujourd'hui, cela fait un an que Karim roule l'esprit tranquille. Plus de pannes surprises. Plus de dépenses imprévues.<br/><br/>Il a compris que la vraie économie, ce n'est pas le prix d'achat. C'est la durabilité.<br/><br/>Faites comme Karim. Investissez dans votre tranquillité. Choisissez Wayso.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-7')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-7" class="modal-body">Combien perdez-vous chaque année à cause de pannes répétitives ? <br/><br/> L'histoire de Karim pourrait être la vôtre. Dépenser votre argent sur le même problème qui revient sans cesse.<br/>Il existe une solution intelligente qui vous fait économiser de l'argent et vous apporte la tranquillité d'esprit à long terme.<br/>Découvrez comment investir dans l'original est la véritable économie. <br/><br/> Investissez dans votre tranquillité d'esprit et votre portefeuille ! Contactez nos experts pour savoir comment économiser à long terme ! <br/><br/> #ÉconomieIntelligente #Investissement #SuccessStory #WaysoDZ #PiècesAuto #MaintenanceIntelligente #Algérie</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Storytelling Motion Graphics.<br/>BEFORE: مشاهد بالأبيض والأسود أو بألوان باهتة. شخصية 'كريم' تظهر متعبة ومحبطة. أيقونات تظهر (ساعة تدور بسرعة، محفظة تفرغ). مؤثرات صوتية مزعجة (صوت محرك متعطل).<br/>BRIDGE: انتقال بصري. شاشة تنقسم، يظهر شعار Wayso في المنتصف كجسر. الموسيقى تتغير من متوترة إلى إيجابية.<br/>AFTER: المشاهد تصبح ملونة وزاهية. شخصية 'كريم' تظهر سعيدة وواثقة، تقود سيارتها على طريق مشمس. انفوجرافيك بسيط يظهر '1 pièce originale < 3 réparations'.<br/>النبرة الصوتية: تبدأ كراوي قصة، متعاطف مع 'كريم'، ثم تصبح ملهمة ومحفزة في النهاية.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C8</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الرّخيس يكلّف الغالي! احسب بنفسك شحال راك تخسر صح على المدى الطويل.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('8')">
+                    <div class="preview-text">Slide 1: استثمر بذكاء في سيارتك: حاسبة التوفير الخفية!
+Slide 2: التكلفة الأولية: قطعة أصلية (مثال: 1...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-8" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('8')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C8</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-8')">📋 نسخ النص</button>
+                            <div id="script-text-8" class="modal-body">Slide 1: استثمر بذكاء في سيارتك: حاسبة التوفير الخفية!<br/><br/>Slide 2: التكلفة الأولية: قطعة أصلية (مثال: 15,000 دج) مقابل قطعة مقلدة (مثال: 8,000 دج). في الأول تبان المقلدة هي الرابحة...<br/><br/>Slide 3: التكلفة الحقيقية على 3 سنوات: الأصلية (15,000 دج). المقلدة (8,000 + 3x إصلاحات 5,000 + عطل كبير 20,000 = 43,000 دج)! الفرق واضح.<br/><br/>Slide 4: عملاؤنا يقولون: 'من لي ركبت الأصلي من عند Wayso، نسيت الطريق تاع الميكانيكي. صح غالي في الأول بصح تهنيت.' - محمد، الجزائر العاصمة.<br/><br/>Slide 5: مستعد تحسب شحال تقدر توفر؟ تواصل معنا اليوم و خلي خبرائنا يعطوك التكلفة الحقيقية لراحة بالك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-8')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-8" class="modal-body">ماعندكش وقت تضيعو ولا دراهم تكسرهم؟ اكتشف كيف توفر بذكاء! <br/><br/> الشراء الذكي ماشي هو لي يخير السعر الأرخص، هو لي يشوف على المدى البعيد.<br/>في هذا الكاروسال، راح نديرو عملية حسابية بسيطة توريلك شحال راك تقدر توفر كي تختار الأصلي من الأول.<br/>الأرقام ما تكذبش! <br/><br/> شوف كيفاش تزيد في عمر سيارتك و توفر على جيبك. مرر الصفحات! <br/><br/> #حاسبة_التوفير #استثمار_ذكي #Wayso #قطع_غيار_أصلية #الجودة_تربح #اقتصاد #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Slide 1: العنوان على خلفية تشبه الآلة الحاسبة أو ورقة حسابات. تصميم نظيف ومهني.<br/>Slide 2: رسم بياني شريطي (Bar chart) بسيط جداً يقارن بين السعرين، مع إبراز سعر القطعة المقلدة باللون الأخضر لجعلها تبدو مغرية في البداية.<br/>Slide 3: نفس الرسم البياني، لكن الآن أشرطة جديدة تظهر بجانب الأشرطة الأولى لتوضح التكلفة الإجمالية. شريط القطعة المقلدة يكون طويلاً جداً وباللون الأحمر.<br/>Slide 4: استخدام قالب شهادة عميل احترافي. صورة العميل (صورة ستوك أو رمزية)، اسمه، والشهادة داخل علامتي اقتباس. تصميم يوحي بالثقة.<br/>Slide 5: أيقونة هاتف أو رسالة كبيرة في الوسط. دعوة للعمل واضحة مع أرقام الاتصال أو رابط الموقع.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P9</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الدراهم لي تحطهم اليوم في سيارتك، هي راحة البال لي تشريها لغدوة.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('9')">
+                    <div class="preview-text">القرار الذكي اليوم، هو أمان وتوفير لسنوات.
+استثمر في الأصلي. استثمر في مستقبلك....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-9" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('9')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P9</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-9')">📋 نسخ النص</button>
+                            <div id="script-text-9" class="modal-body">القرار الذكي اليوم، هو أمان وتوفير لسنوات.<br/><br/>استثمر في الأصلي. استثمر في مستقبلك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-9')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-9" class="modal-body">الدراهم لي تصرفهم اليوم على الأصلي، توفرهم أضعاف المرات غدوة! <br/><br/> ما تشوفش لشراء قطعة غيار أصلية على أنها مجرد مصاريف، شوفلها على أنها أفضل استثمار تقدر ديرو في سيارتك و في سلامتك.<br/>كل دينار تصرفو اليوم على الجودة، راح يرجعلك راحة بال و توفير في المستقبل. <br/><br/> استثمر في سيارتك، استثمر في مستقبلك. زر موقعنا الآن. <br/><br/> #استثمار_المستقبل #القرار_الذكي #Wayso #الجودة_أولا #التوفير_الحقيقي #سيارات_الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">صورة رمزية قوية: يد تضع قطعة نقدية في حصالة على شكل سيارة. الإضاءة مركزة على هذه الحركة. الخلفية بسيطة وغير مشتتة. الرسالة هي أن شراء قطعة أصلية هو ادخار واستثمار وليس مجرد إنفاق. النص يكون مدمجاً بشكل أنيق في التصميم.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr></tbody></table></div>
+
+    <div class="disclaimer-card">
+        <span style="font-size: 1.2em;">⚠️</span>
+        <span>قد تخضع هذه الاستراتيجية لبعض التعديلات والتحسينات، حسب المواد الإعلامية المتوفرة أو لغرض تحقيق أفضل النتائج.</span>
+    </div>
+
+    <div class="summary-box">
+        <span style="font-weight: 700; color: #FFD700;">الميزانية الإجمالية المعتمدة</span>
+        <span class="total-amount">69000 دج</span>
+        <a href="https://wa.me/213770820431" class="cta-btn">تواصل معنا للاعتماد</a>
+        <div style="border: 1px dashed #FFD700; padding: 25px; border-radius: 15px; margin-top: 20px;">
+            <h3 style="color:#FFD700; margin:0;">الخطوة التالية</h3>
+            <p style="margin:10px 0;">مكالمة قصيرة لنكيّف هذه الاستراتيجية حسب مشروعك ونبدأ العمل فوراً.</p>
+            <div class="phones-list">
+                <div class="phone-item">0770 82 04 31</div>
+                <div class="phone-item">0770 55 01 51</div>
+                <div class="phone-item">0770 82 01 45</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+function openModal(id) { document.getElementById('modal-' + id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
+function closeModal(id) { document.getElementById('modal-' + id).style.display = 'none'; document.body.style.overflow = 'auto'; }
+window.onclick = function(event) { if (event.target.className === 'modal') { event.target.style.display = 'none'; document.body.style.overflow = 'auto'; } }
+
+// وظيفة النسخ الجديدة
+function copyToClipboard(elementId) {
+    const el = document.getElementById(elementId);
+    const text = el.innerText || el.textContent; // نسخ النص بدون HTML tags
+    navigator.clipboard.writeText(text).then(() => {
+        alert("تم نسخ النص بنجاح! ✅");
+    }).catch(err => {
+        console.error('Failed to copy', err);
+    });
+}
+</script></body></html>
