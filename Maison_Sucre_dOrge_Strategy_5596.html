@@ -1,0 +1,788 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Maison Sucre d'Orge Strategy</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+<style>
+    body { background: #FFFFFF; color: #1A1A1A; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; line-height: 1.6; overflow-x: hidden; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 15px; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 2px solid #000; }
+    .wayso-logo { height: 45px; }
+    .brand-name { font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 1.4em; color: #000; text-transform: uppercase; border-right: 4px solid #FFD700; padding-right: 12px; }
+    
+    .analysis-section { margin: 30px 0; }
+    .card-philosophy { padding: 30px; border-radius: 20px; background: #000; color: #FFF; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+    .card-philosophy h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #FFD700; }
+    
+    .card-why { padding: 30px; border-radius: 20px; background: #F9F9F9; color: #333; margin-bottom: 20px; border: 1px solid #EDECE9; }
+    .card-why h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #000; display: flex; align-items: center; gap: 10px; }
+    .card-why h2::after { content: ''; flex-grow: 1; height: 1px; background: #EDECE9; margin-right: 15px; }
+
+    .hero { margin: 35px 0 20px 0; border-right: 6px solid #FFD700; padding-right: 15px; }
+    .hero h1 { font-size: 2.5em; font-weight: 700; margin: 0; }
+    .table-wrapper { margin-top: 25px; border-radius: 12px; overflow: hidden; border: 1px solid #EDECE9; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #000; color: #FFF; padding: 15px; text-align: right; font-size: 0.95em; }
+    td { padding: 20px 12px; border-bottom: 1px solid #EDECE9; vertical-align: top; }
+    
+    .code-badge { font-family: 'Montserrat', sans-serif; font-weight: 700; background: #FFD700; color: #000; padding: 5px 12px; border-radius: 6px; font-size: 1.1em; display: inline-block; margin-bottom: 5px; }
+    .type-label { display: block; font-weight: 700; color: #555; font-size: 0.95em; }
+    
+    .hook-pill { background: #000; color: #FFD700; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 1.1em; display: block; border-right: 5px solid #FFD700; }
+    
+    /* تحسين زر المودال */
+    .script-trigger { background: #F8F9FA; border: 1px solid #EDECE9; padding: 15px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; position: relative; }
+    .script-trigger:hover { background: #FFF; border-color: #FFD700; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transform: translateY(-2px); }
+    
+    .preview-text { font-size: 0.95em; color: #333; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; white-space: pre-wrap; }
+    
+    /* ستايل المودال */
+    .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); }
+    .modal-content { background: #FFF; margin: 5% auto; padding: 30px; border-radius: 20px; width: 90%; max-width: 750px; position: relative; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+    .close-modal { position: absolute; top: 20px; left: 20px; font-size: 30px; cursor: pointer; color: #999; line-height: 1; transition: color 0.2s; }
+    .close-modal:hover { color: #000; }
+    
+    .modal-section { margin-bottom: 25px; padding: 20px; border-radius: 12px; background: #fbfbfa; border: 1px solid #eee; position: relative; }
+    
+    /* زر النسخ */
+    .copy-btn { position: absolute; top: 10px; left: 10px; background: #fff; border: 1px solid #ddd; padding: 5px 10px; border-radius: 6px; cursor: pointer; font-size: 0.8em; font-weight: bold; color: #555; display: flex; align-items: center; gap: 5px; transition: all 0.2s; }
+    .copy-btn:hover { border-color: #FFD700; color: #000; background: #FFD70020; }
+    .copy-btn:active { transform: scale(0.95); }
+    
+    .modal-body { font-size: 1.15em; color: #1A1A1A; line-height: 1.9; word-wrap: break-word; white-space: pre-wrap; }
+    
+    .disclaimer-card { margin: 25px 0; padding: 20px; background: #FFF9E6; border-radius: 12px; border-right: 5px solid #FFC107; font-size: 1.05em; color: #856404; display: flex; align-items: center; gap: 12px; }
+    .summary-box { margin-top: 50px; background: #000; color: #FFF; padding: 40px 20px; border-radius: 25px; text-align: center; }
+    .total-amount { font-family: 'Montserrat'; font-size: 3.5em; font-weight: 700; display: block; color: #FFD700; margin: 10px 0; }
+    .cta-btn { display: inline-block; background: #FFD700; color: #000; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.2em; margin-bottom: 25px; transition: transform 0.2s; }
+    .cta-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px #FFD70060; }
+    
+    .phones-list { margin-top: 15px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; direction: ltr; } 
+    .phone-item { background: #1A1A1A; padding: 8px 15px; border-radius: 8px; border: 1px solid #333; color: #FFF; font-family: 'Montserrat'; font-weight: 700; font-size: 1.2em; white-space: nowrap; }
+
+    @media (max-width: 768px) {
+        thead { display: none; }
+        tr { display: block; border: 1px solid #EDECE9; border-radius: 15px; margin-bottom: 20px; padding: 15px; background: #FFF; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        td { display: block; padding: 10px 0; text-align: right; border-bottom: 1px dashed #eee; }
+        td:last-child { border-bottom: none; }
+        td::before { content: attr(data-label); font-weight: 700; color: #BBB; display: block; font-size: 0.8em; margin-bottom: 6px; text-transform: uppercase; }
+        .brand-name { font-size: 1.1em; }
+        .modal-content { width: 95%; padding: 20px; margin: 10% auto; }
+        .total-amount { font-size: 2.5em; }
+    }
+</style></head><body>
+
+<div class="container">
+    <div class="header">
+        <img src="https://storage.googleapis.com/msgsndr/GwIPQCjstTzxnzDQ1B32/media/68fddb5534bb1597bc934f89.png" class="wayso-logo">
+        <div class="brand-name">Maison Sucre d'Orge</div>
+    </div>
+
+    <div class="analysis-section">
+        <div class="card-philosophy"><h2>🎯 فلسفة الاستراتيجية</h2><p>بصفتنا شركاء نجاحكم، قمنا بهندسة هذه الاستراتيجية لتضع 'Maison Sucre d'Orge' في صدارة المنافسة، مركزين على بناء سلطة العلامة التجارية من خلال تميزها الفريد في الـ Viennoiserie الأصيلة. هذا المزيج من الفيديوهات الشاملة والكاروسالات التعليمية، مدعومًا بمحتوى عاطفي وشهادات حقيقية، سيضمن ليس فقط زيادة الوعي، بل ترسيخ ولائكم وثقتكم بنا كوجهة متكاملة وراقية لمناسباتكم.</p></div>
+        <div class="card-why"><h2>💡 لماذا هذه الخطة؟</h2><p>بدأنا بـ V1 لخطف الانتباه وتأسيس السلطة ببراعة الـ Viennoiserie، ثم C2 للتعليم وتعميق الثقة، وP3 لترسيخ صورة الفخامة. هذا التسلسل المصمم بعناية يقود العميل في رحلة مدروسة من التعرف والإعجاب وصولاً إلى الشراء والولاء، معالجة كل نقطة ألم وتقديم الحل الأمثل في كل خطوة.</p></div>
+    </div>
+
+    <div class="hero"><h1>خطة الإنتاج الإبداعي</h1></div>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th style="width: 20%;">الكود والنوع</th><th style="width: 30%;">الهوك (Hook)</th><th style="width: 50%;">المحتوى</th></tr></thead>
+            <tbody><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V1</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">تحشمي تحطي الكرواسون لي شريتيه قدام ضيافك؟ كاين الحل.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('1')">
+                    <div class="preview-text">(صوت أنثوي، دافئ وواثق)
+شحال من مرة في رمضان، تحبي تفرحي ضيافك بحاجة عليها الكلام... 
+بصح تتصدمي بال...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-1" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('1')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V1</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-1')">📋 نسخ النص</button>
+                            <div id="script-text-1" class="modal-body">(صوت أنثوي، دافئ وواثق)<br/><br/>شحال من مرة في رمضان، تحبي تفرحي ضيافك بحاجة عليها الكلام... <br/><br/>بصح تتصدمي بالواقع. <br/><br/>بنة ناقصة... شكل ماشي هو... و تحسي روحك ضيعتي دراهمك ووقتك باطل.<br/><br/>القلقة تاع كيفاش طابلتك لازم تكون parfaite... و الخوف من كلمة "هذا ماشي بنين".<br/><br/>(توقف قصير)<br/><br/>بصح واش لوكان نقولك بلي كاين بلاصة وين الفخامة تبدا من أول قضمة؟<br/><br/>في Maison Sucre d'Orge، حنّا ماشي برك نخدمو الـ Viennoiserie... حنّا نتقنوها.<br/><br/>كل طبقة تحكي حكاية تاع زبدة حرة، فرينة فرنسية، و يدين محترفة.<br/><br/>هذا ماشي مجرد كرواسون... هذي هي الأصالة.<br/><br/>و ماشي غير الـ Viennoiserie.<br/><br/>طابلة رمضان ديالك، من المالح الفاخر... للـ Pâtisserie fine... للحلويات التقليدية المعسلة... حتى للكيك ديزاين لي يحمر الوجه...<br/><br/>كلش واجد في بلاصة وحدة. بلا تكسار الراس.<br/><br/>تخيلي روحك مرتاحة، واثقة، و فرحانة بضيافتك.<br/><br/>هذا هو رمضان لي تستاهليه.<br/><br/>Maison Sucre d'Orge.<br/><br/>الفخامة تبدا من عندنا: ذوق الـViennoiserie على أصولها.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-1')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-1" class="modal-body">رمضان هذا... خلي طابلتك تحكي على فخامتك! <br/><br/> تعبتي من البحث على الجودة لي تحمرلك وجهك قدام ضيافك؟ من القلقة تاع التوجاد و تضييع الوقت؟<br/><br/>Maison Sucre d'Orge هو الحل لي كنتي تستناي فيه. ماشي مجرد محل حلويات، حنا وجهتك المتكاملة لطاولة رمضان فاخرة و متقونة، من الـ Viennoiserie الأصيلة لي تذوب فالفم، للمالح الراقي و حتى للكيك ديزاين.<br/><br/>الفخامة تبدا من عندنا: ذوق الـViennoiserie على أصولها. <br/><br/> زورونا اليوم فالمحل واكتشفوا التشكيلة لي تليق بضيافتكم الرمضانية! <br/><br/> #MaisonSucreDorge #ViennoiserieAlgerie #رمضان_2024 #فخامة_الضيافة #حلويات_جزائرية #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">يبدأ الفيديو بلقطات سينمائية بطيئة (slow-motion) ومقربة جداً لمنتجات Viennoiserie ذات جودة رديئة، الإضاءة خافتة والموسيقى حزينة (Pain). ثم ينتقل لمشاهد سريعة لامرأة متوترة تبحث في هاتفها وتتنقل بين المحلات (Agitate). مع جملة 'بصح واش لوكان نقولك'، تتغير الموسيقى إلى نغمة راقية وملهمة، والإضاءة تصبح دافئة ومشرقة. لقطات سينمائية فخمة لعملية تحضير الـ Viennoiserie في Maison Sucre d'Orge، التركيز على نظافة المكان وحرفية الصانع (Solution). لقطات واسعة (panoramic shots) لطاولة رمضان متكاملة وفاخرة تعرض تنوع المنتجات. ينتهي الفيديو بلقطة للوجه الإعلامي (أو ممثلة) وهي تقدم قطعة Viennoiserie لضيوفها بابتسامة فخر. يظهر الشعار والسلوغان في الأخير.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C2</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">عمرك كليت كرواسون يخليك تسافر لباريس وأنت في بلاصتك؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('2')">
+                    <div class="preview-text">Slide 1: السر وراء كل قضمة مثالية! كيفاش نخدمو Viennoiserie تخليك تحس روحك في فرنسا؟
+Slide 2: كلش يب...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-2" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('2')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C2</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-2')">📋 نسخ النص</button>
+                            <div id="script-text-2" class="modal-body">Slide 1: السر وراء كل قضمة مثالية! كيفاش نخدمو Viennoiserie تخليك تحس روحك في فرنسا؟<br/><br/>Slide 2: كلش يبدا من هنا: مكونات أصلية 100%. زبدة فرنسية فاخرة، فرينة من أجود الأنواع، وشوكولا بلجيكية حقيقية. لا تنازل عن الجودة!<br/><br/>Slide 3: فن الصبر والإتقان: كل قطعة تمر على مراحل دقيقة من العجن، التوريق، والتخمير البطيء. الحرفية هي علامتنا المسجلة.<br/><br/>Slide 4: النتيجة اللي تبان وتنذاق: طبقات هشة ومقرمشة، لون ذهبي مثالي، وذوق يذوب في الفم. شوف بعينك واحكم!<br/><br/>Slide 5: هوما جربو و حكمو! "أحسن كرواسون ذقتو في حياتي، تقول عليه تاع فرنسا صح!" - شهادة من أحد زبائننا الأوفياء.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-2')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-2" class="modal-body">ماشي أي Viennoiserie... هذي هي الأصول! <br/><br/> تساءلت يوماً علاش الـ Viennoiserie تاعنا عندها بنة خاصة؟ السر ماشي غير في الوصفة، السر في الأصالة، الحرفية، والمكونات لي ما نلعبوش بيها.<br/><br/>اكتشف في هذا الكاروسال رحلة كل قطعة من مطبخنا لطاولتك. <br/><br/> مر للمحل و ذوق الفرق بنفسك! التجربة خير دليل. <br/><br/> #صنع_بحب #جودة_عالية #Viennoiserie #حلويات_فرنسية #الجزائر #MaisonSucreDorge</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم الكاروسال يجب أن يكون راقياً ونظيفاً. <br/>Slide 1: صورة مقربة جداً ومغرية لقطعة كرواسون مثالية مع العنوان بخط أنيق.<br/>Slide 2: صورة للمكونات الفاخرة (قالب زبدة عليه علامة فرنسية، كيس فرينة نوعية، قطع شوكولا) مرتبة بشكل فني.<br/>Slide 3: صور متتابعة أو فيديو قصير (إذا ممكن في التصميم) لمراحل التحضير (طي العجينة، تقطيعها).<br/>Slide 4: صورة احترافية للنتيجة النهائية، مع إبراز الطبقات الداخلية للقطعة.<br/>Slide 5: تصميم اقتباس أنيق مع اسم الزبون (أو الأحرف الأولى) على خلفية بسيطة وراقية.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P3</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">تفصيلة صغيرة... تصنع فخامة كبيرة.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('3')">
+                    <div class="preview-text">الفخامة في أدق تفاصيلها....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-3" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('3')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P3</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-3')">📋 نسخ النص</button>
+                            <div id="script-text-3" class="modal-body">الفخامة في أدق تفاصيلها.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-3')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-3" class="modal-body">السر اللي يخلي مناسباتك فخمة و عليها الكلام! <br/><br/> في Maison Sucre d'Orge، نؤمن بأن الفخامة الحقيقية تكمن في التفاصيل. قطعة Viennoiserie متقونة تقدر تغير طابع طاولتك بالكامل وتضيف لمسة من الرقي اللي يستاهلوها ضيافك.<br/><br/>الجودة ماشي خيار، هي الأساس. <br/><br/> اكتشف تشكيلتنا الكاملة لي تليق بكرم ضيافتك. <br/><br/> #فخامة #رقي #جودة #حلويات_راقية #ضيافة_جزائرية #MaisonSucreDorge</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">صورة فوتوغرافية احترافية عالية الجودة (Macro shot) لقطعة Pain au Chocolat أو Croissant. الإضاءة مركزة على المنتج (Spotlight) لإبراز قرمشة الطبقات الخارجية واللمعان الذهبي. الخلفية داكنة وغير واضحة (bokeh effect) لإعطاء إحساس بالفخامة. النص يكون مكتوب بخط serif أنيق في زاوية من الصورة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V4</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">رمضان دخل و تخمام الطابلة بدا؟ الحلو من جهة و المالح من جهة... والوقت يجري؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('4')">
+                    <div class="preview-text">(صوت امرأة تتحدث بسرعة وقلق، كأنها تسجل story)
+يا جماعة... ما فهمتش كيفاش الوقت راه يجري! رمضان على ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-4" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('4')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V4</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-4')">📋 نسخ النص</button>
+                            <div id="script-text-4" class="modal-body">(صوت امرأة تتحدث بسرعة وقلق، كأنها تسجل story)<br/><br/>يا جماعة... ما فهمتش كيفاش الوقت راه يجري! رمضان على الأبواب وأنا مازال ما وجدت والو.<br/><br/>كل يوم نقول اليوم نبدا نخمم واش ندير... بصح الخدمة، الدار، الدراري... ماكانش الوقت.<br/><br/>المشكل الكبير، طابلة رمضان لازم تكون كاملة... الحلو وحدو حكاية، والمالح حكاية أخرى.<br/><br/>(تتنهد) والله غير عييت كل عام نفس السيناريو.<br/><br/>(توقف، يظهر على وجهها اكتشاف)<br/><br/>Espoir! صحبتي بعثتلي لاباج تاع Maison Sucre d'Orge... espérez تشوفو واش لقيت!<br/><br/>كلش! كلش في بلاصة وحدة! الـViennoiserie تاعهم تهبل، المملحات ديالهم تحفة، عندهم حتى لي كيش ولي ميني بيتزا... وزيد الحلويات التقليدية.<br/><br/>(تظهر وهي في المحل، تصور المنتجات بسعادة)<br/><br/>خلاص... لقيت الحل! رمضان هذا راح نكون مرتاحة و طابلتي toujours au top!<br/><br/>تهنيت!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-4')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-4" class="modal-body">رمضان بلا قلقة وبلا جري... ممكن! <br/><br/> هل تعانين من ضيق الوقت كل رمضان؟ هل تحلمين بطاولة متكاملة وحلوة ومالحة بلا ما تتعبي؟<br/><br/>نعرفو هذا الشعور، ولهذا السبب Maison Sucre d'Orge هو وجهتك الوحيدة هذا العام. كل ما تحتاجينه من مملحات راقية، حلويات تقليدية، و Viennoiserie عالمية، تلقايه في مكان واحد. <br/><br/> ارتاحي هاذ رمضان! كلش تلقايه عندنا. شوفي المنيو تاعنا في الستوريات و كوموندي دروك! <br/><br/> #رمضان_كريم #راحة_البال #حلول_رمضان #المطبخ_الجزائري #الجزائر #MaisonSucreDorge</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">الفيديو مصور بأسلوب UGC (User-Generated Content)، بالهاتف وبشكل عمودي. البداية تكون في بيت عادي، الممثلة تبدو متعبة وقلقة. الإضاءة عادية. عند اكتشاف المحل، يتغير إيقاع الفيديو يصبح أسرع وأكثر حماساً. المشاهد في المحل تكون مصورة من طرفها، مع تعليقات صوتية عفوية. التركيز على إظهار سهولة إيجاد كل شيء في مكان واحد. الموسيقى تكون خفيفة وعصرية.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C5</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">طابلة رمضان كاملة مكمولة... بلا ما دوري سبع دورات!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('5')">
+                    <div class="preview-text">Slide 1: تحلمي بطاولة رمضان متكاملة بلا تعب؟ Maison Sucre d'Orge هو وجهتك الوحيدة!
+Slide 2: للحلاوة ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-5" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('5')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C5</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-5')">📋 نسخ النص</button>
+                            <div id="script-text-5" class="modal-body">Slide 1: تحلمي بطاولة رمضان متكاملة بلا تعب؟ Maison Sucre d'Orge هو وجهتك الوحيدة!<br/><br/>Slide 2: للحلاوة أصولها: من قلب اللوز المعسل والبقلاوة، إلى أرقى أنواع الـ Pâtisserie fine. كل الأذواق عندنا!<br/><br/>Slide 3: للمالح مكانته: تشكيلة فاخرة من المملحات، لي كيش، ميني بيتزا، و أكثر... مثالية لفطوركم وسهراتكم.<br/><br/>Slide 4: تفاصيل تصنع الفارق: ما ننساوش العصائر الطبيعية والمشروبات المنعشة لي تكمل لمّتكم.<br/><br/>Slide 5: علاش حنا؟ لأن وقتك ثمين. وفري على روحك الجهد والتعب، وخلي الجودة والفخامة علينا.<br/><br/>Slide 6: للراحة عنوان: استفيدي من خدمة الطلب المسبق والتوصيل. حضري طاولتك وأنت مرتاحة في دارك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-5')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-5" class="modal-body">وجهة واحدة... لكل ما تحتاجه طاولتك الرمضانية! <br/><br/> ما تزيديش تضيعي وقتك في البحث! في Maison Sucre d'Orge، جمعنالك كل ما تشتهيه الأنفس في مكان واحد. من المملحات الفاخرة للحلويات بأنواعها.<br/><br/>طاولتك هذا العام راح تكون حديث الناس. <br/><br/> اكتشف الحل الشامل عند Maison Sucre d'Orge! زوروا صفحتنا أو المحل. <br/><br/> #OneStopShop #رمضان_يجمعنا #المطبخ_الجزائري #حلويات_و_مملحات #الجزائر #MaisonSucreDorge</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم الكاروسال يكون عملياً وواضحاً، كأنه قائمة أنيقة.<br/>Slide 1: صورة لطاولة رمضان غنية ومتنوعة مع العنوان الرئيسي.<br/>Slide 2: صورة مقسمة تعرض نوعين من الحلويات (تقليدي وعصري).<br/>Slide 3: صورة جذابة لتشكيلة من المملحات.<br/>Slide 4: صورة لعصائر طبيعية في أكواب أنيقة بجانب بعض المنتجات.<br/>Slide 5: أيقونات بسيطة (ساعة، جهد) مع علامة خطأ، وشعار المحل مع علامة صح.<br/>Slide 6: صورة بسيطة لهاتف مع واجهة طلب، أو أيقونة سيارة توصيل.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P6</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الحلو والمالح في صورة وحدة... وراحة البال في قلبك.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('6')">
+                    <div class="preview-text">كل ما تحتاجه... في مكان واحد....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-6" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('6')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P6</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-6')">📋 نسخ النص</button>
+                            <div id="script-text-6" class="modal-body">كل ما تحتاجه... في مكان واحد.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-6')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-6" class="modal-body">طابلة رمضان ديالك هانية ومزيانة... عندنا تلقاي واش يسلكك! <br/><br/> لما الحلو والمالح يجتمعوا في مكان واحد، النتيجة هي راحة بالك و فخامة طاولتك.<br/><br/>استمتعي برمضان واتركي التجهيزات علينا. <br/><br/> زوري موقعنا أو محلنا وشوفي تشكيلتنا الكاملة لرمضان! <br/><br/> #راحة #وفرة #رمضان_2024 #طاولة_رمضان #الجزائر #MaisonSucreDorge</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">صورة فوتوغرافية (Top-down shot / Flatlay) لطاولة صغيرة وأنيقة عليها تشكيلة مختارة بعناية من المنتجات: قطعتين Viennoiserie، ثلاث أنواع مملحات، قطعة Tartelette، وكأس عصير. الترتيب فني ويوحي بالوفرة والتكامل. الألوان دافئة ومشرقة. النص يكون بسيط ومباشر.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V7</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">عندك مناسبة عزيزة على قلبك... و خايفة حاجة تخسرلك فرحتك؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('7')">
+                    <div class="preview-text">(صوت شاب يحكي، بنبرة عاطفية وصادقة)
+كانت الخطبة تاعي... أول مناسبة رسمية لينا. كنت حاب كلش يكون مثال...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-7" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('7')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V7</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-7')">📋 نسخ النص</button>
+                            <div id="script-text-7" class="modal-body">(صوت شاب يحكي، بنبرة عاطفية وصادقة)<br/><br/>كانت الخطبة تاعي... أول مناسبة رسمية لينا. كنت حاب كلش يكون مثالي.<br/><br/>بصح الحاجة لي كانت مقلقتني هي الحلوى... خفت نجيب حاجة ماشي بنينة ولا شكلها ماشي شباب و نحشم قدام ناسها.<br/><br/>بقيت نحوس ونحوس... حتى واحد صاحبي نصحني بـ Maison Sucre d'Orge.<br/><br/>(توقف قصير)<br/><br/>الراحة النفسية لي حسيتها كي دخلت عندهم... ما تتوصفش.<br/><br/>فهموني، سمعولي، و خدمولي كيكة على ذوقنا... وزدت ديت من عندهم تشكيلة Viennoiserie و Salé... <br/><br/>نهار المناسبة... كلش كان أكثر من مثالي. الناس كامل سقساوني منين جبت هاد التحف.<br/><br/>الفرحة لي شفتها في عينيها... و الفخر لي حسيت بيه... يسواو الدنيا.<br/><br/>ماشي مجرد حلوى... هما كانوا جزء من فرحتنا.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-7')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-7" class="modal-body">في مناسباتكم الغالية... الثقة هي أهم مكون. <br/><br/> كل مناسبة هي ذكرى... و حنا في Maison Sucre d'Orge نفهمو شحال مهم كل تفصيل يكون مثالي.<br/><br/>كيما بطل قصتنا، خلي هم الجودة و الشكل علينا، و عيش فرحتك بلا قلقة. نحن هنا لنصنع معكم أجمل الذكريات. <br/><br/> خلّي Maison Sucre d'Orge يشاركك فرحتك. اتصلي بينا للاستشارة والتخطيط لمناسبتك! <br/><br/> #قصص_نجاح #ثقة #مناسبات_سعيدة #كيك_ديزاين #الجزائر #MaisonSucreDorge</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">الفيديو بأسلوب قصصي وعاطفي. يبدأ بلقطات للممثل وهو يبدو قلقاً ومتوتراً وهو يخطط للمناسبة. ثم ينتقل لمشاهد دافئة داخل المحل، حيث يتم استقباله بحفاوة. ذروة الفيديو تكون في مشاهد من المناسبة (مع إعادة تمثيل)، تظهر فرحة الحضور وإعجابهم بالمنتجات. التركيز على تعابير وجه الممثل وهو يشعر بالفخر والرضا. موسيقى هادئة وعاطفية ترافق القصة. ينتهي الفيديو بلقطة مقربة للكيكة الفاخرة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C8</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">ماشي حنا لي نشكرو روحنا... زباينّا هوما لي يحكو.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('8')">
+                    <div class="preview-text">Slide 1: واش قالو علينا ناسنا؟ آراء حقيقية من زبائن أوفياء.
+Slide 2: "الكيكة كانت تحفة فنية وبنة ولا...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-8" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('8')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C8</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-8')">📋 نسخ النص</button>
+                            <div id="script-text-8" class="modal-body">Slide 1: واش قالو علينا ناسنا؟ آراء حقيقية من زبائن أوفياء.<br/><br/>Slide 2: "الكيكة كانت تحفة فنية وبنة ولا أروع! كامل الضياف هبلوا عليها. شكراً على احترافيتكم." - سارة. ب<br/><br/>Slide 3: "خدمة المناسبات عندكم top! كلش كان واجد في الوقت، منظم، و يشهي. تهنيت من أكبر هم." - محمد. ل<br/><br/>Slide 4: "صراحة، الـ Viennoiserie تاعكم ما تتبدلش. كل صباح لازم ندوز عليكم. بنة أصلية!" - فاطمة. ز<br/><br/>Slide 5: مقتطفات من رسائلكم لي تفرحنا كل يوم! (سكرينشوتات لرسائل وتعليقات إيجابية).</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-8')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-8" class="modal-body">شهادتكم هي فخرنا وأكبر دليل على جودتنا! <br/><br/> رضا عملائنا هو أولويتنا القصوى. كل يوم، نستقبل رسائل وشهادات تزيدنا إصرار على تقديم الأفضل.<br/><br/>شوفوا بنفسكم علاش Maison Sucre d'Orge هو الخيار المفضل للكثيرين. <br/><br/> انضم إلى عائلتنا من العملاء الراضين! ننتظر زيارتك. <br/><br/> #اراء_الزبائن #ثقة_العملاء #الجودة_عنواننا #شكرا_لكم #الجزائر #MaisonSucreDorge</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم الكاروسال يركز على المصداقية. استخدام خلفيات نظيفة وأنيقة.<br/>Slide 1: عنوان جذاب فوق صورة ضبابية للمحل من الداخل.<br/>Slide 2-4: كل شهادة تكون في سلايد وحدها. تصميم الاقتباس يكون واضحاً، مع اسم الزبون (أو الأحرف الأولى) وصورة صغيرة للمنتج المتعلق بالشهادة (كيكة، صينية مملحات، كرواسون).<br/>Slide 5: تجميع لقطات شاشة (Screenshots) لتعليقات ورسائل من انستغرام وفيسبوك، بتصميم يدمجها بشكل جذاب.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P9</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كلمة وحدة من زبون... تسوى كثر من ألف صورة.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('9')">
+                    <div class="preview-text">"الجودة، البنة، والاحترافية... كلش لقيتو عندكم. يعطيكم الصحة!"...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-9" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('9')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P9</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-9')">📋 نسخ النص</button>
+                            <div id="script-text-9" class="modal-body">"الجودة، البنة، والاحترافية... كلش لقيتو عندكم. يعطيكم الصحة!"</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-9')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-9" class="modal-body">كي تكون الكلمة الزينة هي خير دليل... <br/><br/> لا شيء يفرحنا أكثر من سماع أننا كنا عند حسن ظنكم وساهمنا في إسعادكم.<br/><br/>كل شهادة منكم هي وسام نعتز به. <br/><br/> تجربتك عندنا هي أولويتنا! ننتظر رأيك بفارغ الصبر. <br/><br/> #SocialProof #CustomerLove #Testimonial #الجودة #الجزائر #MaisonSucreDorge</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم أنيق جداً يركز على الاقتباس. الاقتباس مكتوب بخط يدوي (script font) جميل في وسط التصميم. في الخلفية، صورة عالية الجودة للمنتج الذي أُشيد به (مثلاً قطعة Viennoiserie) لكن بشكل ضبابي قليلاً (blur). اسم الزبون يكون في الأسفل بخط أصغر.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V10</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">تحلمي بكيكة عيد ميلاد ماشي كيما أي كيكة؟ تحفة فنية تتكل؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('10')">
+                    <div class="preview-text">(لا يوجد تعليق صوتي، فقط موسيقى عصرية وإيقاعية ونصوص متحركة)
+[نص على الشاشة: من فكرة...]
+[نص على الش...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-10" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('10')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V10</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-10')">📋 نسخ النص</button>
+                            <div id="script-text-10" class="modal-body">(لا يوجد تعليق صوتي، فقط موسيقى عصرية وإيقاعية ونصوص متحركة)<br/><br/>[نص على الشاشة: من فكرة...]<br/><br/>[نص على الشاشة: ...إلى تحفة فنية!]<br/><br/>[نص على الشاشة: الكيك ديزاين على أصوله]<br/><br/>[نص على الشاشة: كل مناسبة... تستاهل إبداعها الخاص]<br/><br/>[نص على الشاشة: و أكثر من مجرد كيك...]<br/><br/>[نص على الشاشة: اكتشفوا عالمنا من النكهات!]</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-10')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-10" class="modal-body">الإبداع اللي يتذاق... من الكيك ديزاين حتى لأدق التفاصيل! <br/><br/> في Maison Sucre d'Orge، كل كيكة هي قصة وكل قطعة هي تجربة. متخصصون في تحويل أفكاركم إلى تحف فنية لذيذة تناسب كل مناسباتكم.<br/><br/>ولأننا نهتم بكل التفاصيل، اكتشفوا تشكيلتنا الواسعة من المنتجات الفاخرة التي تكمل فرحتكم. <br/><br/> صممي كيكتك دروك معانا! شوفي الكتالوج تاعنا في الهايلايتس أو اتصلي بنا! <br/><br/> #كيك_ديزاين_الجزائر #CakeDesign #ابداع #حلويات_عصرية #مناسبات #MaisonSucreDorge</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو Motion Graphics سريع وجذاب (fast-paced). يبدأ برسم تخطيطي لكيكة يتحول تدريجياً إلى صورة الكيكة الحقيقية. لقطات متتابعة وسريعة (montage) لأجمل تصميمات الكيك المخصصة التي تم صنعها. ثم ينتقل العرض بأسلوب ديناميكي لعرض منتجات أخرى (سابليه بريستيج، مملحات فاخرة، شوكولا) تظهر وتختفي على الشاشة بإيقاع الموسيقى. الألوان زاهية والتصميم عصري.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C11</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كيكة مناسبتك لازم تكون تحفة فنية و بنينة... صح ولا لالا؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('11')">
+                    <div class="preview-text">Slide 1: كيكة أحلامك تبدا من هنا! إبداع بلا حدود لكل مناسباتكم.
+Slide 2: من الفكرة... إلى التنفيذ! ا...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-11" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('11')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C11</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-11')">📋 نسخ النص</button>
+                            <div id="script-text-11" class="modal-body">Slide 1: كيكة أحلامك تبدا من هنا! إبداع بلا حدود لكل مناسباتكم.<br/><br/>Slide 2: من الفكرة... إلى التنفيذ! الخطوة 1: نسمعولك ونفهمو رؤيتك. الخطوة 2: نقترحو عليك تصميم ونكهات. الخطوة 3: نحولو الحلم لحقيقة!<br/><br/>Slide 3: إبداعاتنا تحكي قصصكم! (مجموعة صور مجمعة collage لأجمل الكيكات التي تم تصميمها سابقاً لأعياد ميلاد، خطوبة، أعراس...).<br/><br/>Slide 4: ذوق ما يتنساش! اختاري من بين تشكيلة واسعة من النكهات والحشوات الفاخرة (فانيلا، شوكو، فستق، كراميل، فواكه...).<br/><br/>Slide 5: لمسة تكمل الفخامة: ما ننساوش السابليه بريستيج، الماكرون، والكب كيك لي يتماشاو مع تصميم كيكتك!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-11')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-11" class="modal-body">لكل مناسبة... كيكة فريدة تروي قصتها! <br/><br/> لماذا تختارين كيكة عادية بينما يمكنك الحصول على تحفة فنية مصممة خصيصاً لك؟ في Maison Sucre d'Orge، نجمع بين الفن والذوق لنقدم لك كيكة أحلامك.<br/><br/>تصفحي الكاروسال واكتشفي كيف يمكننا جعل مناسبتك لا تُنسى. <br/><br/> اكتشفي إبداعاتنا في عالم الكيك! اتصلي بنا اليوم لمناقشة تصميمك. <br/><br/> #كتالوج_الكيك #كيك_مخصص #حلويات_المناسبات #ابداع_جزائري #الجزائر #MaisonSucreDorge</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم الكاروسال يكون ككتالوج مصغر وإبداعي.<br/>Slide 1: صورة مذهلة لكيكة بتصميم فريد مع العنوان.<br/>Slide 2: تصميم جرافيكي بسيط يوضح المراحل الثلاث باستخدام أيقونات ورسومات.<br/>Slide 3: تصميم كولاج فني للصور، مع التركيز على تنوع الأشكال والألوان.<br/>Slide 4: قائمة بالنكهات بتصميم أنيق على خلفية صورة مقربة لحشوة كيكة.<br/>Slide 5: صورة Flatlay أنيقة تجمع بين المنتجات المذكورة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P12</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كيما يقولو... الصورة تغني عن ألف كلمة.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('12')">
+                    <div class="preview-text">كل مناسبة تستحق تحفتها الفنية الخاصة....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-12" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('12')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P12</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-12')">📋 نسخ النص</button>
+                            <div id="script-text-12" class="modal-body">كل مناسبة تستحق تحفتها الفنية الخاصة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-12')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-12" class="modal-body">كل مناسبة تستاهل تحفة فنية... و حنا نصنعوها! <br/><br/> فن الكيك ديزاين هو شغفنا. نضع كل خبرتنا وإبداعنا في كل تفصيل لنضمن أن كيكتك تكون حديث كل الحاضرين، شكلاً وذوقاً. <br/><br/> هل لديك فكرة؟ دعنا نحولها إلى حقيقة! صممي كيكتك الخاصة دروك! <br/><br/> #فن_الكيك #تحفة_فنية #كيك_الاحلام #ابداع #الجزائر #MaisonSucreDorge</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">صورة احترافية عالية الجودة لكيكة مخصصة بتصميم استثنائي ومبهر (مثلاً كيكة زفاف صغيرة أو كيكة عيد ميلاد بتصميم معقد). الإضاءة والتركيز على الكيكة 100%. الخلفية بسيطة جداً (بيضاء أو بلون محايد) حتى لا تسرق الانتباه من تفاصيل الكيكة. النص يكون بخط صغير وأنيق في الأسفل.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V13</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">حابين تفخمو طابلة رمضان و في نفس الوقت ما تفرغوش جيوبكم؟ كملو الفيديو!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('13')">
+                    <div class="preview-text">(الوجه الإعلامي يتحدث مباشرة للكاميرا بحماس وثقة)
+السلام عليكم ورمضانكم كريم! على بالي بلي كامل تحبو...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-13" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('13')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V13</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-13')">📋 نسخ النص</button>
+                            <div id="script-text-13" class="modal-body">(الوجه الإعلامي يتحدث مباشرة للكاميرا بحماس وثقة)<br/><br/>السلام عليكم ورمضانكم كريم! على بالي بلي كامل تحبو طابلة رمضان تكون معمرة ومنوعة وتشهي... بصح على بالي تاني بلي المصروف يزيد في هذا الشهر.<br/><br/>(يغير نبرته ليصبح أكثر جدية)<br/><br/>ولهذا السبب، في Maison Sucre d'Orge قررنا نقدملكم عروض ما تتراتاش!<br/><br/>(يظهر بوكس أنيق بجانبه)<br/><br/>حضّرنالكم بوكسات رمضان سبيسيال! فيها تشكيلة من أروع ما نخدمو: Viennoiserie، مملحات، وحلويات معسلة... كلش ملموم في بوكس واحد بسعر استثنائي!<br/><br/>هكذا، تفرحوا العايلة والضياف، وتهناو من التخمام والتعب... وحسابكم يبقى في الجيب!<br/><br/>بصح حذاري... الكمية محدودة جداً والعرض صالح لأول أسبوع من رمضان فقط!<br/><br/>ما تخليش الفرصة تفوتك!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-13')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-13" class="modal-body">عروض رمضان السبيسيال وصلت! الفخامة... بسعر ما يحلمش! <br/><br/> رمضان هذا العام، Maison Sucre d'Orge قرر يدللكم! حضرنالكم باكدجات خاصة تجمع بين الفخامة، الجودة، والسعر الممتاز. كل ما تحتاجه طاولتكم في بوكس واحد.<br/><br/>لكن انتبهوا، الكمية محدودة جداً والعرض لن يدوم طويلاً! <br/><br/> العرض صالح لأول أسبوع من رمضان فقط! كوموندي البوكس ديالك دروك قبل ما يفوتك الحال! <br/><br/> #عروض_رمضان #رمضان_2024 #اقتصاد_و_فخامة #باك_رمضان #الجزائر #MaisonSucreDorge</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو Host-Led بسيط ومباشر. الوجه الإعلامي يقف في المحل أو في استوديو بخلفية راقية تحمل شعار المحل. يتحدث بثقة وطاقة إيجابية. يتم إظهار 'بوكسات رمضان' بشكل واضح وجذاب. عند ذكر 'الكمية محدودة' يظهر نص على الشاشة للتأكيد على الإلحاح (Urgency). الفيديو يجب أن يكون قصيراً ومباشراً.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C14</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">حسابك فجيبك و الفخامة على طابلة رمضانك... كاش ما خير من هاك؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('14')">
+                    <div class="preview-text">Slide 1: عروض رمضان اللي ما تتفوتش! دلل روحك وعايلتك بأقل تكلفة.
+Slide 2: ✨ بوكس 'لمّة العايلة' ✨ تش...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-14" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('14')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C14</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-14')">📋 نسخ النص</button>
+                            <div id="script-text-14" class="modal-body">Slide 1: عروض رمضان اللي ما تتفوتش! دلل روحك وعايلتك بأقل تكلفة.<br/><br/>Slide 2: ✨ بوكس 'لمّة العايلة' ✨ تشكيلة من 4 أنواع Viennoiserie + 12 قطعة مملحات مشكلة + قلب اللوز. السعر: [السعر هنا] دج.<br/><br/>Slide 3: ✨ بوكس 'الضيافة الراقية' ✨ تشكيلة من 6 أنواع Viennoiserie فاخرة + 20 قطعة مملحات بريستيج + بقلاوة. السعر: [السعر هنا] دج.<br/><br/>Slide 4: خصم 10% على كل الطلبيات الكبيرة للمناسبات والعرضات طيلة شهر رمضان! (تطبق الشروط).<br/><br/>Slide 5: كيفاش تكوموندي؟ ساهلة! ابعثلنا رسالة على الخاص، اتصل بالرقم في البيو، أو زورنا مباشرة في المحل. العرض صالح لأول أسبوع فقط!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-14')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-14" class="modal-body">باكدجات رمضان وصلت! اختار اللي يناسبك واستمتع بالفخامة. <br/><br/> لتسهيل مهمتكم في رمضان، صممنا لكم باكدجات متكاملة تجمع بين أشهى منتجاتنا وبأسعار خاصة جداً. سواء كانت لمّة عائلية صغيرة أو ضيافة كبيرة، عندنا الحل اللي يرضيك.<br/><br/>تصفح العروض واختار البوكس ديالك! <br/><br/> شوف العروض كاملة و خير لي تناسبك! العرض صالح للأسبوع الأول من رمضان، لا تفوت الفرصة! <br/><br/> #عروض #رمضان_كريم #باكدج #توفير #الجودة_والسعر #الجزائر #MaisonSucreDorge</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم الكاروسال يجب أن يكون واضحاً ومباشراً، كأنه قائمة عروض.<br/>Slide 1: عنوان كبير وجذاب على خلفية رمضانية أنيقة.<br/>Slide 2-3: كل سلايد يعرض بوكس واحد. صورة احترافية للبوكس ومحتوياته، مع قائمة واضحة للمكونات والسعر مكتوب بشكل بارز.<br/>Slide 4: تصميم جرافيكي بسيط يبرز نسبة الخصم (10%).<br/>Slide 5: خطوات بسيطة وواضحة للطلب مع أيقونات (رسالة، هاتف، موقع). التأكيد على مدة العرض بخط عريض.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P15</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">فرصة ما تتعاودش! طابلة رمضانك تبدا من هنا...</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('15')">
+                    <div class="preview-text">عرض خاص: بوكس 'لمّة العايلة' - تشكيلة حلو ومالح بسعر استثنائي! الكمية محدودة....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-15" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('15')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P15</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-15')">📋 نسخ النص</button>
+                            <div id="script-text-15" class="modal-body">عرض خاص: بوكس 'لمّة العايلة' - تشكيلة حلو ومالح بسعر استثنائي! الكمية محدودة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-15')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-15" class="modal-body">فرصة الأسبوع الأول من رمضان! لا تفوتها! <br/><br/> هل تبحث عن حل سريع، لذيذ، واقتصادي لطاولتك الرمضانية؟ بوكس 'لمّة العايلة' هو كل ما تحتاجه!<br/><br/>اطلبه الآن واستفد من السعر الخاص قبل نفاذ الكمية. <br/><br/> كوموندي دروك و ما تخليش العرض يفوتك! راسلنا على الخاص أو اتصل بنا. <br/><br/> #عرض_خاص #فرصة #رمضان #تخفيضات #الجزائر #MaisonSucreDorge</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم جرافيكي إعلاني جذاب وواضح. صورة 'بوكس لمّة العايلة' تكون هي بطل التصميم. السعر مكتوب بخط كبير وواضح. عبارة 'عرض خاص' و 'كمية محدودة' تكون داخل أشكال (shapes) لجذب الانتباه. استخدام ألوان رمضانية دافئة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V16</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">تخيلي روحك في رمضان... مرتاحة، هانية، و فرحانة بلمة العايلة.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('16')">
+                    <div class="preview-text">(صوت أنثوي هادئ وعاطفي، كأنه يروي ذكرى جميلة)
+قبل... كان رمضان يعني الجري والتعب. من الكوزينة... للس...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-16" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('16')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V16</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-16')">📋 نسخ النص</button>
+                            <div id="script-text-16" class="modal-body">(صوت أنثوي هادئ وعاطفي، كأنه يروي ذكرى جميلة)<br/><br/>قبل... كان رمضان يعني الجري والتعب. من الكوزينة... للسوق... و القلقة تاع 'واش نطيب اليوم'.<br/><br/>كنا نفطرو و أنا عيانة، ما نحسش كامل بالبنة.<br/><br/>(توقف قصير، تتغير الموسيقى لنغمة أكثر دفئاً وسعادة)<br/><br/>بصح هذا العام... كلش تبدل.<br/><br/>لقيت السر لي خلاني نعيش رمضان صح.<br/><br/>(تظهر مشاهد دافئة لعائلة مجتمعة حول طاولة إفطار أنيقة وهادئة)<br/><br/>طاولة بسيطة، بصح كل حاجة فيها بنينة ومتقونة.<br/><br/>بلا تعب... بلا قلقة.<br/><br/>بقى عندي الوقت باش نصلي، نقرا قرآن، ونقعد مع ولادي.<br/><br/>هذيك الراحة... و هذيك الفرحة... هي الصح.<br/><br/>(تظهر لقطة مقربة لمنتجات Maison Sucre d'Orge على الطاولة بشكل غير مباشر)<br/><br/>الحمد لله على نعمة الراحة في رمضان.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-16')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-16" class="modal-body">أجمل لحظات رمضان... هي اللحظات اللي تعيشيها براحة بال. <br/><br/> في Maison Sucre d'Orge، هدفنا ماشي غير نقدملك منتجات لذيذة، هدفنا نهديلك أغلى حاجة في رمضان: الوقت والراحة.<br/><br/>الوقت باش تتفرغي لعبادتك، والراحة باش تستمتعي بكل لحظة مع أحبابك. <br/><br/> خلّي Maison Sucre d'Orge يكون سر سعادتك في رمضان. زورونا واكتشفوا كيفاش نسهلو عليكم الشهر الفضيل. <br/><br/> #راحة_رمضان #سعادة #لمة_العايلة #ذكريات_رمضان #الجزائر #MaisonSucreDorge</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">الفيديو يركز على المشاعر والأجواء. يبدأ بلقطات قصيرة وسريعة لامرأة تبدو متعبة في المطبخ (Before). ثم ينتقل بسلاسة لمشاهد بطيئة وسينمائية لعائلة سعيدة تستمتع بوقتها في أجواء رمضانية هادئة (After). الإضاءة دافئة وخافتة. التركيز على الابتسامات واللحظات الحميمية. المنتجات تظهر كجزء من المشهد بشكل طبيعي (Bridge). الهدف هو بيع شعور الرضا والسعادة، وليس المنتج مباشرة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C17</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">رمضان هو شهر الخير و اللمة... و الضيافة لازم تكون على أصولها!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('17')">
+                    <div class="preview-text">Slide 1: رمضان كريم مع لمسة فخامة من Maison Sucre d'Orge.
+Slide 2: نصيحة اليوم: باش تكون طاولتك مميز...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-17" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('17')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C17</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-17')">📋 نسخ النص</button>
+                            <div id="script-text-17" class="modal-body">Slide 1: رمضان كريم مع لمسة فخامة من Maison Sucre d'Orge.<br/><br/>Slide 2: نصيحة اليوم: باش تكون طاولتك مميزة، ركزي على التنوع. قطعة Viennoiserie فاخرة مع المملحات التقليدية تصنع فارق كبير!<br/><br/>Slide 3: من الحلو للمالح، تشكيلتنا تليق بكل الأذواق وتضمنلك ضيافة تحمر الوجه بلا تعب.<br/><br/>Slide 4: اصنعي لحظات لا تُنسى. شاهدي كيف يستمتع زبائننا بمنتجاتنا في أجواء رمضانية دافئة. (صور لزبائن أو صور تمثيلية).<br/><br/>Slide 5: نتمنى لكم رمضانًا أهنأ وأسعد. Maison Sucre d'Orge، شريككم في كل المناسبات السعيدة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-17')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-17" class="modal-body">ضيافتك في رمضان... عنوان رقيك. <br/><br/> في الشهر الفضيل، كل تفصيل في ضيافتك يعبر عن كرمك وذوقك. مع Maison Sucre d'Orge، تأكدي أن طاولتك ستكون دائماً في أبهى حلة.<br/><br/>نصائح ومنتجات تجعل من ضيافتك حديث الجميع. <br/><br/> اجعلي رمضانك هذه السنة مميزاً معنا! اكتشفي تشكيلتنا الخاصة بالشهر الفضيل. <br/><br/> #ضيافة_رمضان #اتيكيت_الضيافة #رمضان_يجمعنا #فخامة #الجزائر #MaisonSucreDorge</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم الكاروسال يركز على الأجواء الرمضانية الراقية.<br/>Slide 1: تصميم جميل بعبارة 'رمضان كريم' مع لمسة من شعار المحل.<br/>Slide 2: تصميم يجمع صورة لقطعة Viennoiserie وصورة لمملحات مع نصيحة مكتوبة بخط أنيق.<br/>Slide 3: صورة بانورامية لطاولة متنوعة.<br/>Slide 4: كولاج لصور عائلات سعيدة حول طاولة الإفطار.<br/>Slide 5: تصميم ختامي أنيق مع دعاء لطيف وشعار المحل.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P18</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">أغلى ما في رمضان... ضحكة العايلة و لمة الأحباب.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('18')">
+                    <div class="preview-text">لحظات دافئة... تصنعها لمسة من الفخامة....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-18" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('18')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P18</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-18')">📋 نسخ النص</button>
+                            <div id="script-text-18" class="modal-body">لحظات دافئة... تصنعها لمسة من الفخامة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-18')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-18" class="modal-body">لحظات رمضان الدافئة... تصير أحلى مع لمستنا! <br/><br/> نحن في Maison Sucre d'Orge نؤمن بأن منتجاتنا ليست مجرد طعام، بل هي جزء من ذكرياتكم السعيدة ولحظاتكم التي لا تُنسى.<br/><br/>نتمنى لكم شهراً مليئاً بالحب، الفرح، واللحظات الحلوة. <br/><br/> اكتشفوا الفخامة اللي تزيد البنة لرمضانكم! <br/><br/> #لحظات_رمضانية #ذكريات #لمة_الأحباب #رمضان_2024 #الجزائر #MaisonSucreDorge</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">صورة فوتوغرافية عاطفية (Lifestyle) لعائلة (أو أصدقاء) يضحكون ويتحدثون حول طاولة إفطار جميلة. المنتجات موجودة على الطاولة لكنها ليست محور الصورة، بل هي جزء من الأجواء السعيدة. التركيز على التفاعلات الإنسانية والجو العام الدافئ. الإضاءة طبيعية وناعمة. النص مكتوب بخط رقيق وأنيق.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr></tbody></table></div>
+
+    <div class="disclaimer-card">
+        <span style="font-size: 1.2em;">⚠️</span>
+        <span>قد تخضع هذه الاستراتيجية لبعض التعديلات والتحسينات، حسب المواد الإعلامية المتوفرة أو لغرض تحقيق أفضل النتائج.</span>
+    </div>
+
+    <div class="summary-box">
+        <span style="font-weight: 700; color: #FFD700;">الميزانية الإجمالية المعتمدة</span>
+        <span class="total-amount">123000 دج</span>
+        <a href="https://wa.me/213770820431" class="cta-btn">تواصل معنا للاعتماد</a>
+        <div style="border: 1px dashed #FFD700; padding: 25px; border-radius: 15px; margin-top: 20px;">
+            <h3 style="color:#FFD700; margin:0;">الخطوة التالية</h3>
+            <p style="margin:10px 0;">مكالمة قصيرة لنكيّف هذه الاستراتيجية حسب مشروعك ونبدأ العمل فوراً.</p>
+            <div class="phones-list">
+                <div class="phone-item">0770 82 04 31</div>
+                <div class="phone-item">0770 55 01 51</div>
+                <div class="phone-item">0770 82 01 45</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+function openModal(id) { document.getElementById('modal-' + id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
+function closeModal(id) { document.getElementById('modal-' + id).style.display = 'none'; document.body.style.overflow = 'auto'; }
+window.onclick = function(event) { if (event.target.className === 'modal') { event.target.style.display = 'none'; document.body.style.overflow = 'auto'; } }
+
+// وظيفة النسخ الجديدة
+function copyToClipboard(elementId) {
+    const el = document.getElementById(elementId);
+    const text = el.innerText || el.textContent; // نسخ النص بدون HTML tags
+    navigator.clipboard.writeText(text).then(() => {
+        alert("تم نسخ النص بنجاح! ✅");
+    }).catch(err => {
+        console.error('Failed to copy', err);
+    });
+}
+</script></body></html>
