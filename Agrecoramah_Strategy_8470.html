@@ -1,0 +1,795 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Agrecoramah Strategy</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+<style>
+    body { background: #FFFFFF; color: #1A1A1A; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; line-height: 1.6; overflow-x: hidden; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 15px; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 2px solid #000; }
+    .wayso-logo { height: 45px; }
+    .brand-name { font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 1.4em; color: #000; text-transform: uppercase; border-right: 4px solid #FFD700; padding-right: 12px; }
+    
+    .analysis-section { margin: 30px 0; }
+    .card-philosophy { padding: 30px; border-radius: 20px; background: #000; color: #FFF; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+    .card-philosophy h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #FFD700; }
+    
+    .card-why { padding: 30px; border-radius: 20px; background: #F9F9F9; color: #333; margin-bottom: 20px; border: 1px solid #EDECE9; }
+    .card-why h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #000; display: flex; align-items: center; gap: 10px; }
+    .card-why h2::after { content: ''; flex-grow: 1; height: 1px; background: #EDECE9; margin-right: 15px; }
+
+    .hero { margin: 35px 0 20px 0; border-right: 6px solid #FFD700; padding-right: 15px; }
+    .hero h1 { font-size: 2.5em; font-weight: 700; margin: 0; }
+    .table-wrapper { margin-top: 25px; border-radius: 12px; overflow: hidden; border: 1px solid #EDECE9; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #000; color: #FFF; padding: 15px; text-align: right; font-size: 0.95em; }
+    td { padding: 20px 12px; border-bottom: 1px solid #EDECE9; vertical-align: top; }
+    
+    .code-badge { font-family: 'Montserrat', sans-serif; font-weight: 700; background: #FFD700; color: #000; padding: 5px 12px; border-radius: 6px; font-size: 1.1em; display: inline-block; margin-bottom: 5px; }
+    .type-label { display: block; font-weight: 700; color: #555; font-size: 0.95em; }
+    
+    .hook-pill { background: #000; color: #FFD700; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 1.1em; display: block; border-right: 5px solid #FFD700; }
+    
+    /* تحسين زر المودال */
+    .script-trigger { background: #F8F9FA; border: 1px solid #EDECE9; padding: 15px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; position: relative; }
+    .script-trigger:hover { background: #FFF; border-color: #FFD700; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transform: translateY(-2px); }
+    
+    .preview-text { font-size: 0.95em; color: #333; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; white-space: pre-wrap; }
+    
+    /* ستايل المودال */
+    .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); }
+    .modal-content { background: #FFF; margin: 5% auto; padding: 30px; border-radius: 20px; width: 90%; max-width: 750px; position: relative; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+    .close-modal { position: absolute; top: 20px; left: 20px; font-size: 30px; cursor: pointer; color: #999; line-height: 1; transition: color 0.2s; }
+    .close-modal:hover { color: #000; }
+    
+    .modal-section { margin-bottom: 25px; padding: 20px; border-radius: 12px; background: #fbfbfa; border: 1px solid #eee; position: relative; }
+    
+    /* زر النسخ */
+    .copy-btn { position: absolute; top: 10px; left: 10px; background: #fff; border: 1px solid #ddd; padding: 5px 10px; border-radius: 6px; cursor: pointer; font-size: 0.8em; font-weight: bold; color: #555; display: flex; align-items: center; gap: 5px; transition: all 0.2s; }
+    .copy-btn:hover { border-color: #FFD700; color: #000; background: #FFD70020; }
+    .copy-btn:active { transform: scale(0.95); }
+    
+    .modal-body { font-size: 1.15em; color: #1A1A1A; line-height: 1.9; word-wrap: break-word; white-space: pre-wrap; }
+    
+    .disclaimer-card { margin: 25px 0; padding: 20px; background: #FFF9E6; border-radius: 12px; border-right: 5px solid #FFC107; font-size: 1.05em; color: #856404; display: flex; align-items: center; gap: 12px; }
+    .summary-box { margin-top: 50px; background: #000; color: #FFF; padding: 40px 20px; border-radius: 25px; text-align: center; }
+    .total-amount { font-family: 'Montserrat'; font-size: 3.5em; font-weight: 700; display: block; color: #FFD700; margin: 10px 0; }
+    .cta-btn { display: inline-block; background: #FFD700; color: #000; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.2em; margin-bottom: 25px; transition: transform 0.2s; }
+    .cta-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px #FFD70060; }
+    
+    .phones-list { margin-top: 15px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; direction: ltr; } 
+    .phone-item { background: #1A1A1A; padding: 8px 15px; border-radius: 8px; border: 1px solid #333; color: #FFF; font-family: 'Montserrat'; font-weight: 700; font-size: 1.2em; white-space: nowrap; }
+
+    @media (max-width: 768px) {
+        thead { display: none; }
+        tr { display: block; border: 1px solid #EDECE9; border-radius: 15px; margin-bottom: 20px; padding: 15px; background: #FFF; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        td { display: block; padding: 10px 0; text-align: right; border-bottom: 1px dashed #eee; }
+        td:last-child { border-bottom: none; }
+        td::before { content: attr(data-label); font-weight: 700; color: #BBB; display: block; font-size: 0.8em; margin-bottom: 6px; text-transform: uppercase; }
+        .brand-name { font-size: 1.1em; }
+        .modal-content { width: 95%; padding: 20px; margin: 10% auto; }
+        .total-amount { font-size: 2.5em; }
+    }
+</style></head><body>
+
+<div class="container">
+    <div class="header">
+        <img src="https://storage.googleapis.com/msgsndr/GwIPQCjstTzxnzDQ1B32/media/68fddb5534bb1597bc934f89.png" class="wayso-logo">
+        <div class="brand-name">Agrecoramah</div>
+    </div>
+
+    <div class="analysis-section">
+        <div class="card-philosophy"><h2>🎯 فلسفة الاستراتيجية</h2><p>بصفتنا شركاء استراتيجيين لكم في Wayso، ندرك تماماً أهمية كل استثمار نحو نمو أعمالكم. خطة المحتوى هذه، بتكاملها المتقن بين الفيديو الرئيسي والكاروسالات التعليمية، ليست مجرد مجموعة إعلانات؛ إنها استراتيجية مدروسة لتحويل فضول جمهوركم إلى ولاء، ومعلوماتهم إلى أرباح. نحن نثق بأن هذا المزيج المتقن سيحقق لكم نتائج ملموسة ومستدامة.</p></div>
+        <div class="card-why"><h2>💡 لماذا هذه الخطة؟</h2><p>بدأنا بـ V1 لخطف الانتباه عبر سرد قصصي مؤثر يلامس نقاط الألم ويقدم الحل الشامل. ثم انتقلنا إلى C2 لتعميق الفهم عبر محتوى تعليمي تفصيلي، لترسيخ الثقة وتوضيح القيمة. تتلوها P3 لتثبيت الرسالة الرئيسية في الأذهان، مما يخلق تسلسلاً نفسياً يقود العميل تدريجياً من الاكتشاف إلى الاقتناع النهائي بالشراكة.</p></div>
+    </div>
+
+    <div class="hero"><h1>خطة الإنتاج الإبداعي</h1></div>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th style="width: 20%;">الكود والنوع</th><th style="width: 30%;">الهوك (Hook)</th><th style="width: 50%;">المحتوى</th></tr></thead>
+            <tbody><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V1</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">خدمت عام كامل وفي التالي كلش يروح فالماء؟ ماشي لازم كل موسم تعاود نفس الغلطة.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('1')">
+                    <div class="preview-text">راك تشوف في أرضك... وتشوف تعب شهور طويلة.
+استثمرت دراهمك، وقتك، و جهدك... قريت وتعبت.
+بصح في آخر الم...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-1" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('1')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V1</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-1')">📋 نسخ النص</button>
+                            <div id="script-text-1" class="modal-body">راك تشوف في أرضك... وتشوف تعب شهور طويلة.<br/><br/>استثمرت دراهمك، وقتك، و جهدك... قريت وتعبت.<br/><br/>بصح في آخر الموسم، النتائج ماشي كيما كنت تستنى... تحس روحك وحدك.<br/><br/>هذي هي "الفجوة القاتلة"... بين واش تعرف، وواش لازم تطبق صح في الميدان.<br/><br/>بصح كاينة حاجة جديدة اليوم.<br/><br/>حنا في Agrecoramah ماشي مجرد بائعين تاع منتجات ولا نقدمولك تكوين نظري و نروحو.<br/><br/>حنا هوما الشريك اللي يوقف معاك في أرضك.<br/><br/>نقدمولك تكوين علمي تطبيقي... ونعلموك كيفاش تطبق بيدك.<br/><br/>نوفرولك أفضل المنتجات... ونورولك الطريقة الصحيحة لاستعمالها.<br/><br/>والأهم، نبقاو معاك. نتابعوا النتائج خطوة بخطوة... حتى نشوفو النجاح بعينينا و عينيك.<br/><br/>لأن نجاحك هو نجاحنا.<br/><br/>وداعاً للخسارة، وداعاً للشعور بالوحدة.<br/><br/>مع Agrecoramah، استثمر في راحة بالك و في محصول مضمون.<br/><br/>هذا هو الجسر بين حلمك والواقع.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-1')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-1" class="modal-body">عام تعب، و في دقيقة كلش يضيع؟ الحل راه هنا! <br/><br/> تعرف هذاك الشعور؟ كي تخدم وتجتهد وتستثمر كلش، وفي الأخير النتيجة تخيب أملك. المشكل ماشي فيك، المشكل في الفجوة بين العلم والتطبيق الميداني.<br/>Agrecoramah ماشي مجرد شركة، حنا شريكك في النجاح. نرافقوك من التكوين العلمي، للتطبيق في أرضك، ونتابعوا معاك المحصول حتى يوم الحصاد.<br/>حان الوقت باش تحول تعبك لربح حقيقي وراحة بال. <br/><br/> اكتشف كيف نضمن نجاحك. احجز استشارتك المجانية اليوم عبر الرابط في البايو! <br/><br/> #Agrecoramah #فلاحة_جزائرية #استثمار_زراعي #الجزائر #شريك_النجاح #زراعة_حديثة #dzpower</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[مشهد افتتاحي]: لقطات درون بطيئة لأرض زراعية عند غروب الشمس، جو من الترقب والحزن. مزارع ينظر للأرض بقلق.<br/>[مونتاج سريع]: لقطات سريعة تظهر العمل الشاق: حرث، سقي، شراء منتجات، لكن مع تعابير وجه قلقة.<br/>[نبرة الصوت]: تبدأ هادئة وحزينة، تعكس ألم المزارع.<br/>[مشهد التحول]: شاشة سوداء للحظة، ثم تظهر لقطة مشرقة لخبير Agrecoramah يصافح المزارع بحرارة في الحقل. إضاءة دافئة.<br/>[نبرة الصوت]: تصبح واثقة، داعمة، ومليئة بالأمل.<br/>[لقطات داعمة]: عرض لعمليات التكوين، خبراء يشرحون في الميدان، لقطات مقربة للمنتجات وهي تُطبق بشكل صحيح، رسوم بيانية بسيطة تظهر نمو النتائج.<br/>[المشهد الختامي]: نفس المزارع من المشهد الأول، لكنه الآن يبتسم وهو ينظر لمحصول وفير وناجح. لقطات درون واسعة تظهر الأرض خضراء ومزدهرة. شعار Agrecoramah يظهر بوضوح.<br/>[نبرة الصوت النهائية]: قوية ومحفزة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C2</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">عندك العلم وعندك المنتوج، بصح ماكانش نتيجة؟ المشكل ماشي فيك.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('2')">
+                    <div class="preview-text">Slide 1: عندك العلم وعندك المنتوج، بصح المحصول مازال ناقص؟ السر ماشي في واش عندك، السر في 'الفجوة' ا...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-2" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('2')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C2</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-2')">📋 نسخ النص</button>
+                            <div id="script-text-2" class="modal-body">Slide 1: عندك العلم وعندك المنتوج، بصح المحصول مازال ناقص؟ السر ماشي في واش عندك، السر في 'الفجوة' اللي بيناتهم.<br/><br/>Slide 2: المشكل: تستثمر في تكوينات ومنتجات غالية، لكن تبقى وحدك في الميدان وقت الصح. النتيجة؟ خسارة مال، وقت، وأمل.<br/><br/>Slide 3: الحل المتكامل من Agrecoramah: حنا الجسر اللي يربط بين النظرية والواقع. (تكوين تطبيقي + مرافقة ميدانية + توفير المنتجات + متابعة النتائج).<br/><br/>Slide 4: الفوائد ليك: 1. ربح مالي مضمون. 2. توفير كبير في الجهد والوقت. 3. راحة بال ماعندهاش ثمن، لأنك تعرف بلي كاين خبير في ظهرك.<br/><br/>Slide 5: وعدنا ليك: Agrecoramah: ماشي غير نقرّوك، نوقفوا معاك في أرضك حتى تنجح.<br/><br/>Slide 6: كيفاش تبدأ معنا؟ 1. احجز استشارتك المجانية. 2. نوضعوا خطة خاصة بأرضك. 3. ننطلقوا في رحلة النجاح مع بعض.<br/><br/>Slide 7: راك واجد باش تغلق الفجوة القاتلة؟</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-2')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-2" class="modal-body">كيفاش تحول المعرفة لـ 'دراهم' في جيبك؟ 💰 <br/><br/> الكثير من المزارعين والمستثمرين عندهم المعرفة اللازمة، ويشريو أفضل المنتجات، لكن يلقاو رواحهم حاصلين في التطبيق الميداني.<br/>في هذا الكاروسال، نكشفلك على 'الفجوة القاتلة' اللي تسبب 90% من الخسائر، وكيفاش Agrecoramah تقدم الحل الكامل باش تضمن نجاح استثمارك. <br/><br/> اسحب لليسار واكتشف كيفاش نضمنولك النجاح خطوة بخطوة مع Agrecoramah. <br/><br/> #فلاحة #زراعة_الجزائر #حلول_زراعية #Agrecoramah #استثمار_فلاحي #تكوين_فلاحي #dz</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم نظيف واحترافي. استخدام أيقونات بسيطة لكل فائدة وخطوة. خلفية كل سلايد يمكن أن تكون صورة عالية الجودة لحقل زراعي ناجح مع Overlay بألوان العلامة التجارية. الخط يكون واضح وسهل القراءة. في السلايد 3، استخدم 4 أيقونات تمثل الخدمات الأربعة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P3</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الكلمة ساهلة، بصح شكون اللي يلبس البوط ويوقف معاك في الغيس؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('3')">
+                    <div class="preview-text">نجاحك في أرضك مسؤوليتنا.
+ماشي غير كلام، خدمة ميدانية متواصلة!...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-3" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('3')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P3</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-3')">📋 نسخ النص</button>
+                            <div id="script-text-3" class="modal-body">نجاحك في أرضك مسؤوليتنا.<br/><br/>ماشي غير كلام، خدمة ميدانية متواصلة!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-3')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-3" class="modal-body">الشراكة الحقيقية تبان في الميدان، ماشي في المكاتب. <br/><br/> في Agrecoramah، نؤمن بأن النجاح يُصنع في الحقل، ليس فقط في قاعات التكوين. التزامنا يتجاوز الكلام، نحن شريكك الميداني الذي يضمن تطبيق كل معلومة بشكل صحيح لتحقيق أفضل النتائج.<br/>هذا هو وعدنا. هذا هو الفرق الذي نصنعه. <br/><br/> هل تبحث عن شريك حقيقي؟ زور موقعنا أو اتصل بنا لتفاصيل أكثر. <br/><br/> #شريك_النجاح #Agrecoramah #فلاحة_ميدانية #الجزائر #ثقة #التزام #زراعة_مربحة</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">صورة احترافية وقوية تُظهر خبير من Agrecoramah (يرتدي سترة عليها اللوغو) بجانب فلاح في وسط حقل زراعي، كلاهما ينظران للتربة أو النباتات. الصورة يجب أن تعكس الثقة والشراكة. النص يُكتب بخط عريض وواضح فوق الصورة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V4</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">شريت أغلى برودوي، و النتيجة والو؟ بالاك رميت دراهمك من الطاقة!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('4')">
+                    <div class="preview-text">شحال من مرة شريت منتج زراعي سمعت بيه... قالولك هو الأفضل.
+حطيت فيه دراهمك، واستنيت النتائج بفارغ الص...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-4" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('4')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V4</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-4')">📋 نسخ النص</button>
+                            <div id="script-text-4" class="modal-body">شحال من مرة شريت منتج زراعي سمعت بيه... قالولك هو الأفضل.<br/><br/>حطيت فيه دراهمك، واستنيت النتائج بفارغ الصبر.<br/><br/>لكن في الأخير... والو. لا زيادة في المحصول، لا حماية من الأمراض.<br/><br/>تحس روحك مخدوع. بصح اسمحلي نقولك... السر ماشي دايماً في المنتوج.<br/><br/>السر في طريقة، توقيت، وكمية التطبيق!<br/><br/>منتج ممتاز بتطبيق خاطئ = صفر نتيجة.<br/><br/>معرفة بسيطة بالتطبيق الصحيح تقدر تضاعفلك الفعالية تاع أي منتج.<br/><br/>وهذا هو دورنا في Agrecoramah، نمدولك العلم اللي يخلي كل دينار تستثمره يجيبلك نتيجة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-4')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-4" class="modal-body">علاش المنتج اللي شريتو ما عطاكش نتيجة؟ 🤫 <br/><br/> قبل ما تلوم المنتوج، لازم تعرف بلي 70% من فعاليته تعتمد على طريقة التطبيق الصحيحة! الكثير من المال يُهدر سنوياً بسبب أخطاء بسيطة في التوقيت أو الكمية.<br/>في هذا الفيديو، نكشف لك لماذا 'السر ليس في المنتوج' وكيف يمكنك تحقيق أقصى استفادة من استثماراتك. <br/><br/> تعلم معنا أساسيات التطبيق الصحيح لتحصد أفضل النتائج. راسلنا الآن واحصل على تقييم مجاني! <br/><br/> #تطبيق_صحيح #زراعة_ذكية #Agrecoramah #فلاحة_الجزائر #توفير_المال #استثمار_ناجح #dzagri</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو Motion Graphics سريع وديناميكي.<br/>[مشهد 1]: رسم كرتوني لمزارع يشتري منتج غالي (عليه علامة $ كبيرة) و يقوم برشه على النباتات بعشوائية.<br/>[مشهد 2]: النباتات تظهر عليها علامات استفهام (؟) ثم تذبل. تظهر أيقونة كيس نقود يتم رميه في سلة مهملات.<br/>[مشهد 3]: شاشة مقسومة. على اليسار 'تطبيق خاطئ' (علامة X حمراء). على اليمين 'تطبيق علمي' (علامة V خضراء) مع ظهور رسوم توضيحية (أيقونة ساعة للتوقيت، قطرة ماء للكمية).<br/>[مشهد 4]: النباتات في الجانب الأيمن تنمو وتزدهر. يظهر شعار Agrecoramah كحل.<br/>[الموسيقى]: سريعة وجذابة. [التعليق الصوتي]: واضح، سريع، وبنبرة الخبير الذي يكشف سراً.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C5</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">تطبيق خاطئ = خسارة مضمونة. بصح كيفاش تعرف الطريقة الصح؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('5')">
+                    <div class="preview-text">Slide 1: تطبيق خاطئ = خسارة مضمونة. اكتشف كيف تطبق صح وتضاعف نتائجك!
+Slide 2: الخطأ الشائع: رش الأسم...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-5" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('5')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C5</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-5')">📋 نسخ النص</button>
+                            <div id="script-text-5" class="modal-body">Slide 1: تطبيق خاطئ = خسارة مضمونة. اكتشف كيف تطبق صح وتضاعف نتائجك!<br/><br/>Slide 2: الخطأ الشائع: رش الأسمدة الورقية في منتصف النهار. تبخر سريع + حرق الأوراق = ضياع 50% من المنتج!<br/><br/>Slide 3: الطريقة العلمية الصحيحة: قم بالرش في الصباح الباكر أو في المساء. المسامات تكون مفتوحة، الامتصاص يكون أقصى، والفعالية 100%.<br/><br/>Slide 4: الفوائد ليك: توفير نصف كمية المنتج (توفير مال) + زيادة في نمو المحصول بنسبة 30% (زيادة الربح).<br/><br/>Slide 5: هذا مجرد مثال بسيط. Agrecoramah هي دليلك لتطبيق كل خطوة بشكل علمي ومضمون في أرضك.<br/><br/>Slide 6: حاب تعرف الأسرار الأخرى؟</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-5')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-5" class="modal-body">خطأ واحد صغير في التطبيق يكلفك 50% من منتوجك! <br/><br/> هل تعلم أن توقيت رش الأسمدة يمكن أن يحدد نجاح أو فشل محصولك؟ تفاصيل صغيرة كهذه هي التي تصنع الفرق بين الربح والخسارة.<br/>في هذا الكاروسال، نوضح لك خطأ شائعاً جداً ونقدم لك الحل العلمي البسيط الذي سيوفر عليك المال ويزيد من إنتاجك. <br/><br/> اسحب لليسار لمعرفة الخطوات الصحيحة لتطبيق منتجاتك الزراعية بفعالية. <br/><br/> #نصائح_زراعية #فلاحة #Agrecoramah #الجزائر #تسميد #زراعة_علمية #توفير</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم تعليمي وواضح. السلايد 2 يستخدم أيقونة شمس حارقة وعلامة X حمراء كبيرة. السلايد 3 يستخدم أيقونة قمر/شمس شروق وعلامة V خضراء. السلايد 4 يستخدم أيقونات بسيطة (كيس نقود، سهم صاعد). استخدام صور مقارنة (Before/After) إن أمكن.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P6</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">ما تسقيش بزاف! سر بسيط في الري يرفع إنتاجك 20%!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('6')">
+                    <div class="preview-text">الري الزائد يقتل الجذور ويضيع الماء.
+الري المتقطع والمدروس هو السر لمحصول وفير وصحي.
+#نصيحة_Agrecora...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-6" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('6')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P6</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-6')">📋 نسخ النص</button>
+                            <div id="script-text-6" class="modal-body">الري الزائد يقتل الجذور ويضيع الماء.<br/><br/>الري المتقطع والمدروس هو السر لمحصول وفير وصحي.<br/><br/>#نصيحة_Agrecoramah</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-6')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-6" class="modal-body">نصيحة اليوم من Agrecoramah 💡 <br/><br/> الكثير يعتقد أن كثرة الماء مفيدة للنبات، لكن العكس هو الصحيح! الري الزائد عن الحاجة يخنق الجذور ويمنعها من امتصاص العناصر الغذائية، مما يؤدي إلى ضعف المحصول.<br/>الحل؟ الري الذكي والمدروس.<br/>Agrecoramah تساعدك على تطبيق أحدث التقنيات لضمان حصول نباتاتك على ما تحتاجه بالضبط، لا أكثر ولا أقل. <br/><br/> اكتشفوا المزيد من نصائحنا العملية على صفحتنا. تابعنا الآن! <br/><br/> #الري_الذكي #نصيحة_زراعية #فلاحة_جزائرية #Agrecoramah #توفير_الماء #زيادة_الانتاج</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">صورة عالية الجودة لنظام ري بالتنقيط يعمل بكفاءة في حقل منظم. النص يوضع بتصميم جذاب وبسيط. استخدام أيقونة قطرة ماء بجانب النص. شعار Agrecoramah في زاوية الصورة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V7</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كي تشوف الخير في أرض غيرك، قول نتا تاني تقدر! قصة الحاج سعيد.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('7')">
+                    <div class="preview-text">[الحاج سعيد يتكلم، بلكنة طبيعية وغير مصطنعة]
+كنت كيما الناس كامل... نخدم ونتعب، وكي يلحق وقت الحصاد ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-7" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('7')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V7</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-7')">📋 نسخ النص</button>
+                            <div id="script-text-7" class="modal-body">[الحاج سعيد يتكلم، بلكنة طبيعية وغير مصطنعة]<br/><br/>كنت كيما الناس كامل... نخدم ونتعب، وكي يلحق وقت الحصاد نصيب روحي يا رابح شوية يا خاسر.<br/><br/>كنت قريب نكره ونبيع كلش... تحس روحك وحدك، كل قرار تاخذو وحدك، تخاف.<br/><br/>واحد النهار، حكاولي على جماعة Agrecoramah. قلت والله نجرب، ماعندي ما نخسر.<br/><br/>جاو عندي للأرض... شافو، سقساو، ودارولي خطة من الألف للياء.<br/><br/>ما خلاونيش وحدي... كل أسبوع يجيو يتبعو معايا، يعلموني، ويوقفوا على كل صغيرة وكبيرة.<br/><br/>الحمد لله يا ربي... العام هذا، المحصول تاعي تضاعف ثلاث خطرات على واش كنت نخدم. الربح اللي دخلتو في عام، ما دخلتوش في 5 سنين.<br/><br/>Agrecoramah ماشي شركة... هادو هوما الصحبة تاع الصح في الفلاحة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-7')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-7" class="modal-body">من حافة اليأس إلى ربح قياسي... شهادة حقيقية من الميدان! <br/><br/> استمع لقصة 'الحاج سعيد' الذي كان على وشك التخلي عن أرضه بسبب الخسائر المتكررة والشعور بالوحدة.<br/>اكتشف كيف استطاع، بفضل شراكته مع Agrecoramah، أن يضاعف محصوله 3 مرات ويحقق أرباحاً لم يكن يحلم بها.<br/>هذه ليست مجرد قصة، هذا هو الدليل على أن الشريك الصحيح يمكن أن يغير كل شيء. <br/><br/> قصص النجاح هي دليلنا. تواصل معنا لنكتب قصة نجاحك القادمة معاً. <br/><br/> #قصة_نجاح #اثبات_اجتماعي #Agrecoramah #فلاحة_جزائرية #الجزائر #أمل #نتائج_حقيقية</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو بأسلوب UGC (User-Generated Content)، تصوير طبيعي وغير احترافي جداً لزيادة المصداقية.<br/>[الموقع]: الحاج سعيد يتكلم من داخل حقله الناجح، والمحصول ظاهر بوضوح خلفه.<br/>[الكاميرا]: محمولة باليد أو على حامل ثلاثي بسيط. لقطات قريبة لوجه الحاج سعيد وهو يتكلم بصدق، ولقطات واسعة تظهره وهو يمشي في حقله بفخر.<br/>[الصوت]: طبيعي مع أصوات الحقل في الخلفية (صوت الريح، الطيور).<br/>[مونتاج]: بسيط جداً، مع إضافة شريط سفلي يحمل اسم 'الحاج سعيد، فلاح - شريك Agrecoramah'. في النهاية، يظهر شعار Agrecoramah مع CTA.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C8</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الحاج سعيد كان راح يبيع أرضو... واليوم؟ أرباحو تضاعفت 3 مرات!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('8')">
+                    <div class="preview-text">Slide 1: قصة نجاح من الميدان: كيف انتقل 'الحاج سعيد' من القلق والديون إلى الربح الوفير مع Agrecorama...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-8" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('8')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C8</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-8')">📋 نسخ النص</button>
+                            <div id="script-text-8" class="modal-body">Slide 1: قصة نجاح من الميدان: كيف انتقل 'الحاج سعيد' من القلق والديون إلى الربح الوفير مع Agrecoramah.<br/><br/>Slide 2: المشكلة: قبل Agrecoramah، كان الحاج سعيد يعاني من ضعف المحصول، خسائر مالية، وشعور بالوحدة في اتخاذ القرارات الصعبة.<br/><br/>Slide 3: الحل: فريق Agrecoramah تدخل بـ: 1. تحليل دقيق للتربة. 2. وضع برنامج تسميد ومكافحة مخصص. 3. مرافقة ميدانية أسبوعية لضمان التطبيق الصحيح.<br/><br/>Slide 4: النتائج بالأرقام: زيادة الإنتاج بنسبة 300%. انخفاض تكاليف المنتجات المهدرة بنسبة 40%. تحقيق أرباح صافية قياسية.<br/><br/>Slide 5: شهادة الحاج سعيد: "ما خلاونيش وحدي، هذا هو سر النجاح. Agrecoramah هوما الصحبة تاع الصح في الفلاحة."<br/><br/>Slide 6: أرضك يمكن أن تكون قصة النجاح التالية. هل أنت مستعد؟<br/><br/>Slide 7: ابدأ رحلتك نحو النجاح المضمون. تواصل معنا اليوم!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-8')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-8" class="modal-body">بالأرقام والدليل... هكذا صنعنا قصة نجاح الحاج سعيد. <br/><br/> النجاح ليس صدفة، بل هو نتيجة لخطة عمل واضحة وشراكة حقيقية. في هذا الكاروسال، نفصل لكم بالخطوات والأرقام كيف ساعدنا 'الحاج سعيد' على تحويل أرضه من مشروع خاسر إلى مصدر ربح قياسي.<br/>قصته يمكن أن تكون قصتك. <br/><br/> اسحب لليسار لتتعرف على تفاصيل قصة نجاح الحاج سعيد الملهمة. <br/><br/> #دراسة_حالة #قصص_نجاح #Agrecoramah #فلاح_جزائري #تحفيز #نتائج_مضمونة #dz</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم قصصي. استخدام صور حقيقية للحاج سعيد وأرضه (قبل وبعد إن أمكن). في سلايد الأرقام، استخدم رسوم بيانية بسيطة وواضحة. في سلايد الشهادة، ضع صورة الحاج سعيد وهو يبتسم مع الاقتباس بخط بارز. الحفاظ على هوية بصرية متناسقة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P9</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">"كي تشوف النجاح في أرض غيرك، اعرف بلي نتا ثاني تقدر!"</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('9')">
+                    <div class="preview-text">"ما كنتش نآمن بلي نقدر نوصل لهاد النتيجة، حتى جاو Agrecoramah و وقفوا معايا. كي تشوف النجاح في أرض غ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-9" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('9')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P9</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-9')">📋 نسخ النص</button>
+                            <div id="script-text-9" class="modal-body">"ما كنتش نآمن بلي نقدر نوصل لهاد النتيجة، حتى جاو Agrecoramah و وقفوا معايا. كي تشوف النجاح في أرض غيرك، اعرف بلي نتا ثاني تقدر!"<br/><br/>- الحاج سعيد، شريك نجاح Agrecoramah</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-9')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-9" class="modal-body">كلمات من القلب... من شريك نجاح نفخر به! <br/><br/> لا شيء يصف تأثير عملنا أفضل من كلمات عملائنا. شهادة الحاج سعيد هي مصدر إلهام لنا ولكل مزارع ومستثمر يطمح للنجاح.<br/>الإيمان بالقدرة على التغيير هو أول خطوة، ونحن هنا لنكون شريكك في كل الخطوات التالية. <br/><br/> اقرأ المزيد عن قصص عملائنا الملهمة في الرابط الموجود في البايو. <br/><br/> #اقتباس #شهادة_عميل #تحفيز #إلهام #Agrecoramah #فلاحة #نجاح #جزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم اقتباس أنيق. صورة عالية الجودة للحاج سعيد في خلفية ضبابية قليلاً، مع التركيز على النص. النص مكتوب بخط جميل وواضح. اسم 'الحاج سعيد' وشعار Agrecoramah في الأسفل.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V10</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">ثلاثة عفايس راك تديرهم كل يوم... بلاك هوما سبة خسارتك!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('10')">
+                    <div class="preview-text">[الوجه الإعلامي يتكلم للكاميرا مباشرة]
+السلام عليكم،
+كاين 3 أخطاء شائعة جداً، نشوفوها كل يوم في المي...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-10" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('10')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V10</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-10')">📋 نسخ النص</button>
+                            <div id="script-text-10" class="modal-body">[الوجه الإعلامي يتكلم للكاميرا مباشرة]<br/><br/>السلام عليكم،<br/><br/>كاين 3 أخطاء شائعة جداً، نشوفوها كل يوم في الميدان، ممكن تكون هي السبب الرئيسي اللي يخلي محصولك ما يوصلش للنتيجة اللي راك حابها.<br/><br/>الخطأ الأول: التسميد العشوائي. تروح تشري السماد على حساب واش قالك فلان، بلا ما تدير تحليل للتربة. راك ترمي دراهمك وممكن راك تضر أكثر ما تنفع.<br/><br/>الخطأ الثاني: تجاهل علامات الإجهاد الأولى. تشوف ورقة صفرة ولا ذبول خفيف وتقول 'غدوة تتسقم'. هذيك هي الثانية اللي لازم تتحرك فيها، ماشي غدوة.<br/><br/>والخطأ الثالث، وهو الأخطر: الخوف من طلب المساعدة. تحاول تحل كلش وحدك، وتضيع وقت ثمين ومحصول كان قادر يتعالج.<br/><br/>هذه الأخطاء تكلفك الكثير. لكن الخبر الجيد، هو أن حلها بسيط جداً.<br/><br/>الحل يبدأ بالعلم، وبوجود شريك خبير يوجهك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-10')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-10" class="modal-body">3 أخطاء شائعة تهدر محصولك بلا ما تفيق! <br/><br/> هل تعلم أن عادات زراعية بسيطة قد تكون السبب في تدمير أرباحك؟ في هذا الفيديو، خبيرنا من Agrecoramah يكشف عن 3 من أكثر الأخطاء شيوعاً التي يرتكبها المزارعون والمستثمرون، وكيف يمكن تجنبها بسهولة.<br/>مشاهدة هذا الفيديو قد توفر عليك آلاف الدينارات هذا الموسم. <br/><br/> تعلم كيف تتجنب هذه الأخطاء وتحقق أقصى ربح. اشترك في قناتنا للمزيد من النصائح القيمة! <br/><br/> #أخطاء_زراعية #نصائح_فلاحية #Agrecoramah #محتوى_تعليمي #الجزائر #زراعة_مربحة #dz</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو بظهور الوجه الإعلامي (خبير من Agrecoramah) في بيئة احترافية (مكتب أو حقل نموذجي).<br/>[الكاميرا]: ثابتة، تركز على المتحدث من الصدر إلى الأعلى (Medium Shot). تواصل بصري مباشر مع الكاميرا.<br/>[نبرة الصوت]: واثقة، تعليمية، وودودة. يتكلم بوضوح وببطء نسبي.<br/>[رسوم مساعدة]: عند ذكر كل خطأ، يظهر نص بسيط أو أيقونة على الشاشة لتلخيص النقطة.<br/>[الإضاءة]: جيدة وناعمة. [الخلفية]: غير مشتتة للانتباه.<br/>[الختام]: يظهر شعار Agrecoramah ومعلومات الاتصال.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C11</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">تخدم وتتعب، وفي الأخير تخسر كلش على جال غلطة بسيطة! تجنبها.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('11')">
+                    <div class="preview-text">Slide 1: تتجنب هاد 3 أخطاء = تضمن محصول وفير وربح مضمون. اكتشفها الآن!
+Slide 2: الخطأ 1: التسميد الع...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-11" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('11')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C11</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-11')">📋 نسخ النص</button>
+                            <div id="script-text-11" class="modal-body">Slide 1: تتجنب هاد 3 أخطاء = تضمن محصول وفير وربح مضمون. اكتشفها الآن!<br/><br/>Slide 2: الخطأ 1: التسميد العشوائي. (صورة لعلامة ؟ فوق التربة). الحل: تحليل التربة أولاً لوضع برنامج تسميد دقيق ومقتصد.<br/><br/>Slide 3: الخطأ 2: تجاهل العلامات المبكرة. (صورة لورقة نبات صفراء). الحل: المراقبة اليومية والتدخل السريع عند أول علامة إجهاد لإنقاذ المحصول.<br/><br/>Slide 4: الخطأ 3: العمل وحيداً. (صورة لشخص واحد في حقل كبير). الحل: الاستعانة بخبير وشريك مثل Agrecoramah يوفر عليك الوقت ويضمن القرارات الصحيحة.<br/><br/>Slide 5: تجنب هذه الأخطاء ليس صعباً عندما يكون لديك الدليل الصحيح. Agrecoramah هو دليلك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-11')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-11" class="modal-body">هل ترتكب أحد هذه الأخطاء القاتلة لمحصولك؟ ❌ <br/><br/> جمعنا لكم في هذا الكاروسال 3 من أكثر الأخطاء شيوعاً التي تكلف المزارعين خسائر فادحة كل موسم، مع الحلول العملية والمباشرة التي يقدمها خبراء Agrecoramah.<br/>معرفة بسيطة يمكن أن تنقذ استثمارك بالكامل. <br/><br/> اسحب لليسار لتكتشف الأخطاء الشائعة في الزراعة وكيف تتجنبها بسهولة. <br/><br/> #تعليم_زراعي #فلاحة #Agrecoramah #أخطاء_شائعة #الجزائر #استثمارك_أمانة</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم يعتمد على المقارنة بين الخطأ والحل. كل سلايد مقسوم إلى قسمين أو يستخدم أيقونات (X و V). استخدام صور واضحة ومباشرة. الألوان يجب أن تكون متناسقة مع هوية العلامة التجارية. الخط واضح وسهل القراءة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P12</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">هل تعلم أن سوء التسميد يقضي على 40% من محاصيلك المحتملة؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('12')">
+                    <div class="preview-text">سوء التسميد لا يهدر أموالك فقط، بل يقضي على 40% من أرباحك المحتملة.
+الحل؟ برنامج تسميد علمي ومدروس....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-12" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('12')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P12</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-12')">📋 نسخ النص</button>
+                            <div id="script-text-12" class="modal-body">سوء التسميد لا يهدر أموالك فقط، بل يقضي على 40% من أرباحك المحتملة.<br/><br/>الحل؟ برنامج تسميد علمي ومدروس.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-12')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-12" class="modal-body">رقم صادم: 40% من أرباحك تضيع بسبب هذا الخطأ! <br/><br/> التسميد ليس مجرد إضافة مغذيات، بل هو علم دقيق. الكمية الخاطئة أو النوع الخاطئ أو التوقيت الخاطئ يمكن أن يكون له تأثير كارثي على محصولك وأرباحك.<br/>في Agrecoramah، نعتمد على تحليل التربة والبيانات العلمية لتصميم برنامج تسميد يضمن لك الاستفادة من كل دينار. <br/><br/> لحلول عملية ومضمونة، تابع صفحتنا وتواصل مع خبرائنا. <br/><br/> #تسميد #خسائر_زراعية #معلومة_زراعية #Agrecoramah #فلاحة_علمية #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم بصري صادم. صورة مقسومة: نصفها يظهر نباتات صحية ومزدهرة، والنصف الآخر يظهر نباتات ضعيفة وصفراء. رقم '40%' مكتوب بحجم كبير وبلون أحمر. شعار Agrecoramah في الأسفل.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V13</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">تقول "صعيب عليا نطبق العلم"؟ أرواح تشوف بعينك شحال ساهلة.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('13')">
+                    <div class="preview-text">[سيناريو 1 - صوت مزارع متردد]
+"أنا فلاح بسيط، هاد العلم وهاد التكنولوجيا صعيبة عليا... أنا نخدم كيما...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-13" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('13')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V13</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-13')">📋 نسخ النص</button>
+                            <div id="script-text-13" class="modal-body">[سيناريو 1 - صوت مزارع متردد]<br/><br/>"أنا فلاح بسيط، هاد العلم وهاد التكنولوجيا صعيبة عليا... أنا نخدم كيما نعرف وخلاص."<br/><br/>[الوجه الإعلامي لـAgrecoramah يظهر]<br/><br/>عندك الحق تخمم هاك. بصح اسمحلي نقولك، دورنا ماشي باش نعقدوهالك.<br/><br/>دورنا نبسطولك العلم.<br/><br/>نحولولك التحاليل والأرقام المعقدة لخطة عمل واضحة وبسيطة: 'الأسبوع هذا دير هكذا، السمانة الجاية دير هكذا'.<br/><br/>[سيناريو 2 - صوت مستثمر قلق]<br/><br/>"الخدمة تاعكم تبان غالية، نخاف نستثمر وما ترجعليش فايدة."<br/><br/>[الوجه الإعلامي لـAgrecoramah يظهر]<br/><br/>الاستثمار الحقيقي ماشي هو اللي تدفعو معانا. الخسارة الحقيقية هي في المواسم اللي تضيع منك كل عام.<br/><br/>شراكتنا هي استثمار مضمون العائد. نضمنولك بلي كل دينار تحطو يرجعلك أرباح مضاعفة وراحة بال.<br/><br/>مع Agrecoramah، العلم يولي ساهل، والاستثمار يولي مربح.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-13')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-13" class="modal-body">عندك شكوك؟ مخاوف؟ هنا نجاوبوك عليها بكل صراحة. <br/><br/> 'خدمتكم غالية'، 'صعيب نطبق العلم'، 'نقدر نديرها وحدي'... نسمع هذه الاعتراضات يومياً، وهي طبيعية جداً.<br/>في هذا الفيديو، نتعامل مع هذه المخاوف بشكل مباشر ونوضح لك كيف أن شراكة Agrecoramah هي في الحقيقة أبسط وأكثر ربحية مما تتخيل. <br/><br/> عندك أي استفسار آخر؟ فريق الدعم تاعنا راه هنا باش يجاوبك. راسلنا مباشرة! <br/><br/> #أسئلة_شائعة #بناء_الثقة #Agrecoramah #فلاحة #استثمار_آمن #الجزائر #dz</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو يعتمد على أسلوب تفنيد الاعتراضات.<br/>[الشكل]: يمكن استخدام شاشة مقسومة، أو ظهور نص الاعتراض على الشاشة ثم يظهر خبير Agrecoramah للرد عليه.<br/>[الأداء]: الخبير يتكلم بنبرة هادئة، متفهمة، وواثقة جداً. يستخدم لغة بسيطة ومباشرة.<br/>[لقطات داعمة]: أثناء الرد، تظهر لقطات سريعة لخبراء Agrecoramah وهم يبسطون المعلومات للمزارعين في الحقل، ويستخدمون تطبيقات سهلة على الهاتف، ورسوم بيانية للنمو والأرباح.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C14</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">شكوكك طبيعية، لكن حلولنا حقيقية. أرواح نجاوبوك على مخاوفك.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('14')">
+                    <div class="preview-text">Slide 1: نسمعوا مخاوفك ونجاوبوك عليها بكل شفافية. أهم 2 اعتراضات نسمعوها من عملائنا.
+Slide 2: الاعتر...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-14" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('14')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C14</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-14')">📋 نسخ النص</button>
+                            <div id="script-text-14" class="modal-body">Slide 1: نسمعوا مخاوفك ونجاوبوك عليها بكل شفافية. أهم 2 اعتراضات نسمعوها من عملائنا.<br/><br/>Slide 2: الاعتراض 1: "خدمتكم تبان غالية عليا".<br/><br/>Slide 3: الرد تاعنا: خدمتنا ماشي تكلفة، هي استثمار. استثمار يضمنلك عائد مضاعف ويحميك من خسارة موسم كامل اللي تقدر تكون أغلى بعشرات المرات.<br/><br/>Slide 4: الاعتراض 2: "نقدر نديرها وحدي، وعلاش نحتاج شريك؟"<br/><br/>Slide 5: الرد تاعنا: أكيد تقدر وحدك، لكن الشريك الخبير يختصر عليك الطريق، يجنبك أخطاء تكلفك غالي، ويزيد من فرص نجاحك بنسبة تفوق 80%.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-14')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-14" class="modal-body">خايف من التكلفة؟ تظن أنك لا تحتاج لمساعدة؟ 🤔 <br/><br/> من الطبيعي أن تكون لديك أسئلة وشكوك قبل اتخاذ أي قرار. لهذا السبب، خصصنا هذا المنشور للإجابة على بعض الاعتراضات الأكثر شيوعاً التي نسمعها.<br/>هدفنا هو بناء الثقة من خلال الشفافية. <br/><br/> اسحب لليسار لنجيب عن أهم أسئلتك حول شراكة Agrecoramah. <br/><br/> #اعتراضات #شفافية #Agrecoramah #بزنس #فلاحة #استثمار #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم على شكل سؤال وجواب (Q&A). كل اعتراض في سلايد مع تصميم يمثل 'فقاعة كلام'. السلايد التالي يكون الرد بتصميم واضح ومقنع. استخدام الأيقونات (مثل أيقونة المال للاعتراض الأول، وأيقونة شخص وحيد للثاني) لتعزيز الرسالة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P15</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">خايف من التكاليف؟ استثمارك معانا ماشي خسارة، استثمارك مضمون العائد!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('15')">
+                    <div class="preview-text">لا تفكر في التكلفة، فكر في العائد.
+شراكتنا تحميك من خسائر أكبر بكثير....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-15" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('15')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P15</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-15')">📋 نسخ النص</button>
+                            <div id="script-text-15" class="modal-body">لا تفكر في التكلفة، فكر في العائد.<br/><br/>شراكتنا تحميك من خسائر أكبر بكثير.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-15')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-15" class="modal-body">هل التكلفة هي التي تمنعك من اتخاذ القرار؟ <br/><br/> دعنا نغير طريقة تفكيرك: ما هي تكلفة عدم العمل معنا؟ تكلفة موسم ضائع؟ تكلفة منتجات مهدرة؟ تكلفة قرارات خاطئة؟<br/>الاستثمار في شريك خبير هو أرخص قرار يمكنك اتخاذه على المدى الطويل لأنه يضمن لك العائد ويحميك من الخسائر الفادحة. <br/><br/> تحدث إلى خبيرنا اليوم لتحليل ميزانيتك ووضع خطة تناسبك. اتصال واحد يغير كل شيء. <br/><br/> #استثمار_ذكي #عائد_مضمون #Agrecoramah #لا_للخسارة #فلاحة #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم بسيط وفعال. يمكن استخدام رسم بياني بسيط يوضح 'التكلفة' كسهم صغير للأسفل، و'العائد مع Agrecoramah' كسهم كبير جداً للأعلى. النص يوضع بشكل بارز. الألوان هادئة وتوحي بالثقة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V16</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">حان الوقت تقول باي باي للخسارة! عرض خاص لمدة أسبوع واحد فقط!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('16')">
+                    <div class="preview-text">[لقطات سريعة ومبهجة لعملاء سعداء في حقولهم الناجحة]
+[صوت عميل 1]: "أحسن قرار خديتو في حياتي."
+[صوت ع...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-16" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('16')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V16</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-16')">📋 نسخ النص</button>
+                            <div id="script-text-16" class="modal-body">[لقطات سريعة ومبهجة لعملاء سعداء في حقولهم الناجحة]<br/><br/>[صوت عميل 1]: "أحسن قرار خديتو في حياتي."<br/><br/>[صوت عميل 2]: "راحة البال ماعندهاش ثمن."<br/><br/>[الوجه الإعلامي يظهر على الشاشة]<br/><br/>شفت بعينك النتائج. وسمعت آراء شركائنا.<br/><br/>والآن جا دورك.<br/><br/>بمناسبة بداية الموسم الجديد، Agrecoramah تقدم عرضاً لا يعوض.<br/><br/>لكل من ينضم إلينا هذا الأسبوع، ستحصل على استشارة أولية شاملة مع خبيرنا + زيارة ميدانية تشخيصية لأرضك... مجاناً!<br/><br/>نعم، مجاناً تماماً. فرصة باش تشوف بعينك قيمة خدمتنا بلا أي التزام.<br/><br/>بصح العرض هذا صالح لمدة أسبوع واحد فقط.<br/><br/>هذا هو الوقت باش تودع الخسارة وترحب بالربح الوفير.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-16')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-16" class="modal-body">🚨 عرض خاص لمدة أسبوع واحد فقط! 🚨 <br/><br/> هل أنت مستعد لتغيير قصة محصولك هذا الموسم؟ هل تريد راحة البال والنتائج المضمونة التي يتحدث عنها عملاؤنا؟<br/>بمناسبة انطلاق الموسم، نقدم لك فرصة ذهبية: احجز مكانك معنا هذا الأسبوع واحصل على استشارة شاملة + زيارة ميدانية تشخيصية مجاناً!<br/>نعم، فرصة لتقييم أرضك من طرف خبرائنا بدون أي تكلفة. <br/><br/> العرض ينتهي قريباً! اضغط على الرابط الآن، املأ الاستمارة، ودعنا نبدأ قصة نجاحك. <br/><br/> #عرض_خاص #فرصة #Agrecoramah #فلاحة_جزائرية #استشارة_مجانية #الجزائر #لمدة_محدودة</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو سريع، حيوي، ومباشر. يبدأ بلقطات UGC (شهادات عملاء) سريعة ومؤثرة لزيادة المصداقية. ثم يظهر الوجه الإعلامي أو نص متحرك كبير وواضح يعلن عن العرض. موسيقى حماسية. يجب إظهار تفاصيل العرض (استشارة + زيارة مجانية) ومدة صلاحيته (لمدة أسبوع) كنص كبير على الشاشة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C17</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">فرصة لا تعوض للمزارعين الجادين! عرض خاص لمدة أسبوع فقط!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('17')">
+                    <div class="preview-text">Slide 1: فرصة العمر للمزارعين والمستثمرين! اكتشف عرضنا الخاص والحصري... صالح لمدة أسبوع واحد فقط!
+Sl...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-17" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('17')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C17</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-17')">📋 نسخ النص</button>
+                            <div id="script-text-17" class="modal-body">Slide 1: فرصة العمر للمزارعين والمستثمرين! اكتشف عرضنا الخاص والحصري... صالح لمدة أسبوع واحد فقط!<br/><br/>Slide 2: ماذا يتضمن العرض؟ 1. استشارة استراتيجية مجانية (قيمة 20,000 دج). 2. زيارة ميدانية تشخيصية مجانية (قيمة 30,000 دج). المجموع: قيمة 50,000 دج تحصل عليها مجاناً!<br/><br/>Slide 3: لماذا يجب أن تستفيد الآن؟ لأنها فرصتك لتبدأ الموسم الجديد بالطريقة الصحيحة، مع خطة عمل واضحة من الخبراء، وبدون أي مخاطرة مالية.<br/><br/>Slide 4: خطوات الاستفادة من العرض: 1. اضغط على الرابط في البايو. 2. املأ الاستمارة بمعلوماتك. 3. سيتصل بك فريقنا لتحديد الموعد. (أسهل من هاك ماكانش!)<br/><br/>Slide 5: لا تضيع هذه الفرصة! المقاعد محدودة والعرض ينتهي قريباً. قرار اليوم هو ربح الغد.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-17')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-17" class="modal-body">احصل على خدمات بقيمة 50,000 دج مجاناً! 🎁 <br/><br/> نعم، لقد قرأت ذلك بشكل صحيح. بمناسبة الموسم الجديد، نقدم عرضاً استثنائياً لكل من يريد تحقيق نتائج حقيقية هذا العام.<br/>استفد من خبرة فريقنا عبر استشارة وزيارة ميدانية مجانية تماماً.<br/>هذه فرصتك لاكتشاف إمكانيات أرضك الحقيقية. <br/><br/> اسحب لليسار لتعرف كل تفاصيل العرض وكيف تستفيد منه قبل فوات الأوان. العرض صالح لمدة أسبوع فقط! <br/><br/> #عرض_حصري #فلاحة #الجزائر #Agrecoramah #استثمار #هدية #موسم_جديد #dz</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم يركز على العرض والإلحاح. استخدام ألوان جذابة وخطوط كبيرة. في السلايد 2، أظهر القيمة المالية للعرض بشكل واضح. في السلايد 5، يمكن إضافة عداد تنازلي أو ساعة للإشارة إلى أن الوقت محدود. التصميم يجب أن يكون موجهاً للبيع المباشر.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P18</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">آخر فرصة! عرض الأسبوع سينتهي قريباً جداً!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('18')">
+                    <div class="preview-text">عرض الموسم الاستثنائي:
+استشارة + زيارة ميدانية مجانية!
+ينتهي العرض خلال 48 ساعة.
+اغتنم الفرصة الآن!...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-18" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('18')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P18</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-18')">📋 نسخ النص</button>
+                            <div id="script-text-18" class="modal-body">عرض الموسم الاستثنائي:<br/><br/>استشارة + زيارة ميدانية مجانية!<br/><br/>ينتهي العرض خلال 48 ساعة.<br/><br/>اغتنم الفرصة الآن!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-18')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-18" class="modal-body">⏳ الوقت يمر... لا تدع الفرصة تضيع منك! <br/><br/> هذا هو تذكيرك الأخير للاستفادة من عرضنا الأكثر سخاءً على الإطلاق. استشارة استراتيجية وزيارة ميدانية مجانية لأرضك، فرصة لن تتكرر قريباً.<br/>إذا كنت جاداً بشأن تحقيق أرباح قياسية هذا الموسم، فالقرار يجب أن يُتخذ الآن. <br/><br/> لم يتبق الكثير من الوقت! املأ الاستمارة في البايو الآن واحجز مكانك قبل انتهاء العرض. <br/><br/> #آخر_فرصة #عرض_محدود #Agrecoramah #الجزائر #قرار #فلاحة #استثمار_ناجح</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم بسيط جداً ومباشر يركز على الإلحاح. خلفية بلون قوي (أحمر أو برتقالي). النص مكتوب بخط عريض وواضح جداً. يمكن إضافة أيقونة ساعة رملية أو عداد تنازلي. الهدف هو دفع المترددين لاتخاذ قرار فوري.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr></tbody></table></div>
+
+    <div class="disclaimer-card">
+        <span style="font-size: 1.2em;">⚠️</span>
+        <span>قد تخضع هذه الاستراتيجية لبعض التعديلات والتحسينات، حسب المواد الإعلامية المتوفرة أو لغرض تحقيق أفضل النتائج.</span>
+    </div>
+
+    <div class="summary-box">
+        <span style="font-weight: 700; color: #FFD700;">الميزانية الإجمالية المعتمدة</span>
+        <span class="total-amount">133000 دج</span>
+        <a href="https://wa.me/213770820431" class="cta-btn">تواصل معنا للاعتماد</a>
+        <div style="border: 1px dashed #FFD700; padding: 25px; border-radius: 15px; margin-top: 20px;">
+            <h3 style="color:#FFD700; margin:0;">الخطوة التالية</h3>
+            <p style="margin:10px 0;">مكالمة قصيرة لنكيّف هذه الاستراتيجية حسب مشروعك ونبدأ العمل فوراً.</p>
+            <div class="phones-list">
+                <div class="phone-item">0770 82 04 31</div>
+                <div class="phone-item">0770 55 01 51</div>
+                <div class="phone-item">0770 82 01 45</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+function openModal(id) { document.getElementById('modal-' + id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
+function closeModal(id) { document.getElementById('modal-' + id).style.display = 'none'; document.body.style.overflow = 'auto'; }
+window.onclick = function(event) { if (event.target.className === 'modal') { event.target.style.display = 'none'; document.body.style.overflow = 'auto'; } }
+
+// وظيفة النسخ الجديدة
+function copyToClipboard(elementId) {
+    const el = document.getElementById(elementId);
+    const text = el.innerText || el.textContent; // نسخ النص بدون HTML tags
+    navigator.clipboard.writeText(text).then(() => {
+        alert("تم نسخ النص بنجاح! ✅");
+    }).catch(err => {
+        console.error('Failed to copy', err);
+    });
+}
+</script></body></html>
