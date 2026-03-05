@@ -1,0 +1,1249 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Vizu Strategy</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+<style>
+    body { background: #FFFFFF; color: #1A1A1A; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; line-height: 1.6; overflow-x: hidden; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 15px; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 2px solid #000; }
+    .wayso-logo { height: 45px; }
+    .brand-name { font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 1.4em; color: #000; text-transform: uppercase; border-right: 4px solid #FFD700; padding-right: 12px; }
+    
+    .analysis-section { margin: 30px 0; }
+    .card-philosophy { padding: 30px; border-radius: 20px; background: #000; color: #FFF; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+    .card-philosophy h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #FFD700; }
+    
+    .card-why { padding: 30px; border-radius: 20px; background: #F9F9F9; color: #333; margin-bottom: 20px; border: 1px solid #EDECE9; }
+    .card-why h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #000; display: flex; align-items: center; gap: 10px; }
+    .card-why h2::after { content: ''; flex-grow: 1; height: 1px; background: #EDECE9; margin-right: 15px; }
+
+    .hero { margin: 35px 0 20px 0; border-right: 6px solid #FFD700; padding-right: 15px; }
+    .hero h1 { font-size: 2.5em; font-weight: 700; margin: 0; }
+    .table-wrapper { margin-top: 25px; border-radius: 12px; overflow: hidden; border: 1px solid #EDECE9; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #000; color: #FFF; padding: 15px; text-align: right; font-size: 0.95em; }
+    td { padding: 20px 12px; border-bottom: 1px solid #EDECE9; vertical-align: top; }
+    
+    .code-badge { font-family: 'Montserrat', sans-serif; font-weight: 700; background: #FFD700; color: #000; padding: 5px 12px; border-radius: 6px; font-size: 1.1em; display: inline-block; margin-bottom: 5px; }
+    .type-label { display: block; font-weight: 700; color: #555; font-size: 0.95em; }
+    
+    .hook-pill { background: #000; color: #FFD700; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 1.1em; display: block; border-right: 5px solid #FFD700; }
+    
+    /* تحسين زر المودال */
+    .script-trigger { background: #F8F9FA; border: 1px solid #EDECE9; padding: 15px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; position: relative; }
+    .script-trigger:hover { background: #FFF; border-color: #FFD700; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transform: translateY(-2px); }
+    
+    .preview-text { font-size: 0.95em; color: #333; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; white-space: pre-wrap; }
+    
+    /* ستايل المودال */
+    .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); }
+    .modal-content { background: #FFF; margin: 5% auto; padding: 30px; border-radius: 20px; width: 90%; max-width: 750px; position: relative; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+    .close-modal { position: absolute; top: 20px; left: 20px; font-size: 30px; cursor: pointer; color: #999; line-height: 1; transition: color 0.2s; }
+    .close-modal:hover { color: #000; }
+    
+    .modal-section { margin-bottom: 25px; padding: 20px; border-radius: 12px; background: #fbfbfa; border: 1px solid #eee; position: relative; }
+    
+    /* زر النسخ */
+    .copy-btn { position: absolute; top: 10px; left: 10px; background: #fff; border: 1px solid #ddd; padding: 5px 10px; border-radius: 6px; cursor: pointer; font-size: 0.8em; font-weight: bold; color: #555; display: flex; align-items: center; gap: 5px; transition: all 0.2s; }
+    .copy-btn:hover { border-color: #FFD700; color: #000; background: #FFD70020; }
+    .copy-btn:active { transform: scale(0.95); }
+    
+    .modal-body { font-size: 1.15em; color: #1A1A1A; line-height: 1.9; word-wrap: break-word; white-space: pre-wrap; }
+    
+    .disclaimer-card { margin: 25px 0; padding: 20px; background: #FFF9E6; border-radius: 12px; border-right: 5px solid #FFC107; font-size: 1.05em; color: #856404; display: flex; align-items: center; gap: 12px; }
+    .summary-box { margin-top: 50px; background: #000; color: #FFF; padding: 40px 20px; border-radius: 25px; text-align: center; }
+    .total-amount { font-family: 'Montserrat'; font-size: 3.5em; font-weight: 700; display: block; color: #FFD700; margin: 10px 0; }
+    .cta-btn { display: inline-block; background: #FFD700; color: #000; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.2em; margin-bottom: 25px; transition: transform 0.2s; }
+    .cta-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px #FFD70060; }
+    
+    .phones-list { margin-top: 15px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; direction: ltr; } 
+    .phone-item { background: #1A1A1A; padding: 8px 15px; border-radius: 8px; border: 1px solid #333; color: #FFF; font-family: 'Montserrat'; font-weight: 700; font-size: 1.2em; white-space: nowrap; }
+
+    @media (max-width: 768px) {
+        thead { display: none; }
+        tr { display: block; border: 1px solid #EDECE9; border-radius: 15px; margin-bottom: 20px; padding: 15px; background: #FFF; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        td { display: block; padding: 10px 0; text-align: right; border-bottom: 1px dashed #eee; }
+        td:last-child { border-bottom: none; }
+        td::before { content: attr(data-label); font-weight: 700; color: #BBB; display: block; font-size: 0.8em; margin-bottom: 6px; text-transform: uppercase; }
+        .brand-name { font-size: 1.1em; }
+        .modal-content { width: 95%; padding: 20px; margin: 10% auto; }
+        .total-amount { font-size: 2.5em; }
+    }
+</style></head><body>
+
+<div class="container">
+    <div class="header">
+        <img src="https://storage.googleapis.com/msgsndr/GwIPQCjstTzxnzDQ1B32/media/68fddb5534bb1597bc934f89.png" class="wayso-logo">
+        <div class="brand-name">Vizu</div>
+    </div>
+
+    <div class="analysis-section">
+        <div class="card-philosophy"><h2>🎯 فلسفة الاستراتيجية</h2><p>في Wayso، نؤمن بأن شراكتنا معك تتجاوز مجرد تقديم خدمات. نحن هنا لنكون امتداداً لفريقك، لنهندس لك النمو المستدام. هذه الخطة، بمزيجها الديناميكي من الفيديوهات الشاملة والكاروسالات التعليمية، ليست مجرد محتوى؛ إنها استثمار مدروس بعناية لتعزيز حضورك الرقمي وبناء ولاء قوي لعلامتك التجارية. هدفنا الأسمى هو ضمان أن كل دينار تستثمره يعود عليك بقيمة مضاعفة، مدعوماً بتحليل دقيق للسوق الجزائري وفهم عميق لسلوك المستهلك. نحن نعمل بجد لترى النتائج قبل أن نطلب منك الثقة.</p></div>
+        <div class="card-why"><h2>💡 لماذا هذه الخطة؟</h2><p>بدأنا بتسليط الضوء على المعاناة (V1) لخطف الانتباه وبناء علاقة عاطفية مع الجمهور. ثم انتقلنا إلى المحتوى التعليمي والتوضيحي (C2، P3) لترسيخ الحل وتقديم القيمة بشكل تدريجي ومقنع، مما يقود المستهلك في رحلة واثقة نحو قرار الشراء. هذا التسلسل يضمن بناء الثقة خطوة بخطوة، من إدراك المشكلة إلى تبني الحل، وبالتالي تحقيق أقصى عائد على استثمارك الإعلاني.</p></div>
+    </div>
+
+    <div class="hero"><h1>خطة الإنتاج الإبداعي</h1></div>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th style="width: 20%;">الكود والنوع</th><th style="width: 30%;">الهوك (Hook)</th><th style="width: 50%;">المحتوى</th></tr></thead>
+            <tbody><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V1</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">شحال من مليون رميتو على صوالح شريتهم و من بعد ندمت عليهم؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('1')">
+                    <div class="preview-text">كامل صراتلنا... تعجبك حاجة في الحانوت، تبانلك parfaite.
+تتخايلها في دارك... ولا عليك... تقول هذي هي....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-1" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('1')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V1</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-1')">📋 نسخ النص</button>
+                            <div id="script-text-1" class="modal-body">كامل صراتلنا... تعجبك حاجة في الحانوت، تبانلك parfaite.<br/><br/>تتخايلها في دارك... ولا عليك... تقول هذي هي.<br/><br/>تخلص... تديها فرحان... بصح كي توصل للدار... الصدمة.<br/><br/>اللون ماشي كيما تخيلتو... الحجم كبير بزاف... ولا صغير بزاف.<br/><br/>والمشكل لكبير؟ "السلعة لا ترد ولا تبدل".<br/><br/>دراهمك راحو... و زدت فوقها قطعة ماعندك مادير بيها.<br/><br/>هذا الإحساس تاع القهرة والندم... يخليك تخاف تشري.<br/><br/>بصح، واش لوكان نقولك بلي هاد الكوشمار خلاص؟<br/><br/>كاين حل يخليك تجرب كلش بعينيك... قبل ما تخرج دورو واحد من جيبك.<br/><br/>هذا هو Vizu.<br/><br/>تطبيق Vizu يخليك تشوف أي منتوج في الواقع ديالك، غير بتليفونك.<br/><br/>عجبك صالون؟ حطو في بيتك وشوفو كيفاش يجي.<br/><br/>حبيت تشوف طابلة؟ قيسها وشوف يلا تكفيك.<br/><br/>حوايج؟ ديكور؟ كلش تقدر تجربه قبل ما تشري.<br/><br/>القوة رجعت في يدك.<br/><br/>جَرَّب بعينيك، واشري وأنت مهني.<br/><br/>تيليشارجي Vizu دروك... وقول باي باي للندم.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-1')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-1" class="modal-body">🚫 معادش ترمي دراهمك! الحل لمشكل "السلعة لا تُرد ولا تُبدل" راه هنا. <br/><br/> تعبت من القلق والندم كل ما تشري حاجة؟ تطبيق Vizu جا باش يبدلك طريقة الشراء في دزاير. جرب الأثاث، الملابس، والديكور في دارك ولا في أي بلاصة قبل ما تخرج دراهمك. شوف، قرر، واشري وأنت مرتاح البال. <br/><br/> تيليشارجي Vizu دروك و جرب بعينيك قبل ما تشري! 📲 (الرابط في البيو) <br/><br/> #Vizu #VizuAlgeria #التسوق_الذكي #الجزائر #تكنولوجيا #واقع_معزز #جرب_قبل_ما_تشري #DzTech #لا_للندم</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[بداية الفيديو - إطار PAS]: مشاهد سريعة ومونتاج متقطع لأشخاص محبطين. زاوية كاميرا قريبة على وجه شخص متوتر في محل. يد تحمل منتج وتتردد. لقطة مقرّبة لافتة "السلعة لا تُرد ولا تُبدل". موسيقى درامية متوترة.<br/>[الانتقال - إطار StoryBrand]: توقف مفاجئ في الموسيقى. شاشة سوداء لثانية. صوت هادئ ومطمئن يبدأ. إضاءة دافئة ومشرقة. شاب أو شابة تبتسم وهي تمسك هاتفها في غرفة معيشة فارغة.<br/>[عرض الحل - إطار HVC]: لقطات شاشة احترافية لواجهة التطبيق. عرض حي لكيفية وضع أثاث افتراضي في الغرفة. تكبير على تفاصيل المنتج (الأبعاد، اللون). مشاهد متنوعة: سيدة تجرب ديكور، شاب يقيس حجم تلفاز على الحائط. موسيقى ملهمة ومبتكرة.<br/>[النهاية - CTA]: لقطة واسعة للشخص وهو ينظر لغرفته 'المؤثثة' افتراضياً بارتياح. يضغط على زر 'شراء' في التطبيق بثقة. يظهر شعار Vizu بشكل بارز مع أيقونات App Store و Google Play.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C2</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">تشري وأنت خايف؟ هاد المشكل عندو حل في Vizu.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('2')">
+                    <div class="preview-text">Slide 1: الكوشمار لي يعيشو كل جزائري: "السلعة لا تُرد ولا تُبدل".
+Slide 2: فكّر مليح... شحال من مرة ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-2" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('2')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C2</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-2')">📋 نسخ النص</button>
+                            <div id="script-text-2" class="modal-body">Slide 1: الكوشمار لي يعيشو كل جزائري: "السلعة لا تُرد ولا تُبدل".<br/><br/>Slide 2: فكّر مليح... شحال من مرة خسرت دراهم على حوايج شريتهم و في الأخير ما عجبوكش؟ 10 آلاف؟ 50 ألف؟ مليون؟<br/><br/>Slide 3: ماشي غير خسارة دراهم. الندم، التوتر، والإحساس بالقهرة هوما الثمن الحقيقي لكل قرار شراء غالط.<br/><br/>Slide 4: علاش هاد المشكل منتشر في السوق الجزائري؟ نقص الثقة، صعوبة المقارنة، والخوف من المجهول.<br/><br/>Slide 5: بصح خلاص وقت الخوف. الحل التكنولوجي راه هنا: Vizu. تطبيق يرجعلك الثقة والسيطرة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-2')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-2" class="modal-body">تفهم عدوك، تغلبو. افهم المشكل الحقيقي وراء "السلعة لا تُرد ولا تُبدل". <br/><br/> ماشي نتا لي غالط كي تخاف قبل ما تشري. المشكل أعمق من مجرد قانون في محل. اكتشف في هذا الكاروسال الأبعاد الحقيقية للمعاناة وكيفاش التكنولوجيا تقدر تكون هي الحل النهائي. <br/><br/> اسحب لليمين باش تفهم كيفاش Vizu راح يغير كلش! <br/><br/> #مشاكل_التسوق #السوق_الجزائري #Vizu_Solution #الجزائر #اقتصاد #حماية_المستهلك #VizuApp #Dz</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم إنفوجرافيك بسيط واحترافي. الخلفية بيضاء مع لمسات من لون علامة Vizu.<br/>Slide 1: أيقونة كبيرة لعلامة تعجب (❗️) مع النص بخط عريض.<br/>Slide 2: أيقونة آلة حاسبة مع أوراق نقدية تتطاير. استخدام أرقام بارزة.<br/>Slide 3: رسم بياني بسيط يوضح ارتفاع مستوى التوتر. أيقونات وجوه حزينة أو قلقة.<br/>Slide 4: صورة رمزية لسوق جزائري مع علامات استفهام (؟) فوق رؤوس الناس.<br/>Slide 5: ظهور شعار Vizu بشكل كبير ومشرق. أيقونة درع أو مفتاح كرمز للحل والأمان.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P3</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">شكون لي يقرر في بلاصتك كي تجي تشري؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('3')">
+                    <div class="preview-text">إلى متى تبقى أسير الخوف والتردد؟
+قرار الشراء ديالك. دراهمك. راحتك.
+القوة لازم ترجع ليك....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-3" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('3')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P3</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-3')">📋 نسخ النص</button>
+                            <div id="script-text-3" class="modal-body">إلى متى تبقى أسير الخوف والتردد؟<br/><br/>قرار الشراء ديالك. دراهمك. راحتك.<br/><br/>القوة لازم ترجع ليك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-3')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-3" class="modal-body">ما تخليش الخوف يقرر في بلاصتك. <br/><br/> كل عملية شراء هي قرار مهم. تطبيق Vizu ما يمدلكش غير منتجات، يمدلك القوة باش تاخذ القرار الصحيح وأنت واثق من روحك. استرجع سيطرتك على تجربة التسوق ديالك. <br/><br/> أرجع سيد قرارك! حمل تطبيق Vizu. <br/><br/> #القوة_للمستهلك #اشري_بثقة #VizuAlgeria #الجزائر #تسوق_بذكاء #قرارك_بيدك #DzPower</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم جرافيكي قوي. صورة يد تمسك هاتف ذكي، ومن شاشة الهاتف يخرج شعاع نور يضيء منتجاً (مثل كرسي أو قطعة ملابس). النص مكتوب بخط أنيق وقوي في زاوية التصميم. التركيز على إظهار المستهلك كبطل القصة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V4</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">شرات صالون بـ 30 مليون... وكي لحق للدار كانت الكارثة!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('4')">
+                    <div class="preview-text">(شخص يحكي قصته - UGC)
+السلام عليكم، حبيت نحكي لكم حكايتي.
+كنت فرحان بزاف، راح نبدل صالون داري. لميت ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-4" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('4')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V4</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-4')">📋 نسخ النص</button>
+                            <div id="script-text-4" class="modal-body">(شخص يحكي قصته - UGC)<br/><br/>السلام عليكم، حبيت نحكي لكم حكايتي.<br/><br/>كنت فرحان بزاف، راح نبدل صالون داري. لميت دراهمي، ودُرت وشفت... حتى لقيت واحد عجبني بزاف.<br/><br/>في المحل كان يبان هايل، اللون، كلش.<br/><br/>شريتو... وكي جابوه للدار... الكارثة.<br/><br/>جا كبير بزاف على الصالون ديالي، قريب أغلق الطريق كامل.<br/><br/>اللون في ضوء الدار بان مختلف تماماً.<br/><br/>حاولت نرجعو... قالولي "السلعة لا ترد ولا تبدل".<br/><br/>خسرت دراهمي، و زدت فوقها صالون غالط في وسط الدار.<br/><br/>حتى واحد النهار، صاحبي ورالي Vizu.<br/><br/>تيليشارجيتها... وما آمنتش.<br/><br/>وليت نقدر نجرب كلش قبل ما نشري. جربت صالونات، طوابل... كلش.<br/><br/>المرة الجاية كي شريت، شريت وأنا مهني 100%.<br/><br/>Vizu صح بدلّي حياتي.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-4')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-4" class="modal-body">قصة حقيقية: كيفاش خسرت دراهمي في صالون... وكيفاش Vizu رجعهملي! <br/><br/> هذه القصة ممكن تكون قصتك. الندم بعد الشراء هو إحساس قاسي. شوف كيفاش تجربة بسيطة مع تطبيق Vizu قدرت تبدل كلش وترجع الثقة والراحة. <br/><br/> قصتي مع Vizu تبدلت، قصتك تقدر تتبدل هي تان! تيليشارجي Vizu درك. <br/><br/> #قصص_واقعية #UGC #Vizu #الجزائر #تجربة_شراء #حلول_ذكية #DzStory #معاناة_مستهلك</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصوير بأسلوب UGC (محتوى من إنشاء المستخدم) لزيادة المصداقية. كاميرا هاتف ثابتة، صوت واضح. لقطات للشخص وهو يحكي بحرقة. يمكن إدراج صور حقيقية للمشكلة (إن وجدت). عند ذكر Vizu، ينتقل المونتاج ليصبح أكثر احترافية: لقطات شاشة للتطبيق وهو يحل المشكلة، موسيقى تبعث على الأمل. في النهاية، الشخص يبتسم للكاميرا بثقة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C5</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الندم بعد الشراء... كيفاش تقدر تفيتيه؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('5')">
+                    <div class="preview-text">Slide 1: كيف تتجنب الندم بعد الشراء؟ السر في خطوة واحدة بسيطة.
+Slide 2: تشري أثاث؟ جربو في دارك قبل ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-5" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('5')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C5</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-5')">📋 نسخ النص</button>
+                            <div id="script-text-5" class="modal-body">Slide 1: كيف تتجنب الندم بعد الشراء؟ السر في خطوة واحدة بسيطة.<br/><br/>Slide 2: تشري أثاث؟ جربو في دارك قبل ما تدفع سنتيم! شوف الحجم، اللون، وكيفاش يتماشى مع الديكور ديالك... كل هذا بتليفونك مع Vizu.<br/><br/>Slide 3: تحوس على حوايج؟ قيسهم عليك وأنت في بيتك! شوف كيفاش يجيو عليك بلا ما تتنقل ولا تضيع وقتك.<br/><br/>Slide 4: الحل بسيط: جَرَّب، قَرَّر، و اشري. تطبيق Vizu هو عينك الثالثة في عالم التسوق.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-5')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-5" class="modal-body">ما تخليش الندم يفسد عليك فرحة الشراء! <br/><br/> سواء كنت تشري أثاث لدارك ولا لبسة جديدة، قرار الشراء لازم يكون عن قناعة وراحة بال. Vizu يمدلك هذي الراحة. <br/><br/> اكتشف كيف يمنحك Vizu راحة البال، حمل التطبيق! <br/><br/> #لا_للندم #تسوق_بثقة #أثاث #ملابس #VizuAlgeria #الجزائر #DzFashion #DzHome</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم قصصي وجذاب.<br/>Slide 1: خلفية بها علامة استفهام كبيرة وأنيقة، مع النص الرئيسي.<br/>Slide 2: صورة لغرفة معيشة، ونصفها يظهر أثاث حقيقي والنصف الآخر يظهر نفس الأثاث كنموذج ثلاثي الأبعاد من تطبيق Vizu.<br/>Slide 3: صورة شخص ينظر في مرآة، وبجانبه هاتفه يظهر عليه نفس الشخص يرتدي قطعة ملابس افتراضية.<br/>Slide 4: شعار Vizu مع ثلاث أيقونات بسيطة (عين، علامة صح، عربة تسوق).</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P6</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">واش هو أهم حاجة في الشراء؟ ماشي السعر، هي الثقة.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('6')">
+                    <div class="preview-text">الثقة هي أساس كل قرار شراء صحيح....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-6" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('6')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P6</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-6')">📋 نسخ النص</button>
+                            <div id="script-text-6" class="modal-body">الثقة هي أساس كل قرار شراء صحيح.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-6')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-6" class="modal-body">أساس كل علاقة ناجحة؟ الثقة. حتى مع واش تشري. <br/><br/> لما تكون واثق، قرارك يكون صحيح. Vizu يبني جسر الثقة بينك وبين المنتج قبل ما تشريه. استثمر في راحة بالك. <br/><br/> ابني الثقة مع كل عملية شراء، حمل Vizu اليوم. <br/><br/> #الثقة #Vizu #مبدأ #تسوق_واعي #الجزائر #فلسفة_الشراء #DzLife</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم راقي وبسيط. خلفية بلون محايد من ألوان العلامة التجارية. النص مكتوب في المنتصف بخط فخم وواضح (Serif). تحت النص، يوضع شعار Vizu بشكل صغير وأنيق. الرسالة هي التركيز على القيمة المعنوية.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V7</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">تخيل تجرب أي حاجة قبل ما توصلك للدار... ماشي خيال، هذي تكنولوجيا Vizu!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('7')">
+                    <div class="preview-text">زمان... كنت لازم تتخايل.
+يا ترى هذا الكرسي يجي شباب في صالوني؟
+يا ترى هذا اللون يمشي مع الحيط؟
+كنت ت...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-7" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('7')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V7</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-7')">📋 نسخ النص</button>
+                            <div id="script-text-7" class="modal-body">زمان... كنت لازم تتخايل.<br/><br/>يا ترى هذا الكرسي يجي شباب في صالوني؟<br/><br/>يا ترى هذا اللون يمشي مع الحيط؟<br/><br/>كنت تشري على حساب خيالك... وساعات الخيال يخدع.<br/><br/>اليوم... جا وقت الواقع.<br/><br/>مع Vizu، ما تحتاجش تتخايل.<br/><br/>تحتاج برك تفتح الكاميرا.<br/><br/>بتكنولوجيا الواقع المعزز، Vizu يحطلك أي منتج قدام عينيك، في دارك، في بيروك، وين حبيت.<br/><br/>تشوفو بحجمو الحقيقي، بلونو الحقيقي.<br/><br/>تدور عليه، تقرب منو، تبعد عليه... كي شغل راه صح تما.<br/><br/>هذا هو الجسر بين الخيال والواقع.<br/><br/>هذا هو Vizu.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-7')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-7" class="modal-body">ماشي سحر، هذي تكنولوجيا الواقع المعزز (AR)! <br/><br/> وداعاً لعصر التخمينات! مع تطبيق Vizu، ولات عندك القدرة تشوف المنتج في واقعك قبل ما يكون عندك. اكتشف كيفاش التكنولوجيا تقدر تخلي التسوق أسهل، أمتع، وأكثر ثقة. <br/><br/> شوف كيفاش Vizu يرجع الشراء ساهل وممتع. تيليشارجي التطبيق و جرب بنفسك! <br/><br/> #MotionGraphics #AR #الواقع_المعزز #تكنولوجيا #Vizu #الجزائر #مستقبل_التسوق #DzTech</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو Motion Graphics سريع وجذاب.<br/>[مشهد Before]: رسومات بسيطة باللونين الأبيض والأسود. شخصية كرتونية تفكر ويظهر فوق رأسها فقاعة بها علامة استفهام ومنتجات مرسومة بشكل عشوائي.<br/>[مشهد After]: انتقال لوني إلى ألوان Vizu الزاهية. نفس الشخصية تمسك هاتف وتوجهه، ويظهر المنتج كنموذج 3D ملون وواقعي في الغرفة. خطوط ورسوم متحركة تشرح كيف تعمل التقنية ببساطة. موسيقى عصرية وإيقاع سريع.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C8</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">جامي خدمت بتطبيق كيما هذا؟ في 3 خطوات تولي محترف!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('8')">
+                    <div class="preview-text">Slide 1: كيفاش تخدم بتطبيق Vizu؟ ساهل ماهل في 3 خطوات بسيطة!
+Slide 2: الخطوة 1: افتح التطبيق وخير ال...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-8" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('8')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C8</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-8')">📋 نسخ النص</button>
+                            <div id="script-text-8" class="modal-body">Slide 1: كيفاش تخدم بتطبيق Vizu؟ ساهل ماهل في 3 خطوات بسيطة!<br/><br/>Slide 2: الخطوة 1: افتح التطبيق وخير المنتج اللي عجبك من بين آلاف الخيارات.<br/><br/>Slide 3: الخطوة 2: اضغط على زر 'جرب' و وجه الكاميرا للمكان اللي حبيت تحط فيه المنتج.<br/><br/>Slide 4: الخطوة 3: شوف المنتج في واقعك! حركو، بدل لونو، كي يعجبك... قرر واشري وأنت مهني.<br/><br/>Slide 5: Vizu: التكنولوجيا القوية، في متناول يدك!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-8')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-8" class="modal-body">ما تخافش من التكنولوجيا، Vizu مصمم ليك! <br/><br/> نعرفو بلي أي حاجة جديدة ممكن تبان صعيبة، على بيها صممنا Vizu باش يكون أسهل تطبيق تقدر تستعملو. تبع الخطوات وشوف كيفاش تولي خبير في التسوق الذكي في أقل من دقيقة. <br/><br/> جرب بنفسك السهولة! حمل Vizu. <br/><br/> #Vizu_Tuto #سهل_الاستخدام #تكنولوجيا_بسيطة #دليل #الجزائر #DzApp #كيفية_الاستخدام</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">كاروسال تعليمي وواضح.<br/>Slide 1: عنوان بارز مع رقم 3 كبير في الخلفية.<br/>Slide 2: لقطة شاشة من التطبيق تظهر معرض المنتجات مع سهم يشير إلى منتج معين.<br/>Slide 3: أيقونة كاميرا كبيرة مع لقطة شاشة تظهر واجهة الكاميرا في التطبيق.<br/>Slide 4: صورة GIF قصيرة أو صورة ثابتة تظهر منتج افتراضي في غرفة حقيقية مع أيقونات للتحريك وتغيير اللون.<br/>Slide 5: شعار Vizu مع slogan "التقنية في يدك!" بخط واضح.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P9</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">وقتك غالي عليك؟ علاش تضيعو في التسوق؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('9')">
+                    <div class="preview-text">وقتك أغلى من أنك تضيعه في الشك والتردد.
+اشري بذكاء. اشري بسرعة. اشري بثقة....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-9" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('9')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P9</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-9')">📋 نسخ النص</button>
+                            <div id="script-text-9" class="modal-body">وقتك أغلى من أنك تضيعه في الشك والتردد.<br/><br/>اشري بذكاء. اشري بسرعة. اشري بثقة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-9')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-9" class="modal-body">ماعندكش الوقت للتسوق؟ ماشي لازم تخسر جهدك! <br/><br/> التسوق التقليدي يدي بزاف وقت وجهد. بين التنقل، البحث، والمقارنة... يروح نهار. مع Vizu، تقدر تدير كل هذا وأنت في دارك، في دقائق معدودة. <br/><br/> وفر وقتك وجهدك مع Vizu، حمل التطبيق الآن! <br/><br/> #توفير_الوقت #تسوق_سريع #Vizu #راحة #الجزائر #حياة_أسهل #DzLifeStyle</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم جرافيكي يجمع بين مفهوم الوقت والراحة. صورة نصفها ساعة أنيقة والنصف الآخر شخص مسترخي في أريكة يتسوق بهاتفه. النص يوضع بشكل متوازن على التصميم. الألوان هادئة ومريحة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V10</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">في الخدمة، في الدار، حتى في القهوة... Vizu ديما معاك!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('10')">
+                    <div class="preview-text">(الوجه الإعلامي يتحدث للكاميرا بحماس)
+يا جماعة! حبيت نوري لكم حاجة révolutionnaire!
+هذا، تطبيق Vizu....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-10" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('10')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V10</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-10')">📋 نسخ النص</button>
+                            <div id="script-text-10" class="modal-body">(الوجه الإعلامي يتحدث للكاميرا بحماس)<br/><br/>يا جماعة! حبيت نوري لكم حاجة révolutionnaire!<br/><br/>هذا، تطبيق Vizu.<br/><br/>الهايل فيه، ماشي برك واش يدير... مي وين تقدر تديرو.<br/><br/>(لقطات سريعة ومونتاج حيوي)<br/><br/>راك في دارك الجديدة ومازالها فارغة؟ أثثها كامل بتليفونك!<br/><br/>(مشهد يؤثث غرفة فارغة)<br/><br/>راك في البيرو وحبيت تبدل الديكور؟ شوف كيفاش يجي قبل ما تشري!<br/><br/>(مشهد يضع لوحة فنية افتراضية على حائط مكتب)<br/><br/>حتى وأنت قاعد في قهوة مع صحابك... عجبتكم حاجة؟ تقدرو تجربوها تم تم!<br/><br/>(مشهد شباب يضحكون ويجربون منتج مع بعض)<br/><br/>Vizu ماشي مجرد تطبيق، هو رفيقك في التسوق وين ما تروح.<br/><br/>القرار والثقة... في جيبك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-10')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-10" class="modal-body">رفيقك الجديد للتسوق الذكي، يتبعك وين تروح! <br/><br/> شكون قال التسوق لازم يكون في المحلات برك؟ مع Vizu، العالم كامل هو مساحة التجربة ديالك. في الدار، في المكتب، في أي مكان... شوف كيفاش تقدر تاخذ قرارات شراء صحيحة في أي وقت. <br/><br/> جرب Vizu في أي بلاصة و أي وقت، تيليشارجي دروك! <br/><br/> #Vizu_Everywhere #تسوق_مرن #الجزائر #تطبيق_اليوم #مرونة #Dz</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">الوجه الإعلامي (Host) يتحدث بطاقة وحماس. مونتاج سريع وديناميكي ينتقل بين مواقع مختلفة (منزل، مكتب، مقهى). استخدام موسيقى عصرية وشبابية. لقطات مقربة على تعابير وجهه المندهشة والراضية وهو يستخدم التطبيق. في كل مشهد، تظهر رسومات بسيطة (Text overlay) توضح المكان (المنزل، المكتب...).</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C11</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">مازالك تشري كيما بكري؟ شوف الفرق لي ديرو Vizu.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('11')">
+                    <div class="preview-text">Slide 1: التسوق زمان 🆚 التسوق اليوم مع Vizu.
+Slide 2: قبل Vizu: حيرة وقلق، ساعات ضايعة في التنقل وا...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-11" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('11')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C11</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-11')">📋 نسخ النص</button>
+                            <div id="script-text-11" class="modal-body">Slide 1: التسوق زمان 🆚 التسوق اليوم مع Vizu.<br/><br/>Slide 2: قبل Vizu: حيرة وقلق، ساعات ضايعة في التنقل والبحث، وقرارات مبنية على التخمين.<br/><br/>Slide 3: مع Vizu: ثقة وراحة بال، قرارات في دقائق من أي مكان، وتجربة واقعية قبل الشراء.<br/><br/>Slide 4: Vizu: ماشي برك تطبيق، هو الجسر ديالك من الشك إلى اليقين. هذا هو الفارق اللي تستاهلو!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-11')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-11" class="modal-body">تخيل التسوق بلا صداع الراس؟ هذا ماشي حلم، هذا Vizu! <br/><br/> كل يوم التكنولوجيا تبدل حياتنا للأحسن، وعلاش ماشي التسوق تاني؟ شوف المقارنة بعينيك واكتشف كيفاش تقدر توفر وقتك، جهدك، وأهم حاجة... تحافظ على راحة بالك. <br/><br/> بدّل طريقة تسوقك للأحسن، حمل Vizu! <br/><br/> #BeforeAndAfter #مقارنة #تطور_التسوق #Vizu_Effect #الجزائر #DzEvolution</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم مقارنة واضح ومباشر.<br/>Slide 1: تصميم مقسوم لجزئين، جزء بالأبيض والأسود (زمان) وجزء ملون (مع Vizu).<br/>Slide 2: استخدام أيقونات وكلمات سلبية (علامة استفهام، ساعة رملية، وجه قلق) في الجزء الخاص بـ 'قبل'.<br/>Slide 3: استخدام أيقونات وكلمات إيجابية (درع الثقة، صاروخ للسرعة، وجه مبتسم) في الجزء الخاص بـ 'مع'.<br/>Slide 4: صورة قوية لشعار Vizu على جسر يربط بين ضفتين، واحدة مظلمة والأخرى مشرقة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P12</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">العين هي الميزان، و Vizu هو اللي يخليك توزن صح.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('12')">
+                    <div class="preview-text">جَرَّب بعينيك، واشري وأنت مهني....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-12" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('12')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P12</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-12')">📋 نسخ النص</button>
+                            <div id="script-text-12" class="modal-body">جَرَّب بعينيك، واشري وأنت مهني.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-12')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-12" class="modal-body">شعارنا هو وعدنا ليكم. <br/><br/> هذه ليست مجرد كلمات، هذا هو المبدأ الذي بنينا عليه Vizu. نؤمن أن حقك تشوف وتقتنع 100% قبل ما تدفع. عينيك هي ميزانك، و Vizu هو قوتك. <br/><br/> حمل Vizu، وعيش تجربة الشراء المهنية! <br/><br/> #Slogan #USP #VizuPromise #جرب_بعينيك #اشري_مهني #الجزائر #علامة_تجارية</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم يركز 100% على شعار (Slogan) العلامة التجارية. النص مكتوب بخط العلامة الرسمي، كبير وواضح في منتصف الصورة. الخلفية بسيطة جداً، ربما صورة عالية الجودة لعين إنسان أو عدسة كاميرا بشكل فني. شعار Vizu يكون أسفل الـ Slogan.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V13</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">عندك حانوت؟ شحال من كليون راحلك علاجال ماقدرش يتخايل السلعة في دارو؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('13')">
+                    <div class="preview-text">(صاحب محل يتحدث - شهادة B2B)
+أنا عندي محل تاع أثاث، والحمد لله الخدمة تمشي.
+بصح كان عندي مشكل كبير د...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-13" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('13')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V13</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-13')">📋 نسخ النص</button>
+                            <div id="script-text-13" class="modal-body">(صاحب محل يتحدث - شهادة B2B)<br/><br/>أنا عندي محل تاع أثاث، والحمد لله الخدمة تمشي.<br/><br/>بصح كان عندي مشكل كبير ديما يتكرر.<br/><br/>يجي الزبون، تعجبو حاجة، بصح يبقى متردد.<br/><br/>يقولك "ماعلاباليش اذا تجيني مليحة في الدار"، "خايف من الحجم".<br/><br/>شحال من عملية بيع راحتلي على جال هذا التردد.<br/><br/>حتى سمعت بـ Vizu للشركات.<br/><br/>في الأول ترددت، بصح قلت نجرب.<br/><br/>والله يا خاوتي، الفرق كان من السماء للأرض.<br/><br/>الزبون ولا يدخل، يخير، يجرب السلعة في دارو بالتليفون وهو في المحل.<br/><br/>الثقة زادت، التردد نقص، والمبيعات ديالي طلعت.<br/><br/>الزبون ولا يشري وهو فرحان ومقتنع... وأنا نبيع وأنا مهني.<br/><br/>Vizu ماشي برك حل للزبون، هو حل لينا حنا التجار.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-13')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-13" class="modal-body">لأصحاب المحلات: حوّلوا المترددين إلى مشترين واثقين! <br/><br/> التردد هو أكبر عدو للمبيعات. اكتشفوا كيف استطاع محل أثاث جزائري زيادة مبيعاته وثقة زبائنه بفضل حل Vizu B2B. التكنولوجيا ليست للمستقبل، هي لزيادة أرباحك اليوم. <br/><br/> تقدر تكون المحل الجاي اللي الزبائن يثقوا فيه! اتصل بفريق Vizu B2B. <br/><br/> #B2B #VizuForBusiness #قصة_نجاح #تجارة #الجزائر #حلول_للشركات #DzBusiness #زيادة_المبيعات</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصوير احترافي لقصة نجاح B2B. مقابلة مع صاحب المحل في متجره. إضاءة جيدة وصوت واضح. لقطات B-roll للمحل، للزبائن وهم سعداء، ولصاحب المحل وهو يستخدم جهاز لوحي لعرض منتجاته بتقنية Vizu لزبون. عرض أرقام بسيطة على الشاشة (مثال: +30% مبيعات).</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C14</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">عندك محل وحاب تزيد في الأرباح؟ الحل في التكنولوجيا.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('14')">
+                    <div class="preview-text">Slide 1: لأصحاب المحلات والتجار: Vizu هو فرصتكم الذهبية لمواكبة العصر.
+Slide 2: كيف تجذب زبائن جدد؟ ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-14" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('14')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C14</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-14')">📋 نسخ النص</button>
+                            <div id="script-text-14" class="modal-body">Slide 1: لأصحاب المحلات والتجار: Vizu هو فرصتكم الذهبية لمواكبة العصر.<br/><br/>Slide 2: كيف تجذب زبائن جدد؟ قدم لهم تجربة فريدة! Vizu يخلي محلك يبرز عن المنافسين ويجذب الزبون العصري.<br/><br/>Slide 3: قلل من طلبات إرجاع المنتجات! لما الزبون يجرب المنتج افتراضياً، يكون متأكد 100% من قراره، وهذا ينقص عليك مشاكل الإرجاع.<br/><br/>Slide 4: Vizu B2B: الحل الذكي لمحل عصري وربحية أعلى. استثمر في ثقة زبونك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-14')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-14" class="modal-body">هل محلك التجاري جاهز للمستقبل؟ <br/><br/> في سوق تنافسي، التميز هو مفتاح النجاح. Vizu يقدم لأعمالك ميزة تنافسية حقيقية: زيادة ثقة الزبائن، تقليل الإرجاع، وجذب شريحة جديدة من العملاء. اكتشف فوائد Vizu لشريكنا التجاري. <br/><br/> اكتشف كيف يغير Vizu عملك، زر موقعنا! <br/><br/> #VizuB2B #للتجار #محلات_الجزائر #حلول_ذكية #تجارة_الكترونية #DzCommerce</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">كاروسال بتصميم احترافي وموجه للشركات.<br/>Slide 1: صورة لمحل أنيق وعصري مع العنوان.<br/>Slide 2: أيقونة مغناطيس يجذب أيقونات أشخاص (زبائن).<br/>Slide 3: أيقونة سهم دائري (رمز الإرجاع) مشطوب عليه، وبجانبه أيقونة نسبة مئوية تتناقص.<br/>Slide 4: شعار Vizu B2B مع أيقونات تمثل الربح (رسم بياني تصاعدي) والابتكار (مصباح).</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P15</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">ما تبقاش تتفرج، كن جزء من التغيير.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('15')">
+                    <div class="preview-text">كن جزءاً من مستقبل التسوق في الجزائر....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-15" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('15')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P15</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-15')">📋 نسخ النص</button>
+                            <div id="script-text-15" class="modal-body">كن جزءاً من مستقبل التسوق في الجزائر.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-15')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-15" class="modal-body">المستقبل لا يُنتظر، بل يُصنع. <br/><br/> Vizu ليس مجرد تطبيق، بل هو رؤية لمستقبل التسوق في بلدنا. رؤية مبنية على الثقة، التكنولوجيا، والابتكار. ندعو المتاجر والمبدعين للانضمام إلينا في هذه الرحلة. <br/><br/> تواصل معنا لتكون شريكاً في Vizu. <br/><br/> #مستقبل_الجزائر #ابتكار #شراكة #Vizu_Vision #DzFuture #MadeInAlgeria</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">صورة تحفيزية ومستقبلية. تصميم جرافيكي يظهر خريطة الجزائر بشكل عصري وتكنولوجي، وتنبثق منها خطوط مضيئة تلتقي عند شعار Vizu. الرسالة هي أن Vizu هو جزء من تطور البلد. النص مكتوب بخط جريء وواضح.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V16</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">تكنولوجيا واعرة... بصح ساهلة كي تشرب الماء!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('16')">
+                    <div class="preview-text">(صوت معلق ودود وموسيقى هادئة)
+يقولو التكنولوجيا معقدة.
+يقولو التطبيقات الجديدة صعيبة.
+مع Vizu، حبينا...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-16" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('16')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V16</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-16')">📋 نسخ النص</button>
+                            <div id="script-text-16" class="modal-body">(صوت معلق ودود وموسيقى هادئة)<br/><br/>يقولو التكنولوجيا معقدة.<br/><br/>يقولو التطبيقات الجديدة صعيبة.<br/><br/>مع Vizu، حبينا نكسرو هاد القاعدة.<br/><br/>صممنا كل جزء في التطبيق باش يكون ساهل، واضح، ومباشر.<br/><br/>من أول ما تفتحو، راح تعرف واش دير.<br/><br/>البحث على المنتجات... ساهل.<br/><br/>التجربة في الواقع المعزز... بضغطة زر.<br/><br/>كلش في بلاصتو، وكلش يخدم ليك، ماشي العكس.<br/><br/>لأننا نآمنو بلي أقوى تكنولوجيا هي اللي ما تحسش بيها.<br/><br/>Vizu: القوة في البساطة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-16')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-16" class="modal-body">تكنولوجيا متطورة لا تتطلب منك أي مجهود. <br/><br/> لا تدع تعقيد التكنولوجيا يمنعك من الاستفادة منها. تم تصميم Vizu ليكون بديهياً وسهل الاستخدام للجميع، بغض النظر عن خبرتهم التقنية. اكتشف متعة التجربة السلسة. <br/><br/> جرب السهولة المطلقة! حمل Vizu الآن. <br/><br/> #UXUI #سهولة_الاستخدام #تصميم_بسيط #VizuApp #الجزائر #تطبيق_سهل #DzDesign</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو Motion Graphics يركز على واجهة المستخدم (UI/UX). رسوم متحركة تظهر شاشات التطبيق. يد كرتونية تتفاعل مع الأزرار بسهولة وسلاسة. التركيز على الأيقونات الواضحة والانتقالات السلسة داخل التطبيق. الألوان زاهية والموسيقى مريحة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C17</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">علاش Vizu خير من التطبيقات لوخرين؟ شوف بعينيك.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('17')">
+                    <div class="preview-text">Slide 1: واجهة Vizu: حيث يلتقي التصميم الجميل بالسهولة المطلقة.
+Slide 2: بحث ذكي ونتائج دقيقة! محرك ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-17" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('17')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C17</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-17')">📋 نسخ النص</button>
+                            <div id="script-text-17" class="modal-body">Slide 1: واجهة Vizu: حيث يلتقي التصميم الجميل بالسهولة المطلقة.<br/><br/>Slide 2: بحث ذكي ونتائج دقيقة! محرك البحث ديالنا يفهم واش تحوس ويجيبلك المنتج المثالي في ثواني.<br/><br/>Slide 3: تجربة سلسة من البحث إلى الشراء. كل خطوة مصممة لراحتك، بلا تعقيدات ولا نوافذ كثيرة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-17')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-17" class="modal-body">تفضل التطبيقات اللي ساهلة و شابة؟ Vizu مصمم على ذوقك. <br/><br/> التجربة داخل التطبيق لا تقل أهمية عن الخدمة التي يقدمها. في Vizu، اهتممنا بأدق التفاصيل لنضمن لك تجربة استخدام ممتعة، سريعة، وفعالة. اكتشف بعض من مميزاتنا. <br/><br/> استمتع بتصميم Vizu المبتكر، حمله اليوم! <br/><br/> #مميزات #تصميم_التطبيق #واجهة_المستخدم #VizuFeatures #DzApp #تجربة_المستخدم</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">كاروسال يركز على مميزات الواجهة.<br/>Slide 1: لقطة شاشة جميلة للشاشة الرئيسية للتطبيق.<br/>Slide 2: لقطة شاشة لواجهة البحث مع إبراز شريط البحث الذكي والفلترة.<br/>Slide 3: رسم بياني يوضح مسار المستخدم البسيط داخل التطبيق (أيقونة بحث -> أيقونة منتج -> أيقونة كاميرا -> أيقونة عربة تسوق).</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P18</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">التسوق من دارك؟ لا، التسوق من أي بلاصة تحبها.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('18')">
+                    <div class="preview-text">اشري وأنت قاعد في قهوتك.
+اشري وأنت تستنى في صحابك.
+اشري وأنت مرتاح.
+الراحة... هي Vizu....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-18" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('18')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P18</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-18')">📋 نسخ النص</button>
+                            <div id="script-text-18" class="modal-body">اشري وأنت قاعد في قهوتك.<br/><br/>اشري وأنت تستنى في صحابك.<br/><br/>اشري وأنت مرتاح.<br/><br/>الراحة... هي Vizu.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-18')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-18" class="modal-body">التسوق لم يعد مهمة، بل أصبح لحظة من الراحة. <br/><br/> لماذا تحصر التسوق في الأماكن المزدحمة؟ مع Vizu، يمكنك تحويل أي لحظة فراغ إلى فرصة لاتخاذ قرار شراء ذكي ومدروس، وبكل راحة. <br/><br/> الراحة في يديك، حمل Vizu! <br/><br/> #راحة #تسوق_مريح #VizuLife #الجزائر #نمط_حياة #DzRelax</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">صورة عالية الجودة لشخص يجلس في مقهى راقٍ أو في حديقة عامة، يبتسم وهو ينظر إلى هاتفه. التركيز على الشعور بالراحة والحرية. النص مكتوب بشكل أنيق على جانب الصورة. الألوان دافئة وجذابة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V19</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">ماشي حنا لي نقولو، الناس لي جربو هوما لي يحكمو!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('19')">
+                    <div class="preview-text">(مونتاج سريع لشهادات متعددة - UGC)
+(نادية): "أنا كنت خايفة نشري كوزينة جديدة، بصح مع Vizu جربتها وشف...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-19" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('19')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V19</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-19')">📋 نسخ النص</button>
+                            <div id="script-text-19" class="modal-body">(مونتاج سريع لشهادات متعددة - UGC)<br/><br/>(نادية): "أنا كنت خايفة نشري كوزينة جديدة، بصح مع Vizu جربتها وشفتها بعينيا قبل كلش. النتيجة جات خير ملي تخايلت!"<br/><br/>(أمين): "والله غير تطبيق ساهل بزاف، توقعتو يكون معقد بصح في دقيقة فهمتلو كلش. يعطيكم الصحة."<br/><br/>(سمير): "الحاجة لي عجبتني هي الثقة. وليت نشري وأنا علابالي 100% بلي هاد الحاجة راح تجيني مليحة. خلاص وقت الندم."<br/><br/>(صوت معلق في النهاية): Vizu... التجربة لي يتكلمو عليها كامل.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-19')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-19" class="modal-body">ناس جربو Vizu، هاواش قالو عليه! <br/><br/> أفضل دليل على نجاح أي فكرة هو رضا مستخدميها. استمع لشهادات حقيقية من جزائريين كيفك، اكتشفوا طريقة جديدة للتسوق أكثر ثقة وراحة مع Vizu. <br/><br/> انضم للمئات اللي راهم يشرو بثقة، تيليشارجي Vizu! <br/><br/> #شهادات #Testimonials #VizuUsers #مجتمع_Vizu #الجزائر #ثقة_العملاء #DzCommunity</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو UGC يجمع شهادات قصيرة وسريعة من مستخدمين مختلفين (شباب، كبار، رجال، نساء) لزيادة المصداقية. كل شخص يسجل شهادته بنفسه بهاتفه. مونتاج حيوي مع إظهار اسم الشخص على الشاشة. موسيقى إيجابية وملهمة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C20</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">حاب تعرف واش قالو على Vizu؟ شوف بعينيك.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('20')">
+                    <div class="preview-text">Slide 1: قالو ناس Vizu... (شهادات حقيقية من مستخدمينا).
+Slide 2: "فرحت بزاف كي جربت الكوزينة قبل ما ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-20" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('20')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C20</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-20')">📋 نسخ النص</button>
+                            <div id="script-text-20" class="modal-body">Slide 1: قالو ناس Vizu... (شهادات حقيقية من مستخدمينا).<br/><br/>Slide 2: "فرحت بزاف كي جربت الكوزينة قبل ما نشريها في داري الجديدة. نحيتلي شك كبير!" - نادية، 34 سنة.<br/><br/>Slide 3: "توقعت التطبيق يكون صعيب بصح تفاجأت بالسهولة. في دقيقة قدرت نجرب كلش." - أمين، 25 سنة.<br/><br/>Slide 4: "أحسن حاجة هي الثقة. الآن نشري وأنا مهني وفرحان بالقرار ديالي." - سمير، 42 سنة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-20')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-20" class="modal-body">الناس راهي تشري و هي مرتاحة، واش راك تستنى؟ <br/><br/> الكلمات الصادقة هي أقوى دليل. هذه مجرد عينة من عشرات الرسائل التي تصلنا يومياً من مستخدمين سعداء وجدوا في Vizu الحل لمشاكل التسوق. <br/><br/> شوف تجارب حقيقية، حمل Vizu! <br/><br/> #اقتباسات #قالو_ناس_زمان #VizuReviews #الجزائر #رضا_العملاء #DzFeedback</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">كاروسال يعرض الاقتباسات بشكل جذاب.<br/>Slide 1: عنوان واضح على خلفية تمثل مجتمع من الناس (أيقونات أو صورة ظلية).<br/>Slides 2-4: كل سلايد يحتوي على صورة شخصية للمستخدم (إذا أمكن) أو صورة رمزية، مع الاقتباس الخاص به مكتوب بخط واضح كأنه رسالة. استخدام علامات الاقتباس الكبيرة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P21</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">بالأرقام... هاوليك تأثير Vizu الحقيقي!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('21')">
+                    <div class="preview-text">80%
+من مستخدمينا أكدوا أن Vizu ساعدهم على تجنب قرار شراء خاطئ.
+(المصدر: استبيان داخلي لمستخدمي Vizu)...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-21" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('21')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P21</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-21')">📋 نسخ النص</button>
+                            <div id="script-text-21" class="modal-body">80%<br/><br/>من مستخدمينا أكدوا أن Vizu ساعدهم على تجنب قرار شراء خاطئ.<br/><br/>(المصدر: استبيان داخلي لمستخدمي Vizu)</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-21')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-21" class="modal-body">تعرف بلي Vizu نقصت نسبة الندم بـ 80%؟ <br/><br/> الأرقام لا تكذب. التأثير الحقيقي لتطبيق Vizu يظهر في قدرته على تغيير نتائج قرارات الشراء. نحن لا نبيع منتجات، بل نبيع الثقة واليقين. <br/><br/> كن جزءاً من الإحصائيات الإيجابية، حمل Vizu! <br/><br/> #بالأرقام #إحصائيات #VizuData #تأثير_حقيقي #الجزائر #نتائج #DzImpact</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم إنفوجرافيك بسيط ومؤثر. الرقم '80%' يكتب بحجم كبير جداً في منتصف التصميم. النص التوضيحي يكتب بحجم أصغر تحته. استخدام ألوان العلامة التجارية مع التركيز على لون واحد بارز للرقم لجعله يبرز.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V22</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كيفاش راح يكون التسوق في دزاير بعد 5 سنين من اليوم؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('22')">
+                    <div class="preview-text">(صوت معلق ملهم وموسيقى مستقبلية)
+تخيل عالم... وين كلمة "السلعة لا ترد ولا تبدل" تولي من الماضي.
+تخيل...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-22" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('22')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V22</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-22')">📋 نسخ النص</button>
+                            <div id="script-text-22" class="modal-body">(صوت معلق ملهم وموسيقى مستقبلية)<br/><br/>تخيل عالم... وين كلمة "السلعة لا ترد ولا تبدل" تولي من الماضي.<br/><br/>تخيل سوق... وين كل مشتري عندو ثقة كاملة في قراره.<br/><br/>تخيل محلات... تتنافس شكون لي يقدم أحسن تجربة للزبون.<br/><br/>هذا ماشي حلم.<br/><br/>هذا هو المستقبل لي Vizu راه يبني فيه اليوم.<br/><br/>مستقبل وين التكنولوجيا تخدم الإنسان.<br/><br/>مستقبل وين الشفافية هي الأساس.<br/><br/>مستقبل وين الشراء يولي متعة... ماشي مغامرة.<br/><br/>هذا المستقبل... راه يبدا معاك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-22')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-22" class="modal-body">مستقبل التسوق في الجزائر يبدأ اليوم. <br/><br/> نحن في Vizu لا نفكر فقط في حل مشاكل اليوم، بل في بناء معايير الغد. رؤيتنا هي خلق بيئة تسوق مبنية على الثقة والشفافية للجميع. انضم إلينا في بناء هذا المستقبل. <br/><br/> شوف المستقبل بعينيك، وحمل Vizu اليوم! <br/><br/> #رؤية_المستقبل #Vizu2030 #مستقبل_التسوق #الجزائر_الجديدة #ابتكار #DzVision</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو Storytelling برؤية مستقبلية. استخدام لقطات سينمائية لأشخاص يتسوقون بثقة وسعادة. مشاهد لمتاجر عصرية تستخدم التكنولوجيا. رسومات Motion Graphics تظهر كيف ستتطور واجهات Vizu. الإضاءة مشرقة والألوان حيوية. التركيز على الشعور بالأمل والتطور.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C23</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الشراء ماشي غير دراهم، هو استثمار في راحتك.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('23')">
+                    <div class="preview-text">Slide 1: التسوق ليس مجرد عملية دفع، بل هو استثمار في حياتك اليومية.
+Slide 2: كل قطعة تشتريها هي جزء ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-23" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('23')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C23</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-23')">📋 نسخ النص</button>
+                            <div id="script-text-23" class="modal-body">Slide 1: التسوق ليس مجرد عملية دفع، بل هو استثمار في حياتك اليومية.<br/><br/>Slide 2: كل قطعة تشتريها هي جزء من بيتك، من مظهرك، من راحتك. مع Vizu، أنت تستثمر في القرارات الصائبة التي تجلب لك السعادة.<br/><br/>Slide 3: مستقبل التسوق يبدأ من تغيير طريقة تفكيرنا اليوم. اختر الثقة، اختر الذكاء، اختر Vizu.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-23')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-23" class="modal-body">هل تفكر في التسوق كاستثمار؟ <br/><br/> كل دينار تصرفه هو استثمار. إما أن يكون استثماراً ناجحاً يجلب لك الرضا، أو استثماراً خاسراً يسبب لك الندم. Vizu هو أداتك لضمان أن تكون كل استثماراتك ناجحة. <br/><br/> خطوتك الأولى نحو مستقبل أفضل هي تحميل Vizu. <br/><br/> #استثمار #جودة_الحياة #قرارات_ذكية #VizuMindset #الجزائر #فكر_من جديد #DzPhilosophy</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">كاروسال فكري وتحفيزي.<br/>Slide 1: صورة فنية تجمع بين أيقونة النقود وأيقونة القلب أو المنزل.<br/>Slide 2: صور جميلة لنمط حياة راقٍ ومريح (ديكور منزلي جميل، شخص أنيق...).<br/>Slide 3: صورة لشخص ينظر إلى الأفق بثقة، مع شعار Vizu يظهر كشمس مشرقة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P24</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">دراهمك تعبت عليهم، علاش تخاطر بيهم؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('24')">
+                    <div class="preview-text">لا تشتري إلا بثقة....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-24" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('24')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P24</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-24')">📋 نسخ النص</button>
+                            <div id="script-text-24" class="modal-body">لا تشتري إلا بثقة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-24')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-24" class="modal-body">علاش مازالك تخاطر بدراهمك؟ <br/><br/> في كل مرة تشتري فيها وأنت متردد، أنت تخاطر. تخاطر بمالك، بوقتك، وبراحة بالك. حان الوقت لوضع حد لهذه المخاطرة. لا تقبل بأقل من الثقة الكاملة. <br/><br/> قرارك مهم! اشري بثقة مع Vizu. <br/><br/> #لا_للمخاطرة #اشري_بثقة #قرار_حاسم #VizuRule #الجزائر #نصيحة_اليوم #DzAction</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم مباشر وقوي. خلفية بلون واحد صارخ (أحمر أو أسود من ألوان العلامة). النص مكتوب بخط كبير جداً وبسيط (Sans-serif) باللون الأبيض. الرسالة واضحة ومباشرة كأمر أو نصيحة قوية. شعار Vizu في الأسفل بشكل صغير.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V25</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">خلاصة القول... علاش لازم تيليشارجي Vizu اليوم؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('25')">
+                    <div class="preview-text">(الوجه الإعلامي يتحدث مباشرة للكاميرا بجدية وثقة)
+شفنا كلش... شفنا مشكل "السلعة لا ترد ولا تبدل".
+شف...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-25" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('25')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V25</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-25')">📋 نسخ النص</button>
+                            <div id="script-text-25" class="modal-body">(الوجه الإعلامي يتحدث مباشرة للكاميرا بجدية وثقة)<br/><br/>شفنا كلش... شفنا مشكل "السلعة لا ترد ولا تبدل".<br/><br/>شفنا الندم، وشفنا خسارة الدراهم.<br/><br/>وشفنا الحل.<br/><br/>Vizu يخليك توفر وقتك، توفر جهدك، والأهم... توفر دراهمك.<br/><br/>يخليك تجرب قبل ما تشري.<br/><br/>يرجعلك الثقة في قراراتك.<br/><br/>السؤال ماشي علاش تيليشارجي Vizu... السؤال هو واش راك تستنى؟<br/><br/>الحل راه في يدك، ومجاني.<br/><br/>مستقبل التسوق ديالك يبدا بضغطة زر وحدة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-25')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-25" class="modal-body">واش راك تستنى باش ترتاح من حيرة الشراء؟ <br/><br/> الخلاصة واضحة: Vizu هو الأداة التي تحتاجها لتسوق أكثر ذكاءً وثقة في الجزائر. يوفر عليك الوقت، الجهد، والمال. لا تتردد أكثر. <br/><br/> تيليشارجي Vizu درك... جَرَّب بعينيك، واشري وأنت مهني! <br/><br/> #الخلاصة #قرار_نهائي #Vizu #الجزائر #حمل_الان #DzNow</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">الوجه الإعلامي في لقطة مقربة (Medium close-up). يتحدث ببطء ووضوح. لا توجد موسيقى صاخبة، فقط صوت هادئ في الخلفية. التركيز الكامل على الرسالة المباشرة. في نهاية حديثه، يرفع هاتفه الذي تظهر عليه شاشة تحميل Vizu، ثم يبتسم. تظهر دعوة العمل بشكل كبير على الشاشة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C26</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">مازالك متردد؟ هاذو 3 أسباب راح يقنعوك.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('26')">
+                    <div class="preview-text">Slide 1: علاش لازم يكون تطبيق Vizu في تليفونك الآن؟
+Slide 2: 1. وداعاً للندم: جرب كل منتج في واقعك ق...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-26" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('26')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C26</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-26')">📋 نسخ النص</button>
+                            <div id="script-text-26" class="modal-body">Slide 1: علاش لازم يكون تطبيق Vizu في تليفونك الآن؟<br/><br/>Slide 2: 1. وداعاً للندم: جرب كل منتج في واقعك قبل أن تدفع ديناراً واحداً. قرارك مضمون 100%.<br/><br/>Slide 3: 2. اشري بذكاء وثقة: وفر وقتك وجهدك. قارن، جرب، وقرر من أي مكان وفي أي وقت.<br/><br/>Slide 4: 3. مستقبلك بين يديك: كن من الأوائل الذين يتبنون مستقبل التسوق في الجزائر. Vizu هو رفيقك الذكي.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-26')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-26" class="modal-body">مازالك ما قنعتش؟ شوف هاذ الأسباب! <br/><br/> إذا كنت لا تزال متردداً، إليك ملخص سريع لأهم الأسباب التي تجعل Vizu تطبيقاً لا غنى عنه لكل متسوق في الجزائر. الأسباب واضحة، والقرار لك. <br/><br/> حملك الآن! Vizu في انتظارك. <br/><br/> #أسباب #لماذا_Vizu #تلخيص #VizuBenefits #الجزائر #اقتنع</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">كاروسال تلخيصي وسريع.<br/>Slide 1: عنوان بارز على خلفية فيها شعار Vizu.<br/>Slides 2-4: كل سلايد يحتوي على رقم كبير (1, 2, 3) مع أيقونة تمثل الفائدة (وجه مبتسم، دماغ ودرع، صاروخ) والنص التوضيحي.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P27</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">أحسن حاجة في الدنيا؟ تجي بلاش.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('27')">
+                    <div class="preview-text">مستقبل التسوق.
+متوفر الآن.
+مجاناً....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-27" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('27')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P27</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-27')">📋 نسخ النص</button>
+                            <div id="script-text-27" class="modal-body">مستقبل التسوق.<br/><br/>متوفر الآن.<br/><br/>مجاناً.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-27')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-27" class="modal-body">مستقبل التسوق راهو هنا، و راهو بلاش! <br/><br/> كل هذه القوة، كل هذه الثقة، وكل هذه الراحة... متاحة لك الآن مجاناً. لا توجد رسوم خفية أو اشتراكات. فقط قم بالتحميل وابدأ في تغيير طريقة تسوقك. <br/><br/> حمل تطبيق Vizu مجاناً من App Store أو Google Play. <br/><br/> #مجاني #FreeApp #VizuGratuit #الجزائر #حمل_مجانا #DzDownload</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم بسيط وجذاب يركز على الدعوة للتحميل. صورة عالية الجودة لهاتف ذكي تظهر عليه أيقونة تطبيق Vizu بشكل بارز. بجانب الهاتف، توجد أيقونات التحميل من App Store و Google Play. النص مكتوب بشكل عمودي وبسيط.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V28</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الثقة... على بعد نقرة واحدة برك.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('28')">
+                    <div class="preview-text">(لا يوجد كلام منطوق، فقط نص على الشاشة وموسيقى سريعة)
+[نص]: تعبت من التردد؟
+[نص]: قلقان من الشراء؟
+[...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-28" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('28')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V28</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-28')">📋 نسخ النص</button>
+                            <div id="script-text-28" class="modal-body">(لا يوجد كلام منطوق، فقط نص على الشاشة وموسيقى سريعة)<br/><br/>[نص]: تعبت من التردد؟<br/><br/>[نص]: قلقان من الشراء؟<br/><br/>[نص]: الحل... أسهل مما تتخيل.<br/><br/>[نص]: نقرة واحدة.<br/><br/>[نص]: تغير كل شيء.<br/><br/>[نص]: Vizu. حمل الآن.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-28')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-28" class="modal-body">الثقة على بعد نقرة وحدة... واش تستنى؟ <br/><br/> أحياناً، أفضل القرارات هي الأسرع. لا تضيع المزيد من الوقت في التفكير. ابدأ تجربتك مع Vizu الآن. <br/><br/> نقرة وحدة تبدل طريقة شرائك! تيليشارجي Vizu دروك. <br/><br/> #سريع #فوري #Action #VizuNow #الجزائر #حملها_الآن</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو Motion Graphics قصير جداً (5-10 ثواني) وإيقاعي. خلفية متحركة بألوان Vizu. النصوص تظهر وتختفي بسرعة مع إيقاع الموسيقى. في النهاية، تظهر أيقونة التطبيق مع سهم متحرك يشير إلى زر 'تحميل'. الهدف هو التحفيز الفوري.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C29</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الراحة النفسية وقت الشراء... تستاهلها.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('29')">
+                    <div class="preview-text">Slide 1: جَرَّب بعينيك...
+Slide 2: ...واشري وأنت مهني.
+Slide 3: هذي ماشي مجرد جملة. هذا هو وعد Vizu ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-29" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('29')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C29</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-29')">📋 نسخ النص</button>
+                            <div id="script-text-29" class="modal-body">Slide 1: جَرَّب بعينيك...<br/><br/>Slide 2: ...واشري وأنت مهني.<br/><br/>Slide 3: هذي ماشي مجرد جملة. هذا هو وعد Vizu ليك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-29')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-29" class="modal-body">تستاهل تشري و نتا مرتاح! <br/><br/> نذكرك بوعدنا الأساسي. مهمتنا في Vizu هي أن نمنحك الأدوات اللازمة لتجربة تسوق مريحة وواثقة. لأننا نؤمن أنك تستحق الأفضل. <br/><br/> حمل Vizu وعيش تجربة الشراء الحقيقية! <br/><br/> #وعد_Vizu #جرب_بعينيك #اشري_وانت_مهني #الجزائر #رسالتنا</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">كاروسال يعيد تأكيد الشعار الرئيسي بشكل بصري قوي.<br/>Slide 1: صورة مقربة جداً لعين تنظر بتركيز.<br/>Slide 2: صورة لشخص يبتسم بارتياح ورضا وهو يحمل أكياس تسوق أو يجلس في منزله الجديد.<br/>Slide 3: شعار Vizu كبير في المنتصف على خلفية بلون العلامة الرئيسي.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P30</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">هذي فرصتك الأخيرة باش تبدل كلش.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('30')">
+                    <div class="preview-text">لا تفوت الفرصة.
+ابدأ الشراء بثقة... اليوم....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-30" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('30')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P30</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-30')">📋 نسخ النص</button>
+                            <div id="script-text-30" class="modal-body">لا تفوت الفرصة.<br/><br/>ابدأ الشراء بثقة... اليوم.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-30')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-30" class="modal-body">آخر فرصة باش تبدل طريقة شرائك للأبد! <br/><br/> لا تؤجل قراراً يمكن أن يغير تجربتك في التسوق بشكل كامل. انضم إلى مجتمع Vizu اليوم واكتشف معنى الشراء بثقة وراحة بال. الفرصة بين يديك. <br/><br/> لا تفوت الفرصة! حمل Vizu اليوم وابدأ الشراء بثقة. <br/><br/> #الفرصة_الأخيرة #LastCall #Vizu #الجزائر #ابدأ_اليوم #DzFinal</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم نهائي قوي. صورة رمزية لباب مفتوح يخرج منه نور ساطع. شعار Vizu يوضع في قلب هذا النور. في الأسفل، توضع روابط التحميل أو رموز QR Code بشكل واضح. الرسالة هي أن Vizu هو بوابة لعالم جديد من التسوق.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr></tbody></table></div>
+
+    <div class="disclaimer-card">
+        <span style="font-size: 1.2em;">⚠️</span>
+        <span>قد تخضع هذه الاستراتيجية لبعض التعديلات والتحسينات، حسب المواد الإعلامية المتوفرة أو لغرض تحقيق أفضل النتائج.</span>
+    </div>
+
+    <div class="summary-box">
+        <span style="font-weight: 700; color: #FFD700;">الميزانية الإجمالية المعتمدة</span>
+        <span class="total-amount">200000 دج</span>
+        <a href="https://wa.me/213770820431" class="cta-btn">تواصل معنا للاعتماد</a>
+        <div style="border: 1px dashed #FFD700; padding: 25px; border-radius: 15px; margin-top: 20px;">
+            <h3 style="color:#FFD700; margin:0;">الخطوة التالية</h3>
+            <p style="margin:10px 0;">مكالمة قصيرة لنكيّف هذه الاستراتيجية حسب مشروعك ونبدأ العمل فوراً.</p>
+            <div class="phones-list">
+                <div class="phone-item">0770 82 04 31</div>
+                <div class="phone-item">0770 55 01 51</div>
+                <div class="phone-item">0770 82 01 45</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+function openModal(id) { document.getElementById('modal-' + id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
+function closeModal(id) { document.getElementById('modal-' + id).style.display = 'none'; document.body.style.overflow = 'auto'; }
+window.onclick = function(event) { if (event.target.className === 'modal') { event.target.style.display = 'none'; document.body.style.overflow = 'auto'; } }
+
+// وظيفة النسخ الجديدة
+function copyToClipboard(elementId) {
+    const el = document.getElementById(elementId);
+    const text = el.innerText || el.textContent; // نسخ النص بدون HTML tags
+    navigator.clipboard.writeText(text).then(() => {
+        alert("تم نسخ النص بنجاح! ✅");
+    }).catch(err => {
+        console.error('Failed to copy', err);
+    });
+}
+</script></body></html>
