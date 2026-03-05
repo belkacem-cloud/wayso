@@ -1,0 +1,789 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Khalifa Center Strategy</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+<style>
+    body { background: #FFFFFF; color: #1A1A1A; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; line-height: 1.6; overflow-x: hidden; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 15px; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 2px solid #000; }
+    .wayso-logo { height: 45px; }
+    .brand-name { font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 1.4em; color: #000; text-transform: uppercase; border-right: 4px solid #FFD700; padding-right: 12px; }
+    
+    .analysis-section { margin: 30px 0; }
+    .card-philosophy { padding: 30px; border-radius: 20px; background: #000; color: #FFF; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+    .card-philosophy h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #FFD700; }
+    
+    .card-why { padding: 30px; border-radius: 20px; background: #F9F9F9; color: #333; margin-bottom: 20px; border: 1px solid #EDECE9; }
+    .card-why h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #000; display: flex; align-items: center; gap: 10px; }
+    .card-why h2::after { content: ''; flex-grow: 1; height: 1px; background: #EDECE9; margin-right: 15px; }
+
+    .hero { margin: 35px 0 20px 0; border-right: 6px solid #FFD700; padding-right: 15px; }
+    .hero h1 { font-size: 2.5em; font-weight: 700; margin: 0; }
+    .table-wrapper { margin-top: 25px; border-radius: 12px; overflow: hidden; border: 1px solid #EDECE9; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #000; color: #FFF; padding: 15px; text-align: right; font-size: 0.95em; }
+    td { padding: 20px 12px; border-bottom: 1px solid #EDECE9; vertical-align: top; }
+    
+    .code-badge { font-family: 'Montserrat', sans-serif; font-weight: 700; background: #FFD700; color: #000; padding: 5px 12px; border-radius: 6px; font-size: 1.1em; display: inline-block; margin-bottom: 5px; }
+    .type-label { display: block; font-weight: 700; color: #555; font-size: 0.95em; }
+    
+    .hook-pill { background: #000; color: #FFD700; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 1.1em; display: block; border-right: 5px solid #FFD700; }
+    
+    /* تحسين زر المودال */
+    .script-trigger { background: #F8F9FA; border: 1px solid #EDECE9; padding: 15px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; position: relative; }
+    .script-trigger:hover { background: #FFF; border-color: #FFD700; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transform: translateY(-2px); }
+    
+    .preview-text { font-size: 0.95em; color: #333; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; white-space: pre-wrap; }
+    
+    /* ستايل المودال */
+    .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); }
+    .modal-content { background: #FFF; margin: 5% auto; padding: 30px; border-radius: 20px; width: 90%; max-width: 750px; position: relative; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+    .close-modal { position: absolute; top: 20px; left: 20px; font-size: 30px; cursor: pointer; color: #999; line-height: 1; transition: color 0.2s; }
+    .close-modal:hover { color: #000; }
+    
+    .modal-section { margin-bottom: 25px; padding: 20px; border-radius: 12px; background: #fbfbfa; border: 1px solid #eee; position: relative; }
+    
+    /* زر النسخ */
+    .copy-btn { position: absolute; top: 10px; left: 10px; background: #fff; border: 1px solid #ddd; padding: 5px 10px; border-radius: 6px; cursor: pointer; font-size: 0.8em; font-weight: bold; color: #555; display: flex; align-items: center; gap: 5px; transition: all 0.2s; }
+    .copy-btn:hover { border-color: #FFD700; color: #000; background: #FFD70020; }
+    .copy-btn:active { transform: scale(0.95); }
+    
+    .modal-body { font-size: 1.15em; color: #1A1A1A; line-height: 1.9; word-wrap: break-word; white-space: pre-wrap; }
+    
+    .disclaimer-card { margin: 25px 0; padding: 20px; background: #FFF9E6; border-radius: 12px; border-right: 5px solid #FFC107; font-size: 1.05em; color: #856404; display: flex; align-items: center; gap: 12px; }
+    .summary-box { margin-top: 50px; background: #000; color: #FFF; padding: 40px 20px; border-radius: 25px; text-align: center; }
+    .total-amount { font-family: 'Montserrat'; font-size: 3.5em; font-weight: 700; display: block; color: #FFD700; margin: 10px 0; }
+    .cta-btn { display: inline-block; background: #FFD700; color: #000; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.2em; margin-bottom: 25px; transition: transform 0.2s; }
+    .cta-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px #FFD70060; }
+    
+    .phones-list { margin-top: 15px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; direction: ltr; } 
+    .phone-item { background: #1A1A1A; padding: 8px 15px; border-radius: 8px; border: 1px solid #333; color: #FFF; font-family: 'Montserrat'; font-weight: 700; font-size: 1.2em; white-space: nowrap; }
+
+    @media (max-width: 768px) {
+        thead { display: none; }
+        tr { display: block; border: 1px solid #EDECE9; border-radius: 15px; margin-bottom: 20px; padding: 15px; background: #FFF; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        td { display: block; padding: 10px 0; text-align: right; border-bottom: 1px dashed #eee; }
+        td:last-child { border-bottom: none; }
+        td::before { content: attr(data-label); font-weight: 700; color: #BBB; display: block; font-size: 0.8em; margin-bottom: 6px; text-transform: uppercase; }
+        .brand-name { font-size: 1.1em; }
+        .modal-content { width: 95%; padding: 20px; margin: 10% auto; }
+        .total-amount { font-size: 2.5em; }
+    }
+</style></head><body>
+
+<div class="container">
+    <div class="header">
+        <img src="https://storage.googleapis.com/msgsndr/GwIPQCjstTzxnzDQ1B32/media/68fddb5534bb1597bc934f89.png" class="wayso-logo">
+        <div class="brand-name">Khalifa Center</div>
+    </div>
+
+    <div class="analysis-section">
+        <div class="card-philosophy"><h2>🎯 فلسفة الاستراتيجية</h2><p>نحن في Wayso نؤمن بأن النجاح الحقيقي لعملائنا ينبع من استراتيجية متكاملة تجمع بين الإبداع الفني والتحليل العميق للسوق. خطتنا هذه ليست مجرد مجموعة من المحتوى، بل هي خارطة طريق مصممة بدقة لتحويل شغفكم بالطبخ إلى مسار مهني مربح ومستدام، نضمن من خلالها تحقيق أهدافكم بثقة وفعالية.</p></div>
+        <div class="card-why"><h2>💡 لماذا هذه الخطة؟</h2><p>بدأنا بالفيديو الرئيسي (V1) لخطف الانتباه وبناء الثقة كحل شامل، تلاه الكاروسالات التعليمية والصور (C2, P3...) لتفكيك المشكلات وتعميق الفهم تدريجياً. هذا التسلسل السيكولوجي يضمن بناء علاقة قوية مع الجمهور، يقودهم بسلاسة من مرحلة الوعي بالمشكلة إلى الاقتناع بالحل، وصولاً إلى اتخاذ قرار الشراء بثقة.</p></div>
+    </div>
+
+    <div class="hero"><h1>خطة الإنتاج الإبداعي</h1></div>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th style="width: 20%;">الكود والنوع</th><th style="width: 30%;">الهوك (Hook)</th><th style="width: 50%;">المحتوى</th></tr></thead>
+            <tbody><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V1</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">عندك شغف كبير بالطياب، بصح جامي خممت بلي قادر يكون هو مصدر الدخل تاعك؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('1')">
+                    <div class="preview-text">عندك شغف كبير بالطياب، بصح مازال مجرد هواية.
+تحس بلي المحتوى لي راك تشوفو في الإنترنت سطحي، وما يعطي...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-1" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('1')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V1</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-1')">📋 نسخ النص</button>
+                            <div id="script-text-1" class="modal-body">عندك شغف كبير بالطياب، بصح مازال مجرد هواية.<br/><br/>تحس بلي المحتوى لي راك تشوفو في الإنترنت سطحي، وما يعطيكش أسرار المهنة الحقيقية.<br/><br/>الوقت يفوت، وراك تضيع في دراهمك على مكونات غالية بلا ما توصل لنتيجة احترافية.<br/><br/>هذا الإحباط... يخليك تخمم بلي حلمك باش تولي شاف محترف بعيد عليك.<br/><br/>بصح اسمحلي نقولك، المشكل ماشي فيك... المشكل في غياب خارطة طريق واضحة.<br/><br/>في Khalifa Center، فهمنا هذا المشكل مليح.<br/><br/>على بيها بنينا برنامج ما يعطيكش غير وصفات... نعطوك تكوين تقني عميق.<br/><br/>تتعلم فيه أساسيات الطبخ العالمي، تقنيات الشافات الكبار، وكيفاش تبدع في الأطباق تاعك.<br/><br/>والأهم من هذا كامل... ما نخلوكش وحدك.<br/><br/>عندنا كوتش محترف يوقف معاك خطوة بخطوة، يجاوب على أسئلتك، ويوريلك الطريق الصحيح.<br/><br/>هذا الكوتش هو لي راح يبنيلك الثقة في نفسك باش تحول شغفك من الكوزينة لسوق الشغل.<br/><br/>تخايل روحك تخدم أطباق احترافية، والناس معجبة بالخدمة تاعك، وعندك المشروع تاعك الخاص لي يدر عليك أرباح.<br/><br/>هذا ماشي حلم. هذا هو الواقع لي حققوه عشرات الطلاب لي تخرجو من عندنا.<br/><br/>الطريق للاحتراف يبدا بخطوة وحدة. واليوم، فرصتك بين يديك.<br/><br/>اضغط على الرابط لتحت واكتشف البرنامج الكامل لي راح يبدل حياتك المهنية للأبد.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-1')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-1" class="modal-body">من الكوزينة لسوق الشغل: كيفاش تحوّل شغفك بالطياب لمهنة مربحة؟ <br/><br/> راك تحس بلي شغفك بالطياب يستاهل يكون كثر من مجرد هواية؟ تعبت من الوصفات السطحية لي تلقاها في كل بلاصة وبلا فايدة؟<br/><br/>في Khalifa Center، ما نمدولكش غير وصفات، نمدولك خارطة طريق كاملة باش تولي شاف محترف. نجمعو بين التكوين التقني العميق لي يعطيك أسرار المهنة، والكوتشينغ الشخصي لي يبني ثقتك و يوقف معاك حتى تحقق حلمك.<br/><br/>حان الوقت باش تستثمر في نفسك وتطلق العنان لإمكانياتك. <br/><br/> اكتشف كيف تحول شغفك لمهنة مربحة. اضغط هنا وشوف برنامجنا الكامل. <br/><br/> #طبخ_جزائري #تكوين_مهني #شاف_جزائري #مطبخ_جزائري #khalifacenter #الجزائر #وهران #قسنطينة #ريادة_الأعمال</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">النمط العام: إخراج سينمائي عالي الجودة مع طابع إنساني. [0-5s] لقطة مقربة على وجه شخص (العميل المثالي) يطبخ في مطبخه بتركيز لكن معالم الإحباط على وجهه بعد فشل طبق. إضاءة طبيعية. حركة كاميرا بطيئة. [5-15s] لقطات سريعة (B-rolls) له وهو يتصفح فيديوهات طبخ على هاتفه، ثم يرمي الطبق الفاشل. موسيقى تصويرية هادئة وحزينة. [15-25s] ظهور الوجه الإعلامي. يتكلم مباشرة للكاميرا بنبرة خبير ومتفهم. إضاءة احترافية. الخلفية هي مطبخ المركز المجهز. [25-45s] لقطات ديناميكية من داخل المركز: طلاب يتدربون، الشاف يصحح لطالب، لقطات مقربة على تقنيات احترافية (تقطيع، تزيين...). ظهور نصوص Motion Graphics توضح: 'تكوين تقني عميق'، 'أسرار المهنة'. [45-60s] التركيز على جلسة كوتشينغ فردية. الشاف يتحدث مع طالب، يرسم له خطة. إظهار الدعم والجانب الإنساني. نبرة الصوت تصبح مشجعة. موسيقى ملهمة تبدأ في التصاعد. [60-75s] لقطات 'بعد': نفس الشخص في بداية الفيديو لكن الآن في بيئة احترافية، سعيد، واثق من نفسه، يقدم طبقاً رائعاً لزبون. لقطات لشهادات نجاح. [75-90s] عودة للوجه الإعلامي مع دعوة واضحة للعمل. يظهر شعار Khalifa Center ورابط الموقع بوضوح على الشاشة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C2</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">تحذير: المحتوى المجاني للطياب ممكن راه يقتلك في حلمك!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('2')">
+                    <div class="preview-text">Slide 1: ٥ علامات بلي المحتوى المجاني تاع الطياب راه يضيعلك وقتك... ودراهمك.
+Slide 2: العلامة 1: أسر...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-2" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('2')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C2</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-2')">📋 نسخ النص</button>
+                            <div id="script-text-2" class="modal-body">Slide 1: ٥ علامات بلي المحتوى المجاني تاع الطياب راه يضيعلك وقتك... ودراهمك.<br/><br/>Slide 2: العلامة 1: أسرار الشاف مخفية! الوصفات دايما ناقصة تفاصيل دقيقة، والأسرار لي دير الفرق... جامي يمدوهالك.<br/><br/>Slide 3: العلامة 2: فوضى المعلومات. تتعلم تقنية اليوم، وغدوة تشوف العكس تاعها. ماكانش منهجية ولا تسلسل منطقي يخليك تتطور صح.<br/><br/>Slide 4: العلامة 3: وين راه المشكل؟ كي تغلط، ماكانش شكون يصححلك ولا يقولك وين راه الخلل. تبقى تعاود في نفس الأخطاء.<br/><br/>Slide 5: الحل؟ تكوين تقني ممنهج مع كوتش يوقف معاك خطوة بخطوة. استثمر في مستقبلك، ماشي في وصفات عشوائية. Khalifa Center هنا باش يوريك الطريق.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-2')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-2" class="modal-body">راسك وجعك من كثرة الوصفات المجانية بلا فايدة؟ 😥 <br/><br/> كل يوم فيديو جديد، وصفة جديدة، وتقنية جديدة... وفي الأخير تبقى في نفس المستوى!<br/><br/>المحتوى المجاني يقدر يكون بداية، بصح جامي راح يوصلك للاحتراف الحقيقي. علاش؟ لأنه يفتقد لـ 3 حاجات مهمة: الأسرار المهنية، المنهجية الواضحة، والمتابعة الشخصية.<br/><br/>اسحب باش تعرف العلامات لي تبين بلي راك تضيع في وقتك، واكتشف الحل النهائي لي يخليك شاف محترف. <br/><br/> اسحب لفوق باش تشوف الحل لمشكلتك. <br/><br/> #تعليم_الطبخ #تطوير_الذات #مشاكل_الطبخ #khalifacenter #نصائح_مطبخية #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم غرافيكي احترافي وجذاب. [Slide 1] خلفية داكنة مع عنوان بارز بخط عصري وأيقونة 'تحذير'. [Slide 2-4] كل سلايد يستخدم أيقونة مميزة (قفل، متاهة، علامة استفهام) مع نص واضح وسهل القراءة. استخدام ألوان البراند. [Slide 5] صورة مشرقة لبيئة التعلم في المركز مع شعار Khalifa Center بارز ودعوة واضحة للعمل (زر 'اكتشف المزيد').</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P3</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">السر الحقيقي للاحتراف... ماشي في الوصفة.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('3')">
+                    <div class="preview-text">ماشي غير وصفات، كوتشينغ يوقف معاك خطوة بخطوة حتى تولي محترف حقيقي. في Khalifa Center، ماتبقاش وحدك!...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-3" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('3')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P3</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-3')">📋 نسخ النص</button>
+                            <div id="script-text-3" class="modal-body">ماشي غير وصفات، كوتشينغ يوقف معاك خطوة بخطوة حتى تولي محترف حقيقي. في Khalifa Center، ماتبقاش وحدك!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-3')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-3" class="modal-body">السر ماشي في الوصفة برك، في الكوتش لي يوريك الطريق. 🧭 <br/><br/> تقدر تحفظ ألف وصفة، بصح الثقة، الإبداع، والقدرة على حل المشاكل في الكوزينة... هادو ما تلقاهمش في كتاب.<br/><br/>هنا تكمن قوة الكوتشينغ في Khalifa Center. حنا ما نعلموكش برك 'واش دير'، نورولك 'كيفاش تفكر' كيما الشاف المحترف. الدعم الشخصي هو لي يدير كل الفرق بين الهاوي والمحترف.<br/><br/>مستعد باش تكتشف القوة المستترة وراء نجاحك؟ <br/><br/> تعرف على قوة الكوتشينغ في مسيرتك المهنية. <br/><br/> #كوتشينغ #تطوير_مهني #طبخ_احترافي #khalifacenter #النجاح_المهني #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">صورة عالية الجودة تُظهر مدربًا (كوتش) من Khalifa Center يبتسم وهو يوجه طالبًا بحماس أثناء تطبيق وصفة صعبة. التركيز على التفاعل الإيجابي والثقة. النص 'ماشي غير وصفات...' مكتوب بخط أنيق وواضح فوق الصورة، مع إبراز كلمة 'كوتشينغ'. شعار المركز في زاوية الصورة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V4</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كنت كيما نتا، نتبع الوصفات في التيليفون... شوف اليوم وين وصلت!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('4')">
+                    <div class="preview-text">قبل ما نجي لـ Khalifa Center، كنت نشوف في الطياب مجرد هواية.
+نحاول نطبق وصفات من الإنترنت، مرة تنجح،...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-4" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('4')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V4</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-4')">📋 نسخ النص</button>
+                            <div id="script-text-4" class="modal-body">قبل ما نجي لـ Khalifa Center، كنت نشوف في الطياب مجرد هواية.<br/><br/>نحاول نطبق وصفات من الإنترنت، مرة تنجح، وعشرة لا.<br/><br/>كنت نحس بلي كاين حاجة ناقصة، بصح ماعرفتش وشنو هي.<br/><br/>كي دخلت للمركز، فهمت الفرق بين الطبخ العشوائي والمنهجية الاحترافية.<br/><br/>شوف كيفاش نتعلمو هنا... كلش تطبيقي.<br/><br/>الشاف معانا خطوة بخطوة، يصححلنا، وينصَحنا.<br/><br/>الجو هنا يشجعك باش تمد أفضل ما عندك.<br/><br/>الجسر بين وين كنت... ووين راني حاب نوصل... كان هو Khalifa Center.<br/><br/>اليوم، راني واثق من روحي ومن خدمتي، ونشوف في مستقبلي المهني بوضوح.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-4')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-4" class="modal-body">تخيل: تولي تطيب كيما الشافات الكبار، ماشي غير تشوف في التيليفون! 😉 <br/><br/> كلنا بدينا من تم... نحاولوا نقلدوا وصفات نشوفوها، ونتحسروا كي ما تخرجلناش كيما هي.<br/><br/>بصح كاين طريق مختصر للاحتراف! في Khalifa Center، ننقلوك من مرحلة 'المحاولة' لمرحلة 'الإتقان'. كيفاش؟ من خلال بيئة تعليمية تطبيقية 100%، وتوجيه مباشر من شافات محترفين.<br/><br/>ألقي نظرة على كواليس تكويننا وشوف بنفسك كيفاش نصنعوا الفارق. <br/><br/> شوف كواليس دورتنا الاحترافية واكتشف الفرق! اضغط هنا. <br/><br/> #وراء_الكواليس #تعليم_تطبيقي #مدرسة_طبخ #khalifacenter #جزائريات #dzpower</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">نمط الفيديو: UGC-like / Behind-the-scenes. تصوير بالهاتف بجودة عالية أو كاميرا DSLR لإعطاء طابع حقيقي وغير مصطنع. [Before] لقطات سريعة لطالب (أو ممثل) في مطبخ منزلي وهو يعاني مع وصفة من الهاتف. [After] لقطات من داخل ورشات Khalifa Center. البيئة نظيفة، احترافية، والطلاب يعملون بحماس. لقطات مقربة على أياديهم وهم يطبقون تقنيات معقدة بنجاح. [Bridge] يتحدث طالب أو الوجه الإعلامي عن 'الجسر' وهو المركز. لقطات سريعة لمقتطفات من شهادات طلاب آخرين. موسيقى تحفيزية خفيفة. يجب أن يكون الفيديو سريع الإيقاع ومليء بالطاقة الإيجابية.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C5</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">من وصفات عشوائية لـ أطباق فنية... كيفاش؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('5')">
+                    <div class="preview-text">Slide 1: من هاوي متخوف... إلى شاف واثق. رحلة التكوين في Khalifa Center.
+Slide 2: قبل: وصفات عشوائية ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-5" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('5')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C5</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-5')">📋 نسخ النص</button>
+                            <div id="script-text-5" class="modal-body">Slide 1: من هاوي متخوف... إلى شاف واثق. رحلة التكوين في Khalifa Center.<br/><br/>Slide 2: قبل: وصفات عشوائية من الإنترنت، نتائج غير مضمونة، وإحساس بالإحباط.<br/><br/>Slide 3: بعد: إتقان التقنيات الأساسية، فهم عميق للمكونات، وثقة كاملة في كل طبق تقدمو.<br/><br/>Slide 4: السر؟ ماشي الموهبة برك. السر هو 'الجسر': تكوين تقني + إرشاد مستمر. هذا هو لي صنع الفارق. مستعد تبني الجسر تاعك؟</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-5')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-5" class="modal-body">كيفاش قدرت نوصل من الطياب كهاوي للاحتراف في وقت قصير؟ 🤔 <br/><br/> الرحلة من هاوي لشاف محترف تبان طويلة وصعيبة، بصح السر كامل يكمن في وجود خارطة طريق صحيحة.<br/><br/>قبل، كنت نضيع وقتي بين الوصفات العشوائية. اليوم، كل طبق نخدمو مبني على أساس تقني صحيح وثقة كبيرة.<br/><br/>اسحب باش تشوف كيفاش التكوين الصحيح يقدر يغير مسارك 180 درجة ويختصر عليك سنين من المحاولات الفاشلة. <br/><br/> اسحب باش تشوف التغيير الحقيقي. <br/><br/> #قبل_بعد #تحفيز #قصة_نجاح #تطوير_المهارات #khalifacenter #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم مقارنة 'قبل/بعد'. [Slide 1] عنوان قوي مع صورة مقسومة نصفين: نصف يظهر فوضى في المطبخ، والنصف الآخر طبق احترافي. [Slide 2] استخدام أيقونات وكلمات مفتاحية مثل 'عشوائية'، 'إحباط' مع خلفية رمادية. [Slide 3] استخدام كلمات مثل 'إتقان'، 'ثقة' مع خلفية مشرقة وألوان البراند. [Slide 4] صورة رمزية لجسر يربط بين الصورتين، مع إبراز الكلمات 'تكوين تقني + إرشاد مستمر' وشعار المركز مع CTA.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P6</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الخبرة ما تتقراش في الكتب... الخبرة تتسرق من عند أهلها!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('6')">
+                    <div class="preview-text">الخبرة ماشي قراية برك، راهي سنين تاع إتقان وممارسة. مدربين Khalifa Center يشاركو معاك أسرار المهنة ب...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-6" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('6')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P6</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-6')">📋 نسخ النص</button>
+                            <div id="script-text-6" class="modal-body">الخبرة ماشي قراية برك، راهي سنين تاع إتقان وممارسة. مدربين Khalifa Center يشاركو معاك أسرار المهنة باش تولي شاف حقيقي.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-6')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-6" class="modal-body">تكونت على يد أفضل الشافات.. وهذا السر لي لازم تعرفو. 👨‍🍳 <br/><br/> في عالم الطبخ، كاين فرق كبير بين لي 'يعرف' الوصفة، ولي 'يفهم' أسرارها.<br/><br/>مدربينا في Khalifa Center ما يمدولكش معلومات برك، يشاركو معاك خلاصة سنوات من الخبرة في أكبر المطابخ. تتعلم منهم التقنيات، الحيل، وحتى طريقة التفكير لي تفرق بين الطباخ العادي والشاف المبدع.<br/><br/>كي تتعلم من الخبير، تختصر على روحك الطريق. <br/><br/> اكتشف من هم مدربينا وماذا يقدمون لك. <br/><br/> #خبرة #مدرب_محترف #شاف #khalifacenter #اسرار_المطبخ #تكوين_الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">صورة بورتريه احترافية للمدرب الرئيسي في المركز. ينظر للكاميرا بثقة وخبرة. يمكن أن يكون في الخلفية مطبخ المركز بشكل غير واضح (Bokeh). النص مكتوب بجانب الصورة بخط فاخر. التركيز على إظهار السلطة والخبرة (Authority).</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V7</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الحقيقة الصادمة: الطياب لي راك تتعلمو باطل... راه يكلفك غالي!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('7')">
+                    <div class="preview-text">راك تحسب كي تتعلم من فيديوهات باطل راك درت لافار؟
+اسمَحلي نصدمك... راك تخلّص، بصح ماشي بالدراهم.
+أول...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-7" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('7')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V7</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-7')">📋 نسخ النص</button>
+                            <div id="script-text-7" class="modal-body">راك تحسب كي تتعلم من فيديوهات باطل راك درت لافار؟<br/><br/>اسمَحلي نصدمك... راك تخلّص، بصح ماشي بالدراهم.<br/><br/>أولاً، راك تخلص بوقتك. ساعات وساعات تاع بحث وتجريب، بلا نتيجة مضمونة.<br/><br/>ثانياً، راك تخلص بثقتك في روحك. كل ما تفشل وصفة، ثقتك تنقص.<br/><br/>ثالثاً، راك تخلص بالمواد الأولية لي تفسدها في كل مرة.<br/><br/>المحتوى المجاني يخليك تدور في حلقة مفرغة: معلومات سطحية، بلا أساس، وبلا متابعة.<br/><br/>الحل؟ نظام تعليمي متكامل.<br/><br/>في Khalifa Center، نعطوك تكوين تقني عميق، مبني على أسس صحيحة.<br/><br/>مع كوتش يتابعك ويوجهك.<br/><br/>النتيجة؟ توفر على روحك الوقت، تبني ثقتك، وتوصل للاحتراف بطريق مضمون ومدروس.<br/><br/>الاستثمار في تكوين صحيح هو أذكى قرار تاخذو لمستقبلك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-7')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-7" class="modal-body">صدقني! الطياب لي تتعلمو باطل ما يوصلكش للاحتراف.. علاش؟ 🤔 <br/><br/> الوقت، الثقة، والمكونات... هذي هي العملة الحقيقية لي راك تدفعها مقابل المحتوى المجاني المشتت.<br/><br/>بينما التكوين الاحترافي هو استثمار ذكي يرجعلك بأضعاف: يوفر عليك سنوات من التجارب الفاشلة، يبني ثقتك بنفسك، ويفتحلك أبواب سوق الشغل.<br/><br/>في هذا الفيديو، نشرحلك بالدليل علاش النظام التعليمي المدروس في Khalifa Center هو الطريق الوحيد للاحتراف الحقيقي. <br/><br/> اكتشف الفرق الحقيقي بين دوراتنا والمحتوى المجاني! اضغط على الرابط. <br/><br/> #استثمار_ذكي #تكوين_احترافي #تعلم_الطبخ #khalifacenter #dz #businessdz</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو Motion Graphics سريع وديناميكي. [0-10s] مقارنة بصرية: شاشة مقسومة، على اليسار أيقونات فوضوية تمثل 'المحتوى المجاني' (يوتيوب، فيسبوك...)، وعلى اليمين مسار واضح ومنظم يمثل 'Khalifa Center'. [10-30s] ظهور أيقونات ساعة، علامة استفهام، ونقود تتطاير مع نصوص تشرح تكلفة المحتوى المجاني (وقت، ثقة، مال). [30-45s] تظهر أيقونة 'الحل' مع شعار Khalifa Center. تظهر رسوم بيانية بسيطة توضح 'التكوين التقني' و'الكوتشينغ'. [45-60s] الانتقال من رسم بياني فوضوي إلى رسم بياني تصاعدي وناجح. موسيقى حماسية وإيقاع سريع. التعليق الصوتي بنبرة خبير وواثق.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C8</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">ماشي كامل لي يطيبو ينجحو... السر ماشي في الموهبة!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('8')">
+                    <div class="preview-text">Slide 1: تكوين الطبخ: سطحي ولا عميق؟ هنا وين راه الفرق كامل.
+Slide 2: التكوين السطحي: يركز على 'الكم...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-8" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('8')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C8</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-8')">📋 نسخ النص</button>
+                            <div id="script-text-8" class="modal-body">Slide 1: تكوين الطبخ: سطحي ولا عميق؟ هنا وين راه الفرق كامل.<br/><br/>Slide 2: التكوين السطحي: يركز على 'الكمية'. يعطيك 100 وصفة، بصح ما يعطيكش 'علاش' و'كيفاش'. تبقى مجرد مقلّد.<br/><br/>Slide 3: التكوين العميق: يركز على 'الكيفية'. يعلمك التقنيات الأساسية، فهم الكيمياء تاع الطياب، وكيفاش تبدع وتخترع وصفاتك الخاصة.<br/><br/>Slide 4: دور الكوتشينغ في العمق: الكوتش هو لي يتأكد بلي فهمت الأساس، ويساعدك تطبق وتتجاوز الصعوبات. هو لي يحول المعلومة لمهارة.<br/><br/>Slide 5: الاحتراف ماشي صدفة، الاحتراف هو خطة مبنية على تكوين عميق ومتابعة صحيحة.<br/><br/>Slide 6: في Khalifa Center، نضمنولك العمق والإرشاد لي تحوس عليه. مستعد باش تكون محترف حقيقي؟</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-8')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-8" class="modal-body">علاش كاين لي ينجح في الطبخ و كاين لي يبقى يطيح؟ السر ماشي في الموهبة برك! <br/><br/> كاين زوج أنواع تاع التكوين: لي يعطيك سمكة، ولي يعلمك كيفاش تصطاد. واحد يخليك مقلّد، والآخر يخليك مبدع.<br/><br/>التكوين السطحي يركز على الوصفات الجاهزة، أما التكوين العميق فيركز على بناء شاف حقيقي يفهم أسرار المهنة.<br/><br/>اسحب باش تفهم الفرق لي راح يحدد مستقبلك المهني في عالم الطبخ. <br/><br/> اسحب لمعرفة التفاصيل. <br/><br/> #تكوين_عميق #اساسيات_الطبخ #احتراف #khalifacenter #علم_الطبخ #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم غرافيكي يعتمد على المقارنة. [Slide 1] عنوان واضح مع صورة جبل جليدي (iceberg)، الجزء الصغير فوق الماء 'سطحي' والجزء الكبير تحته 'عميق'. [Slide 2-3] استخدام تصميم الجانبين (Side-by-side). جانب بألوان باهتة للتكوين السطحي، وجانب بألوان زاهية للعميق، مع أيقونات توضيحية. [Slide 4] صورة رمزية ليد تساعد يد أخرى على الصعود، لتمثيل الكوتشينغ. [Slide 5-6] تصميم تحفيزي مع اقتباسات قوية وشعار المركز مع CTA واضح.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P9</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كان مجرد حلم... واليوم ولا حقيقة!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('9')">
+                    <div class="preview-text">من حلم إلى حقيقة! شفنا شحال من طالب بدا معانا شغوف، وخرج من عندنا محترف فاتح مشروعه الخاص. قصص نجاحه...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-9" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('9')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P9</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-9')">📋 نسخ النص</button>
+                            <div id="script-text-9" class="modal-body">من حلم إلى حقيقة! شفنا شحال من طالب بدا معانا شغوف، وخرج من عندنا محترف فاتح مشروعه الخاص. قصص نجاحهم هي فخرنا في Khalifa Center.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-9')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-9" class="modal-body">حبيت تكون كيفهم؟ قصص نجاح طلابنا تلهمك! ✨ <br/><br/> كل قصة نجاح تشوفها اليوم، بدأت بقرار واحد شجاع: قرار الاستثمار في النفس.<br/><br/>طلابنا ماكانوش يملكو غير الشغف، بصح مع التكوين الصحيح والمتابعة المستمرة، قدرو يحولو هذاك الشغف لمشروع ناجح على أرض الواقع.<br/><br/>قصصهم هي أكبر دليل على أن الطريق نحو الاحتراف ممكن وواضح مع Khalifa Center. نتا تاني تقدر تكون قصة النجاح القادمة! <br/><br/> شاهد المزيد من قصص نجاح طلابنا. <br/><br/> #قصص_نجاح #دليل_اجتماعي #socialproof #khalifacenter #مشروعي_الخاص #ريادة_اعمال_جزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">صورة مجمعة (Collage). صورة رئيسية في الوسط لخريج من المركز مبتسمًا أمام واجهة مشروعه الصغير (محل حلويات، مطعم صغير..)، وحولها صور صغيرة لأطباق احترافية من صنعه. الألوان دافئة ومشرقة. النص مكتوب بأسلوب قصصي وجذاب. شعار Khalifa Center موجود.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V10</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">جامي تخيلت بلي في نهار من نهارات راح نفتح مشروعي الخاص... حتى دخلت Khalifa Center.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('10')">
+                    <div class="preview-text">(طالب 1 - سيدة في الأربعينات) 'قبل، كنت نطيب غير لدارنا. كان عندي الخوف، ماكانتش عندي الثقة. في Khal...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-10" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('10')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V10</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-10')">📋 نسخ النص</button>
+                            <div id="script-text-10" class="modal-body">(طالب 1 - سيدة في الأربعينات) 'قبل، كنت نطيب غير لدارنا. كان عندي الخوف، ماكانتش عندي الثقة. في Khalifa Center، عطاوني التقنيات، بصح الأهم، عطاوني الثقة.'<br/><br/>(طالب 2 - شاب في العشرينات) 'كنت نخدم خدمة ماعندها حتى علاقة بالطياب. جيت هنا باش نحقق حلمي. الكوتشينغ كان هو كلش، هو لي ورالي الطريق كيفاش نبني خطة عمل.'<br/><br/>(طالبة 3 - شابة) 'بعد ما كملت تكويني في Khalifa Center، حياتي تبدلت 180 درجة! اليوم راني نخدم واش نحب، وعندي مدخولي الخاص. الحمد لله.'</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-10')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-10" class="modal-body">بعد ما كملت تكويني في Khalifa Center، حياتي تبدلت 180 درجة! 🚀 <br/><br/> ماكانش أفضل من أنك تسمعها مباشرة من الناس لي عاشو التجربة.<br/><br/>هذو ماشي مجرد طلاب، هذو قصص نجاح حقيقية لأشخاص كان عندهم حلم، ولقاو في Khalifa Center الأدوات والدعم باش يحققوه.<br/><br/>شوف الفيديو واسمع بنفسك كيفاش التكوين الصحيح والكوتشينغ الشخصي قدرو يغيرو حياتهم المهنية. <br/><br/> شوف بنفسك واش قالو طلابنا على تجربتهم! اضغط هنا. <br/><br/> #شهادات_حقيقية #تجارب_واقعية #طلاب_متميزون #khalifacenter #تحفيز_جزائري #dzsuccess</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو UGC (شهادات حقيقية). كل طالب يتحدث مباشرة للكاميرا في بيئته الخاصة (مطبخه، مكان عمله الجديد). التصوير يكون طبيعي وعفوي. يتم إدراج لقطات B-roll سريعة لكل طالب وهو يمارس عمله (يطبخ، يبيع...). تظهر نصوص على الشاشة تبرز النقاط القوية من كلامهم (مثال: 'اكتسبت الثقة'، 'خطة عمل واضحة'). موسيقى ملهمة وعاطفية في الخلفية. يجب أن تكون الشهادات قصيرة، صادقة، ومؤثرة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C11</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">عندك الشغف؟ حنا نمدولك الخريطة. 🗺️</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('11')">
+                    <div class="preview-text">Slide 1: 4 خطوات باش تحول شغفك بالطياب لمهنة مربحة مع Khalifa Center.
+Slide 2: الخطوة 1: التقييم وال...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-11" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('11')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C11</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-11')">📋 نسخ النص</button>
+                            <div id="script-text-11" class="modal-body">Slide 1: 4 خطوات باش تحول شغفك بالطياب لمهنة مربحة مع Khalifa Center.<br/><br/>Slide 2: الخطوة 1: التقييم والتوجيه. نجلسو معاك، نقيمو مستواك، ونحددو أهداف واضحة وقابلة للتحقيق.<br/><br/>Slide 3: الخطوة 2: التكوين التقني المكثف. تتعلم كل الأسرار والتقنيات الاحترافية في ورشات تطبيقية 100%.<br/><br/>Slide 4: الخطوة 3: الكوتشينغ والمتابعة. كوتش خاص يرافقك، يجاوب على أسئلتك، ويضمن أنك تسير في الطريق الصحيح.<br/><br/>Slide 5: الخطوة 4: الانطلاق لسوق الشغل. نساعدك في بناء مشروعك الخاص أو إيجاد فرصة عمل. من الكوزينة لسوق الشغل... حرفيا.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-11')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-11" class="modal-body">كيفاش تقدر تبني 'خارطة طريق' واضحة باش تولي شاف محترف؟ <br/><br/> النجاح ماشي ضربة حظ، هو نتيجة خطة واضحة وخطوات مدروسة.<br/><br/>في Khalifa Center، ما نبيعولكش دورة، نبيعولك نظام متكامل ياخذك من نقطة البداية إلى خط النهاية.<br/><br/>اسحب باش تكتشف المراحل الأربعة لي راح تضمنلك التحول من هاوي شغوف إلى محترف ناجح. <br/><br/> اسحب لتعرف خارطة طريق النجاح. <br/><br/> #خارطة_طريق #تخطيط_استراتيجي #النجاح #khalifacenter #خطوة_بخطوة #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم غرافيكي بأسلوب خارطة طريق (Roadmap). [Slide 1] عنوان واضح مع أيقونة خريطة أو بوصلة. [Slide 2-5] كل سلايد يمثل محطة على الخريطة، مع رقم الخطوة، أيقونة معبرة (عدسة مكبرة، أدوات طبخ، يد موجهة، صاروخ منطلق)، وشرح موجز. استخدام تصميم متسلسل يربط السلايدات ببعضها البعض. في السلايد الأخير، شعار المركز و CTA بارز.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P12</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">توقف عن الدوران في حلقة مفرغة... واتبع الخريطة!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('12')">
+                    <div class="preview-text">ماشي غير تعلم وصفات، حنا نعطوك خارطة طريق كاملة باش تولي شاف محترف وتفتح مشروعك الخاص. كل خطوة محسوب...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-12" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('12')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P12</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-12')">📋 نسخ النص</button>
+                            <div id="script-text-12" class="modal-body">ماشي غير تعلم وصفات، حنا نعطوك خارطة طريق كاملة باش تولي شاف محترف وتفتح مشروعك الخاص. كل خطوة محسوبة في Khalifa Center.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-12')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-12" class="modal-body">ماشي غير وصفات، حنا نبنولك مستقبل مهني! 🏗️ <br/><br/> علاش بزاف ناس عندهم الموهبة بصح ما ينجحوش؟ لأنهم يفتقدون للخطة.<br/><br/>في Khalifa Center، نؤمن بأن كل حلم يحتاج لخارطة طريق واضحة لتحقيقه. من أول يوم، راح تعرف بالضبط وين راك رايح والخطوات لي لازم تتبعها.<br/><br/>مستقبلك المهني يستاهل خطة مدروسة. اكتشف خطتنا لك. <br/><br/> اطلب خارطة طريقك اليوم. <br/><br/> #مستقبل_مهني #تخطيط #infographic #khalifacenter #ريادة_الأعمال_dz #algeria</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم إنفوجرافيك بسيط وأنيق. يوضح المراحل الأربعة (تقييم -> تكوين -> كوتشينغ -> انطلاق) بأسلوب بصري جذاب. استخدام أيقونات بسيطة وألوان البراند. شعار Khalifa Center في الأسفل. التصميم يجب أن يكون سهل الفهم من نظرة واحدة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V13</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">واش هو السر لي يخلي شاف ينجح... وآخر يبقى في مكانو؟ الجواب ماشي في يديك.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('13')">
+                    <div class="preview-text">سارة... موهوبة، وشغوفة بالطياب.
+كل يوم تجرب وصفات جديدة، بصح دايما توصل لنفس النقطة... حاجز غير مرئي...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-13" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('13')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V13</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-13')">📋 نسخ النص</button>
+                            <div id="script-text-13" class="modal-body">سارة... موهوبة، وشغوفة بالطياب.<br/><br/>كل يوم تجرب وصفات جديدة، بصح دايما توصل لنفس النقطة... حاجز غير مرئي يمنعها من التقدم.<br/><br/>كانت على وشك الاستسلام... حتى فهمت بلي المشكل ماشي في التقنية... المشكل في الثقة والتوجيه.<br/><br/>هنا تدخل الكوتش تاعنا.<br/><br/>ما عطالهاش وصفة جديدة... عطالها الثقة لي كانت ناقصتها.<br/><br/>ما علمهاش تقنية... ورالها كيفاش تفكر كمحترفة.<br/><br/>ما حللهاش مشاكلها... علمها كيفاش هي تحل مشاكلها وحدها.<br/><br/>الكوتشينغ هو هذاك الصوت لي يقولك 'تقدر' كي تكون حاب تستسلم.<br/><br/>واليوم سارة، ماهيش مجرد هاوية... راهي شاف تخدم في مشروعها الخاص بثقة وفخر.<br/><br/>الكوتشينغ ما يغيرش وصفتك... يغيرك نتا.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-13')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-13" class="modal-body">حبيت تعرف سر الشاف لي يبدا من الصفر ويوصل للقمة؟ 🤫 <br/><br/> أحيانا، الموهبة والتقنية وحدها ما تكفيش. تحتاج لهذاك الدعم الإضافي، التوجيه الصحيح، والشخص لي يؤمن بيك كثر منك.<br/><br/>هذا هو دور الكوتشينغ في Khalifa Center. هو العامل الخفي لي يحول المعرفة لثقة، والشغف لنجاح ملموس.<br/><br/>شاهد قصة 'سارة' واكتشف كيفاش الكوتشينغ يقدر يكون هو النقطة الفاصلة في مسيرتك المهنية. <br/><br/> الكوتشينغ هو مفتاحك! اضغط هنا باش تفهم علاش. <br/><br/> #قصة_ملهمة #كوتشينغ_النجاح #تحفيز #khalifacenter #تطوير_الشخصية #alger</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو قصصي عاطفي (Storytelling). [0-15s] لقطات لسيدة (سارة) في مطبخها، تبدو محبطة ويائسة. موسيقى هادئة. [15-30s] لقطات من جلسة كوتشينغ، المدرب يستمع باهتمام، يتحدث معها، يرسم لها على ورقة. التركيز على التواصل البصري والدعم. [30-45s] مونتاج سريع لسارة وهي تطبق النصائح، تنجح، وتبتسم. ثقتها تزداد تدريجياً. الموسيقى تصبح ملهمة. [45-60s] لقطة نهائية لسارة في بيئة عمل احترافية، سعيدة وواثقة. يظهر نص على الشاشة: 'الكوتشينغ هو مفتاح التحول'. التعليق الصوتي يروي القصة بنبرة دافئة ومؤثرة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C14</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">هذا ماشي مجرد تكوين... هذا هو جواز سفرك للاحتراف!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('14')">
+                    <div class="preview-text">Slide 1: برنامج Khalifa Center المتكامل: أكثر من مجرد دورة طبخ!
+Slide 2: واش راح تستفاد؟
+- تكوين تقن...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-14" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('14')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C14</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-14')">📋 نسخ النص</button>
+                            <div id="script-text-14" class="modal-body">Slide 1: برنامج Khalifa Center المتكامل: أكثر من مجرد دورة طبخ!<br/><br/>Slide 2: واش راح تستفاد؟<br/><br/>- تكوين تقني مكثف: تتعلم فيه كل أسرار وتقنيات الشافات الكبار، من الأساسيات حتى الإبداع.<br/><br/>Slide 3: واش تاني؟<br/><br/>- إرشاد شخصي (Coaching): كوتش محترف يوقف معاك خطوة بخطوة، من تحديد الأهداف حتى تحقيقها.<br/><br/>Slide 4: والنتيجة؟<br/><br/>- الثقة والاحترافية: تخرج من عندنا شاف واثق من نفسو، قادر يفتح مشروعه الخاص أو يخدم في أكبر المطابخ. استثمر في مستقبلك اليوم!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-14')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-14" class="modal-body">واش تستنى باش تولي شاف محترف وتفتح مشروعك الخاص؟ 🤩 <br/><br/> برنامجنا مصمم خصيصا باش يمدلك كل الأدوات لي تحتاجها للنجاح في عالم الطبخ.<br/><br/>ما نركزوش على جانب واحد برك، بل نجمعولك بين أقوى تكوين تقني في السوق، وأفضل متابعة شخصية (كوتشينغ) باش نضمنو نجاحك.<br/><br/>اسحب باش تكتشف كل تفاصيل البرنامج المتكامل لي راح يغير مسارك المهني. <br/><br/> اسحب واكتشف برنامجنا المتكامل. <br/><br/> #عرض_خاص #برنامج_تكويني #فرصة_عمل #khalifacenter #سجل_الان #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم غرافيكي مباشر ومركز على البيع. [Slide 1] عنوان بارز مع صورة جذابة لشهادة تخرج أو مجموعة من الخريجين السعداء. [Slide 2-3] تقسيم واضح للميزات. كل ميزة مع أيقونة خاصة بها (قبعة شاف، شخص يوجه آخر) ونص مختصر وواضح. [Slide 4] التركيز على النتيجة النهائية (Benefit) مع دعوة للعمل قوية وزر 'سجل الآن' بارز.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P15</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كل ما تحتاجه للاحتراف... في مكان واحد!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('15')">
+                    <div class="preview-text">تكوين شامل يفتحلك أبواب الاحتراف! من التقنيات الأساسية لأسرار المطابخ الكبرى، مع متابعة شخصية. كل هذ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-15" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('15')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P15</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-15')">📋 نسخ النص</button>
+                            <div id="script-text-15" class="modal-body">تكوين شامل يفتحلك أبواب الاحتراف! من التقنيات الأساسية لأسرار المطابخ الكبرى، مع متابعة شخصية. كل هذا في برنامج واحد من Khalifa Center.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-15')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-15" class="modal-body">أحلامك في الطبخ راهي قريبة للواقع أكثر من أي وقت مضى! ✨ <br/><br/> علاش تشتت نفسك بين دورات مختلفة وكوتشينغ منفصل؟<br/><br/>في Khalifa Center، جمعنالك كل ما تحتاجه باش تنجح في برنامج واحد قوي ومتكامل. من أول تقنية تتعلمها حتى اليوم لي تفتح فيه مشروعك، حنا معاك.<br/><br/>هذا هو العرض الشامل لي كنت تستنى فيه. اغتنم الفرصة! <br/><br/> اطلع على تفاصيل البرنامج واحجز مقعدك الآن. <br/><br/> #عرض_شامل #فرصة_لا_تعوض #تكوين_الجزائر #khalifacenter #النجاح_يبدأ_هنا</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">صورة غرافيكية تعرض 'مكونات العرض'. في الوسط صورة لطبق احترافي، وحوله أيقونات تمثل: 'شهادة معتمدة'، 'تكوين تطبيقي'، 'كوتشينغ شخصي'، 'أدوات احترافية'. التصميم نظيف، عصري، ويبرز القيمة الشاملة للبرنامج. شعار المركز في الأعلى.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V16</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كل يوم تقول 'غدوة نبدا'... و'غدوة' هذا جامي يلحق!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('16')">
+                    <div class="preview-text">شحال من فرصة ضيعتها؟
+شحال من حلم أجلتو؟
+الوقت هو أثمن حاجة عندك، وراه يفوت... بسرعة.
+كل يوم تأخير، ه...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-16" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('16')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V16</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-16')">📋 نسخ النص</button>
+                            <div id="script-text-16" class="modal-body">شحال من فرصة ضيعتها؟<br/><br/>شحال من حلم أجلتو؟<br/><br/>الوقت هو أثمن حاجة عندك، وراه يفوت... بسرعة.<br/><br/>كل يوم تأخير، هو يوم آخر تبقى فيه هاوي، بعيد على حلمك.<br/><br/>هذا التردد، هذا الخوف... هو لي راه يخليك في مكانك.<br/><br/>بصح اليوم، عندك فرصة حقيقية باش تكسر هذي الحلقة.<br/><br/>برنامج Khalifa Center هو الحل لي راح يختصر عليك الطريق، ويعطيك الثقة والمهارات لي تحتاجها.<br/><br/>المقاعد محدودة جدا، والتسجيلات على وشك الإغلاق.<br/><br/>هذي ماشي مجرد دورة، هذي هي فرصتك باش تبدا حياة مهنية جديدة.<br/><br/>القرار يرجعلك. تبقى تحلم... ولا تبدا تحقق؟</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-16')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-16" class="modal-body">شحال من مرة تقول 'غدوة نبدا' و ما تبداش؟ الوقت راه يفوت! ⏳ <br/><br/> التردد هو أكبر عدو للنجاح. كل يوم تأجيل هو فرصة تضيع منك باش تكون الشاف المحترف لي تحلم بيه.<br/><br/>اليوم، الفرصة أمامك. برنامج متكامل، كوتش يوقف معاك، ومستقبل مهني واعد. بصح الفرصة هذي ماراحش تستناك للأبد.<br/><br/>المقاعد المتبقية قليلة جدا. هل ستكون من المحظوظين لي يغيرو حياتهم، أو راح تخلي التردد يغلبك مرة أخرى؟ <br/><br/> المقاعد محدودة! سارع بالتسجيل الآن وحقق حلمك. اضغط هنا. <br/><br/> #القرار_قرارك #فرصة_أخيرة #لا_تؤجل #khalifacenter #مقاعد_محدودة #urgency</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو سريع الإيقاع وحماسي (High-Energy). [0-10s] مونتاج سريع لصور تقويم تتغير أيامه بسرعة، وساعات تدور. إحساس بمرور الوقت. صوت تكتكة ساعة. [10-25s] لقطات تظهر الإحباط والتردد. موسيقى متوترة. التعليق الصوتي بنبرة حادة ومباشرة. [25-45s] انتقال مفاجئ! موسيقى حماسية. لقطات سريعة وناجحة من داخل المركز. ظهور نصوص Motion Graphics كبيرة وواضحة: 'المقاعد محدودة'، 'آخر فرصة'. [45-60s] شاشة سوداء مع عد تنازلي أو نص 'التسجيلات تغلق قريبا'. الدعوة للعمل تكون قوية جدا وواضحة مع رابط يظهر على كامل الشاشة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C17</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">واش لي راه مانعك من تحقيق حلمك؟ الخوف؟ التردد؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('17')">
+                    <div class="preview-text">Slide 1: فرصتك باش تولي شاف محترف راهي هنا! ما تضيعهاش.
+Slide 2: المقاعد المتبقية للدورة القادمة قلي...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-17" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('17')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C17</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-17')">📋 نسخ النص</button>
+                            <div id="script-text-17" class="modal-body">Slide 1: فرصتك باش تولي شاف محترف راهي هنا! ما تضيعهاش.<br/><br/>Slide 2: المقاعد المتبقية للدورة القادمة قليلة جدا. الأولوية لمن يسجل أولاً.<br/><br/>Slide 3: ما تخليش الشك والتردد يسرقولك حلمك. آلاف الساعات من المحتوى المجاني ماراحش تعطيك واش يعطيهولك تكوين احترافي واحد.<br/><br/>Slide 4: الخطوة الأولى هي الأصعب، والباقي حنا نتكفلو بيه. سجل الآن وابدأ رحلة الاحتراف مع Khalifa Center.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-17')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-17" class="modal-body">واش راه يمنعك باش تسجل وتولي شاف حقيقي؟ <br/><br/> إذا كنت تقرا في هذا المنشور، معناها الحلم مازال حي في داخلك.<br/><br/>مرات، كل ما نحتاجوه هو دفعة صغيرة باش ناخذو القرار الصحيح. اعتبر هذا المنشور هو هذيك الدفعة.<br/><br/>المقاعد على وشك الانتهاء، وفرصتك باش تنضم لينا راهي تقل مع كل دقيقة.<br/><br/>لا تترك أحلامك للغد. ابدأ اليوم. <br/><br/> اسحب وسجل في برنامجنا المحدود المقاعد. <br/><br/> #تحفيز #اتخذ_القرار #مستقبلك_المهني #khalifacenter #سجل_الآن #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم غرافيكي يعتمد على الإلحاح (Urgency). [Slide 1] عنوان كبير وجذاب مع صورة لشخص ينظر إلى الأفق بتفاؤل. [Slide 2] استخدام أرقام كبيرة أو رسم بياني يوضح أن المقاعد شبه ممتلئة. [Slide 3] اقتباس تحفيزي قوي بخط عريض. [Slide 4] دعوة للعمل واضحة جدا مع زر 'سجل الآن' كبير وبارز، وربما عداد تنازلي (إذا أمكن تقنياً).</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P18</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">آخر نداء: حلمك راه يستنى فيك!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('18')">
+                    <div class="preview-text">آخر فرصة باش تنضم لبرنامجنا و تبدا رحلتك الاحترافية في الطبخ. المقاعد محدودة! لا تتردد....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-18" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('18')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P18</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-18')">📋 نسخ النص</button>
+                            <div id="script-text-18" class="modal-body">آخر فرصة باش تنضم لبرنامجنا و تبدا رحلتك الاحترافية في الطبخ. المقاعد محدودة! لا تتردد.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-18')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-18" class="modal-body">حلمك في الطبخ راه يستنى فيك! ⏰ <br/><br/> هذا هو تذكيرك الأخير.<br/><br/>فرصة الانضمام إلى نخبة الطهاة المحترفين في دورتنا القادمة على وشك الانتهاء. إذا كنت جادًا في تحويل شغفك إلى مهنة، فالوقت هو الآن.<br/><br/>لا تدع هذه الفرصة تفلت من بين يديك. <br/><br/> سارع بالتسجيل الآن! <br/><br/> #تذكير_أخير #فرصة #لا_تتردد #khalifacenter #المستقبل_الآن #الجزائر_العاصمة</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم بسيط ومباشر. صورة لطبق فني رائع. فوقها نص كبير وواضح: 'آخر فرصة للتسجيل'. استخدام اللون الأحمر أو البرتقالي لإضفاء طابع الإلحاح. شعار المركز والدعوة للعمل 'سجل الآن' في الأسفل بشكل بارز.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr></tbody></table></div>
+
+    <div class="disclaimer-card">
+        <span style="font-size: 1.2em;">⚠️</span>
+        <span>قد تخضع هذه الاستراتيجية لبعض التعديلات والتحسينات، حسب المواد الإعلامية المتوفرة أو لغرض تحقيق أفضل النتائج.</span>
+    </div>
+
+    <div class="summary-box">
+        <span style="font-weight: 700; color: #FFD700;">الميزانية الإجمالية المعتمدة</span>
+        <span class="total-amount">128000 دج</span>
+        <a href="https://wa.me/213770820431" class="cta-btn">تواصل معنا للاعتماد</a>
+        <div style="border: 1px dashed #FFD700; padding: 25px; border-radius: 15px; margin-top: 20px;">
+            <h3 style="color:#FFD700; margin:0;">الخطوة التالية</h3>
+            <p style="margin:10px 0;">مكالمة قصيرة لنكيّف هذه الاستراتيجية حسب مشروعك ونبدأ العمل فوراً.</p>
+            <div class="phones-list">
+                <div class="phone-item">0770 82 04 31</div>
+                <div class="phone-item">0770 55 01 51</div>
+                <div class="phone-item">0770 82 01 45</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+function openModal(id) { document.getElementById('modal-' + id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
+function closeModal(id) { document.getElementById('modal-' + id).style.display = 'none'; document.body.style.overflow = 'auto'; }
+window.onclick = function(event) { if (event.target.className === 'modal') { event.target.style.display = 'none'; document.body.style.overflow = 'auto'; } }
+
+// وظيفة النسخ الجديدة
+function copyToClipboard(elementId) {
+    const el = document.getElementById(elementId);
+    const text = el.innerText || el.textContent; // نسخ النص بدون HTML tags
+    navigator.clipboard.writeText(text).then(() => {
+        alert("تم نسخ النص بنجاح! ✅");
+    }).catch(err => {
+        console.error('Failed to copy', err);
+    });
+}
+</script></body></html>
