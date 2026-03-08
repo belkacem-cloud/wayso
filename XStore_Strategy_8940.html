@@ -1,0 +1,462 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>XStore™ Strategy</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+<style>
+    body { background: #FFFFFF; color: #1A1A1A; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; line-height: 1.6; overflow-x: hidden; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 15px; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 2px solid #000; }
+    .wayso-logo { height: 45px; }
+    .brand-name { font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 1.4em; color: #000; text-transform: uppercase; border-right: 4px solid #FFD700; padding-right: 12px; }
+    
+    .analysis-section { margin: 30px 0; }
+    .card-philosophy { padding: 30px; border-radius: 20px; background: #000; color: #FFF; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+    .card-philosophy h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #FFD700; }
+    
+    .card-why { padding: 30px; border-radius: 20px; background: #F9F9F9; color: #333; margin-bottom: 20px; border: 1px solid #EDECE9; }
+    .card-why h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #000; display: flex; align-items: center; gap: 10px; }
+    .card-why h2::after { content: ''; flex-grow: 1; height: 1px; background: #EDECE9; margin-right: 15px; }
+
+    .hero { margin: 35px 0 20px 0; border-right: 6px solid #FFD700; padding-right: 15px; }
+    .hero h1 { font-size: 2.5em; font-weight: 700; margin: 0; }
+    .table-wrapper { margin-top: 25px; border-radius: 12px; overflow: hidden; border: 1px solid #EDECE9; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #000; color: #FFF; padding: 15px; text-align: right; font-size: 0.95em; }
+    td { padding: 20px 12px; border-bottom: 1px solid #EDECE9; vertical-align: top; }
+    
+    .code-badge { font-family: 'Montserrat', sans-serif; font-weight: 700; background: #FFD700; color: #000; padding: 5px 12px; border-radius: 6px; font-size: 1.1em; display: inline-block; margin-bottom: 5px; }
+    .type-label { display: block; font-weight: 700; color: #555; font-size: 0.95em; }
+    
+    .hook-pill { background: #000; color: #FFD700; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 1.1em; display: block; border-right: 5px solid #FFD700; }
+    
+    /* تحسين زر المودال */
+    .script-trigger { background: #F8F9FA; border: 1px solid #EDECE9; padding: 15px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; position: relative; }
+    .script-trigger:hover { background: #FFF; border-color: #FFD700; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transform: translateY(-2px); }
+    
+    .preview-text { font-size: 0.95em; color: #333; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; white-space: pre-wrap; }
+    
+    /* ستايل المودال */
+    .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); }
+    .modal-content { background: #FFF; margin: 5% auto; padding: 30px; border-radius: 20px; width: 90%; max-width: 750px; position: relative; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+    .close-modal { position: absolute; top: 20px; left: 20px; font-size: 30px; cursor: pointer; color: #999; line-height: 1; transition: color 0.2s; }
+    .close-modal:hover { color: #000; }
+    
+    .modal-section { margin-bottom: 25px; padding: 20px; border-radius: 12px; background: #fbfbfa; border: 1px solid #eee; position: relative; }
+    
+    /* زر النسخ */
+    .copy-btn { position: absolute; top: 10px; left: 10px; background: #fff; border: 1px solid #ddd; padding: 5px 10px; border-radius: 6px; cursor: pointer; font-size: 0.8em; font-weight: bold; color: #555; display: flex; align-items: center; gap: 5px; transition: all 0.2s; }
+    .copy-btn:hover { border-color: #FFD700; color: #000; background: #FFD70020; }
+    .copy-btn:active { transform: scale(0.95); }
+    
+    .modal-body { font-size: 1.15em; color: #1A1A1A; line-height: 1.9; word-wrap: break-word; white-space: pre-wrap; }
+    
+    .disclaimer-card { margin: 25px 0; padding: 20px; background: #FFF9E6; border-radius: 12px; border-right: 5px solid #FFC107; font-size: 1.05em; color: #856404; display: flex; align-items: center; gap: 12px; }
+    .summary-box { margin-top: 50px; background: #000; color: #FFF; padding: 40px 20px; border-radius: 25px; text-align: center; }
+    .total-amount { font-family: 'Montserrat'; font-size: 3.5em; font-weight: 700; display: block; color: #FFD700; margin: 10px 0; }
+    .cta-btn { display: inline-block; background: #FFD700; color: #000; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.2em; margin-bottom: 25px; transition: transform 0.2s; }
+    .cta-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px #FFD70060; }
+    
+    .phones-list { margin-top: 15px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; direction: ltr; } 
+    .phone-item { background: #1A1A1A; padding: 8px 15px; border-radius: 8px; border: 1px solid #333; color: #FFF; font-family: 'Montserrat'; font-weight: 700; font-size: 1.2em; white-space: nowrap; }
+
+    @media (max-width: 768px) {
+        thead { display: none; }
+        tr { display: block; border: 1px solid #EDECE9; border-radius: 15px; margin-bottom: 20px; padding: 15px; background: #FFF; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        td { display: block; padding: 10px 0; text-align: right; border-bottom: 1px dashed #eee; }
+        td:last-child { border-bottom: none; }
+        td::before { content: attr(data-label); font-weight: 700; color: #BBB; display: block; font-size: 0.8em; margin-bottom: 6px; text-transform: uppercase; }
+        .brand-name { font-size: 1.1em; }
+        .modal-content { width: 95%; padding: 20px; margin: 10% auto; }
+        .total-amount { font-size: 2.5em; }
+    }
+</style></head><body>
+
+<div class="container">
+    <div class="header">
+        <img src="https://storage.googleapis.com/msgsndr/GwIPQCjstTzxnzDQ1B32/media/68fddb5534bb1597bc934f89.png" class="wayso-logo">
+        <div class="brand-name">XStore™</div>
+    </div>
+
+    <div class="analysis-section">
+        <div class="card-philosophy"><h2>🎯 فلسفة الاستراتيجية</h2><p>نحن ندرك أن بناء مشروع تجاري ناجح يتطلب أكثر من مجرد منتج أو خدمة؛ إنه يتطلب استراتيجية متكاملة وشراكة موثوقة. لقد صممنا هذه الخطة بدقة لضمان تحقيق أقصى عائد على استثمارك، من خلال مزيج مدروس من المحتوى المرئي التفاعلي والتعليمي، مما يضمن وصول رسالتك بفعالية وبناء الثقة مع جمهورك. نحن هنا لنكون شريكك الاستراتيجي في رحلة نموك.</p></div>
+        <div class="card-why"><h2>💡 لماذا هذه الخطة؟</h2><p>بدأنا بالفيديو الرئيسي (V1) لخطف الانتباه ومعالجة نقاط الألم فوراً بأسلوب جذاب، مما يحول الشك إلى يقين. ثم ننتقل إلى الكاروسالات التعليمية (C2، C5، C8) والصور المركزة (P3، P6، P9) لترسيخ الثقة وتقديم القيمة بشكل تدريجي ومقنع. تتبعها الفيديوهات المتحركة (V4) والواقعية (V7) لتعزيز الوعي والمصداقية، مما يخلق رحلة عميل متكاملة تدفعه نحو اتخاذ القرار.</p></div>
+    </div>
+
+    <div class="hero"><h1>خطة الإنتاج الإبداعي</h1></div>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th style="width: 20%;">الكود والنوع</th><th style="width: 30%;">الهوك (Hook)</th><th style="width: 50%;">المحتوى</th></tr></thead>
+            <tbody><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V1</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">خسرت دراهمك على متجر ميت؟ الوعود الكاذبة حبستلك حلمك؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('1')">
+                    <div class="preview-text">شحال من مرة حطيت دراهمك ووقتك... وفي لخر لقيت روحك بمتجر فارغ ما يجيب حتى نتيجة؟
+تحس روحك غارق وسط و...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-1" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('1')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V1</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-1')">📋 نسخ النص</button>
+                            <div id="script-text-1" class="modal-body">شحال من مرة حطيت دراهمك ووقتك... وفي لخر لقيت روحك بمتجر فارغ ما يجيب حتى نتيجة؟<br/><br/>تحس روحك غارق وسط وعود المطورين لي يبيعولك الريح... والنتيجة؟ زيرو.<br/><br/>هذاك الشعور تاع الفشل... تاع الشك في روحك... نعرفوه مليح.<br/><br/>تحس بلي حلم التجارة الإلكترونية بعيد عليك... وأنك جامي راح تلحق.<br/><br/>بصح... واش لوكان نقولك بلي المشكل ماشي فيك؟ المشكل في الطريق لي خيرتها.<br/><br/>واش لوكان كاينة طريقة تبدا بيها مشروعك على أساس صحيح... وبضمانة حقيقية؟<br/><br/>نقدمولك نظام XStore™.<br/><br/>ماشي مجرد متجر... هذي ماكينة مصممة باش تضمنلك أول 10 مبيعات في 7 أيام.<br/><br/>بلا ما تخاطر بدورو واحد من جيبك.<br/><br/>كيفاش؟ بنينا نظام متكامل يخدم عليك: من اختيار المنتج الرابح، للتصميم لي يخلي الزبون يشري، وصولاً لحملات إعلانية مدروسة.<br/><br/>هذا هو الفرق بين متجر عادي... وبين نظام XStore™.<br/><br/>في الماضي كنت وحدك، ضايع ومحبط.<br/><br/>اليوم، معانا عندك شريك يضمنلك النجاح ويمشي معاك خطوة بخطوة.<br/><br/>العرض تاعنا واضح: متجر احترافي جاهز للبيع + فيديو إعلاني + 3 خطافات فيروسية + قائمة منتجات رابحة + استشارة مباشرة معانا... وكل هذا بضمان تحقيق أول 10 مبيعات.<br/><br/>راك حاب تبدل الخسارة بالربح... والشك باليقين؟<br/><br/>هذي هي فرصتك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-1')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-1" class="modal-body">🚨 تعبت من حرق دراهمك على متاجر فاشلة؟ جا الوقت تخدم بالضمان.<br/><br/>كل يوم نسمعوا حكايات على شباب طموحين حطوا كل مدخراتهم ووقتهم في متجر إلكتروني... وفي الأخير لقاو روحهم بنتيجة صفرية وشعور كبير بالإحباط.<br/><br/>المشكل ماشي فيك، المشكل في الوعود الفارغة والخدمات الناقصة.<br/><br/>لهذا السبب، خلقنا نظام XStore™: ماشي مجرد متجر، بل هو شراكة حقيقية تضمنلك تحقيق أول 10 مبيعات في 7 أيام. نعم، ضمان كتابي. يا تنجح يا نرجعولك دراهمك.<br/><br/>نظامنا المتكامل يوفرلك كلش: من المنتج الرابح للإعلانات لي تجيب النتائج. جا الوقت تبني مشروعك على أساس صحيح وآمن.<br/><br/>✅ اضغط هنا درك واكتشف كيفاش XStore™ تضمنلك النجاح وتريح بالك من اليوم الأول!<br/><br/>#تجارة_الكترونية_الجزائر #ايكوميرس_جزائر #مشروع_مربح #ضمان_النجاح #XStore_DZ #متجر_الكتروني #ديزاد</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[مشهد 1: شاشة سوداء، صوت 'فشل' (error sound) ثم صوت سحب أموال من الصراف الآلي].<br/>[مشهد 2: لقطات سريعة بالأبيض والأسود لشخص محبط أمام لابتوب يظهر عليه متجر فارغ أو أرقام مبيعات '0'. إضاءة خافتة، تعابير وجه قلقة].<br/>[مشهد 3: زوم بطيء على وجه الشخص وهو يظهر عليه الشك الذاتي. نبرة الصوت في الخلفية (Voice Over) تكون هادئة وحزينة لتضخيم الألم (Agitate)].<br/>[مشهد 4: انتقال مفاجئ (Whip pan) إلى مشهد ملون ومشرق. يظهر لوغو XStore™ بشكل أنيق. تتغير الموسيقى إلى نغمة واثقة وملهمة].<br/>[مشهد 5: لقطات موشن جرافيكس سريعة تعرض أيقونات تمثل 'منتج رابح'، 'تصميم جذاب'، 'إعلانات ناجحة'. يجب أن تكون الرسوميات ديناميكية واحترافية (للمونتير بن صايبي)].<br/>[مشهد 6: لقطة 'قبل وبعد'. على اليسار شاشة اللابتوب المحبطة، على اليمين نفس الشاشة لكن تظهر إشعارات مبيعات 'Cha-ching' مع أرقام حقيقية. الشخص يبتسم بثقة].<br/>[مشهد 7: الوجه الإعلامي يتحدث مباشرة للكاميرا بنبرة واثقة ومطمئنة، وهو يشرح مكونات العرض مع ظهور نصوص ورسوميات توضيحية بجانبه].<br/>[مشهد 8: لقطة ختامية قوية مع عرض الدعوة للعمل (CTA) بوضوح على الشاشة مع لوغو XStore™].</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C2</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الضمان تاع الصح ماشي الهدرة... شفتها من قبل؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('2')">
+                    <div class="preview-text">Slide 1: ضمان XStore™: ماشي كلام، أفعال!
+Slide 2: واش معناه 'نضمنلك أول 10 مبيعات'؟
+معناه بسيط: إذا ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-2" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('2')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C2</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-2')">📋 نسخ النص</button>
+                            <div id="script-text-2" class="modal-body">Slide 1: ضمان XStore™: ماشي كلام، أفعال!<br/><br/>Slide 2: واش معناه 'نضمنلك أول 10 مبيعات'؟<br/><br/>معناه بسيط: إذا ما حققتش 10 مبيعات في 7 أيام، نرجعولك دراهمك. حنا نتحملوا المخاطرة عليك.<br/><br/>Slide 3: كيفاش XStore™ تحميك من خسارة دراهمك؟<br/><br/>لأننا ما نبيعولكش مجرد تصميم. نبيعولك نظام متكامل ومدروس من الألف إلى الياء، مبني على تجارب ناجحة.<br/><br/>Slide 4: مكونات المتجر لي تضمنلك النجاح.<br/><br/>تصميم احترافي يحول الزوار لمشترين + صفحات منتج مقنعة + سرعة تحميل فائقة = مبيعات أكثر.<br/><br/>Slide 5: مكافأة 'الخطافات الثلاثة': سلاحك السري للربح السريع.<br/><br/>نعطوك 3 فيديوهات إعلانية جاهزة ومختلفة، باش تختبر وتعرف واش هو لي يمشي مع جمهورك وتضاعف أرباحك.<br/><br/>Slide 6: وقتك أغلى من دراهمك: XStore™ توفرلك الزوز.<br/><br/>نختصروا عليك شهور من التجارب الفاشلة ونعطوك الطريق المباشر للنتائج. استثمر وقتك في تطوير مشروعك، ماشي في حل المشاكل التقنية.<br/><br/>Slide 7: مستعد تبدا مشروعك بلا مخاطرة؟<br/><br/>اكتشف كامل التفاصيل وبدأ رحلة نجاحك اليوم!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-2')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-2" class="modal-body">مليت من الوعود الكاذبة في التجارة الإلكترونية؟ هاو ليك ضمان حقيقي.<br/><br/>في عالم الإيكوميرس، كلمة 'ضمان' فقدت قيمتها... بصح حنا في XStore™ قررنا نرجعولها معناها الحقيقي.<br/><br/>في هذا الكاروسال، راح نفككولك بالتفصيل واش معناه 'ضمان تحقيق أول 10 مبيعات' وكيفاش هذا النظام يحميك من أي خسارة مالية أو إهدار للوقت.<br/><br/>كل صفحة تشرحلك جزء من المعادلة لي تخلينا واثقين من نجاحك.<br/><br/>اسحب الشاشة لليمين باش تفهم كل تفصيلة في ضمان XStore™ اللي يريح بالك ويرجعلك الثقة.<br/><br/>#ضمان_XStore #تجارة_آمنة #ايكوميرس_الجزائر #بدون_مخاطرة #نتائج_مضمونة #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم الكاروسال يجب أن يكون نظيفاً واحترافياً. الخلفية بيضاء أو بلون هادئ مع استخدام لون البراند (XStore™) للعناوين والأيقونات.<br/>Slide 1: عنوان كبير وواضح مع لوغو XStore™.<br/>Slide 2-6: كل سلايد يحتوي على أيقونة معبرة (درع حماية، مكونات، صاروخ، ساعة رملية...). استخدام خط واضح وسهل القراءة للنص.<br/>Slide 7: خلفية بلون مختلف (Call to Action Color) مع زر وهمي كبير مكتوب عليه 'اكتشف التفاصيل'.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P3</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">ضمان أول 10 مبيعات: ماشي حلم، حقيقة مع XStore™.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('3')">
+                    <div class="preview-text">ضمان أول 10 مبيعات.
+ماشي حلم، حقيقة مع XStore™....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-3" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('3')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P3</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-3')">📋 نسخ النص</button>
+                            <div id="script-text-3" class="modal-body">ضمان أول 10 مبيعات.<br/><br/>ماشي حلم، حقيقة مع XStore™.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-3')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-3" class="modal-body">تخيل تبدأ مشروعك وأنت متأكد 100% أنك راح تبيع؟<br/><br/>هذا هو الوعد لي نقدموه في XStore™.<br/><br/>ماكاش 'ممكن' أو 'ربما'. كاين ضمان حقيقي ومكتوب لتحقيق أول 10 مبيعات.<br/><br/>توقف عن المقامرة بأموالك ووقتك. استثمر في اليقين والنتائج المضمونة.<br/><br/>حاب تعرف كيفاش؟ احجز استشارتك المجانية درك واعرف كيفاش تضمن نجاحك من اليوم الأول.<br/><br/>#ضمان_النجاح #التجارة_الالكترونية #مبيعات_مضمونة #XStore_DZ #استثمار_آمن #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">صورة ذات تصميم قوي ومباشر. الخلفية تكون احترافية. النص 'ضمان أول 10 مبيعات' يكون بخط كبير جداً وجريء (Bold). أسفله عبارة 'ماشي حلم، حقيقة مع XStore™' بخط أصغر قليلاً. لوغو XStore™ يكون واضحاً في الأسفل.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V4</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">راك تستنى في أول 'Cha-ching' من شهور؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('4')">
+                    <div class="preview-text">شهور وأنت تستنى... وتشوف في المتجر تاعك... والو.
+لا مبيعات... لا أرباح... غير الوقت لي قاعد يضيع.
+هذ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-4" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('4')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V4</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-4')">📋 نسخ النص</button>
+                            <div id="script-text-4" class="modal-body">شهور وأنت تستنى... وتشوف في المتجر تاعك... والو.<br/><br/>لا مبيعات... لا أرباح... غير الوقت لي قاعد يضيع.<br/><br/>هذا هو حال أغلب المتاجر: بطيئة، معقدة، وما تجيبش نتيجة.<br/><br/>بصح تخيل... متجر يخدم من اليوم الأول.<br/><br/>تخيل تشوف أول مبيعاتك تدخل في وقت قياسي.<br/><br/>هذا هو الجسر لي تبنيهولك XStore™.<br/><br/>نظامنا مصمم للسرعة والكفاءة.<br/><br/>ماكاش إنتظار. ماكاش إهدار للوقت.<br/><br/>كاين غير طريق مختصر ومباشر نحو الأرباح.<br/><br/>من متجر بطيء ومحبط... إلى ماكينة مبيعات سريعة ومربحة.<br/><br/>حاب تختصر على روحك الطريق؟</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-4')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-4" class="modal-body">الوقت هو المال. وعلاش راك تضيع فيهم للزوج؟ ⏳💸<br/><br/>أكبر خطأ في التجارة الإلكترونية هو الإنتظار. إنتظار المطور، إنتظار التصميم، إنتظار أول مبيعة...<br/><br/>هذا الإنتظار يكلفك دراهم، ويكلفك أهم حاجة: حماسك وطاقتك.<br/><br/>نظام XStore™ مصمم باش يقضي على الإنتظار. نختصروا عليك الطريق ونحطوك مباشرة في مسار الربح السريع.<br/><br/>ما تزيد تضيع حتى دقيقة.<br/><br/>اكتشف السرعة لي تخليك تحقق أول مبيعاتك في وقت قياسي مع XStore™. اضغط هنا!<br/><br/>#ربح_سريع #ايكوميرس_الجزائر #اختصر_الطريق #XStore_Speed #تجارة_الكترونية #مشاريع_الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو موشن جرافيكس سريع وديناميكي.<br/>[مشهد 1: رسم بياني يوضح خط الزمن (timeline) طويل جداً مع أيقونة 'سلحفاة' تتحرك ببطء شديد. عنوان: 'متجر عادي'].<br/>[مشهد 2: تظهر رسوميات تمثل 'إهدار المال' (نقود تحترق) و 'إهدار الوقت' (ساعة رملية فارغة)].<br/>[مشهد 3: انتقال سريع. تظهر أيقونة 'صاروخ' ينطلق بسرعة البرق على خط زمني قصير جداً. عنوان: 'نظام XStore™'].<br/>[مشهد 4: ظهور سريع لكلمات مفتاحية مثل: 'سرعة'، 'كفاءة'، 'أرباح فورية' بأسلوب Kinetic Typography].<br/>[مشهد 5: مشهد 'الجسر' (Bridge) يربط بين 'نقطة البداية المحبطة' و 'نقطة النجاح السريع'. لوغو XStore™ هو الجسر].<br/>[مشهد 6: ظهور إشعارات مبيعات متتالية وسريعة على شاشة هاتف. الموسيقى تكون حماسية وسريعة].</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C5</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">طريق الربح السريع... كاين منها ولا خرطي؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('5')">
+                    <div class="preview-text">Slide 1: كيفاش XStore™ توصلك للربح السريع في 3 خطوات؟
+Slide 2: قبل (الوضع الحالي): متاجر بطيئة، خسار...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-5" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('5')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C5</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-5')">📋 نسخ النص</button>
+                            <div id="script-text-5" class="modal-body">Slide 1: كيفاش XStore™ توصلك للربح السريع في 3 خطوات؟<br/><br/>Slide 2: قبل (الوضع الحالي): متاجر بطيئة، خسارة وقت وجهد.<br/><br/>أغلب الناس تبدا بمتجر عادي، وتضيع شهور في محاولة فهم السوق والتسويق، والنتيجة تكون محبطة.<br/><br/>Slide 3: بعد (النتيجة المرجوة): XStore™، سرعة وكفاءة من اليوم الأول.<br/><br/>مع نظامنا، تبدا من نقطة متقدمة. متجرك جاهز للبيع من الدقيقة الأولى، مع استراتيجية واضحة للربح.<br/><br/>Slide 4: الجسر (الحل): نظام XStore™ الذكي لي يختصرلك الطريق.<br/><br/>الجسر تاعنا هو نظام متكامل: متجر محسن للتحويلات + منتجات رابحة + خطافات إعلانية فيروسية = طريق مباشر للنجاح.<br/><br/>Slide 5: ماشي مجرد متجر: ماكينة تحول الزوار لمشترين.<br/><br/>كل جزء في متجرك، من الألوان للكلمات، مدروس ومصمم لهدف واحد: يخلي الزبون يشري بلا تردد.<br/><br/>Slide 6: مستعد تعبر جسر النجاح؟<br/><br/>ابدأ رحلة الربح السريع مع XStore™ الآن!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-5')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-5" class="modal-body">باغي تربح دراهمك بالخف بصح ما تعرفش منين تبدأ؟ 🚀<br/><br/>الانتقال من فكرة مشروع إلى تحقيق أرباح حقيقية هو أصعب مرحلة. أغلب الناس يضيعوا في هذه المرحلة.<br/><br/>في هذا الكاروسال، نورولك خارطة الطريق المختصرة لي نعتمدوها في XStore™ باش نوصلوا عملائنا للربح في وقت قياسي.<br/><br/>ماكاش أسرار، كاين نظام فعال وخطوات واضحة.<br/><br/>اسحب الشاشة واعرف كيفاش XStore™ تختصرلك طريق الربح وتوصلك لهدفك أسرع.<br/><br/>#خارطة_طريق #ربح_سريع #ايكوميرس_ديزاد #خطوات_النجاح #XStore_System #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم الكاروسال يركز على فكرة 'الجسر' (Bridge).<br/>Slide 1: عنوان جذاب مع صورة لجسر حديث.<br/>Slide 2: صورة بالأبيض والأسود لشخص محبط أو طريق متعرج وصعب. استخدام أيقونات سلبية.<br/>Slide 3: صورة ملونة ومشرقة لشخص سعيد أو طريق سريع ومستقيم. استخدام أيقونات إيجابية.<br/>Slide 4: رسم توضيحي بسيط يظهر 'قبل' و 'بعد' وبينهما 'جسر' عليه لوغو XStore™.<br/>Slide 5: لقطة مقربة (Screenshot) لجزء جذاب من تصميم متجر XStore™.<br/>Slide 6: دعوة للعمل واضحة مع زر وهمي.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P6</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">أول 10 مبيعات في أقرب وقت؟ ممكن مع XStore™!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('6')">
+                    <div class="preview-text">أول 10 مبيعات في وقت قياسي؟
+مع XStore™، هذي هي البداية برك....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-6" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('6')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P6</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-6')">📋 نسخ النص</button>
+                            <div id="script-text-6" class="modal-body">أول 10 مبيعات في وقت قياسي؟<br/><br/>مع XStore™، هذي هي البداية برك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-6')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-6" class="modal-body">لا تنتظر النجاح، انطلق نحوه بأقصى سرعة!<br/><br/>في عالم التجارة اليوم، السرعة هي كل شيء.<br/><br/>مع نظام XStore™، هدفنا ماشي غير نوصلوك لأول 10 مبيعات، هدفنا هو نعطوك الانطلاقة القوية لي تخليك تسيطر على السوق تاعك.<br/><br/>الفرص ما تستناش.<br/><br/>استغل الفرصة وحقق أهدافك التجارية بسرعة. اضغط هنا واعرف كيفاش!<br/><br/>#سرعة_النجاح #انطلاقة_قوية #تجارة_الكترونية_الجزائر #XStore_DZ #اقتنص_الفرصة</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">صورة بتصميم عصري وديناميكي. يمكن استخدام صورة لعداد سرعة سيارة يصل إلى أقصاه، أو رسم لصاروخ ينطلق. النص يكون واضحاً ومكتوباً بخط يوحي بالسرعة والحركة. لوغو XStore™ يكون بارزاً.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V7</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">المتجر تاعك يمرضك كثر ما ينفعك؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('7')">
+                    <div class="preview-text">(شخص يتحدث للكاميرا بأسلوب UGC، عفوي ومباشر)
+السلام عليكم،
+إذا راك كيما كنت أنا، تعبت من المتاجر لي ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-7" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('7')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V7</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-7')">📋 نسخ النص</button>
+                            <div id="script-text-7" class="modal-body">(شخص يتحدث للكاميرا بأسلوب UGC، عفوي ومباشر)<br/><br/>السلام عليكم،<br/><br/>إذا راك كيما كنت أنا، تعبت من المتاجر لي نهار تخدم وعشرة لا.<br/><br/>تعبت من المشاكل التقنية لي تخرجلك في نص الليل... والزبائن يتشاوْكاو.<br/><br/>كنت نحوس على حاجة تخدم وصايي... حاجة تريحلي بالي وتخليني نركز على البيع وتكبير المشروع.<br/><br/>وهذا الشي لي لقيتو مع نظام XStore™.<br/><br/>فهمت بلي الفرق كبير بين واحد يبيعلك تصميم... وواحد يبيعلك نظام متكامل مبني على الخبرة والداتا.<br/><br/>نظام XStore™ ماشي مجرد واجهة جميلة. هو محرك ذكي يخدم في الخلفية باش يضمن كلش يمشي كيما لازم.<br/><br/>من سرعة الموقع، للأمان، لكل تفصيلة صغيرة لي تدير الفرق في المبيعات.<br/><br/>هذي هي الشراكة الحقيقية... وهذا هو الاستثمار لي يرجعلك راحة البال قبل الدراهم.<br/><br/>إذا راك حاب تخدم براسك مرتاح... وتخلي التكنولوجيا تخدم عليك، ماشي العكس...</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-7')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-7" class="modal-body">ما الفرق بين 'متجر' و 'نظام'؟ الفرق هو راحة بالك وأرباحك.<br/><br/>الكثير يبيعونك 'متجر إلكتروني'. لكن هل يبيعونك 'راحة البال'؟<br/><br/>المشاكل التقنية، البطء، وانعدام الأمان يمكن أن تدمر مشروعك حتى قبل أن يبدأ.<br/><br/>نظام XStore™ هو الحل. بنيناه على أساس الخبرة والبيانات باش يكون شريكك الموثوق، ماشي مجرد أداة أخرى تزيدلك الصداع.<br/><br/>استثمر في نظام يخدم عليك، ويوفرلك أهم حاجة: التركيز على نمو تجارتك.<br/><br/>اكتشف قوة نظام XStore™ لي يضمنلك التفوق والراحة في كل خطوة. تواصل معنا الآن.<br/><br/>#راحة_البال #نظام_متكامل #تجارة_الكترونية #خبرة_وداتا #XStore_System #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو بأسلوب User-Generated Content (UGC).<br/>[تصوير: كاميرا هاتف بجودة عالية، مثبتة على حامل (tripod) أو محمولة بثبات. لا توجد حركة كاميرا معقدة].<br/>[إضاءة: طبيعية، قرب نافذة. المظهر يجب أن يكون أصيلاً وغير مصطنع].<br/>[المتحدث: يتكلم مباشرة للكاميرا بصدق وعفوية، كأنه يشارك تجربته مع صديق. لا يقرأ من نص. نبرة صوته هادئة وواثقة].<br/>[البيئة: مكتب منزلي بسيط أو مكان هادئ. لا يجب أن يبدو كاستوديو احترافي].<br/>[مونتاج: بسيط جداً، يمكن إضافة بعض النصوص التوضيحية البسيطة (Subtitles) لتأكيد النقاط المهمة].</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C8</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كامل الناس عندهم 'متجر'. بصح شحال من واحد عندو 'نظام' يربّحو؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('8')">
+                    <div class="preview-text">Slide 1: XStore™: ماشي مجرد متجر، نظام متكامل يخدم عليك!
+Slide 2: الفرق بين متجر عادي ونظام XStore™....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-8" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('8')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C8</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-8')">📋 نسخ النص</button>
+                            <div id="script-text-8" class="modal-body">Slide 1: XStore™: ماشي مجرد متجر، نظام متكامل يخدم عليك!<br/><br/>Slide 2: الفرق بين متجر عادي ونظام XStore™.<br/><br/>المتجر العادي هو واجهة فقط. نظام XStore™ هو محرك كامل (واجهة + تسويق + تحليلات + دعم) مصمم للربح.<br/><br/>Slide 3: كيفاش الداتا والتحليلات تدفع نجاحك؟<br/><br/>نظامنا يتتبع سلوك الزوار ويفهم واش يحبوا، وهذا يسمحلنا نحسنوا المتجر باستمرار باش نزيدوا المبيعات.<br/><br/>Slide 4: الشراكة الحقيقية: نجاحك هو نجاحنا.<br/><br/>ضمان المبيعات يعني أننا نستثمر معاك. حنا ما نربحوش إذا أنت ما ربحتش. هذه هي الشراكة.<br/><br/>Slide 5: قل وداعاً للمشاكل التقنية: نظام موثوق ومستقر.<br/><br/>سيرفرات سريعة، حماية قوية، ودعم فني. ركز على البيع وخلي الأمور التقنية علينا.<br/><br/>Slide 6: تجربة عملاء XStore™: قصص نجاح حقيقية.<br/><br/>(هنا يمكن وضع شهادة قصيرة لعميل أو أرقام حقيقية) 'بفضل XStore، مبيعاتي تضاعفت في شهر'.<br/><br/>Slide 7: استثمر في نظام يضمنلك راحة البال والتوسع. اكتشف XStore™.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-8')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-8" class="modal-body">باغي تخدم بتكنولوجيا متطورة تضمنلك التفوق على المنافسين؟ 🧠<br/><br/>في 2024، المتجر الإلكتروني العادي لم يعد كافياً.<br/><br/>المنافسة شرسة، والعميل أصبح أكثر تطلباً. للنجاح، تحتاج إلى نظام ذكي، وليس مجرد واجهة جميلة.<br/><br/>في هذا الكاروسال، سنكشف لك عن الفروقات الجوهرية التي تجعل من نظام XStore™ الخيار الأمثل لكل من يبحث عن التفوق والنمو المستدام.<br/><br/>اسحب الشاشة واعرف كيفاش نظام XStore™ يديرلك الفرق الحقيقي في السوق.<br/><br/>#تكنولوجيا_متطورة #نظام_ذكي #تفوق_على_المنافسين #ايكوميرس_الجزائر #XStore_DZ</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم الكاروسال يعتمد على المقارنة البصرية.<br/>Slide 1: عنوان قوي مع لوغو XStore™.<br/>Slide 2: تصميم مقسوم لجزئين: 'متجر عادي' (أيقونات بسيطة ومحدودة) و 'نظام XStore™' (أيقونات أكثر تعقيداً وقوة: دماغ، رسم بياني، ترس...).<br/>Slide 3-5: كل سلايد يستخدم أيقونات ورسوميات بسيطة لتوضيح الفكرة (مخطط بياني للداتا، يدان تتصافحان للشراكة، درع للحماية).<br/>Slide 6: استخدام صورة شخصية لعميل (إذا توفرت) أو تصميم اقتباس أنيق.<br/>Slide 7: دعوة للعمل واضحة على خلفية مميزة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P9</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">نظام XStore™: مبني على الخبرة، مدعوم بالداتا، ومضمون النتائج.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('9')">
+                    <div class="preview-text">الخبرة. الداتا. النتائج.
+هذا هو نظام XStore™....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-9" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('9')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P9</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-9')">📋 نسخ النص</button>
+                            <div id="script-text-9" class="modal-body">الخبرة. الداتا. النتائج.<br/><br/>هذا هو نظام XStore™.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-9')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-9" class="modal-body">النجاح في التجارة الإلكترونية ليس صدفة. إنه نظام.<br/><br/>نحن لا نؤمن بالحظ أو الصدف. نؤمن بالخبرة التي تبني الاستراتيجيات، بالبيانات التي توجه القرارات، وبالنتائج التي تثبت صحة النظام.<br/><br/>هذه هي الركائز الثلاث التي بنينا عليها XStore™.<br/><br/>هذا هو وعدنا لك.<br/><br/>اكتشف قوة النظام الحقيقي ليغير مسار تجارتك الإلكترونية. تواصل معنا.<br/><br/>#خبرة #بيانات #نتائج_مضمونة #نظام_XStore #ثقة #احترافية #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">صورة بتصميم فاخر وبسيط جداً (Minimalist & Premium). خلفية داكنة (أسود أو كحلي). النص مكتوب بثلاث كلمات فقط في ثلاثة أسطر، بخط أبيض أو ذهبي أنيق. 'الخبرة.' ثم 'الداتا.' ثم 'النتائج.'. لوغو XStore™ يكون صغيراً وأنيقاً في الأسفل. التصميم يوحي بالثقة والسلطة المطلقة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr></tbody></table></div>
+
+    <div class="disclaimer-card">
+        <span style="font-size: 1.2em;">⚠️</span>
+        <span>قد تخضع هذه الاستراتيجية لبعض التعديلات والتحسينات، حسب المواد الإعلامية المتوفرة أو لغرض تحقيق أفضل النتائج.</span>
+    </div>
+
+    <div class="summary-box">
+        <span style="font-weight: 700; color: #FFD700;">الميزانية الإجمالية المعتمدة</span>
+        <span class="total-amount">74000 دج</span>
+        <a href="https://wa.me/213770820431" class="cta-btn">تواصل معنا للاعتماد</a>
+        <div style="border: 1px dashed #FFD700; padding: 25px; border-radius: 15px; margin-top: 20px;">
+            <h3 style="color:#FFD700; margin:0;">الخطوة التالية</h3>
+            <p style="margin:10px 0;">مكالمة قصيرة لنكيّف هذه الاستراتيجية حسب مشروعك ونبدأ العمل فوراً.</p>
+            <div class="phones-list">
+                <div class="phone-item">0770 82 04 31</div>
+                <div class="phone-item">0770 55 01 51</div>
+                <div class="phone-item">0770 82 01 45</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+function openModal(id) { document.getElementById('modal-' + id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
+function closeModal(id) { document.getElementById('modal-' + id).style.display = 'none'; document.body.style.overflow = 'auto'; }
+window.onclick = function(event) { if (event.target.className === 'modal') { event.target.style.display = 'none'; document.body.style.overflow = 'auto'; } }
+
+// وظيفة النسخ الجديدة
+function copyToClipboard(elementId) {
+    const el = document.getElementById(elementId);
+    const text = el.innerText || el.textContent; // نسخ النص بدون HTML tags
+    navigator.clipboard.writeText(text).then(() => {
+        alert("تم نسخ النص بنجاح! ✅");
+    }).catch(err => {
+        console.error('Failed to copy', err);
+    });
+}
+</script></body></html>
