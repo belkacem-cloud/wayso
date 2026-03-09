@@ -1,0 +1,797 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Malek Meuble Strategy</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+<style>
+    body { background: #FFFFFF; color: #1A1A1A; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; line-height: 1.6; overflow-x: hidden; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 15px; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 2px solid #000; }
+    .wayso-logo { height: 45px; }
+    .brand-name { font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 1.4em; color: #000; text-transform: uppercase; border-right: 4px solid #FFD700; padding-right: 12px; }
+    
+    .analysis-section { margin: 30px 0; }
+    .card-philosophy { padding: 30px; border-radius: 20px; background: #000; color: #FFF; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+    .card-philosophy h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #FFD700; }
+    
+    .card-why { padding: 30px; border-radius: 20px; background: #F9F9F9; color: #333; margin-bottom: 20px; border: 1px solid #EDECE9; }
+    .card-why h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #000; display: flex; align-items: center; gap: 10px; }
+    .card-why h2::after { content: ''; flex-grow: 1; height: 1px; background: #EDECE9; margin-right: 15px; }
+
+    .hero { margin: 35px 0 20px 0; border-right: 6px solid #FFD700; padding-right: 15px; }
+    .hero h1 { font-size: 2.5em; font-weight: 700; margin: 0; }
+    .table-wrapper { margin-top: 25px; border-radius: 12px; overflow: hidden; border: 1px solid #EDECE9; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #000; color: #FFF; padding: 15px; text-align: right; font-size: 0.95em; }
+    td { padding: 20px 12px; border-bottom: 1px solid #EDECE9; vertical-align: top; }
+    
+    .code-badge { font-family: 'Montserrat', sans-serif; font-weight: 700; background: #FFD700; color: #000; padding: 5px 12px; border-radius: 6px; font-size: 1.1em; display: inline-block; margin-bottom: 5px; }
+    .type-label { display: block; font-weight: 700; color: #555; font-size: 0.95em; }
+    
+    .hook-pill { background: #000; color: #FFD700; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 1.1em; display: block; border-right: 5px solid #FFD700; }
+    
+    /* تحسين زر المودال */
+    .script-trigger { background: #F8F9FA; border: 1px solid #EDECE9; padding: 15px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; position: relative; }
+    .script-trigger:hover { background: #FFF; border-color: #FFD700; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transform: translateY(-2px); }
+    
+    .preview-text { font-size: 0.95em; color: #333; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; white-space: pre-wrap; }
+    
+    /* ستايل المودال */
+    .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); }
+    .modal-content { background: #FFF; margin: 5% auto; padding: 30px; border-radius: 20px; width: 90%; max-width: 750px; position: relative; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+    .close-modal { position: absolute; top: 20px; left: 20px; font-size: 30px; cursor: pointer; color: #999; line-height: 1; transition: color 0.2s; }
+    .close-modal:hover { color: #000; }
+    
+    .modal-section { margin-bottom: 25px; padding: 20px; border-radius: 12px; background: #fbfbfa; border: 1px solid #eee; position: relative; }
+    
+    /* زر النسخ */
+    .copy-btn { position: absolute; top: 10px; left: 10px; background: #fff; border: 1px solid #ddd; padding: 5px 10px; border-radius: 6px; cursor: pointer; font-size: 0.8em; font-weight: bold; color: #555; display: flex; align-items: center; gap: 5px; transition: all 0.2s; }
+    .copy-btn:hover { border-color: #FFD700; color: #000; background: #FFD70020; }
+    .copy-btn:active { transform: scale(0.95); }
+    
+    .modal-body { font-size: 1.15em; color: #1A1A1A; line-height: 1.9; word-wrap: break-word; white-space: pre-wrap; }
+    
+    .disclaimer-card { margin: 25px 0; padding: 20px; background: #FFF9E6; border-radius: 12px; border-right: 5px solid #FFC107; font-size: 1.05em; color: #856404; display: flex; align-items: center; gap: 12px; }
+    .summary-box { margin-top: 50px; background: #000; color: #FFF; padding: 40px 20px; border-radius: 25px; text-align: center; }
+    .total-amount { font-family: 'Montserrat'; font-size: 3.5em; font-weight: 700; display: block; color: #FFD700; margin: 10px 0; }
+    .cta-btn { display: inline-block; background: #FFD700; color: #000; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.2em; margin-bottom: 25px; transition: transform 0.2s; }
+    .cta-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px #FFD70060; }
+    
+    .phones-list { margin-top: 15px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; direction: ltr; } 
+    .phone-item { background: #1A1A1A; padding: 8px 15px; border-radius: 8px; border: 1px solid #333; color: #FFF; font-family: 'Montserrat'; font-weight: 700; font-size: 1.2em; white-space: nowrap; }
+
+    @media (max-width: 768px) {
+        thead { display: none; }
+        tr { display: block; border: 1px solid #EDECE9; border-radius: 15px; margin-bottom: 20px; padding: 15px; background: #FFF; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        td { display: block; padding: 10px 0; text-align: right; border-bottom: 1px dashed #eee; }
+        td:last-child { border-bottom: none; }
+        td::before { content: attr(data-label); font-weight: 700; color: #BBB; display: block; font-size: 0.8em; margin-bottom: 6px; text-transform: uppercase; }
+        .brand-name { font-size: 1.1em; }
+        .modal-content { width: 95%; padding: 20px; margin: 10% auto; }
+        .total-amount { font-size: 2.5em; }
+    }
+</style></head><body>
+
+<div class="container">
+    <div class="header">
+        <img src="https://storage.googleapis.com/msgsndr/GwIPQCjstTzxnzDQ1B32/media/68fddb5534bb1597bc934f89.png" class="wayso-logo">
+        <div class="brand-name">Malek Meuble</div>
+    </div>
+
+    <div class="analysis-section">
+        <div class="card-philosophy"><h2>🎯 فلسفة الاستراتيجية</h2><p>في Wayso، نؤمن بأن نجاحكم هو نجاحنا. لذا، صممنا هذه الاستراتيجية بمزيج فريد من الفيديو الرئيسي الجاذب والكاروسالات التعليمية لتأسيس حضور قوي ومقنع لـ 'مالك موبل'. هذا المزيج لا يقتصر على عرض المنتجات، بل يبني الثقة ويُثقف العميل، ليتحول إلى استثمار طويل الأمد يضمن لكم النمو المستدام.</p></div>
+        <div class="card-why"><h2>💡 لماذا هذه الخطة؟</h2><p>بدأنا بـ V1 لخطف الانتباه عبر قصة تحول مؤثرة تعرض الحل الشامل. ثم استخدمنا الكاروسالات التعليمية (C2, C8, C11, C14, C17) لتبسيط خيارات الشراء وتثقيف العميل، بينما تعمل الصور الثابتة (P3, P6, P9, P12, P15, P18) على ترسيخ العروض والقيم. هذا التسلسل المصمم بعناية يقود العميل في رحلة واضحة من الوعي إلى الشراء بثقة.</p></div>
+    </div>
+
+    <div class="hero"><h1>خطة الإنتاج الإبداعي</h1></div>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th style="width: 20%;">الكود والنوع</th><th style="width: 30%;">الهوك (Hook)</th><th style="width: 50%;">المحتوى</th></tr></thead>
+            <tbody><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V1</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">راح تفرش دارك و مخك قريب ينفجر؟ حبس الدوران!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('1')">
+                    <div class="preview-text">(صوت عميق وموثوق)
+كل واحد فينا يحلم بدار يلقى فيها راحته... دار تعكس ذوقه وشخصيته.
+لكن الحلم هذا، با...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-1" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('1')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V1</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-1')">📋 نسخ النص</button>
+                            <div id="script-text-1" class="modal-body">(صوت عميق وموثوق)<br/><br/>كل واحد فينا يحلم بدار يلقى فيها راحته... دار تعكس ذوقه وشخصيته.<br/><br/>لكن الحلم هذا، بالخف يولي كابوس.<br/><br/>كي تبدا تدور على الحوانت... واحد للصالون، واحد للكوزينة، واحد لشومبرة الدراري.<br/><br/>الوقت يضيع، الجهد يروح، وراسك يتخلط.<br/><br/>تحس روحك حاصل... بين موديلات ماتتشابش، وألوان ما تتوالمش.<br/><br/>والنتيجة؟ دار مخلطة، بعيدة على واش كنت تحلم بيه.<br/><br/>(تتغير الموسيقى لنبرة ملهمة وحماسية)<br/><br/>بصح، وعلاش تكسر راسك؟<br/><br/>في مالك موبل، حلمك يولي حقيقة... في بلاصة وحدة.<br/><br/>تخيل معانا... تدخل لمكان واحد، تلقى فيه كلش.<br/><br/>من الصالون اللي يستقبل ضيافك... لغرفة نومك اللي ترتاح فيها.<br/><br/>من كوزينتك اللي تلم العايلة... حتى لشومبرة ولادك اللي يلعبوا فيها.<br/><br/>مئات الموديلات... آلاف الخيارات... كل الأذواق وكل الميزانيات.<br/><br/>ماشي برك تفرش دارك... راك تبني مملكتك.<br/><br/>مالك موبل، ماشي مجرد محل أثاث.<br/><br/>حنا هوما الحل، باه تفرش دارك بلا ما تكسر راسك.<br/><br/>كلش... في مالك موبل.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-1')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-1" class="modal-body">🤯 تعبت من الدوران على الحوانت؟ الحل راهو هنا! <br/><br/> تأثيث دار جديدة ماشي لازم يكون كابوس. نعرفوا مليح الإرهاق والحيرة اللي تحس بيهم كي تكون تدور من بلاصة لبلاصة... بلا فايدة.<br/><br/>لهذا السبب، في 'مالك موبل' جمعنالك كل واش تحتاج تحت سقف واحد! من الصالون للكوزينة، من غرف النوم لغرف الدراري، عندنا أكبر تشكيلة في الجزائر اللي تخليك تحقق دار أحلامك بسهولة وراحة بال.<br/><br/>فرّش دارك بلا ما تكسّر راسك. كلش في مالك موبل. <br/><br/> 📍 زور معرضنا اليوم وشوف بعينك كيفاش نفرشولك دارك بأناقة وراحة! <br/><br/> #مالك_موبل #أثاث_الجزائر #تأثيث_منازل #ديكور_جزائري #صالونات_جزائرية #غرف_نوم #الجزائر #وهران #قسنطينة</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">المشهد 1 (BAB - Before): لقطات سريعة لزوجين يبدوان مرهقين ومحبطين. يقلبون في هواتفهم، ينظرون إلى جدران منزل فارغ. إضاءة باردة قليلاً. كاميرا محمولة لإعطاء إحساس بالقلق.<br/>المشهد 2 (PAS - Problem): لقطات سريعة جداً (Fast Cuts) لأقدام تمشي في محلات مختلفة، أيادي تلمس أقمشة مختلفة، تعابير وجه حائرة. استخدام مؤثر صوتي لضربات قلب متسارعة أو ضجيج خفيف.<br/>المشهد 3 (Agitation): لقطة مقرّبة على وجه البطل وهو يمسك رأسه. تظهر رسومات Motion Graphics حوله (علامات استفهام، أسهم متضاربة) ترمز للحيرة.<br/>المشهد 4 (Solution - The Guide): انتقال سلس. تفتح أبواب زجاجية ضخمة ويظهر اسم 'Malek Meuble' بوضوح. إضاءة دافئة ومشرقة. موسيقى ملهمة تبدأ في الخلفية. لقطة واسعة بانورامية للمعرض الضخم.<br/>المشهد 5 (Transformation): لقطات تحول سريعة (Wipe transition / Timelapses). نرى غرفة فارغة تتحول إلى صالون فخم، غرفة أخرى تتحول إلى غرفة نوم مريحة، إلخ. التركيز على تنوع الأساليب (مودرن، كلاسيك...).<br/>المشهد 6 (BAB - After): نرى نفس الزوجين من المشهد الأول، لكن هذه المرة يبتسمون وهم يسترخون في صالونهم الجديد المتكامل. يلعبون مع أطفالهم في غرفة نومهم. إحساس بالراحة والسعادة.<br/>المشهد الأخير: لقطة درون (Drone shot) للمعرض من الخارج، مع ظهور الشعار ومعلومات التواصل بوضوح. نبرة الصوت في النهاية تكون قوية وحاسمة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C2</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">دارك فيها بزاف غرف؟ عندنا ليهم قاع واش يلزم!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('2')">
+                    <div class="preview-text">Slide 1: مالك موبل: كل غرفة في دارك، عندها حكايتها عندنا!
+Slide 2: الصالونات: واجهة دارك تبدا من هنا...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-2" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('2')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C2</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-2')">📋 نسخ النص</button>
+                            <div id="script-text-2" class="modal-body">Slide 1: مالك موبل: كل غرفة في دارك، عندها حكايتها عندنا!<br/><br/>Slide 2: الصالونات: واجهة دارك تبدا من هنا. موديلات عصرية، كلاسيكية، وكابيتوني... خيّر اللي يوالم ضيافك وراحتك.<br/><br/>Slide 3: غرف النوم: مملكتك الخاصة تستاهل الأفضل. تصاميم تضمنلك الراحة والهدوء بعد نهار طويل. شوف لي مودال تاعنا.<br/><br/>Slide 4: غرف الأطفال: عالم من الألوان والإبداع لولادك. حلول ذكية تستغل المساحات وتخليهم يلعبوا ويقراو في أمان.<br/><br/>Slide 5: المطابخ وطاولات الأكل: قلب الدار اللي يلم العايلة. طاولات عملية وتصاميم تخلي كل وجبة مناسبة خاصة.<br/><br/>Slide 6: كل دارك في بلاصة وحدة. مالك موبل، الحل لي يريحلك بالك. زورنا واكتشف أكثر!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-2')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-2" class="modal-body">🛋️ لكل غرفة حكاية... وحكايتهم قاع تبدا من عندنا! <br/><br/> علاش تضيّع وقتك في البحث؟ في 'مالك موبل'، جبنالك حل لكل غرفة في دارك في مكان واحد. من أناقة الصالونات لراحة غرف النوم، ومن إبداع غرف الأطفال لدفء طاولات الأكل.<br/><br/>تشكيلة ضخمة تخليك تختار الأنسب لذوقك وميزانيتك بلا ما تتعب. <br/><br/> اسحب لليسار 👈 واكتشف عالم من الخيارات، أو اضغط على الرابط في البايو وشوف الكتالوج الكامل! <br/><br/> #كتالوج_أثاث #أثاث_متكامل #ديكور_داخلي #مالك_موبل #تجهيز_منازل #الجزائر #أثاث_مودرن</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">الخلفية العامة: تصميم نظيف وأنيق، مع استخدام هوية 'مالك موبل' البصرية. كل سلايد يحتوي على صورة عالية الجودة للمنتجات المذكورة.<br/>Slide 1: صورة بانورامية واسعة للمعرض. العنوان بخط كبير وجذاب.<br/>Slide 2: صورة صالون فخم. النص مكتوب بطريقة واضحة بجانب الصورة أو عليها.<br/>Slide 3: صورة غرفة نوم مريحة وأنيقة.<br/>Slide 4: صورة غرفة أطفال مبهجة وعملية.<br/>Slide 5: صورة طاولة أكل مجتمعة حولها عائلة (صورة ستوك أو حقيقية إن أمكن).<br/>Slide 6: كولاج صور لكل الأنواع مع الشعار ومعلومات التواصل والـCTA بخط واضح.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P3</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">بلاصة وحدة... تفرشلك دارك من الألف إلى الياء!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('3')">
+                    <div class="preview-text">أكبر تشكيلة أثاث في الجزائر راهي تستناك في مالك موبل....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-3" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('3')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P3</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-3')">📋 نسخ النص</button>
+                            <div id="script-text-3" class="modal-body">أكبر تشكيلة أثاث في الجزائر راهي تستناك في مالك موبل.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-3')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-3" class="modal-body">📍 وجهتك الوحيدة لتأثيث بيت الأحلام! <br/><br/> ماتزيدش تتعب وتدور. في 'مالك موبل'، كل ما تحتاجه تلقاه تحت سقف واحد. الجودة، التنوع، والأسعار اللي تناسبك. <br/><br/>تجربة تسوق مريحة تضمنلك راحة البال. <br/><br/> تاغي صاحبك اللي راه يفرش باش تسهل عليه المهمة! <br/><br/> #أثاث_الجزائر #مالك_موبل #OneStopShop #ديكور_الجزائر #تجهيز_العرائس #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">صورة واحدة عالية الجودة. لقطة واسعة جداً (Wide shot) للمعرض تُظهر حجمه الهائل وتنوع المنتجات. أو تصميم كولاج احترافي يجمع صوراً متنوعة (صالون، غرفة نوم، طاولة أكل...) بشكل متناغم. النص يكون مكتوباً على الصورة بخط أنيق وواضح.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V4</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">شحال من يوم لازمك باش تفرش دار كاملة؟ معانا، يوم واحد يكفي!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('4')">
+                    <div class="preview-text">(موسيقى ديناميكية وسريعة)
+تخيل روحك داخل لأكبر معرض أثاث في الجزائر...
+كل خطوة ديرها، تكتشف عالم جدي...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-4" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('4')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V4</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-4')">📋 نسخ النص</button>
+                            <div id="script-text-4" class="modal-body">(موسيقى ديناميكية وسريعة)<br/><br/>تخيل روحك داخل لأكبر معرض أثاث في الجزائر...<br/><br/>كل خطوة ديرها، تكتشف عالم جديد.<br/><br/>هنا، قسم الصالونات... أكثر من 100 موديل يستناو فيك.<br/><br/>ومن بعد، ندخلو لعالم غرف النوم... وين الراحة والأناقة يتلاقاو.<br/><br/>وما ننساوش غرف الأطفال... ألوان وتصاميم تفرح ولادك.<br/><br/>وحتى الكوزينة والطابلة تاع الماكلة... كلش مخدوم باش يلم العايلة.<br/><br/>(تظهر رسومات Motion Graphics على الشاشة)<br/><br/>أكثر من 10,000 متر مربع تاع الاختيارات.<br/><br/>كل الأذواق... كل الألوان... وكل الميزانيات.<br/><br/>في مالك موبل، ماشي برك تشري موبل.<br/><br/>راك تربح الوقت، الجهد، وراحة البال.<br/><br/>مالك موبل. فرّش دارك في نهار واحد.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-4')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-4" class="modal-body">🚀 جولة سريعة في أكبر مملكة للأثاث في الجزائر! <br/><br/> عمرك شفت معرض بهذا الحجم؟ حبينا نورولكم لمحة صغيرة على واش يستنا فيكم في 'مالك موبل'.<br/><br/>الهدف تاعنا ماشي برك نبيعولك أثاث، الهدف تاعنا نمدولك تجربة تسوق تخليك تربح وقتك وجهدك، وتلقى كلش في بلاصة وحدة. الثقة تبنى بالشفافية، وحنا نورولكم كلش. <br/><br/> حاب تشوف بعينك؟ زورنا في المعرض واكتشف بنفسك! <br/><br/> #جولة_افتراضية #معرض_أثاث #مالك_موبل #الثقة #الجودة #أثاث_فاخر #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">النمط: جولة افتراضية سريعة (Motion Graphics / Hyperlapse). استخدام كاميرا درون افتراضية تطير داخل المعرض الضخم. أسهم ورسومات تظهر على الشاشة لتوجيه المشاهد عبر الأقسام المختلفة ('قسم الصالونات'، 'غرف النوم'...). إظهار أرقام (مثل '+100 موديل صالون') لتعزيز فكرة التنوع الهائل. المونتاج يكون سريعاً وحماسياً. نبرة الصوت تكون واثقة ومليئة بالطاقة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C5</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">شكون كاين ورا كل قطعة أثاث توصلك لباب دارك؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('5')">
+                    <div class="preview-text">Slide 1: وراء كل قطعة أثاث من مالك موبل... كاين فريق ضخم يخدم على راحتك.
+Slide 2: المخازن الضخمة: هن...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-5" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('5')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C5</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-5')">📋 نسخ النص</button>
+                            <div id="script-text-5" class="modal-body">Slide 1: وراء كل قطعة أثاث من مالك موبل... كاين فريق ضخم يخدم على راحتك.<br/><br/>Slide 2: المخازن الضخمة: هنا تبدا الحكاية! آلاف القطع مخزنة بعناية، وجاهزة باش توصلك في أي وقت.<br/><br/>Slide 3: فريق التوصيل والتركيب: ماشي برك نوصلولك، فريقنا المحترف يركبلك كلش ويخليلك دارك واجدة.<br/><br/>Slide 4: مستشارو المبيعات: خبراء في الديكور يستناوا فيك في المعرض باش يعاونوك تختار الأنسب ليك ولدارك.<br/><br/>Slide 5: أكثر من 10,000 متر مربع، وعشرات الخبراء في خدمتك. مالك موبل، ماشي مجرد اسم، هو ثقة والتزام.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-5')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-5" class="modal-body">💪🏼 اكتشف الجيش اللي يخدم على راحتك! <br/><br/> الجودة والراحة اللي نقدموها في 'مالك موبل' ماجاتش وحدها. وراها كاين فريق كامل من الخبراء، من المستودعات الضخمة لعمّال التوصيل المحترفين، الكل يخدم بهدف واحد: نضمنولك أفضل تجربة من اللحظة اللي تخيّر فيها المودال حتى تشوفو مفرش في دارك.<br/><br/>حنا نبنوا الثقة بالعمل والشفافية. <br/><br/> اسحب لليسار 👈 واكتشف القصة الكاملة وراء 'مالك موبل'! <br/><br/> #خلف_الكواليس #فريق_العمل #ثقة #احترافية #مالك_موبل #خدمة_الزبائن #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">النمط: خلف الكواليس. استخدام صور حقيقية عالية الجودة.<br/>Slide 1: صورة بانورامية للمستودعات الضخمة، أو صورة جماعية للفريق. العنوان بخط عريض وواثق.<br/>Slide 2: صورة للمخازن وهي منظمة ومليئة بالبضاعة.<br/>Slide 3: صورة لفريق التوصيل وهو يركب أثاثاً في منزل زبون (مع الحرص على أن يكونوا مبتسمين ومحترفين).<br/>Slide 4: صورة لأحد مستشاري المبيعات وهو يتحدث بلطف مع زبون داخل المعرض.<br/>Slide 5: لقطة درون للمعرض من الخارج، مع كتابة الأرقام (المساحة، عدد الفريق...) بشكل بارز.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P6</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">عنوان واحد يغنيك على الدوران: مالك موبل.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('6')">
+                    <div class="preview-text">مالك موبل: عنوانك الوحيد للأناقة والراحة!...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-6" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('6')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P6</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-6')">📋 نسخ النص</button>
+                            <div id="script-text-6" class="modal-body">مالك موبل: عنوانك الوحيد للأناقة والراحة!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-6')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-6" class="modal-body">📍 هنا يبدأ حلم بيتك المثالي. <br/><br/> عندما يتعلق الأمر بتأثيث منزلك، لا تقبل بأقل من الأفضل. 'مالك موبل' ليس مجرد متجر، بل هو وجهتك النهائية لتحقيق رؤيتك للأناقة والراحة.<br/><br/>نحن في انتظارك لنبدأ هذه الرحلة معاً. <br/><br/> زورنا اليوم وشوف بنفسك الفرق! <br/><br/> #مالك_موبل #عنوان_الفخامة #أثاث_الجزائر #ديكور #معرض_أثاث #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">صورة احترافية عالية الجودة للواجهة الخارجية للمعرض. يفضل أن تكون في وقت الغروب أو في الليل مع إضاءة ممتازة تبرز فخامة المكان. الشعار يكون واضحاً جداً. النص مكتوب على الصورة بشكل بسيط وأنيق.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V7</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">شحال من مرة شريت فراش لشمبرتك و ندمت عليه؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('7')">
+                    <div class="preview-text">(صوت هادئ ومتفهم)
+غرفة نومك... هي البلاصة الوحيدة اللي تهرب ليها من تعب الدنيا.
+بصح، بزاف ناس يغلطوا...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-7" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('7')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V7</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-7')">📋 نسخ النص</button>
+                            <div id="script-text-7" class="modal-body">(صوت هادئ ومتفهم)<br/><br/>غرفة نومك... هي البلاصة الوحيدة اللي تهرب ليها من تعب الدنيا.<br/><br/>بصح، بزاف ناس يغلطوا في الفراش تاعها... وتولي هي سبة التعب.<br/><br/>(تظهر على الشاشة أخطاء شائعة مع علامة X حمراء)<br/><br/>الخطأ الأول: تشري موبل كبير على حساب الشومبرة. تحس روحك مخنوق.<br/><br/>الخطأ الثاني: الألوان الغامقة بزاف. تزيد من القلق وماتريحش العين.<br/><br/>الخطأ الثالث: تخيّر الزين وتنسى الصح. الكاليتي تاع الماتلا والخشب هي الصح.<br/><br/>(تتغير الموسيقى لنبرة إيجابية)<br/><br/>الحل بسيط.<br/><br/>في مالك موبل، عندنا خبراء يعاونوك.<br/><br/>نورولك كيفاش تخيّر القياس المناسب... والألوان اللي تريحك.<br/><br/>ونضمنولك الجودة اللي تخليك ترقد مهني لسنين.<br/><br/>ماتزيدش تندم على فراش دارك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-7')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-7" class="modal-body">😴 3 غلطات تخليك تكره غرفة نومك! (وتقدر تتفاداهم) <br/><br/> غرفة نومك هي مكان راحتك، ماشي مصدر تعبك! في هذا الفيديو القصير، نكشفلك على الأخطاء الشائعة اللي يديروها الناس كي يخيروا الأثاث، وكيفاش تقدر تتفاداها بسهولة.<br/><br/>في 'مالك موبل'، مانبيعولكش برك، ننصحوك ونوجهوك باش دير الاختيار الصحيح اللي يريحك. <br/><br/> شاهد الفيديو واكتشف أسرار اختيار غرفة النوم المثالية! <br/><br/> #نصائح_ديكور #غرف_نوم #أخطاء_شائعة #مالك_موبل #راحة_البال #جودة #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">النمط: فيديو تعليمي سريع (Motion Graphics).<br/>المشهد 1 (Problem): رسوم متحركة بسيطة لشخص يبدو متعباً في غرفة نوم ضيقة ومظلمة. تظهر نصوص توضيحية للأخطاء المذكورة.<br/>المشهد 2 (Agitation): إظهار أيقونات ترمز لقلة النوم، ألم الظهر، والشعور بالضيق.<br/>المشهد 3 (Solution): انتقال سلس إلى مشاهد لغرف نوم مثالية من كتالوج 'مالك موبل'. تظهر علامات ✓ خضراء على 'المساحة المناسبة'، 'الألوان الفاتحة'، 'الجودة العالية'.<br/>المشهد الأخير: لقطة مقربة لأحد الموديلات عالية الجودة مع ظهور الشعار. نبرة الصوت تكون تعليمية وواثقة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C8</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">قبل ما تشري شومبرة نومك، اقرا هاد 3 نصايح!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('8')">
+                    <div class="preview-text">Slide 1: 3 نصائح ذهبية من مالك موبل لاختيار غرفة نوم أحلامك.
+Slide 2: النصيحة 1: قيس قبل ما تغيص! قب...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-8" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('8')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C8</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-8')">📋 نسخ النص</button>
+                            <div id="script-text-8" class="modal-body">Slide 1: 3 نصائح ذهبية من مالك موبل لاختيار غرفة نوم أحلامك.<br/><br/>Slide 2: النصيحة 1: قيس قبل ما تغيص! قبل كلش، اعرف قياسات غرفتك مليح. اختار أثاث بحجم مناسب يخليلك مساحة للحركة وماتحسش روحك مخنوق.<br/><br/>Slide 3: النصيحة 2: الراحة قبل الشكل. صح، التصميم شباب مهم، بصح جودة المرتبة (الماتلا) وصلابة الخشب هوما الصح. استثمر في راحتك على المدى الطويل.<br/><br/>Slide 4: النصيحة 3: التخزين الذكي هو الحل. خير لي مودال اللي فيهم حلول تخزين مدمجة، كيما الأدراج تحت السرير أو الخزانات الطويلة. تربح المساحة وتنظم حوايجك.<br/><br/>Slide 5: حاضرين باش تعاونكم تختاروا الأفضل. زوروا معرضنا وخلوا خبرائنا يوجهوكم. مالك موبل، راحتكم هي أولويتنا.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-8')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-8" class="modal-body">🛏️ الدليل السريع لاختيار غرفة نوم مثالية! <br/><br/> الاختيار الصحيح لغرفة نومك يقدر يغير حياتك للأفضل. لهذا، حبينا نشاركوا معاكم 3 نصائح بسيطة وفعالة من خبراء الديكور تاعنا باش تضمنوا استثماركم في راحتكم.<br/><br/>لأننا في 'مالك موبل' نؤمن بأن غرفة نومك هي أهم غرفة في الدار. <br/><br/> اسحب لليسار 👈 لتعرف المزيد وتحفظ المنشور لوقت الحاجة! <br/><br/> #دليل_الشراء #نصائح_أثاث #غرفة_نوم #مالك_موبل #استثمار #راحة #ديكور_جزائري</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">النمط: تعليمي وإرشادي. تصميم بسيط وواضح.<br/>Slide 1: عنوان جذاب مع أيقونة لمبة أو نجمة ذهبية.<br/>Slide 2-4: كل سلايد يحتوي على أيقونة بسيطة تمثل النصيحة (شريط قياس، مرتبة، خزانة). النص يكون قصيراً ومباشراً. يمكن استخدام صورة مثال من منتجات 'مالك موبل' في الخلفية.<br/>Slide 5: دعوة للعمل واضحة مع شعار 'مالك موبل' ومعلومات التواصل.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P9</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">راح تشري طابلة تاع ماكلة؟ حذاري من هاد الغلطات!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('9')">
+                    <div class="preview-text">طاولة الأكل: واش لازم دير ✅ و واش لازم تتفادى ❌
+✅ خيّر حجم مناسب لعدد أفراد العايلة والمساحة.
+❌ ماتش...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-9" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('9')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P9</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-9')">📋 نسخ النص</button>
+                            <div id="script-text-9" class="modal-body">طاولة الأكل: واش لازم دير ✅ و واش لازم تتفادى ❌<br/><br/>✅ خيّر حجم مناسب لعدد أفراد العايلة والمساحة.<br/><br/>❌ ماتشريش طابلة كبيرة بزاف تخنقلك الكوزينة.<br/><br/>✅ فكّر في الكراسي المريحة اللي تقدر تقعد فيها مدة طويلة.<br/><br/>❌ ماتضحيش بالراحة على جال الشكل برك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-9')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-9" class="modal-body">🍽️ قبل ما تخيّر طاولة الأكل ديالك، شوف هاد البوست! <br/><br/> طاولة الأكل هي مركز البيت، وين تتلاقى العايلة. اختيارها ماشي ساهل! حبينا نمدولكم نصيحة خفيفة باش تتفاداو الأخطاء الشائعة وتختاروا الطابلة المثالية ليكم.<br/><br/>عندنا في مالك موبل، تلقاو تشكيلة واسعة تناسب كل العائلات والمساحات. <br/><br/> خلي تعليق بكلمة 'دليل' ونبعتلك في الخاص دليل شامل لاختيار الأثاث! <br/><br/> #إنفوجرافيك #نصيحة_اليوم #طاولة_طعام #أثاث_المطبخ #مالك_موبل #ديكور #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">النمط: إنفوجرافيك بسيط وجذاب. التصميم يكون مقسوماً لجزئين: جزء أخضر مع علامة 'صح' (Do's) وجزء أحمر مع علامة 'خطأ' (Don'ts). استخدام أيقونات بسيطة لتوضيح كل نقطة. شعار 'مالك موبل' يكون في الأسفل.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V10</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كيفاش تحوّل شومبرة صغيرة وعادية لجنة تاع أحلام لولادك؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('10')">
+                    <div class="preview-text">(صوت أم حنون)
+شومبرة ولادي كانت صغيرة... وضيقة.
+كنت دايماً حايرة كيفاش نرتبها... كيفاش نخليلهم بلاصة...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-10" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('10')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V10</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-10')">📋 نسخ النص</button>
+                            <div id="script-text-10" class="modal-body">(صوت أم حنون)<br/><br/>شومبرة ولادي كانت صغيرة... وضيقة.<br/><br/>كنت دايماً حايرة كيفاش نرتبها... كيفاش نخليلهم بلاصة وين يلعبو ووين يقراو.<br/><br/>(تتغير الموسيقى لنبرة سحرية)<br/><br/>حتى وين اكتشفت الحلول الذكية تاع مالك موبل.<br/><br/>جابولي سرير بسطاج، ماشي برك يربح البلاصة، بصح فيه تخزين من تحت.<br/><br/>وزادولي مكتب صغير مدمج مع الخزانة.<br/><br/>(لقطات تحول سريعة)<br/><br/>الشومبرة اللي كانت ضيقة... ولات عالم تاع ألوان.<br/><br/>ولات فيها بلاصة للعب، بلاصة للرقاد، وبلاصة للقراية.<br/><br/>ولادي راهم فرحانين... وأنا راني مهنية.<br/><br/>مالك موبل، ماشي برك يبيعو الموبل... يخدمولك أحلام ولادك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-10')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-10" class="modal-body">🧸 حوّل غرفة أطفالك إلى عالم من الأحلام! <br/><br/> المساحة الصغيرة ماشي هي المشكل، المشكل في الحلول! في 'مالك موبل'، عندنا أفكار وأثاث ذكي مصمم خصيصاً لغرف الأطفال باش نستغلوا كل سنتيمتر ونخلقوا مساحة للعب، للدراسة، وللأحلام.<br/><br/>شوفوا كيفاش قدرنا نحولوا غرفة عادية لمملكة صغيرة. <br/><br/> اكتشف تصاميم غرف الأطفال لي تخلي ولادك يعيشوا طفولتهم! <br/><br/> #غرف_أطفال #حلول_ذكية #مساحات_صغيرة #ديكور_أطفال #مالك_موبل #تحول #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">النمط: قصة تحول (Storytelling) أو UGC.<br/>المشهد 1 (Before): تصوير غرفة أطفال عادية، ربما غير مرتبة، تبدو ضيقة. إضاءة عادية. الأم تتحدث بصوت فيه لمسة من القلق.<br/>المشهد 2 (The Solution): لقطات سريعة لعمال 'مالك موبل' وهم يركبون الأثاث الجديد (أسرة طابقين، مكاتب مدمجة).<br/>المشهد 3 (After): لقطات واسعة للغرفة بعد تحولها. تبدو منظمة، مبهجة، وواسعة. الأطفال يلعبون ويضحكون بسعادة. إضاءة مشرقة ودافئة. الأم تنظر إليهم بابتسامة رضا.<br/>المشهد الأخير: لقطة للأم وهي تحتضن أطفالها في الغرفة الجديدة، مع ظهور شعار 'مالك موبل'.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C11</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">شومبرتك ضيقة؟ عندنا ليها 4 حلول سحرية!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('11')">
+                    <div class="preview-text">Slide 1: عندك شومبرة صغيرة؟ مالك موبل عندها الحلول السحرية باش تولي واسعة وشابة!
+Slide 2: الحل 1: ال...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-11" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('11')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C11</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-11')">📋 نسخ النص</button>
+                            <div id="script-text-11" class="modal-body">Slide 1: عندك شومبرة صغيرة؟ مالك موبل عندها الحلول السحرية باش تولي واسعة وشابة!<br/><br/>Slide 2: الحل 1: الأسرة متعددة الوظائف. سرير بسطاج يحررلك مساحة الأرض، أو سرير مع تخزين مدمج يقضي على الفوضى.<br/><br/>Slide 3: الحل 2: الألوان الفاتحة. ادهن الحيطان بألوان فاتحة واختار أثاث أبيض أو بيج. يعطوا إحساس بالاتساع والنور.<br/><br/>Slide 4: الحل 3: الأثاث الذكي القابل للطي. مكتب يتقفل، أو طاولة صغيرة تتخبى. استعملهم كي تحتاجهم برك!<br/><br/>Slide 5: المساحة الصغيرة ماشي عائق للإبداع. زور 'مالك موبل' واكتشف تشكيلتنا من الأثاث الذكي اللي يكبّر دارك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-11')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-11" class="modal-body">🏠 4 أفكار عبقرية تخلي غرفتك الصغيرة تبان كبيرة! <br/><br/> شكون قال المساحة الصغيرة معناها التنازل عن الأناقة؟ مع الأفكار الصحيحة والأثاث المناسب، تقدر تحول أي غرفة ضيقة لمساحة عملية ومريحة.<br/><br/>في 'مالك موبل'، تخصصنا في إيجاد الحلول الذكية اللي تناسب حياتكم. <br/><br/> اسحب لليسار 👈 وشوف الحلول الذكية من مالك موبل! <br/><br/> #مساحات_صغيرة #أثاث_ذكي #حلول_ديكور #توفير_المساحة #مالك_موبل #نصائح #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">النمط: تعليمي بصور جذابة.<br/>Slide 1: سؤال وجواب بخط واضح على خلفية لصورة غرفة صغيرة وأنيقة.<br/>Slide 2: صورة لسرير طابقين أو سرير به أدراج سفلية.<br/>Slide 3: مقارنة بين غرفة بألوان غامقة وأخرى بألوان فاتحة (جنباً إلى جنب).<br/>Slide 4: صورة لمكتب قابل للطي أو أثاث متعدد الوظائف.<br/>Slide 5: دعوة للعمل مع شعار الشركة وصور مصغرة للمنتجات المذكورة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P12</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">صالون بالنهار... وفراش بالليل! الحل تاع ضيف الغفلة.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('12')">
+                    <div class="preview-text">الفخامة والعملية في قطعة واحدة: كنبة تتحول إلى سرير....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-12" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('12')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P12</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-12')">📋 نسخ النص</button>
+                            <div id="script-text-12" class="modal-body">الفخامة والعملية في قطعة واحدة: كنبة تتحول إلى سرير.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-12')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-12" class="modal-body">🛋️➡️🛏️ الحل الذكي رقم 1 لضيوف الغفلة والبيوت الصغيرة! <br/><br/> علاش تخيّر بين الأناقة والعملية كي تقدر تجمعهم في زوج؟ الكنبة السرير من 'مالك موبل' هي الحل المثالي لاستقبال ضيوفك براحة تامة أو لاستغلال المساحات الصغيرة بذكاء.<br/><br/>تصاميم عصرية وجودة عالية تضمنلك راحة في كل الأوقات. <br/><br/> اضغط على الرابط في البايو واكتشف المزيد من المنتجات المبتكرة! <br/><br/> #كنبة_سرير #أثاث_متعدد_الوظائف #حلول_ذكية #مالك_موبل #ضيف_الغفلة #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">صورة عالية الجودة ومصممة بشكل احترافي. يمكن أن تكون صورة مقسومة لنصفين: النصف الأيمن يظهر الكنبة (Sofa) في وضعها الطبيعي كصالون، والنصف الأيسر يظهرها وهي مفتوحة كسرير (Bed). هذا يوضح الوظيفة المزدوجة بفعالية. النص يكون مكتوباً بأناقة على الصورة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V13</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">ليلة عرسك قربت و مازال ما كملتيش شومبرة نومك؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('13')">
+                    <div class="preview-text">(صوت أنثوي ناعم وملهم)
+كل عروسة تحلم بغرفة نوم تكون مملكتها الخاصة...
+بلاصة تاع حب، راحة، وذكريات حل...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-13" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('13')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V13</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-13')">📋 نسخ النص</button>
+                            <div id="script-text-13" class="modal-body">(صوت أنثوي ناعم وملهم)<br/><br/>كل عروسة تحلم بغرفة نوم تكون مملكتها الخاصة...<br/><br/>بلاصة تاع حب، راحة، وذكريات حلوة.<br/><br/>بصح مع التجهيزات والضغط، المهمة تولي صعيبة.<br/><br/>(تتغير الموسيقى لنبرة حماسية مع عرض أسعار)<br/><br/>في مالك موبل، فكرنا فيك.<br/><br/>جمعنالك كلش في باكج واحد: غرفة نوم الأحلام!<br/><br/>سرير أنيق... خزانة واسعة... تسريحة تليق بيك... وحتى الماتلا مديناها معاه.<br/><br/>كلش متناسق، كلش بجودة عالية، وبسعر... ماكنتش تحلمي بيه.<br/><br/>ماتزيديش تكسري راسك في التفاصيل.<br/><br/>خلي 'مالك موبل' يتكفل بأهم غرفة في دارك الجديدة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-13')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-13" class="modal-body">👰‍♀️ عرض خاص للعرسان: غرفة نوم أحلامك كاملة بسعر خيالي! <br/><br/> نعرفوا أن تجهيز بيت الزوجية فيه بزاف تفاصيل. على جال هذا، 'مالك موبل' سهلت عليك المهمة!<br/><br/>حضرنالك باكج متكامل يجمعلك كل قطع غرفة النوم الأساسية بتصميم رائع، جودة مضمونة، وسعر خاص جداً باش تبداي حياتك الجديدة براحة بال وأناقة.<br/><br/>ماتخليش الضغط يسرقلك فرحتك! <br/><br/> اغتنمي الفرصة! العرض محدود. تواصلي معنا لمعرفة تفاصيل الباكج. <br/><br/> #عروض_الزواج #تجهيز_عرائس_الجزائر #غرف_نوم_عرسان #باكج_عروس #مالك_موبل #تخفيضات #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">النمط: فيديو بيعي مباشر (Motion Graphics).<br/>المشهد 1 (Problem): رسوم متحركة لعروس تبدو قلقة وهي تنظر لقائمة طويلة من التجهيزات.<br/>المشهد 2 (Solution): تظهر أيقونات لقطع الأثاث (سرير، خزانة، تسريحة) وهي تتجمع مع بعضها لتشكل 'باكج' متكامل. يظهر السعر بشكل بارز وجذاب.<br/>المشهد 3 (Desire): لقطات فيديو حقيقية عالية الجودة لغرفة النوم الكاملة المعروضة في الباكج. الكاميرا تتحرك ببطء لإظهار التفاصيل والجودة. إضاءة رومانسية ودافئة.<br/>المشهد الأخير: ظهور عبارة 'عرض خاص للعرسان' مع شعار 'مالك موبل' والدعوة للعمل.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C14</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">ماتزيديش تخممي في كل قطعة وحدها... الباكج راهو واجد!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('14')">
+                    <div class="preview-text">Slide 1: باكج غرفة نوم الأحلام للعرسان من مالك موبل: كلش واجد بسعر واحد!
+Slide 2: القطعة 1: السرير. ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-14" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('14')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C14</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-14')">📋 نسخ النص</button>
+                            <div id="script-text-14" class="modal-body">Slide 1: باكج غرفة نوم الأحلام للعرسان من مالك موبل: كلش واجد بسعر واحد!<br/><br/>Slide 2: القطعة 1: السرير. تصميم فخم ومريح، متوفر بعدة ألوان. أساس الراحة في مملكتك الخاصة.<br/><br/>Slide 3: القطعة 2: الخزانة. مساحة تخزين كبيرة وعملية، بتصميم يتماشى مع السرير. باش كل حاجة تكون في بلاصتها.<br/><br/>Slide 4: القطعة 3 و 4: التسريحة (Coiffeuse) والطاولات الجانبية (Tables de nuit). لمسة الأناقة النهائية اللي تكمل ديكور غرفتك.<br/><br/>Slide 5: كل هذا بسعر استثنائي: [أدخل السعر هنا]! العرض محدود. احجزي الباكج تاعك اليوم وابداي حياتك براحة وأناقة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-14')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-14" class="modal-body">💍 كل ما تحتاجه العروس في باكج واحد! <br/><br/> لماذا تشتري كل قطعة على حدة وأنت تستطيعين الحصول على غرفة نوم متكاملة، متناسقة، وعالية الجودة بسعر لا يقاوم؟<br/><br/>اكتشفي تفاصيل باكج العرسان من 'مالك موبل' المصمم خصيصاً ليمنحك بداية مثالية لحياتك الزوجية. <br/><br/> اسحبي لليسار 👈 وشوفي تفاصيل العرض الكامل! الكمية محدودة. <br/><br/> #باكج_عروس #غرفة_نوم_كاملة #مالك_موبل #عرض_خاص #أثاث_عرسان #الجزائر #تخفيض</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">النمط: عرض منتج مباشر. تصميم فاخر وأنيق.<br/>Slide 1: صورة بانورامية للغرفة الكاملة. العنوان يكون بخط فخم.<br/>Slide 2-4: كل سلايد يركز على قطعة واحدة. صورة مقربة عالية الجودة للقطعة، مع نص قصير يصف مميزاتها.<br/>Slide 5: صورة للغرفة الكاملة مرة أخرى، مع إبراز السعر والعرض المحدود في تصميم دائري أو شريط بارز. إضافة معلومات التواصل بشكل واضح.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P15</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">طابلة تاع ماكلة بـ 6 كراسي... بسومة تهبّل!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('15')">
+                    <div class="preview-text">عرض خاص: طاولة أكل + 6 كراسي أنيقة
+السعر السابق: [السعر القديم]
+السعر الحالي: [السعر الجديد]!...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-15" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('15')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P15</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-15')">📋 نسخ النص</button>
+                            <div id="script-text-15" class="modal-body">عرض خاص: طاولة أكل + 6 كراسي أنيقة<br/><br/>السعر السابق: [السعر القديم]<br/><br/>السعر الحالي: [السعر الجديد]!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-15')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-15" class="modal-body">🔥 تخفيض مايتعوّضش! لمّة العايلة تحلى مع طاولتنا الجديدة. <br/><br/> جدّد غرفة الأكل تاعك واستمتع بلحظات ماتتنساش مع العائلة والأحباب. نقدم لكم عرضاً حصرياً على طقم طاولة طعام و 6 كراسي بتصميم عصري وجودة مضمونة.<br/><br/>هذه فرصتك للحصول على الأناقة بسعر لا يصدق. <br/><br/> الكمية محدودة جداً! أدخل لموقعنا واطلبها الآن قبل ما تخلص! <br/><br/> #تخفيضات_هائلة #عرض_محدود #طاولة_طعام #أثاث #مالك_موبل #تنزيلات #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">صورة احترافية وجذابة جداً لطاولة الأكل مع الكراسي الستة، موضوعة في ديكور منزل أنيق. يجب أن يكون هناك بطاقة سعر (Price Tag) مصممة بشكل جرافيكي على الصورة تظهر السعر القديم مشطوباً والسعر الجديد بشكل بارز وواضح.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V16</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">حاب تفرش دارك... بصح ماعندكش كاش؟ كاين الحل!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('16')">
+                    <div class="preview-text">(صوت واضح ومباشر)
+في مالك موبل، حلمك بدار مفرشة مايحبسش على جال الدراهم.
+على بالنا بلي تأثيث دار كام...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-16" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('16')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V16</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-16')">📋 نسخ النص</button>
+                            <div id="script-text-16" class="modal-body">(صوت واضح ومباشر)<br/><br/>في مالك موبل، حلمك بدار مفرشة مايحبسش على جال الدراهم.<br/><br/>على بالنا بلي تأثيث دار كاملة هو استثمار كبير.<br/><br/>على جال هذا، سهلناها عليك.<br/><br/>مع خدمة التقسيط المريح تاعنا، تقدر تدي الموبل اللي عجبك اليوم... وتخلص بالشهر.<br/><br/>(تظهر رسومات Motion Graphics)<br/><br/>الملف بسيط، الإجراءات سريعة، وبدون تعقيدات.<br/><br/>والأهم؟ التوصيل والتركيب علينا!<br/><br/>فريقنا يوصلك كلش لباب الدار، ويركبهولك باحترافية.<br/><br/>ما تخمم لا في الكاش، لا في التوصيل، لا في التركيب.<br/><br/>خمم برك في دارك الجديدة.<br/><br/>مالك موبل، الراحة في كلش.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-16')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-16" class="modal-body">💸 فرّش دارك اليوم، وخلّص بعقلك! <br/><br/> ما تخليش الميزانية تكون عائق قدام تحقيق حلمك! في 'مالك موبل'، نقدم لكم حلول دفع مرنة وخيارات تقسيط مريحة تناسب الجميع. بالإضافة إلى خدمة التوصيل والتركيب المجانية اللي تريحك من كل تعب.<br/><br/>هدفنا هو راحتك من البداية للنهاية. <br/><br/> تواصل معنا اليوم لمعرفة كل تفاصيل وشروط التقسيط! <br/><br/> #الدفع_بالتقسيط #تسهيلات_في_الدفع #أثاث_بالتقسيط #مالك_موبل #توصيل_مجاني #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">النمط: فيديو توضيحي (Motion Graphics).<br/>المشهد 1: أيقونة لحصالة نقود فارغة مع وجه حزين. ثم تظهر أيقونة لمنزل الأحلام بعيدة.<br/>المشهد 2: تظهر كلمة 'التقسيط المريح' بخط كبير. ثم تظهر رسومات متحركة تشرح العملية ببساطة (أيقونة ملف -> أيقونة موافقة سريعة -> أيقونة تقويم شهري).<br/>المشهد 3: رسوم متحركة لشاحنة توصيل 'مالك موبل' تصل إلى منزل، ثم أيقونات لعمال يركبون الأثاث بسرعة.<br/>المشهد الأخير: تظهر أيقونات طرق الدفع المقبولة وشعار 'التوصيل والتركيب مجاني' مع شعار الشركة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C17</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الكاش ماشي مشكل! شوف كيفاش تقدر تفرش دارك بالتقسيط.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('17')">
+                    <div class="preview-text">Slide 1: فرش دارك... وخلص بالتقسيط المريح مع مالك موبل!
+Slide 2: كيفاش تعمل؟ بسيطة! الخطوة الأولى: ز...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-17" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('17')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C17</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-17')">📋 نسخ النص</button>
+                            <div id="script-text-17" class="modal-body">Slide 1: فرش دارك... وخلص بالتقسيط المريح مع مالك موبل!<br/><br/>Slide 2: كيفاش تعمل؟ بسيطة! الخطوة الأولى: زور معرضنا وخيّر الأثاث اللي عجبك. مستشارينا راهم هنا باش يعاونوك.<br/><br/>Slide 3: الخطوة الثانية: حضّر ملف بسيط. فريقنا راح يشرحلك كل الوثائق المطلوبة، الإجراءات سهلة وسريعة.<br/><br/>Slide 4: الخطوة الثالثة: بعد قبول ملفك، استلم أثاثك مباشرة! التوصيل والتركيب مجاني من عندنا.<br/><br/>Slide 5: ابدأ في الدفع شهرياً حسب الاتفاق. فرّش دار أحلامك اليوم بلا ما تضغط على روحك. تواصل معنا لبدء الإجراءات!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-17')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-17" class="modal-body">📄 دليلك الكامل للشراء بالتقسيط من مالك موبل! <br/><br/> الكثير منكم يسأل عن كيفية الاستفادة من خدمة التقسيط. في هذا المنشور، شرحنالكم كل الخطوات بالتفصيل. العملية أبسط مما تتخيلون!<br/><br/>لأننا في 'مالك موبل' نسعى دائماً لجعل الأثاث الفاخر في متناول الجميع. <br/><br/> اسحب لليسار 👈 لتعرف كل التفاصيل! وإذا عندك أي سؤال، خليه في التعليقات. <br/><br/> #شراء_بالتقسيط #دليل_كامل #مالك_موبل #أثاث_فاخر #سهلناها_عليك #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">النمط: دليل إرشادي خطوة بخطوة. تصميم نظيف يستخدم الأرقام الكبيرة والأيقونات.<br/>Slide 1: عنوان واضح وجذاب مع صورة لشخص سعيد في منزله الجديد.<br/>Slide 2-4: كل سلايد يمثل خطوة. استخدام أيقونات بسيطة (أيقونة معرض، أيقونة ملف، أيقونة شاحنة توصيل). النص يكون مختصراً ومباشراً.<br/>Slide 5: دعوة للعمل واضحة، مع أيقونات لطرق التواصل (هاتف، واتساب، فيسبوك) وشعار 'مالك موبل'.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P18</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">آخر حاجة تخمم فيها هي التوصيل والتركيب... راهم علينا!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('18')">
+                    <div class="preview-text">توصيل وتركيب مجاني لكل زبائننا في [X] ولاية!
++ الدفع بالتقسيط متوفر....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-18" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('18')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P18</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-18')">📋 نسخ النص</button>
+                            <div id="script-text-18" class="modal-body">توصيل وتركيب مجاني لكل زبائننا في [X] ولاية!<br/><br/>+ الدفع بالتقسيط متوفر.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-18')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-18" class="modal-body">🎁 هديتكم من عندنا: توصيل وتركيب مجاني! <br/><br/> عندما تختار 'مالك موبل'، أنت لا تختار أثاثاً فقط، بل تختار راحة البال الكاملة. نكمل تجربتك المميزة بخدمة توصيل وتركيب مجانية لنوفر عليك الوقت، الجهد، والمصاريف الإضافية.<br/><br/>تجربتك معنا متكاملة من المعرض إلى باب بيتك. <br/><br/> ماتخليش الفرصة تروحلك! زورنا في المعرض أو كلمنا الآن للاستفادة من كل خدماتنا! <br/><br/> #توصيل_مجاني #تركيب_مجاني #خدمة_مميزة #مالك_موبل #راحة_البال #الجزائر #تسوق_أونلاين</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم جرافيكي جذاب وواضح. صورة لشاحنة توصيل أنيقة تحمل شعار 'مالك موبل' في المنتصف. حولها، توجد شارات (Badges) كبيرة وواضحة: شارة 'توصيل مجاني'، شارة 'تركيب مجاني'، وشارة 'الدفع بالتقسيط متوفر'. يمكن أيضاً إضافة شعارات طرق الدفع المقبولة في الأسفل (مثل CIB).</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr></tbody></table></div>
+
+    <div class="disclaimer-card">
+        <span style="font-size: 1.2em;">⚠️</span>
+        <span>قد تخضع هذه الاستراتيجية لبعض التعديلات والتحسينات، حسب المواد الإعلامية المتوفرة أو لغرض تحقيق أفضل النتائج.</span>
+    </div>
+
+    <div class="summary-box">
+        <span style="font-weight: 700; color: #FFD700;">الميزانية الإجمالية المعتمدة</span>
+        <span class="total-amount">118000 دج</span>
+        <a href="https://wa.me/213770820431" class="cta-btn">تواصل معنا للاعتماد</a>
+        <div style="border: 1px dashed #FFD700; padding: 25px; border-radius: 15px; margin-top: 20px;">
+            <h3 style="color:#FFD700; margin:0;">الخطوة التالية</h3>
+            <p style="margin:10px 0;">مكالمة قصيرة لنكيّف هذه الاستراتيجية حسب مشروعك ونبدأ العمل فوراً.</p>
+            <div class="phones-list">
+                <div class="phone-item">0770 82 04 31</div>
+                <div class="phone-item">0770 55 01 51</div>
+                <div class="phone-item">0770 82 01 45</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+function openModal(id) { document.getElementById('modal-' + id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
+function closeModal(id) { document.getElementById('modal-' + id).style.display = 'none'; document.body.style.overflow = 'auto'; }
+window.onclick = function(event) { if (event.target.className === 'modal') { event.target.style.display = 'none'; document.body.style.overflow = 'auto'; } }
+
+// وظيفة النسخ الجديدة
+function copyToClipboard(elementId) {
+    const el = document.getElementById(elementId);
+    const text = el.innerText || el.textContent; // نسخ النص بدون HTML tags
+    navigator.clipboard.writeText(text).then(() => {
+        alert("تم نسخ النص بنجاح! ✅");
+    }).catch(err => {
+        console.error('Failed to copy', err);
+    });
+}
+</script></body></html>
