@@ -1,0 +1,801 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Clic Emballage Strategy</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+<style>
+    body { background: #FFFFFF; color: #1A1A1A; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; line-height: 1.6; overflow-x: hidden; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 15px; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 2px solid #000; }
+    .wayso-logo { height: 45px; }
+    .brand-name { font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 1.4em; color: #000; text-transform: uppercase; border-right: 4px solid #FFD700; padding-right: 12px; }
+    
+    .analysis-section { margin: 30px 0; }
+    .card-philosophy { padding: 30px; border-radius: 20px; background: #000; color: #FFF; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+    .card-philosophy h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #FFD700; }
+    
+    .card-why { padding: 30px; border-radius: 20px; background: #F9F9F9; color: #333; margin-bottom: 20px; border: 1px solid #EDECE9; }
+    .card-why h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #000; display: flex; align-items: center; gap: 10px; }
+    .card-why h2::after { content: ''; flex-grow: 1; height: 1px; background: #EDECE9; margin-right: 15px; }
+
+    .hero { margin: 35px 0 20px 0; border-right: 6px solid #FFD700; padding-right: 15px; }
+    .hero h1 { font-size: 2.5em; font-weight: 700; margin: 0; }
+    .table-wrapper { margin-top: 25px; border-radius: 12px; overflow: hidden; border: 1px solid #EDECE9; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #000; color: #FFF; padding: 15px; text-align: right; font-size: 0.95em; }
+    td { padding: 20px 12px; border-bottom: 1px solid #EDECE9; vertical-align: top; }
+    
+    .code-badge { font-family: 'Montserrat', sans-serif; font-weight: 700; background: #FFD700; color: #000; padding: 5px 12px; border-radius: 6px; font-size: 1.1em; display: inline-block; margin-bottom: 5px; }
+    .type-label { display: block; font-weight: 700; color: #555; font-size: 0.95em; }
+    
+    .hook-pill { background: #000; color: #FFD700; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 1.1em; display: block; border-right: 5px solid #FFD700; }
+    
+    /* تحسين زر المودال */
+    .script-trigger { background: #F8F9FA; border: 1px solid #EDECE9; padding: 15px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; position: relative; }
+    .script-trigger:hover { background: #FFF; border-color: #FFD700; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transform: translateY(-2px); }
+    
+    .preview-text { font-size: 0.95em; color: #333; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; white-space: pre-wrap; }
+    
+    /* ستايل المودال */
+    .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); }
+    .modal-content { background: #FFF; margin: 5% auto; padding: 30px; border-radius: 20px; width: 90%; max-width: 750px; position: relative; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+    .close-modal { position: absolute; top: 20px; left: 20px; font-size: 30px; cursor: pointer; color: #999; line-height: 1; transition: color 0.2s; }
+    .close-modal:hover { color: #000; }
+    
+    .modal-section { margin-bottom: 25px; padding: 20px; border-radius: 12px; background: #fbfbfa; border: 1px solid #eee; position: relative; }
+    
+    /* زر النسخ */
+    .copy-btn { position: absolute; top: 10px; left: 10px; background: #fff; border: 1px solid #ddd; padding: 5px 10px; border-radius: 6px; cursor: pointer; font-size: 0.8em; font-weight: bold; color: #555; display: flex; align-items: center; gap: 5px; transition: all 0.2s; }
+    .copy-btn:hover { border-color: #FFD700; color: #000; background: #FFD70020; }
+    .copy-btn:active { transform: scale(0.95); }
+    
+    .modal-body { font-size: 1.15em; color: #1A1A1A; line-height: 1.9; word-wrap: break-word; white-space: pre-wrap; }
+    
+    .disclaimer-card { margin: 25px 0; padding: 20px; background: #FFF9E6; border-radius: 12px; border-right: 5px solid #FFC107; font-size: 1.05em; color: #856404; display: flex; align-items: center; gap: 12px; }
+    .summary-box { margin-top: 50px; background: #000; color: #FFF; padding: 40px 20px; border-radius: 25px; text-align: center; }
+    .total-amount { font-family: 'Montserrat'; font-size: 3.5em; font-weight: 700; display: block; color: #FFD700; margin: 10px 0; }
+    .cta-btn { display: inline-block; background: #FFD700; color: #000; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.2em; margin-bottom: 25px; transition: transform 0.2s; }
+    .cta-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px #FFD70060; }
+    
+    .phones-list { margin-top: 15px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; direction: ltr; } 
+    .phone-item { background: #1A1A1A; padding: 8px 15px; border-radius: 8px; border: 1px solid #333; color: #FFF; font-family: 'Montserrat'; font-weight: 700; font-size: 1.2em; white-space: nowrap; }
+
+    @media (max-width: 768px) {
+        thead { display: none; }
+        tr { display: block; border: 1px solid #EDECE9; border-radius: 15px; margin-bottom: 20px; padding: 15px; background: #FFF; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        td { display: block; padding: 10px 0; text-align: right; border-bottom: 1px dashed #eee; }
+        td:last-child { border-bottom: none; }
+        td::before { content: attr(data-label); font-weight: 700; color: #BBB; display: block; font-size: 0.8em; margin-bottom: 6px; text-transform: uppercase; }
+        .brand-name { font-size: 1.1em; }
+        .modal-content { width: 95%; padding: 20px; margin: 10% auto; }
+        .total-amount { font-size: 2.5em; }
+    }
+</style></head><body>
+
+<div class="container">
+    <div class="header">
+        <img src="https://storage.googleapis.com/msgsndr/GwIPQCjstTzxnzDQ1B32/media/68fddb5534bb1597bc934f89.png" class="wayso-logo">
+        <div class="brand-name">Clic Emballage</div>
+    </div>
+
+    <div class="analysis-section">
+        <div class="card-philosophy"><h2>🎯 فلسفة الاستراتيجية</h2><p>نحن نؤمن بأن كل منتج جزائري يحمل قصة نجاح تستحق أن تروى بأبهى حلة. من خلال هذه الاستراتيجية الشاملة، نضمن لعملائنا ليس فقط حماية منتجاتهم بل رفع قيمتها السوقية وبناء هوية علامة تجارية لا تُنسى. نعتبر أنفسنا شركاء استراتيجيين، ملتزمين بتحقيق أقصى عائد على استثماركم.</p></div>
+        <div class="card-why"><h2>💡 لماذا هذه الخطة؟</h2><p>بدأنا بالفيديو الشامل (V1) لخطف الانتباه وتأسيس المصداقية العميقة. تلاه الكاروسالات التعليمية والصور المركزة (C2, P3) لتثقيف العميل خطوة بخطوة حول قيمة التغليف كاستثمار وليس تكلفة، مما يقودهم بسلاسة نحو قرار الشراء وزيادة الولاء.</p></div>
+    </div>
+
+    <div class="hero"><h1>خطة الإنتاج الإبداعي</h1></div>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th style="width: 20%;">الكود والنوع</th><th style="width: 30%;">الهوك (Hook)</th><th style="width: 50%;">المحتوى</th></tr></thead>
+            <tbody><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V1</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">راك تخدم منتوج TOP... وتبيعه بسومة الرخيس على جال كرطونة؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('1')">
+                    <div class="preview-text">(صوت صاحب مشروع، نبرة متعبة ومليئة بالأسى)
+نخدم منتوج ديالي بحب، نتقن كل تفصيلة فيه... 
+بصح كي نحطو ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-1" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('1')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V1</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-1')">📋 نسخ النص</button>
+                            <div id="script-text-1" class="modal-body">(صوت صاحب مشروع، نبرة متعبة ومليئة بالأسى)<br/><br/>نخدم منتوج ديالي بحب، نتقن كل تفصيلة فيه... <br/><br/>بصح كي نحطو في كرطونة عادية... نحس قيمتو كامل طاحت.<br/><br/>كاين اللي يوصل مكسر... وكاين اللي الزبون ما يعطيهش أهمية من البداية.<br/><br/>نحس روحي نظلم في خدمتي.<br/><br/>(توقف قصير، تغيير في الموسيقى إلى نبرة أمل)<br/><br/>كنت حاسب الباكادجينغ تاع الماركات الكبار حكاية بعيدة عليا... وصعيب نوصلها.<br/><br/>حتى ليوم... وين كل شي تبدل.<br/><br/>(صوت احترافي وواثق)<br/><br/>في Clic Emballage، نآمنو بلي كل منتوج جزائري يستاهل يوصل في أبهى حلة.<br/><br/>ما نبيعولكش مجرد علبة... نقدملك سفير للعلامة التجارية تاعك.<br/><br/>تصاميم تعكس هويتك... مواد تحمي منتوجك... وتجربة ترفع من قيمتك.<br/><br/>بفضل منصتنا الرقمية، التغليف الاحترافي اللي كان حلم... اليوم راه في يدك ببضع نقرات.<br/><br/>من منتوج جيد... إلى علامة تجارية تحكي.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-1')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-1" class="modal-body">منتوجك يستاهل ما خير من مجرد كرطونة!<br/><br/>تعبت تخدم على منتوج بجودة عالية، وفي الأخير التغليف العادي يقتل قيمتو؟<br/>Clic Emballage ماشي مجرد مورد تغليف، حنا الشريك اللي يحول منتوجك لعلامة تجارية عندها هيبة في السوق. نوفرلك تغليف يحمي، يرفع من قيمتك، ويخلي الزبون ديالك يعيش تجربة فريدة.<br/>حان الوقت باش الباكادجينغ تاعك يحكي قصة نجاحك.<br/><br/>حوّل منتوجك لعلامة تجارية تحكي: اكتشف حلول Clic Emballage الآن!<br/><br/>#ClicEmballage #تغليف_احترافي #صنع_في_الجزائر #تجارة_الكترونية_الجزائر #ماركة_جزائرية #dzbusiness #algerianbrand</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[المشهد الافتتاحي - قبل]: لقطات مقربة سينمائية على منتج عالي الجودة (عطر، شوكولاتة حرفية) ثم وضعه في علبة كرتون بنية عادية. إضاءة خافتة. لقطة تالية لزبون يفتح العلبة بلامبالاة. لقطة سريعة لصورة منتج متضرر. [مرحلة التحول]: انتقال سريع. لقطة شاشة (Screen recording) سريعة وواضحة لواجهة منصة Clic Emballage، تظهر سهولة اختيار التصميم ووضع الشعار. [المشهد الختامي - بعد]: مونتاج ديناميكي وسريع. لقطات لمنتجات مختلفة في تغليف Clic Emballage الأنيق والمخصص. زبائن يفتحون العلب بلهفة وإعجاب (Unboxing Experience). إضاءة ساطعة وألوان زاهية. موسيقى ملهمة وقوية. يظهر شعار Clic Emballage في النهاية مع الـCTA. التركيز على ملمس وجودة المواد.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C2</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">تحسب الباكادجينغ خسارة؟ راك غالط، وهاي علاش!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('2')">
+                    <div class="preview-text">Slide 1: تغليف منتوجك: تكلفة إضافية ولا استثمار يرجعلك أرباح؟ الجواب هنا!
+Slide 2: المشكل: تغليف ردي...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-2" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('2')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C2</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-2')">📋 نسخ النص</button>
+                            <div id="script-text-2" class="modal-body">Slide 1: تغليف منتوجك: تكلفة إضافية ولا استثمار يرجعلك أرباح؟ الجواب هنا!<br/><br/>Slide 2: المشكل: تغليف رديء = انطباع أول سيء، قيمة متدنية للمنتج، وحتى خطر خسارة الزبون للأبد.<br/><br/>Slide 3: الحل: تغليف احترافي من Clic Emballage هو استثمار مباشر في علامتك. يبرر سعر أعلى، يبني الثقة، ويحول الزبون العادي إلى سفير لعلامتك.<br/><br/>Slide 4: الفوائد واضحة: تحمي منتوجك من التلف، ترفع قيمته في عين الزبون، وتبني ولاء يدوم طويلاً.<br/><br/>Slide 5: مستعد تبدأ تستثمر في البراند ديالك؟ ابدأ رحلة التميز مع Clic Emballage.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-2')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-2" class="modal-body">الباكادجينغ تاعك... يصرف عليك ولا يدخّلك دراهم؟<br/><br/>الكثير من أصحاب المشاريع يشوفوا التغليف كمجرد تكلفة، لكن الأذكياء منهم يشوفوه كأقوى استثمار!<br/>تغليف احترافي يعني سعر أعلى، زبون أوفى، ومنافسة أقل. في هذا الكاروسال، نكشفلك كيفاش تحول كل علبة تبيعها لأداة تسويق فعالة.<br/><br/>اكتشف كيف يحول Clic Emballage التغليف لاستثمار ذكي.<br/><br/>#استثمار_ذكي #تسويق_الجزائر #مشاريع_صغيرة #ريادة_الأعمال_الجزائر #dzentrepreneur #ClicEmballage</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم إنفوجرافيك أنيق ونظيف. استخدام أيقونات بسيطة لتمثيل كل فكرة (سهم نازل للقيمة، سهم طالع للربح، درع للحماية). الخلفية بيضاء أو بلون هادئ من ألوان العلامة. الخط واضح وسهل القراءة. في كل سلايد، يجب إبراز الكلمة المفتاحية بلون مختلف أو بحجم أكبر.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P3</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">علابالك بلي 7 من 10 زبائن مستعدين يخلصو كثر على جال باكادجينغ شباب؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('3')">
+                    <div class="preview-text">دراسة حديثة تؤكد:
+70%
+من المستهلكين على استعداد لدفع سعر أعلى مقابل منتج يأتي في تغليف فاخر....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-3" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('3')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P3</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-3')">📋 نسخ النص</button>
+                            <div id="script-text-3" class="modal-body">دراسة حديثة تؤكد:<br/><br/>70%<br/><br/>من المستهلكين على استعداد لدفع سعر أعلى مقابل منتج يأتي في تغليف فاخر.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-3')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-3" class="modal-body">الزبون مستعد يدفع أكثر... وأنت؟<br/><br/>الأرقام لا تكذب! التغليف الفاخر ليس مجرد شكل، بل هو إشارة مباشرة للجودة تبرر السعر في عقل العميل.<br/>إذا كنت تبحث عن طريقة لزيادة هامش ربحك دون تغيير المنتج، فالجواب يكمن في العلبة التي تقدمه فيها.<br/><br/>ارفع قيمة منتجك بتغليف احترافي من Clic Emballage.<br/><br/>#تسعير_المنتجات #زيادة_المبيعات #علم_النفس_التسويقي #dzmarket #algeria #ClicEmballage</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم بسيط وأنيق جداً. الخلفية بلون واحد من هوية Clic Emballage. الرقم '70%' يكتب بحجم كبير جداً وبلون مميز في وسط التصميم. النص الآخر يكتب بخط أصغر وأنيق أسفله. شعار Clic Emballage في زاوية بشكل غير مزعج.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V4</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الكولية توصل محطمة... و معاها سمعة البراند تاعك. شفت هذا الكوشمار؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('4')">
+                    <div class="preview-text">(صوت تكسر زجاج خفيف، يليه تنهيدة إحباط)
+شحال من مرة تبعث منتوج... وقلبك ياكلك؟
+تخاف يوصل مكسر... تخا...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-4" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('4')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V4</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-4')">📋 نسخ النص</button>
+                            <div id="script-text-4" class="modal-body">(صوت تكسر زجاج خفيف، يليه تنهيدة إحباط)<br/><br/>شحال من مرة تبعث منتوج... وقلبك ياكلك؟<br/><br/>تخاف يوصل مكسر... تخاف من تعليق سلبي على صفحتك... تخاف السمعة اللي بنيتها في شهور تطيح في دقيقة.<br/><br/>(صوت نقرة قوية وواثقة، تغيير الموسيقى)<br/><br/>مع Clic Emballage، هذا الخوف ينتهي.<br/><br/>تغليفنا مصمم باش يكون درع حماية لمنتوجك.<br/><br/>نوصلوا سلامة منتوجك... باش توصلك راحة البال.<br/><br/>(صوت زبون سعيد)<br/><br/>وصلني كل شي انتيك! يعطيكم الصحة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-4')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-4" class="modal-body">ما تخليش سمعة علامتك تتكسر مع كل توصيلة!<br/><br/>كل طرد ترسله هو سفير لعلامتك التجارية. إذا وصل متضرر، فالضرر أكبر من مجرد منتج، إنه ضرر مباشر لثقة العميل وسمعتك.<br/>حلول Clic Emballage المتينة تضمن وصول منتجاتك بسلام، وتحول كل عملية توصيل إلى رسالة إيجابية عن احترافيتك.<br/><br/>احمي منتجاتك وسمعة علامتك التجارية مع حلول Clic Emballage المتينة. تصفح تشكيلتنا الآن!<br/><br/>#حماية_المنتج #توصيل_الجزائر #تجارة_الكترونية #dzlogistics #reputation #ClicEmballage</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">نمط الفيديو UGC (محتوى من إنشاء المستخدم) أو testimonial. يبدأ بلقطة من وجهة نظر الزبون وهو يفتح علبة متضررة ويجد المنتج بالداخل مكسوراً (محاكاة). تعابير وجهه تدل على الإحباط. انتقال سريع (Whip pan) إلى مشهد عامل توصيل يتعامل مع طرد Clic Emballage (يسقط منه بالخطأ مثلاً). ثم لقطة للزبون وهو يفتح نفس الطرد ليجد المنتج سليماً 100%. ابتسامة رضى واسعة. التصوير بأسلوب واقعي، كأنه مصور بالهاتف، لزيادة المصداقية.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C5</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">راك تخسر في دراهم و زبائن على جال الباكادجينغ، و بالاك ماكش فايق!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('5')">
+                    <div class="preview-text">Slide 1: شكوى زبون واحد بسبب التوصيل... تقدر تخسرك مئة زبون محتمل!
+Slide 2: تهييج المشكلة: باكادجينغ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-5" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('5')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C5</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-5')">📋 نسخ النص</button>
+                            <div id="script-text-5" class="modal-body">Slide 1: شكوى زبون واحد بسبب التوصيل... تقدر تخسرك مئة زبون محتمل!<br/><br/>Slide 2: تهييج المشكلة: باكادجينغ ضعيف = منتجات مدمرة + تعليقات سلبية + سمعة في خطر + تكاليف إرجاع = خسارة صافية.<br/><br/>Slide 3: الحل: تغليف Clic Emballage المتين. هو ضمان لوصول منتجاتك بأمان، وتأمين لبناء ولاء لا يهتز وثقة تدوم.<br/><br/>Slide 4: لا تساوم على حماية منتجك وسمعتك. استثمر في الحل الصحيح اليوم!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-5')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-5" class="modal-body">التكلفة الحقيقية للتغليف الرديء... أغلى مما تتصور!<br/><br/>الأمر لا يتعلق فقط بسعر المنتج الذي تم إرجاعه. يتعلق الأمر بالزبائن الذين لن يشتروا منك أبداً بعد رؤية مراجعة سلبية واحدة.<br/>التغليف القوي ليس خياراً، بل هو ضرورة لحماية استثمارك وسمعتك. اكتشف كيف نساعدك على بناء جدار من الثقة مع كل طلبية.<br/><br/>اكتشف حلول Clic Emballage لحماية لا مثيل لها.<br/><br/>#ولاء_العملاء #سمعة_العلامة_التجارية #dzbrand #ecommerce #customerloyalty #ClicEmballage</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم درامي. استخدام ألوان داكنة في السلايد الثاني الذي يصف المشكلة (Agitate)، مع أيقونات تمثل (منتج مكسور، وجه غاضب). ثم العودة لألوان العلامة المشرقة في سلايد الحل (Solution) مع أيقونات تمثل (درع، قلب، نجمة). التباين البصري يخدم الرسالة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P6</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الحل بسيط... بصح 90% من المنافسين يتجاهلوه!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('6')">
+                    <div class="preview-text">هل تعلم؟
+90% من عمليات إرجاع المنتجات في التجارة الإلكترونية سببها تلف المنتج أثناء الشحن.
+الحل؟ تغل...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-6" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('6')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P6</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-6')">📋 نسخ النص</button>
+                            <div id="script-text-6" class="modal-body">هل تعلم؟<br/><br/>90% من عمليات إرجاع المنتجات في التجارة الإلكترونية سببها تلف المنتج أثناء الشحن.<br/><br/>الحل؟ تغليف أقوى.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-6')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-6" class="modal-body">أكبر سبب لخسارتك في التجارة الإلكترونية... وحلّه.<br/><br/>9 من كل 10 عمليات إرجاع كان يمكن تجنبها بسهولة. قبل أن تستثمر أكثر في الإعلانات، استثمر في ضمان وصول منتجك سليماً.<br/>تغليف Clic Emballage القوي هو أسهل طريقة لتقليل نسبة الإرجاع وزيادة صافي أرباحك.<br/><br/>قلل نسبة الإرجاع مع تغليف Clic Emballage القوي.<br/><br/>#تجارة_الكترونية_الجزائر #نصائح_تجارة #dzbusiness #ecommerce_tips #ClicEmballage</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم إنفوجرافيك مباشر. التركيز على الرقم '90%' الذي يكون كبيراً وواضحاً. استخدام أيقونة لشاحنة توصيل بجانبها علامة تعجب أو أيقونة منتج مكسور لإيصال الفكرة بسرعة. النص يكون مختصراً ومباشراً.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V7</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كنت حاسب الباكادجينغ تاع الماركات حكر على الشركات الكبار؟ فكّر مرة أخرى.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('7')">
+                    <div class="preview-text">(صوت 1 - قبل)
+باش دير باكادجينغ مخصص... لازم تتصل بمطبعة، وتستنى، والأسعار غالية، ويشرطو عليك كميات ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-7" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('7')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V7</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-7')">📋 نسخ النص</button>
+                            <div id="script-text-7" class="modal-body">(صوت 1 - قبل)<br/><br/>باش دير باكادجينغ مخصص... لازم تتصل بمطبعة، وتستنى، والأسعار غالية، ويشرطو عليك كميات كبيرة... حكاية طويلة.<br/><br/>(صوت 2 - بعد، مع موسيقى عصرية)<br/><br/>مع Clic Emballage، الحكاية تبدلت.<br/><br/>ادخل لمنصتنا... اختار تصميمك... حط اللوغو تاعك... حدد الكمية اللي تحتاجها... واطلب.<br/><br/>بكل سهولة... وبدون تعقيدات.<br/><br/>التغليف الاحترافي اللي كان حلم... اليوم راه بين يديك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-7')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-7" class="modal-body">أخيراً... تغليف الماركات العالمية في متناول المشاريع الجزائرية!<br/><br/>طالما كان الحصول على تغليف مخصص عملية معقدة ومكلفة ومحصورة على الشركات الكبرى. لقد كسرنا هذه القاعدة.<br/>منصتنا الرقمية المبتكرة تمنحك القدرة على تصميم وطلب تغليف احترافي خاص بعلامتك التجارية، بكميات تناسبك، وبأسعار معقولة. حان الوقت لتنافس الكبار!<br/><br/>صمم تغليفك الخاص بسهولة واحترافية مع منصة Clic Emballage الرقمية. ابدأ الآن!<br/><br/>#تكنولوجيا #ابتكار_جزائري #ديجيتال #dztech #madeindz #ClicEmballage</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو Motion Graphics سريع. يبدأ بمشهد يعرض 'الطريقة القديمة': أيقونات هاتف، تقويم، علامة دولار، مصنع كبير (تمثل التعقيد والكميات الكبيرة). ثم انتقال سريع لمشهد 'الطريقة الجديدة': لقطة شاشة متحركة (Animated Screen Recording) لواجهة Clic Emballage وهي تستخدم بسهولة. تظهر الخطوات بوضوح: اختيار، تخصيص، طلب. النهاية بعرض مجموعة من التغليفات المخصصة لمشاريع صغيرة مختلفة. الرسوم تكون بسيطة وأنيقة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C8</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">شحال يلزمك وقت باش تصمم باكادجينغ أحلامك؟ الجواب: أقل من 5 دقائق.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('8')">
+                    <div class="preview-text">Slide 1: تغليف احترافي، مصمم خصيصاً لك... في 3 خطوات سهلة فقط!
+Slide 2: الخطوة 1: اختر. تصفح تشكيلتن...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-8" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('8')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C8</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-8')">📋 نسخ النص</button>
+                            <div id="script-text-8" class="modal-body">Slide 1: تغليف احترافي، مصمم خصيصاً لك... في 3 خطوات سهلة فقط!<br/><br/>Slide 2: الخطوة 1: اختر. تصفح تشكيلتنا الواسعة من التصاميم الجاهزة أو حمّل شعارك وتصميمك الخاص مباشرة على منصتنا.<br/><br/>Slide 3: الخطوة 2: خصّص. حدد الأبعاد، النوع، والكمية التي تناسب احتياجاتك. لا للكميات الضخمة المفروضة!<br/><br/>Slide 4: الخطوة 3: أطلب. قم بتأكيد طلبك عبر الإنترنت بكل أمان، ونحن نتكفل بالباقي حتى يصلك إلى باب محلك.<br/><br/>Slide 5: التصميم الاحترافي لم يكن يوماً بهذه السهولة. جرّب منصة Clic Emballage الآن!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-8')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-8" class="modal-body">دليلك لتصميم تغليف احترافي في دقائق!<br/><br/>هل تعتقد أن عملية تخصيص التغليف معقدة؟ ليس بعد الآن!<br/>لقد بسّطنا العملية بأكملها في ثلاث خطوات سريعة على منصتنا الرقمية. من الفكرة إلى التنفيذ، Clic Emballage معك لجعل علامتك التجارية تتألق. اتبع الدليل واكتشف بنفسك!<br/><br/>اكتشف سهولة تخصيص التغليف الرقمي مع Clic Emballage.<br/><br/>#سهل_وسريع #دليل_عملي #تجربة_المستخدم #dzstartup #algerianstartup #ClicEmballage</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">كاروسال تعليمي (Step-by-step guide). كل سلايد يمثل خطوة. استخدام لقطات شاشة (Screenshots) حقيقية من المنصة لتوضيح كل خطوة. استخدام أرقام كبيرة (1, 2, 3) لتسهيل المتابعة. التصميم يجب أن يكون نظيفاً ومركّزاً على إظهار سهولة الاستخدام.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P9</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">تغليف ماركة، بكمية صغيرة، وبسعر معقول. حسبتها مستحيل؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('9')">
+                    <div class="preview-text">المستحيل... أصبح ممكناً.
+تغليف احترافي.
+كميات صغيرة.
+أسعار معقولة.
+Clic Emballage...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-9" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('9')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P9</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-9')">📋 نسخ النص</button>
+                            <div id="script-text-9" class="modal-body">المستحيل... أصبح ممكناً.<br/><br/>تغليف احترافي.<br/><br/>كميات صغيرة.<br/><br/>أسعار معقولة.<br/><br/>Clic Emballage</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-9')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-9" class="modal-body">لقد حطمنا كل الحواجز التي كانت تمنعك!<br/><br/>الحاجة لكميات ضخمة؟ ألغيناها. الأسعار المبالغ فيها؟ تفاوضنا عليها. التعقيدات التقنية؟ بسطناها.<br/>مهمتنا في Clic Emballage هي تمكين كل مشروع طموح في الجزائر من الحصول على التغليف الذي يستحقه. لا مزيد من الأعذار، حان وقت التألق.<br/><br/>Clic Emballage: كسرنا كل الحواجز باش توصل لتغليفك الخاص!<br/><br/>#تمكين_المشاريع #حلول_ذكية #dzpower #algerian_dream #ClicEmballage</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم يعتمد على الطباعة (Typography). كتابة الكلمات الثلاث 'احترافي'، 'صغيرة'، 'معقولة' بشكل بارز، وكل كلمة بجانبها علامة صح (✓). استخدام خط عصري وأنيق. الخلفية تكون بسيطة لتركيز الانتباه على النص. شعار Clic Emballage يكون في الأسفل كأنه 'ختم' على هذا الوعد.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V10</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الباكادجينغ تاعك... مجرد مصروف ولا آلة تسويق تجيبلك دراهم؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('10')">
+                    <div class="preview-text">(صوت 1 - مشكلة)
+كل شهر، نخصص ميزانية للباكادجينغ... ونشوفها مجرد مصروف يروح وما يرجعش.
+(صوت 2 - تهيي...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-10" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('10')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V10</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-10')">📋 نسخ النص</button>
+                            <div id="script-text-10" class="modal-body">(صوت 1 - مشكلة)<br/><br/>كل شهر، نخصص ميزانية للباكادجينغ... ونشوفها مجرد مصروف يروح وما يرجعش.<br/><br/>(صوت 2 - تهييج)<br/><br/>بصح واش لو كان هذا المصروف... يقدر يرجعلك أضعاف؟<br/><br/>واش لو كان كل علبة تبيعها... تجيبلك زبون جديد؟<br/><br/>(صوت 3 - حل، مع موسيقى حماسية)<br/><br/>هذه هي قوة Clic Emballage. نحول التغليف من تكلفة... إلى استثمار مربح.<br/><br/>الزبون لا يشتري المنتج فقط، بل يشتري تجربة كاملة. يشاركها على مواقع التواصل، ويتحدث عنها.<br/><br/>تغليفك يصبح أفضل بائع صامت لديك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-10')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-10" class="modal-body">حوّل أكبر تكاليفك إلى أفضل استثماراتك!<br/><br/>توقف عن رؤية التغليف كمصروف إجباري. مع الاستراتيجية الصحيحة، يمكن أن يصبح أقوى أداة تسويقية لديك، تعمل 24/7 لصالحك.<br/>نحن في Clic Emballage نساعدك على تصميم تغليف لا يقتصر على الحماية، بل يبني علامتك التجارية ويزيد من أرباحك بشكل مباشر.<br/><br/>اكتشف كيف يحول Clic Emballage تغليفك لآلة تسويق وربح. احصل على استشارتك المجانية اليوم!<br/><br/>#ROI #عائد_على_الاستثمار #تسويق_فعال #businessgrowth #dzconsulting #ClicEmballage</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو دراسة حالة متحركة (Animated Case Study). يبدأ برسم بياني بسيط يظهر 'التكلفة' كسهم أحمر متجه للأسفل. ثم تظهر علبة Clic Emballage، ومنها تخرج أسهم خضراء متجهة للأعلى تمثل 'زيادة المبيعات'، 'ولاء العملاء'، 'التسويق المجاني (UGC)'. يمكن عرض شهادة مكتوبة من عميل حقيقي تظهر على الشاشة. الرسوم تكون واضحة وموجهة لأصحاب المشاريع.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C11</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">في سوق معمر بالمنافسين، كيفاش تخلي منتوجك يصيح 'أنا هنا ومختلف'؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('11')">
+                    <div class="preview-text">Slide 1: منتوجك رائع... لكن في رف المحل أو في فيد الأنستغرام، يبدو تماماً مثل المنافسين!
+Slide 2: ال...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-11" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('11')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C11</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-11')">📋 نسخ النص</button>
+                            <div id="script-text-11" class="modal-body">Slide 1: منتوجك رائع... لكن في رف المحل أو في فيد الأنستغرام، يبدو تماماً مثل المنافسين!<br/><br/>Slide 2: المشكلة: عندما تتشابه المنتجات، يصبح السعر هو العامل الوحيد للمنافسة. وهذا سباق نحو الخسارة.<br/><br/>Slide 3: الحل: تغليف Clic Emballage يمنحك هوية بصرية فريدة. هو أول ما يراه العميل، وأقوى فرصة لتقول 'نحن مختلفون، نحن أفضل'.<br/><br/>Slide 4: لا تكن مجرد نسخة أخرى. تميز، ارفع قيمتك، وافرض مكانتك في السوق. ابدأ في بناء هويتك البصرية الآن.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-11')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-11" class="modal-body">لا تدع منتجك الرائع يضيع وسط الزحام!<br/><br/>الجودة وحدها لا تكفي للتميز في سوق مزدحم. أنت بحاجة إلى هوية بصرية قوية تخطف الأنظار وتُرسخ علامتك في ذهن العميل.<br/>التغليف هو خط دفاعك الأول وهجومك الأقوى. اجعله يعمل لصالحك.<br/><br/>اطلب عينة تغليفك المخصص من Clic Emballage اليوم!<br/><br/>#تميز_عن_المنافسين #هوية_بصرية #استراتيجية_تسويق #dzmarket #competitiveedge #ClicEmballage</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم بصري قوي. السلايد الأول يعرض شبكة صور (Grid) لمنتجات متشابهة جداً في تغليف عادي. في السلايد الثالث، نفس الشبكة لكن منتج واحد في الوسط يظهر بتغليف Clic Emballage ملون وجذاب، 'يقفز' من الشاشة. هذا التباين البصري يوصل الفكرة فوراً.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P12</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">أفضل مسوّق لعلامتك التجارية... ممكن يكون صامت.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('12')">
+                    <div class="preview-text">"منذ أن بدأت استخدام تغليف Clic Emballage، زادت مبيعاتي بنسبة 30% دون تغيير أي شيء آخر. التغليف يبيع...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-12" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('12')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P12</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-12')">📋 نسخ النص</button>
+                            <div id="script-text-12" class="modal-body">"منذ أن بدأت استخدام تغليف Clic Emballage، زادت مبيعاتي بنسبة 30% دون تغيير أي شيء آخر. التغليف يبيع نفسه."<br/><br/>- صاحب مشروع (عميلنا)</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-12')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-12" class="modal-body">زيادة في المبيعات بـ 30%... والسبب؟ علبة!<br/><br/>هذه ليست مجرد أرقام، هذه شهادة حقيقية من أحد عملائنا الذين فهموا قوة 'التسويق الصامت'.<br/>عندما يكون تغليفك احترافياً، فإنه يتحدث مباشرة إلى العميل، يبني الثقة، ويشجع على قرار الشراء. ما هي القصة التي يرويها تغليفك الحالي؟<br/><br/>اجعل تغليفك أفضل مسوّق لك. اتصل بنا!<br/><br/>#شهادة_عميل #قصص_نجاح #زيادة_المبيعات #dzsuccess #testimonial #ClicEmballage</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم على شكل اقتباس (Quote). النص يوضع بين علامتي تنصيص كبيرتين وأنيقتين " ". اسم 'Clic Emballage' يمكن تمييزه بلون العلامة التجارية. التصميم يوحي بالثقة والمصداقية، كأنه من مجلة أعمال راقية.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V13</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">مول مطعم؟ ها كيفاش تخلي بنّة ماكلتك توصل حتى لباب دار الزبون.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('13')">
+                    <div class="preview-text">(مشاهد سريعة لمأكولات شهية تُطهى في مطبخ احترافي)
+(صوت نادل أو صاحب مطعم)
+كل طبق نخرجه من مطبخنا... ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-13" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('13')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V13</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-13')">📋 نسخ النص</button>
+                            <div id="script-text-13" class="modal-body">(مشاهد سريعة لمأكولات شهية تُطهى في مطبخ احترافي)<br/><br/>(صوت نادل أو صاحب مطعم)<br/><br/>كل طبق نخرجه من مطبخنا... هو قطعة من فننا.<br/><br/>بصح كي يخرج في توصيلة... التحدي يبدأ.<br/><br/>هل سيبقى ساخناً؟ هل سيحافظ على شكله؟ هل سيمنح الزبون نفس التجربة؟<br/><br/>(انتقال لمشاهد تعرض حلول تغليف HORECA من Clic Emballage)<br/><br/>لهذا السبب، اخترنا حلول Clic Emballage.<br/><br/>تغليف يحافظ على الحرارة... يمنع التسرب... ويقدم أطباقنا بنفس الأناقة والجودة، كأن الزبون جالس في مطعمنا.<br/><br/>نحن لا نبيع الطعام فقط... نبيع تجربة 5 نجوم، حتى في التوصيل.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-13')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-13" class="modal-body">عندك مطعم أو مقهى؟ لا تبع وجبات، بل بِع تجارب!<br/><br/>تجربة العميل لا تنتهي عند باب مطعمك، بل تمتد إلى منزله مع كل طلبية توصيل. تغليف رديء يمكن أن يدمر أفضل الأطباق.<br/>مجموعتنا المخصصة لقطاع المطاعم والمقاهي (HORECA) مصممة للحفاظ على جودة طعامك وتقديم علامتك التجارية بأفضل صورة. لأن كل تفصيل مهم.<br/><br/>ارفع مستوى تجربة زبائن مطعمك مع تغليف Clic Emballage الاحترافي. اكتشف مجموعتنا الخاصة بـ HORECA!<br/><br/>#horeca_algeria #مطاعم_الجزائر #مقاهي_الجزائر #توصيل_طعام #dzfood #ClicEmballage</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو سينمائي وأنيق. لقطات مقربة (Close-ups) وبطيئة (Slow-motion) لأطباق شهية (بيتزا، برجر، قهوة). ثم لقطات لعملية التغليف في علب Clic Emballage المخصصة للمطاعم (HORECA). التركيز على الميزات: عزل الحرارة، التصميم الأنيق. يمكن إنهاء الفيديو بلقطة لزبون في منزله يفتح العلبة والبخار لا يزال يتصاعد من الطعام، مع ابتسامة رضى.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C14</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الماكلة توصل باردة؟ الشكل يتخرب؟ الحل في الباكادجينغ الصح.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('14')">
+                    <div class="preview-text">Slide 1: تغليف Clic Emballage: باش الماكلة ديالك توصل سخونة، بنينة، وشابة!
+Slide 2: نعرض منتجاتنا: ع...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-14" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('14')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C14</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-14')">📋 نسخ النص</button>
+                            <div id="script-text-14" class="modal-body">Slide 1: تغليف Clic Emballage: باش الماكلة ديالك توصل سخونة، بنينة، وشابة!<br/><br/>Slide 2: نعرض منتجاتنا: علب بيتزا تحافظ على الحرارة، أغلفة ساندويتش أنيقة، أكواب قهوة معزولة... كل ما يحتاجه مطعمك بتصاميم تعكس علامتك.<br/><br/>Slide 3: الفائدة المزدوجة: يحافظ على جودة وحرارة الطعام، يمنع التسرب، ويعكس احترافية وجودة مطعمك من النظرة الأولى.<br/><br/>Slide 4: جاهز لتقديم تجربة توصيل لا تُنسى؟ استكشف حلول HORECA من Clic Emballage.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-14')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-14" class="modal-body">لكل طبق... تغليفه الخاص!<br/><br/>لا يمكنك استخدام نفس التغليف لكل شيء. البيتزا تحتاج إلى الحفاظ على حرارتها، والسلطة تحتاج إلى الحفاظ على برودتها. <br/>في Clic Emballage، لدينا حلول تغليف متخصصة لكل نوع من المأكولات والمشروبات، مصممة لضمان أفضل تجربة لزبائنك.<br/><br/>احصل على استشارتك المجانية لباكادجينغ مطعمك!<br/><br/>#تغليف_طعام #تجهيزات_مطاعم #dzrestaurant #algerianfood #ClicEmballage</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">كاروسال يعرض المنتجات (Product Showcase). كل سلايد يعرض صورة عالية الجودة لأحد أنواع التغليف (علبة بيتزا، علبة برجر...). النص يكون موجزاً ويركز على الفائدة المباشرة لكل منتج. استخدام أيقونات صغيرة (ترمومتر للحرارة، قطرة ماء مشطوبة لعدم التسرب).</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P15</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">خلي الزبون يحس روحو في مطعم 5 نجوم... وهو في صالون دارو.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('15')">
+                    <div class="preview-text">حوّل كل طلبية توصيل... إلى تجربة مطعم فاخرة.
+مع تغليف HORECA من Clic Emballage....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-15" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('15')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P15</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-15')">📋 نسخ النص</button>
+                            <div id="script-text-15" class="modal-body">حوّل كل طلبية توصيل... إلى تجربة مطعم فاخرة.<br/><br/>مع تغليف HORECA من Clic Emballage.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-15')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-15" class="modal-body">تجربة الـ 5 نجوم... تصل إلى باب المنزل.<br/><br/>الأناقة لا تقتصر على ديكور مطعمك. مع حلول التغليف الصحيحة، يمكنك نقل هذه التجربة الفاخرة إلى كل زبون، أينما كان.<br/>نقدم لك فرصة لتجربة حلولنا بنفسك.<br/><br/>اطلب عينات مجانية لباكادجينغ مطعمك!<br/><br/>#تجربة_فاخرة #توصيل_مميز #مطاعم_فاخرة #dzluxury #finediningathome #ClicEmballage</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">صورة عالية الجودة (Lifestyle) تظهر طاولة طعام أنيقة في منزل، وعليها أطباق موضوعة بشكل جميل داخل تغليف Clic Emballage المفتوح. الصورة توحي بالأناقة والراحة. النص يكتب بخط فخم وأنيق فوق الصورة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V16</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الزبون تاعك في E-commerce ما يشوفكش... بصح لازم يحس بيك. كيفاش؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('16')">
+                    <div class="preview-text">(مشهد لزبون يفتح طرداً عادياً بسرعة وبرود، يخرج المنتج ويرمي العلبة جانباً)
+(صوت خبير تسويق)
+في التج...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-16" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('16')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V16</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-16')">📋 نسخ النص</button>
+                            <div id="script-text-16" class="modal-body">(مشهد لزبون يفتح طرداً عادياً بسرعة وبرود، يخرج المنتج ويرمي العلبة جانباً)<br/><br/>(صوت خبير تسويق)<br/><br/>في التجارة الإلكترونية، أول اتصال جسدي بينك وبين عميلك... هو لحظة فتح الصندوق.<br/><br/>إذا كانت تجربة عادية... ستُنسى علامتك التجارية في ثوانٍ.<br/><br/>(انتقال لمشهد آخر: مؤثر أو زبون يصور 'Unboxing' لتغليف Clic Emballage أنيق)<br/><br/>لكن إذا كانت تجربة فريدة... أنيقة... ومدروسة...<br/><br/>(صوت الزبون بلهفة)<br/><br/>واو! شوفو الباكادجينغ شحال شباب!<br/><br/>(صوت الخبير)<br/><br/>...فأنت لا تبيع منتجاً فقط، بل تبني علاقة. تبني ولاء. وتحول عميلك إلى مسوق مجاني لعلامتك.<br/><br/>هذه هي قوة الـ Unboxing Experience.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-16')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-16" class="modal-body">لحظة واحدة... تحدد ما إذا كان عميلك سيعود مرة أخرى أم لا.<br/><br/>في التجارة الإلكترونية، تجربة فتح الصندوق (Unboxing) هي فرصتك الذهبية لترك انطباع لا يُنسى وبناء ولاء حقيقي.<br/>تغليف عادي = معاملة عادية. تغليف استثنائي = علاقة استثنائية.<br/>نحن نساعدك على تصميم تلك اللحظة الحاسمة.<br/><br/>ابنِ ولاء زبائنك وعزز علامتك التجارية مع حلول تغليف Clic Emballage المخصصة للتجارة الإلكترونية. تصفح الآن!<br/><br/>#unboxing_dz #تجربة_العميل #تجارة_الكترونية_الجزائر #dz_ecommerce #fidelisation_client #ClicEmballage</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو بأسلوب UGC أو Influencer Unboxing. المقارنة بين تجربتين: الأولى مملة وسريعة مع تغليف عادي. الثانية مثيرة ومصورة بعناية مع تغليف Clic Emballage، حيث يستعرض الزبون تفاصيل العلبة، الورق الداخلي، بطاقة الشكر... الخ. التركيز على ردة فعل الزبون الإيجابية. استخدام موسيقى تريندي وشبابية.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C17</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كيف تخلي زبون الـ E-commerce يتفكرك بعد ما يفتح الكولية؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('17')">
+                    <div class="preview-text">Slide 1: في التجارة الإلكترونية، الانطباع الأول هو كل شيء... وهو يبدأ من هنا!
+Slide 2: المشكلة: تغلي...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-17" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('17')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C17</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-17')">📋 نسخ النص</button>
+                            <div id="script-text-17" class="modal-body">Slide 1: في التجارة الإلكترونية، الانطباع الأول هو كل شيء... وهو يبدأ من هنا!<br/><br/>Slide 2: المشكلة: تغليف عادي = تجربة عادية ومملة. النتيجة؟ زبون ينسى اسم متجرك بمجرد حصوله على المنتج.<br/><br/>Slide 3: الحل: تغليف Clic Emballage المصمم خصيصاً للتجارة الإلكترونية. يحمي المنتج، يجذب الانتباه، ويحول لحظة بسيطة إلى تجربة لا تُنسى تبني الولاء.<br/><br/>Slide 4: لا تبع منتجاً فقط، بل ابعث هدية. ارفع قيمة طلبياتك الإلكترونية مع Clic Emballage.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-17')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-17" class="modal-body">اجعل كل عملية Unboxing... إعلانًا مجانيًا لمتجerk!<br/><br/>لماذا تكتفي بتوصيل منتج بينما يمكنك توصيل تجربة كاملة؟ عملائك اليوم يشاركون كل شيء عبر الإنترنت. امنحهم شيئًا جميلاً يستحق المشاركة!<br/>اكتشف كيف يمكن لحلولنا أن تحول عملية فتح الصندوق إلى أقوى أداة تسويق لديك.<br/><br/>اكتشف حلول التغليف المبتكرة لمتجرك الإلكتروني.<br/><br/>#متجر_الكتروني #تسويق_بالمحتوى #dzstore #algerianshoppers #ClicEmballage</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم يركز على المشاعر. السلايد الثاني يستخدم ألواناً باهتة ووجهاً تعبيرياً محايداً. السلايد الثالث يستخدم ألواناً زاهية وصورة يدين تفتحان علبة أنيقة مع قصاصات ورقية ملونة (Confetti) تتطاير، ووجه تعبيري مبتسم. التباين يعكس الفرق في تجربة العميل.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P18</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">أسهل طريقة تزيد بيها ولاء زبائنك بـ 40%... بلا ما تصرف على الإشهار.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('18')">
+                    <div class="preview-text">حقيقة مثبتة:
+تجربة فتح الصندوق الفاخرة (Premium Unboxing) تزيد من احتمالية إعادة الشراء وولاء العميل...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-18" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('18')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P18</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-18')">📋 نسخ النص</button>
+                            <div id="script-text-18" class="modal-body">حقيقة مثبتة:<br/><br/>تجربة فتح الصندوق الفاخرة (Premium Unboxing) تزيد من احتمالية إعادة الشراء وولاء العميل بنسبة 40%.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-18')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-18" class="modal-body">40% من ولائهم... مخبأ داخل الصندوق!<br/><br/>الاستثمار في تجربة العميل ليس رفاهية، بل هو استراتيجية نمو مثبتة. قبل زيادة ميزانية إعلاناتك لجذب عملاء جدد، تأكد من أنك تفعل كل ما يلزم للاحتفاظ بعملائك الحاليين.<br/>الأمر يبدأ بالصندوق الذي ترسله.<br/><br/>اجعل كل عملية شراء من متجerk الإلكتروني لا تُنسى مع Clic Emballage.<br/><br/>#customer_retention #ولاء_العميل #استراتيجية_نمو #dzbusinessgrowth #ecommerce_strategy #ClicEmballage</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم يشبه P6 و P3. التركيز على الرقم '40%' والإحصائية. يمكن استخدام أيقونة عربة تسوق مع علامة زائد (+) أو أيقونة قلب لتمثيل الولاء. التصميم يجب أن يكون نظيفاً ومقنعاً، ويبرز المعلومة كحقيقة علمية.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr></tbody></table></div>
+
+    <div class="disclaimer-card">
+        <span style="font-size: 1.2em;">⚠️</span>
+        <span>قد تخضع هذه الاستراتيجية لبعض التعديلات والتحسينات، حسب المواد الإعلامية المتوفرة أو لغرض تحقيق أفضل النتائج.</span>
+    </div>
+
+    <div class="summary-box">
+        <span style="font-weight: 700; color: #FFD700;">الميزانية الإجمالية المعتمدة</span>
+        <span class="total-amount">118000 دج</span>
+        <a href="https://wa.me/213770820431" class="cta-btn">تواصل معنا للاعتماد</a>
+        <div style="border: 1px dashed #FFD700; padding: 25px; border-radius: 15px; margin-top: 20px;">
+            <h3 style="color:#FFD700; margin:0;">الخطوة التالية</h3>
+            <p style="margin:10px 0;">مكالمة قصيرة لنكيّف هذه الاستراتيجية حسب مشروعك ونبدأ العمل فوراً.</p>
+            <div class="phones-list">
+                <div class="phone-item">0770 82 04 31</div>
+                <div class="phone-item">0770 55 01 51</div>
+                <div class="phone-item">0770 82 01 45</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+function openModal(id) { document.getElementById('modal-' + id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
+function closeModal(id) { document.getElementById('modal-' + id).style.display = 'none'; document.body.style.overflow = 'auto'; }
+window.onclick = function(event) { if (event.target.className === 'modal') { event.target.style.display = 'none'; document.body.style.overflow = 'auto'; } }
+
+// وظيفة النسخ الجديدة
+function copyToClipboard(elementId) {
+    const el = document.getElementById(elementId);
+    const text = el.innerText || el.textContent; // نسخ النص بدون HTML tags
+    navigator.clipboard.writeText(text).then(() => {
+        alert("تم نسخ النص بنجاح! ✅");
+    }).catch(err => {
+        console.error('Failed to copy', err);
+    });
+}
+</script></body></html>
