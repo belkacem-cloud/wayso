@@ -1,0 +1,797 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Alloui Strategy</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+<style>
+    body { background: #FFFFFF; color: #1A1A1A; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; line-height: 1.6; overflow-x: hidden; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 15px; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 2px solid #000; }
+    .wayso-logo { height: 45px; }
+    .brand-name { font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 1.4em; color: #000; text-transform: uppercase; border-right: 4px solid #FFD700; padding-right: 12px; }
+    
+    .analysis-section { margin: 30px 0; }
+    .card-philosophy { padding: 30px; border-radius: 20px; background: #000; color: #FFF; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+    .card-philosophy h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #FFD700; }
+    
+    .card-why { padding: 30px; border-radius: 20px; background: #F9F9F9; color: #333; margin-bottom: 20px; border: 1px solid #EDECE9; }
+    .card-why h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #000; display: flex; align-items: center; gap: 10px; }
+    .card-why h2::after { content: ''; flex-grow: 1; height: 1px; background: #EDECE9; margin-right: 15px; }
+
+    .hero { margin: 35px 0 20px 0; border-right: 6px solid #FFD700; padding-right: 15px; }
+    .hero h1 { font-size: 2.5em; font-weight: 700; margin: 0; }
+    .table-wrapper { margin-top: 25px; border-radius: 12px; overflow: hidden; border: 1px solid #EDECE9; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #000; color: #FFF; padding: 15px; text-align: right; font-size: 0.95em; }
+    td { padding: 20px 12px; border-bottom: 1px solid #EDECE9; vertical-align: top; }
+    
+    .code-badge { font-family: 'Montserrat', sans-serif; font-weight: 700; background: #FFD700; color: #000; padding: 5px 12px; border-radius: 6px; font-size: 1.1em; display: inline-block; margin-bottom: 5px; }
+    .type-label { display: block; font-weight: 700; color: #555; font-size: 0.95em; }
+    
+    .hook-pill { background: #000; color: #FFD700; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 1.1em; display: block; border-right: 5px solid #FFD700; }
+    
+    /* تحسين زر المودال */
+    .script-trigger { background: #F8F9FA; border: 1px solid #EDECE9; padding: 15px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; position: relative; }
+    .script-trigger:hover { background: #FFF; border-color: #FFD700; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transform: translateY(-2px); }
+    
+    .preview-text { font-size: 0.95em; color: #333; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; white-space: pre-wrap; }
+    
+    /* ستايل المودال */
+    .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); }
+    .modal-content { background: #FFF; margin: 5% auto; padding: 30px; border-radius: 20px; width: 90%; max-width: 750px; position: relative; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+    .close-modal { position: absolute; top: 20px; left: 20px; font-size: 30px; cursor: pointer; color: #999; line-height: 1; transition: color 0.2s; }
+    .close-modal:hover { color: #000; }
+    
+    .modal-section { margin-bottom: 25px; padding: 20px; border-radius: 12px; background: #fbfbfa; border: 1px solid #eee; position: relative; }
+    
+    /* زر النسخ */
+    .copy-btn { position: absolute; top: 10px; left: 10px; background: #fff; border: 1px solid #ddd; padding: 5px 10px; border-radius: 6px; cursor: pointer; font-size: 0.8em; font-weight: bold; color: #555; display: flex; align-items: center; gap: 5px; transition: all 0.2s; }
+    .copy-btn:hover { border-color: #FFD700; color: #000; background: #FFD70020; }
+    .copy-btn:active { transform: scale(0.95); }
+    
+    .modal-body { font-size: 1.15em; color: #1A1A1A; line-height: 1.9; word-wrap: break-word; white-space: pre-wrap; }
+    
+    .disclaimer-card { margin: 25px 0; padding: 20px; background: #FFF9E6; border-radius: 12px; border-right: 5px solid #FFC107; font-size: 1.05em; color: #856404; display: flex; align-items: center; gap: 12px; }
+    .summary-box { margin-top: 50px; background: #000; color: #FFF; padding: 40px 20px; border-radius: 25px; text-align: center; }
+    .total-amount { font-family: 'Montserrat'; font-size: 3.5em; font-weight: 700; display: block; color: #FFD700; margin: 10px 0; }
+    .cta-btn { display: inline-block; background: #FFD700; color: #000; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.2em; margin-bottom: 25px; transition: transform 0.2s; }
+    .cta-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px #FFD70060; }
+    
+    .phones-list { margin-top: 15px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; direction: ltr; } 
+    .phone-item { background: #1A1A1A; padding: 8px 15px; border-radius: 8px; border: 1px solid #333; color: #FFF; font-family: 'Montserrat'; font-weight: 700; font-size: 1.2em; white-space: nowrap; }
+
+    @media (max-width: 768px) {
+        thead { display: none; }
+        tr { display: block; border: 1px solid #EDECE9; border-radius: 15px; margin-bottom: 20px; padding: 15px; background: #FFF; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        td { display: block; padding: 10px 0; text-align: right; border-bottom: 1px dashed #eee; }
+        td:last-child { border-bottom: none; }
+        td::before { content: attr(data-label); font-weight: 700; color: #BBB; display: block; font-size: 0.8em; margin-bottom: 6px; text-transform: uppercase; }
+        .brand-name { font-size: 1.1em; }
+        .modal-content { width: 95%; padding: 20px; margin: 10% auto; }
+        .total-amount { font-size: 2.5em; }
+    }
+</style></head><body>
+
+<div class="container">
+    <div class="header">
+        <img src="https://storage.googleapis.com/msgsndr/GwIPQCjstTzxnzDQ1B32/media/68fddb5534bb1597bc934f89.png" class="wayso-logo">
+        <div class="brand-name">Alloui</div>
+    </div>
+
+    <div class="analysis-section">
+        <div class="card-philosophy"><h2>🎯 فلسفة الاستراتيجية</h2><p>في Wayso، نؤمن بأن النمو الحقيقي لمتجرك يبدأ بتحريرك من التعقيدات التشغيلية. هذا المزيج من الفيديوهات الشاملة والكاروسالات التعليمية ليس مجرد محتوى؛ إنه استثمار استراتيجي يهدف إلى بناء الثقة مع عملائك، وتحويل الفوضى إلى نظام، وضمان تدفق مستمر للأرباح والراحة لك. نحن هنا لنكون شريكك الذي يضمن لك التركيز على رؤيتك الكبرى، بينما نتولى نحن التفاصيل الحاسمة لنموك.</p></div>
+        <div class="card-why"><h2>💡 لماذا هذه الخطة؟</h2><p>بدأنا بـ V1 لخطف الانتباه وتجسيد الألم الكلي، مقدِّمين Alloui كحل شامل. ثم تدرجنا مع C2 و P3 لتعليم العميل حول التكاليف الخفية وهدر الوقت، مما يعزز الحاجة للحل. هذا التسلسل المصمم بعناية يقود العميل تدريجياً من الوعي بالمشكلة إلى الاقتناع بالحل، ثم اتخاذ قرار الشراء، ليضمن ترسيخ القيمة واستدامة الولاء.</p></div>
+    </div>
+
+    <div class="hero"><h1>خطة الإنتاج الإبداعي</h1></div>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th style="width: 20%;">الكود والنوع</th><th style="width: 30%;">الهوك (Hook)</th><th style="width: 50%;">المحتوى</th></tr></thead>
+            <tbody><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V1</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">متجرك قاعد ينزف دراهم ووقت... و أنت بالاك ماعلابالكش بلي السبب هو فوضى التوصيل.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('1')">
+                    <div class="preview-text">صاحب متجر إلكتروني؟ معناها تعرف هذا السيناريو.
+تليفون ما يحبسش... متابعة مع لي ليفرور... وزبون مقلق....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-1" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('1')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V1</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-1')">📋 نسخ النص</button>
+                            <div id="script-text-1" class="modal-body">صاحب متجر إلكتروني؟ معناها تعرف هذا السيناريو.<br/><br/>تليفون ما يحبسش... متابعة مع لي ليفرور... وزبون مقلق.<br/><br/>كل يوم تعاود نفس الحكاية.<br/><br/>تحس روحك حاصل في خدمة الزبائن... ونسيت واش هي خدمتك الصح: تكبّر التجارة تاعك.<br/><br/>هذا ماشي مجرد تعب... هذا نزيف حقيقي.<br/><br/>نزيف في الدراهم... كل طلبية ترجع هي خسارة.<br/><br/>نزيف في الوقت... كل ساعة تضيعها في المتابعة، هي ساعة راحت من تطوير مشروعك.<br/><br/>ونزيف في السمعة... الزبون لي يتقلق، ما يزيدش يولي.<br/><br/>بصح، كاين طريقة أخرى.<br/><br/>طريقة تخليك تركز على واش يهم صح.<br/><br/>نظام واضح و احترافي يتهلّى في كلش من الـ 'أ' للـ 'ي'.<br/><br/>نظام يتأكد من كل طلبية... يتابع مع الزبون... ويضمنلك توصيل احترافي.<br/><br/>هذا هو نظام Alloui.<br/><br/>حنا ماشي مجرد توصيل، حنا شريكك الاستراتيجي.<br/><br/>نرجعولك أغلى حاجة عندك: وقتك وراحة بالك.<br/><br/>باش تقدر أخيرا تتنفس... وتخدم على الصح.<br/><br/>تطور منتجاتك، دير ماركوتينغ قوي، وتشوف تجارتك تكبر قدام عينيك.<br/><br/>مع Alloui، الفوضى تولي نظام... والخسارة تولي ربح.<br/><br/>راك واجد ترجع وقتك وأرباحك؟</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-1')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-1" class="modal-body">راك تخدم 12 ساعة في اليوم بصح تجارتك ما تكبرش؟ المشكل ماشي فيك! <br/><br/> الفوضى تاع تأكيد الطلبيات والمتابعة مع شركات التوصيل راهي تسرقلك وقتك وتقتل أرباحك بالبطيء.<br/><br/>كل طلبية ترجع هي خسارة مضاعفة، وكل زبون يتقلق هو إشهار سلبي ليك.<br/><br/>مع نظام Alloui الاحترافي، نرجعولك السيطرة على تجارتك. نتكفلو بالمتابعة والتأكيد، ونضمنولك توصيل يخلي الزبون تاعك راضي. <br/><br/>النتيجة؟ وقت أكثر ليك، أرباح أكثر، وراحة بال ما تتقدرش بثمن. <br/><br/> حبّس نزيف الأرباح والوقت. تواصل معنا اليوم واكتشف كيفاش Alloui يقدر يبدلك تجارتك. <br/><br/> #تجارة_الكترونية_الجزائر #توصيل_الجزائر #Alloui #حلول_لوجستية #ecommerce_dz #dzpower</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[إطار هجين: PAS + StoryBrand + BAB]<br/><br/>[المشهد 1 - قبل/المشكلة]: لقطات سريعة ومقلقة. صاحب متجر يشد راسو، تليفون في يد، و tableau Excel في يد. شاشة هواتف برسائل من زبائن مقلقين. صوت إشعارات متتالية. إضاءة خافتة ومرهقة. الكاميرا مهتزة قليلاً لتعكس الفوضى.<br/><br/>[المشهد 2 - التحريك]: غرافيك يوضح سهم أحمر نازل (الأرباح) وساعة رملية تفرغ بسرعة (الوقت). تظهر على الشاشة كلمات: 'مرتجعات'، 'زبائن ضائعون'، 'سمعة سيئة'. نبرة الصوت هنا تصبح أكثر جدية وتأكيداً على حجم الخسارة.<br/><br/>[المشهد 3 - الحل/المرشد]: انتقال سلس إلى مشهد هادئ. يظهر لوغو Alloui ببطء. لقطات منظمة لفريق عمل Alloui في مكتب عصري، يجرون مكالمات بهدوء واحترافية. موسيقى هادئة ومطمئنة تبدأ في الخلفية.<br/><br/>[المشهد 4 - بعد/النتيجة]: عودة لصاحب المتجر، لكن هذه المرة مبتسم ومرتاح. ينظر إلى هاتفه ويرى أرقام المبيعات ترتفع. لقطة واسعة له وهو يغلق اللابتوب ويقضي وقتاً مع عائلته. إضاءة دافئة وطبيعية. إحساس بالسيطرة والراحة.<br/><br/>[المشهد 5 - CTA]: يظهر على الشاشة شعار Alloui مع عبارة 'ركّز على تجارتك، وحنا نضمنولك التوصيل'. ثم تظهر دعوة للعمل واضحة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C2</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كاين 3 مصاريف خفية راهي تاكل في فايدتك بلا ما تفيق!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('2')">
+                    <div class="preview-text">Slide 1: 3 خسارات خفية يسببها سوء التوصيل... بالاك ما حسبتلهاش حساب!
+Slide 2: الخسارة 1: وقتك الثمين...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-2" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('2')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C2</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-2')">📋 نسخ النص</button>
+                            <div id="script-text-2" class="modal-body">Slide 1: 3 خسارات خفية يسببها سوء التوصيل... بالاك ما حسبتلهاش حساب!<br/><br/>Slide 2: الخسارة 1: وقتك الثمين. كل دقيقة تقضيها في مكالمات المتابعة وإعادة الجدولة، هي دقيقة ضاعت من تطوير تجارتك الحقيقية.<br/><br/>Slide 3: الخسارة 2: دراهمك. المرتجعات ماشي برك خسارة في التوصيل، هي تكاليف إضافية في التخزين، التغليف، وحتى قيمة المنتج لي ممكن تتدهور.<br/><br/>Slide 4: الخسارة 3: سمعتك. زبون واحد مقلق من التوصيل قادر يكتب تقييم سلبي يدمر ثقة 10 زبائن جدد. السمعة هي رأس مالك.<br/><br/>Slide 5: ما تخليش هاد الخسارات تكبر. Alloui يقدملك نظام توصيل احترافي يحمي وقتك، دراهمك، وسمعتك. اضغط على الرابط في البايو.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-2')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-2" class="modal-body">الأرباح تاعك ماشي كيما كنت متوقع؟ اقرأ هذا. <br/><br/> مرات عديدة، المشكل ما يكونش في المنتج ولا في التسويق، بل في تفاصيل صغيرة ما نشوفوهاش. سوء إدارة التوصيل يقدر يسبب خسارات كبيرة وغير مباشرة.<br/><br/>في هذا الكاروسال، كشفنالك على 3 تكاليف خفية ممكن تكون السبب في تآكل أرباحك وإرهاقك اليومي. <br/><br/>المعرفة هي أول خطوة نحو الحل. <br/><br/> اقلب الصفحات باش تعرف هاد الخسارات وكيفاش تتجنبها. للمزيد من الحلول، تواصل مع فريق Alloui. <br/><br/> #تكاليف_خفية #ادارة_متاجر #توصيل_سريع #Alloui_dz #نصائح_تجارة #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">التصميم: عصري ونظيف. كل سلايد يستخدم أيقونة مميزة (ساعة، عملة نقدية، نجمة تقييم مكسورة). استخدام ألوان البراند. الخط واضح وسهل القراءة. في السلايد الأخير، وضع زر CTA وهمي 'اكتشف الحل' يوجه العين نحو الكابشن.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P3</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الوقت لي راك تضيّعو في التليفون مع لي livreur... قادر تبني بيه متجر ثاني!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('3')">
+                    <div class="preview-text">ساعات المتابعة الضائعة = فرص نمو مهدورة.
+وقتك هو أثمن أصولك. لا تضيعه في العمليات، استثمره في الرؤية...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-3" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('3')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P3</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-3')">📋 نسخ النص</button>
+                            <div id="script-text-3" class="modal-body">ساعات المتابعة الضائعة = فرص نمو مهدورة.<br/><br/>وقتك هو أثمن أصولك. لا تضيعه في العمليات، استثمره في الرؤية.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-3')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-3" class="modal-body">هل أنت مدير متجرك... أم عامل في مركز الاتصالات؟ <br/><br/> إذا كان أغلب يومك يروح في متابعة الطلبيات وحل مشاكل التوصيل، فأنت لا تدير تجارتك، بل هي التي تديرك.<br/><br/>الوقت هو العملة الوحيدة التي لا يمكن استرجاعها. كل ساعة تقضيها في مهام تشغيلية هي فرصة ضائعة للتخطيط، للتسويق، وللنمو الحقيقي.<br/><br/>Alloui يحرر وقتك لتعود إلى دورك كقائد لمتجرك. <br/><br/> استرجع وقتك وتركيزك. اضغط على الرابط في البايو واكتشف كيفاش Alloui يحافظلك على أثمن ما تملك. <br/><br/> #وقتك_مالك #ادارة_الوقت #نمو_المشاريع #Alloui #تجارة_الكترونية #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">التصميم: صورة قوية بصرياً. نصف الصورة يظهر فيه يد تمسك هاتفاً مع واجهة مكالمة، والنصف الآخر يظهر فيه رسم بياني للنمو يتصاعد. استخدام خط عريض وواضح للعبارة الرئيسية. لوغو Alloui في زاوية بشكل أنيق.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V4</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">غلطة وحدة في التوصيل... قادرة تهدملك سمعة بنيتها في شهور. شوف كيفاش تحمي روحك.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('4')">
+                    <div class="preview-text">(صوت مشكلة: 'ألو، الكولي تاعي وين راه؟!')
+تسمع هذا السؤال بزاف؟ ممكن تكون دير في أغلاط بسيطة بلا ما ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-4" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('4')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V4</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-4')">📋 نسخ النص</button>
+                            <div id="script-text-4" class="modal-body">(صوت مشكلة: 'ألو، الكولي تاعي وين راه؟!')<br/><br/>تسمع هذا السؤال بزاف؟ ممكن تكون دير في أغلاط بسيطة بلا ما تفيق.<br/><br/>الغلطة الأولى: معلومات الزبون ناقصة أو غالطة. تليفون ما يردش، والعنوان ماشي كامل... والنتيجة؟ روتور مضمون.<br/><br/>(صوت حل: 'Alloui يتأكد من كل معلومة قبل ما تخرج السلعة.')<br/><br/>الغلطة الثانية: انعدام المتابعة. تبعت السلعة وتنسى الزبون... يحس روحو وحدو، وممكن يبدل رأيو.<br/><br/>(صوت حل: 'نظام Alloui يتابع مع الزبون خطوة بخطوة.')<br/><br/>الغلطة الثالثة: وعود غالطة. تقول للزبون توصل في يومين، وهي توصل في أسبوع. هنا تقتل الثقة.<br/><br/>(صوت حل: 'مع Alloui، الشفافية هي أساس التعامل.')<br/><br/>هذه الأخطاء ماشي برك تخسرك دراهم... تخسرك أهم حاجة: ثقة الزبون.<br/><br/>حماية تجارتك تبدأ من هنا.<br/><br/>Alloui ماشي برك يوصل... يبنيلك نظام يتفادى هاد الأغلاط.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-4')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-4" class="modal-body">3 أغلاط في التوصيل تقدر تكلّف متجرك غالي! <br/><br/> التوصيل الناجح هو آخر وأهم انطباع تخليه عند زبونك. أي غلطة بسيطة تقدر تحول تجربة شراء ممتازة إلى كابوس وتمنع الزبون من أنه يرجع مرة أخرى.<br/><br/>في هذا الفيديو، كشفنالك على 3 من أكثر الأخطاء شيوعاً لي يطيحو فيها أصحاب المتاجر، وكيفاش تقدر تتفاداها بسهولة.<br/><br/>شاهد الفيديو و احمي سمعة متجرك. <br/><br/> حاب توصل كل طلبية بلا مشاكل؟ تواصل معنا و خلي فريق Alloui يتكفل بالأمر. <br/><br/> #اخطاء_شائعة #تجارة_الجزائر #تحسين_التوصيل #Alloui_dz #نصائح_لوجستية #ecommerce_algeria</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[إطار هجين: PAS + QUEST]<br/><br/>[المشهد 1 - المشكلة/التحريك]: تبدأ الشاشة بفقاعة دردشة تظهر فيها رسالة غاضبة من زبون. استخدام Motion Graphics سريع لإظهار الأخطاء بشكل كرتوني (هاتف يرن ولا أحد يجيب، شاحنة توصيل تائهة). ألوان داكنة قليلاً.<br/><br/>[المشهد 2 - الفهم/التعليم]: لكل غلطة، يظهر نص واضح يشرح المشكلة، ثم يظهر الحل بشكل مرئي (علامة صح خضراء بجانب أيقونة Alloui). الانتقال بين المشاهد يكون سلساً. النبرة تعليمية وواثقة.<br/><br/>[المشهد 3 - الحل/الانتقال]: تظهر أيقونات الأخطاء الثلاثة وعليها علامة 'X' حمراء، ثم يظهر لوغو Alloui وهو يمسحها. رسالة أخيرة تظهر على الشاشة: 'الاحترافية في التفاصيل'.<br/><br/>[المشهد 4 - CTA]: دعوة واضحة للعمل لمعرفة المزيد من الحلول.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C5</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">حاب توصل كل طلبية بلا مشاكل؟ هذا الدليل ليك!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('5')">
+                    <div class="preview-text">Slide 1: دليل المتجر الذكي: كيف تتجنب 3 أغلاط قاتلة تقتل نسبة التسليم عندك؟
+Slide 2: الغلطة 1: إهمال...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-5" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('5')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C5</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-5')">📋 نسخ النص</button>
+                            <div id="script-text-5" class="modal-body">Slide 1: دليل المتجر الذكي: كيف تتجنب 3 أغلاط قاتلة تقتل نسبة التسليم عندك؟<br/><br/>Slide 2: الغلطة 1: إهمال مرحلة التأكيد. لا تشحن أي طلبية قبل مكالمة تأكيد احترافية تتأكد فيها من كل المعلومات (الاسم، العنوان، رقم الهاتف، وحتى وقت التواجد المفضل للزبون).<br/><br/>Slide 3: الغلطة 2: انعدام المتابعة بعد الشحن. الزبون يحب يعرف وين راهي السلعة تاعو. رسالة بسيطة أو مكالمة تخبره بأن السلعة في الطريق تبني الثقة وتقلل من احتمالية الرفض.<br/><br/>Slide 4: الغلطة 3: التعامل مع أي شركة توصيل. الشريك اللوجستي هو واجهة متجرك. اختر شركة معروفة بالاحترافية والالتزام، أو اترك المهمة لخبير مثل Alloui الذي يختار الأفضل لك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-5')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-5" class="modal-body">ارفع نسبة التسليم تاعك بـ 3 خطوات بسيطة! <br/><br/> نسبة التسليم المنخفضة هي أكبر عدو لأرباحك. الخبر الجيد هو أن معظم أسبابها يمكن تجنبها بسهولة عبر تنظيم عملياتك.<br/><br/>في هذا الدليل السريع، جمعنالك 3 أخطاء أساسية يجب أن تتوقف عن ارتكابها اليوم، و 3 حلول عملية لتطبيقها فوراً.<br/><br/>اقلب الصفحات وابدأ في تحسين نتائجك. <br/><br/> لتنظيم احترافي لكل عملياتك، اكتشف خدمات Alloui. الرابط في البايو. <br/><br/> #نسبة_التسليم #دليل_التجارة #نصائح_متاجر #Alloui_dz #لوجستيك_الجزائر #dz</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">التصميم: شكل 'Checklist' أو قائمة مهام. كل سلايد يحتوي على أيقونة تمثل الخطأ (هاتف عليه علامة استفهام، طرد ضائع، شاحنة مكسورة). استخدام ألوان واضحة وتقسيم بصري مريح للعين.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P6</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">تعبت من كلمة 'روتور'؟ هذا السر البسيط راح ينقصلك منها بزاف!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('6')">
+                    <div class="preview-text">النصيحة الذهبية لتقليل المرتجعات:
+'مكالمة المتابعة' بعد 24 ساعة من الشحن. جملة بسيطة مثل: 'صباح الخي...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-6" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('6')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P6</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-6')">📋 نسخ النص</button>
+                            <div id="script-text-6" class="modal-body">النصيحة الذهبية لتقليل المرتجعات:<br/><br/>'مكالمة المتابعة' بعد 24 ساعة من الشحن. جملة بسيطة مثل: 'صباح الخير، حبينا نعلموك بلي السلعة تاعك راهي في الطريق مع الموزع' قادرة تزيد نسبة التسليم بـ 20%.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-6')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-6" class="modal-body">حركة بسيطة تقدر تنقذ 2 من كل 10 طلبيات من الإرجاع! <br/><br/> في عالم التجارة الإلكترونية، التفاصيل الصغيرة هي التي تصنع الفارق الكبير. المرتجعات تكلفك مالاً ووقتاً وسمعة.<br/><br/>لكن في كثير من الأحيان، الحل ليس معقداً. الاهتمام بالزبون والتواصل معه بشكل استباقي هو المفتاح.<br/><br/>جرّب هذه النصيحة وشوف الفرق بنفسك. <br/><br/> للمزيد من النصائح والنظام الكامل لتقليل المرتجعات، زر موقعنا أو تواصل معنا مباشرة. <br/><br/> #تقليل_المرتجعات #نصيحة_اليوم #Alloui #تجارة_الكترونية #dzbusiness #alger</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">التصميم: يظهر على شكل 'نصيحة سريعة' أو 'Pro-Tip'. خلفية نظيفة، استخدام أيقونة لمبة أو دماغ. النص مكتوب بخط يدوي أنيق لإعطاء لمسة شخصية. لوغو Alloui في الأسفل.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V7</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">واش تقول للزبون في التليفون باش تضمن 100% يشد عليك الكولي؟ السر في هاد الفيديو.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('7')">
+                    <div class="preview-text">(يظهر الوجه الإعلامي في مكتب أنيق، يتحدث مباشرة إلى الكاميرا)
+علابالك بلي الطريقة لي تهدر بيها في مك...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-7" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('7')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V7</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-7')">📋 نسخ النص</button>
+                            <div id="script-text-7" class="modal-body">(يظهر الوجه الإعلامي في مكتب أنيق، يتحدث مباشرة إلى الكاميرا)<br/><br/>علابالك بلي الطريقة لي تهدر بيها في مكالمة التأكيد... هي لي تحدد إذا الزبون راح يستلم السلعة... ولا يديرلك روتور؟<br/><br/>أغلب الناس تبدا المكالمة هكذا: 'ألو، عندك كوموند؟'. طريقة جافة وتقتل الرغبة.<br/><br/>(يظهر على الشاشة مثال سيء 'X')<br/><br/>هذا يخلي الزبون يحس بالشك... وممكن حتى ينسى واش شرى.<br/><br/>الزبون تاعك (البطل في قصتنا) شرى من عندك لأنه وثق فيك، بصح رحلته ما خلاصتش.<br/><br/>(لقطات سريعة لزبون سعيد وهو يفتح الطرد)<br/><br/>الرغبة تاعو هي يستلم منتج يحلّو مشكل، ويحس بالتقدير.<br/><br/>والسكريبت الاحترافي هو لي يبني هذا الاهتمام.<br/><br/>جرب تبدا هكذا: 'مساء الخير سي فلان، معاك [اسمك] من متجر [اسم المتجر]. رانا نعيطولك بخصوص الطلبية المميزة لي درتها تاع [اسم المنتج]، باش نأكدو معاك العنوان ونضمنولك توصلك في أفضل الظروف.'<br/><br/>(يظهر على الشاشة مثال جيد '✓')<br/><br/>شفت الفرق؟ هنا راك فكرتو بالقيمة... بنيت الثقة... وخليتو يتحمس يستقبل السلعة.<br/><br/>هذا ماشي مجرد سكريبت، هذا نظام يقلل الإرهاق النفسي تاعك ويزيد نسبة التسليم.<br/><br/>Alloui يوفّرلك فريق مدرب على هاد السكريبتات الاحترافية.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-7')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-7" class="modal-body">مكالمة تأكيد واحدة يمكن أن تضاعف أرباحك... أو تدمرها. <br/><br/> الكلمات التي تستخدمها مع زبونك لديها قوة هائلة. يمكنها أن تبني الثقة وتؤدي إلى عملية تسليم ناجحة، أو تزرع الشك وتؤدي إلى مرتجع مكلف.<br/><br/>في هذا الفيديو، نكشف لك عن سر صياغة سكريبت مكالمات احترافي يرفع من نسبة التسليم ويقلل من الإرهاق النفسي الناتج عن متابعة الزبائن المترددين.<br/><br/>مع Alloui، كل مكالمة هي فرصة لتعزيز ثقة زبونك. <br/><br/> اكتشف كيف يمكن لفريقنا المدرب أن يحول مكالماتك إلى أداة لزيادة الأرباح. تواصل معنا اليوم. <br/><br/> #سكريبت_مكالمات #زيادة_المبيعات #Alloui_dz #خدمة_العملاء #تجارة_الكترونية_الجزائر #dz</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[إطار هجين: AIDA + StoryBrand]<br/><br/>[الوجه الإعلامي]: يظهر بنسبة 20-30% من الفيديو، في البداية والنهاية. يتحدث بنبرة خبير وواثق. ملابس احترافية. إضاءة جيدة.<br/><br/>[المشاهد الأخرى - B-Roll]: لقطات Motion Graphics توضح الفرق بين السكريبت السيء والجيد (أيقونات، نصوص متحركة). لقطات لزبون سعيد يستلم الطرد الخاص به. لقطات لفريق Alloui وهو يعمل باحترافية.<br/><br/>[الصوت]: موسيقى خلفية هادئة و احترافية ترتفع قليلاً عند عرض الحل.<br/><br/>[النهاية]: يعود الوجه الإعلامي ليقدم الـ CTA النهائي.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C8</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">ما تبقاش تخمّم واش تقول للزبون... هاد السكريبتات السحرية تخدم خدمتها!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('8')">
+                    <div class="preview-text">Slide 1: سكريبتات مكالمات تخلي الزبون يحس بالاحترافية تاعك... وتضمنلك توصيل سلعتك!
+Slide 2: سكريبت ت...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-8" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('8')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C8</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-8')">📋 نسخ النص</button>
+                            <div id="script-text-8" class="modal-body">Slide 1: سكريبتات مكالمات تخلي الزبون يحس بالاحترافية تاعك... وتضمنلك توصيل سلعتك!<br/><br/>Slide 2: سكريبت تأكيد الطلب: 'مساء الخير [اسم الزبون]، معاك فريق [اسم المتجر]. حبينا نأكدو معاك الطلبية تاعك [اسم المنتج] ونتأكدو من أن العنوان صحيح باش توصلك في أسرع وقت. هل هذا مناسب ليك؟'<br/><br/>Slide 3: سكريبت إعادة الجدولة (لما الزبون ما يكونش حاضر): 'معليش سي [اسم الزبون]، ماكاش مشكل. الأهم راحتك. واش هو الوقت لي يساعدك نعاودو نجيبولك فيه السلعة؟'<br/><br/>Slide 4: سكريبت التعامل مع الزبون المتردد: 'نفهم التردد تاعك سي [اسم الزبون]. ممكن تقولي واش هو الشيء لي مقلقك بالضبط؟ رانا هنا باش نجاوبو على كل أسئلتك ونضمنولك رضاك التام.'<br/><br/>Slide 5: سكريبت التعامل مع الزبون الغاضب (من تأخير مثلاً): 'سي [اسم الزبون]، عندك الحق تتقلق وحنا نعتذرو على هذا التأخير. راني شخصيا راح نتابعلك الطلبية تاعك ونعاود نعيطلك بعد ساعة بالتحديثات.'<br/><br/>Slide 6: الاحترافية في التواصل هي مفتاح النجاح. Alloui يضمن لك فريقا يتحدث باسم علامتك التجارية. تواصل معنا لمعرفة المزيد.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-8')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-8" class="modal-body">حوّل كل مكالمة مع زبون إلى فرصة لبناء الثقة! <br/><br/> الطريقة التي تتواصل بها مع عملائك هي انعكاس مباشر لصورة علامتك التجارية. سكريبتات مدروسة واحترافية لا تضمن فقط نسبة تسليم أعلى، بل تبني علاقة ولاء طويلة الأمد.<br/><br/>في هذا الكاروسال، نقدم لك أمثلة حوارية واقعية يمكنك البدء في استخدامها اليوم لتحسين تواصلك مع الزبائن.<br/><br/>اقلب الصفحات واستلهم! <br/><br/> هل تريد فريقاً محترفاً يتولى هذه المهمة عنك؟ اكتشف خدمات Alloui الآن عبر الرابط في البايو. <br/><br/> #خدمة_زبائن #سكريبتات_ناجحة #بناء_الثقة #Alloui_dz #احترافية #algeria</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">التصميم: على شكل فقاعات دردشة (Chat Bubbles). كل سلايد يعرض حواراً قصيراً. استخدام لونين مختلفين للفقاعات (واحد للموظف وواحد للزبون). تصميم جذاب وبسيط يركز على النص.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P9</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">هل تعلم أن معظم المرتجعات كان يمكن تفاديها بمكالمة هاتفية واحدة؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('9')">
+                    <div class="preview-text">المشكلة: 70% من المرتجعات سببها سوء التواصل، ماشي جودة المنتج.
+
+النتيجة: خسارة مال، وقت، وثقة الزبون...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-9" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('9')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P9</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-9')">📋 نسخ النص</button>
+                            <div id="script-text-9" class="modal-body">المشكلة: 70% من المرتجعات سببها سوء التواصل، ماشي جودة المنتج.<br/><br/><br/><br/>النتيجة: خسارة مال، وقت، وثقة الزبون.<br/><br/><br/><br/>الحل: نظام متابعة استباقي و احترافي من Alloui.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-9')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-9" class="modal-body">لا تترك تجارتك للصدفة! <br/><br/> الكثير من أصحاب المتاجر يعتقدون أن المرتجعات جزء حتمي من التجارة، لكن الحقيقة مختلفة.<br/><br/>نسبة كبيرة من الطلبيات المرتجعة كان يمكن إنقاذها ببساطة عبر متابعة احترافية وتواصل فعال مع الزبون.<br/><br/>هذا هو بالضبط ما يتخصص فيه Alloui: نحن لا نترك شيئاً للصدفة، بل نبني لك نظاماً يقلل المرتجعات إلى أقصى حد. <br/><br/> توقف عن خسارة المال. اكتشف حلول Alloui لتقليل المرتجعات عبر الرابط في البايو. <br/><br/> #تقليل_المرتجعات #حلول_لوجستية #Alloui #PAS #تجارة_الكترونية_الجزائر #dz_ecommerce</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[إطار PAS]<br/>التصميم: مقسم إلى ثلاثة أجزاء أفقية. الجزء العلوي (Problem) بخلفية حمراء خفيفة مع أيقونة طرد عليه علامة استفهام. الجزء الأوسط (Agitate) بخلفية رمادية مع أيقونات (مال، ساعة، قلب مكسور). الجزء السفلي (Solution) بخلفية خضراء هادئة مع لوغو Alloui.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V10</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">تجارتك حابسة في بلاصتها؟ بالاك المشكل ماشي في التسويق... بالاك راه في اللوجيستيك.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('10')">
+                    <div class="preview-text">(مشهد يبدأ برسم بياني للنمو عالق في مستوى واحد)
+عندك منتج مليح... ودير إشهارات... بصح أرقامك ما تزيد...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-10" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('10')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V10</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-10')">📋 نسخ النص</button>
+                            <div id="script-text-10" class="modal-body">(مشهد يبدأ برسم بياني للنمو عالق في مستوى واحد)<br/><br/>عندك منتج مليح... ودير إشهارات... بصح أرقامك ما تزيدش.<br/><br/>كل ما تحاول تكبر، تزيد الفوضى.<br/><br/>تزيد الطلبيات... يزيد الضغط... تزيد الأغلاط.<br/><br/>تحس روحك في حلقة مفرغة.<br/><br/>(يظهر على الشاشة كلمة 'الاختناق التشغيلي')<br/><br/>هذا هو الحاجز الخفي لي يمنع 90% من المتاجر من التوسع.<br/><br/>(انتقال مفاجئ لمشهد منظم وسلس)<br/><br/>بصح تخيل معايا... نظام يخدم في بلاصتك.<br/><br/>نظام يستقبل الطلبيات، يأكدها، يغلفها، يتابعها... وأنت تشوف برك في الأرقام تطلع.<br/><br/>نظام يكبر معاك. جبت 100 طلبية اليوم؟ ماشي مشكل. جبت 1000؟ كيف كيف.<br/><br/>هذا ماشي حلم. هذا هو نظام Alloui.<br/><br/>(تظهر رسوم بيانية توضح كيف يبني Alloui النظام: استقبال -> تأكيد -> شحن -> متابعة)<br/><br/>حنا نبنيولك قسم لوجيستي مستقل وخاص بمتجرك، قابل للتوسع في أي وقت.<br/><br/>نحرروك من الفوضى... باش تقدر تركز على الصح: النمو.<br/><br/>من متجر عالق... إلى إمبراطورية قابلة للتوسع.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-10')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-10" class="modal-body">حاب تكبّر تجارتك؟ لازم أولاً تحررها! <br/><br/> النمو الحقيقي لا يحدث عندما تزيد من ميزانية التسويق فقط، بل عندما تبني نظاماً قادراً على استيعاب هذا النمو.<br/><br/>إذا كانت العمليات اللوجستية تستنزف وقتك وطاقتك، فإنك تبني سجناً لمتجرك بدلاً من بناء مستقبل له.<br/><br/>Alloui متخصص في بناء أنظمة لوجستية مستقلة وقابلة للتوسع، تحررك من الفوضى وتسمح لتجارتك بالوصول إلى إمكانياتها الكاملة. <br/><br/> انسَ المشاكل اللوجستية وركز على النمو! تواصل معنا واكتشف كيف يمكن لـ Alloui أن يكون شريكك في التوسع. <br/><br/> #نمو_المتاجر #توسع_تجاري #Alloui_dz #نظام_لوجستي #dzbusiness #algeria</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[إطار هجين: PAS + BAB]<br/><br/>[المشهد 1 - قبل/المشكلة]: Motion graphics يوضح 'عنق زجاجة'. طلبيات كثيرة تدخل من جهة، وتخرج ببطء وبشكل فوضوي من جهة أخرى. ألوان مربكة ونصوص متداخلة.<br/><br/>[المشهد 2 - التحريك]: إظهار صاحب المتجر وهو غارق في الأوراق والطلبيات، بينما منحنى النمو يبقى مسطحاً. نبرة الصوت تعكس الإحباط.<br/><br/>[المشهد 3 - الحل/الجسر]: يظهر لوغو Alloui كجسر يربط بين مرحلة الفوضى ومرحلة النمو. الموسيقى تتغير من متوترة إلى ملهمة.<br/><br/>[المشهد 4 - بعد/النتيجة]: رسوم متحركة توضح عملية سلسة ومنظمة. الطلبيات تتدفق بسلاسة عبر نظام Alloui. المنحنى البياني للنمو يبدأ في الصعود بشكل حاد. الألوان تصبح مشرقة وواضحة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C11</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">من لحظة ما الزبون يدير 'شراء' حتى توصلو للباب... شوف واش يصرا فالكواليس.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('11')">
+                    <div class="preview-text">Slide 1: رحلة طلبية ناجحة: كيفاش Alloui (المرشد) يضمنلك توصيل 5 نجوم خطوة بخطوة.
+Slide 2: الخطوة 1: ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-11" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('11')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C11</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-11')">📋 نسخ النص</button>
+                            <div id="script-text-11" class="modal-body">Slide 1: رحلة طلبية ناجحة: كيفاش Alloui (المرشد) يضمنلك توصيل 5 نجوم خطوة بخطوة.<br/><br/>Slide 2: الخطوة 1: الاستقبال الدقيق. نظامنا يستلم كل طلباتك أوتوماتيكيا ويتأكد من عدم وجود أي خطأ في المعلومات الأولية.<br/><br/>Slide 3: الخطوة 2: التأكيد الاحترافي. فريقنا (الدليل) يتواصل مع زبونك (البطل) لتأكيد الطلبية، بناء الثقة، والإجابة على كل أسئلته.<br/><br/>Slide 4: الخطوة 3: الشحن الذكي. نختار أفضل شريك توصيل بناءً على ولاية الزبون ونوع المنتج لضمان السرعة والجودة.<br/><br/>Slide 5: الخطوة 4: المتابعة المستمرة. لا نترك الزبون في الظلام. نرسل تحديثات دورية عن حالة الطلبية حتى يشعر بالاطمئنان.<br/><br/>Slide 6: الخطوة 5: التسليم والرضا. نضمن إتمام العملية بنجاح، ونتأكد من رضا العميل، الذي يصبح بطلاً في قصته بفضل تجربته الممتازة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-11')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-11" class="modal-body">كل طلبية هي قصة نجاح تنتظر أن تُروى. <br/><br/> وراء كل عملية توصيل ناجحة، هناك نظام دقيق وخطوات مدروسة. الشفافية والاحترافية في كل مرحلة هي ما يميز متجراً عادياً عن علامة تجارية يثق بها العملاء.<br/><br/>في هذا الكاروسال، نأخذك في جولة داخل كواليس Alloui لتكتشف كيف ندير رحلة كل طلبية من البداية إلى النهاية لضمان رضاك ورضا زبائنك.<br/><br/>Alloui هو المرشد الذي يحتاجه متجرك. <br/><br/> هل تريد أن تكون كل طلبياتك قصة نجاح؟ تواصل معنا اليوم. <br/><br/> #رحلة_العميل #تنظيم_العمليات #StoryBrand #Alloui #شفافية #algerie</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[إطار StoryBrand]<br/>التصميم: على شكل خريطة طريق أو مسار رحلة. كل سلايد هو محطة في الرحلة. استخدام أيقونات لكل مرحلة (سلة تسوق، سماعة هاتف، شاحنة، خريطة، علامة صح). الألوان زاهية وتبعث على الثقة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P12</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">قبل Alloui: راسك يوجع من التليفونات. بعد Alloui: راسك يخمّم كيفاش تكبّر البيزنس.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('12')">
+                    <div class="preview-text">قبل: إرهاق لوجيستي، نمو بطيء، قلق مستمر.
+
+بعد: راحة بال، نظام فعال، توسع مضمون....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-12" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('12')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P12</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-12')">📋 نسخ النص</button>
+                            <div id="script-text-12" class="modal-body">قبل: إرهاق لوجيستي، نمو بطيء، قلق مستمر.<br/><br/><br/><br/>بعد: راحة بال، نظام فعال، توسع مضمون.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-12')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-12" class="modal-body">الفرق بين العمل الشاق... والعمل الذكي. <br/><br/> يمكنك أن تقضي سنوات في محاولة إدارة كل شيء بنفسك، وتجد نفسك في نفس المكان. أو يمكنك أن تختار شريكاً استراتيجياً يتولى عنك العمليات المعقدة، ويتيح لك التركيز على ما تتقنه: تنمية علامتك التجارية.<br/><br/>Alloui لا يغير فقط طريقة توصيلك للمنتجات، بل يغير طريقة تفكيرك في إدارة تجارتك بأكملها.<br/><br/>هذا هو الفرق الذي يصنع النجاح. <br/><br/> انتقل من مرحلة الإرهاق إلى مرحلة النمو. اكتشف خدمات Alloui اليوم. <br/><br/> #قبل_وبعد #راحة_البال #Alloui #نمو_المشاريع #dzpower #alger</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[إطار BAB]<br/>التصميم: الصورة مقسومة عمودياً. الجهة اليسرى (قبل) بالأبيض والأسود، تظهر أيقونات فوضوية (هاتف يرن، علامات استفهام). الجهة اليمنى (بعد) بالألوان الزاهية، تظهر أيقونات منظمة (رسم بياني صاعد، علامة صح). لوغو Alloui في المنتصف كفاصل.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V13</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">أول انطباع يخليه متجرك عند الزبون ماشي هو المنتج... هو علبة التوصيل وطريقة التسليم!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('13')">
+                    <div class="preview-text">(مشهد محاكاة UGC، شخص يصور بكاميرا هاتفه)
+'يا جماعة شوفو واش صرالي، كومونديت على واحد لاباج، شوفو ال...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-13" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('13')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V13</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-13')">📋 نسخ النص</button>
+                            <div id="script-text-13" class="modal-body">(مشهد محاكاة UGC، شخص يصور بكاميرا هاتفه)<br/><br/>'يا جماعة شوفو واش صرالي، كومونديت على واحد لاباج، شوفو الكولي كيفاش لحقني! مفتوح وكامل معوج... وزيد الليفرور قريب ما ضربني!'<br/><br/>(يظهر تعليق سلبي على الشاشة)<br/><br/>هذا الفيديو... قادر يدمر سمعة متجرك في 30 ثانية.<br/><br/>(انتقال إلى مشهد احترافي)<br/><br/>الزبون (البطل) لا يشتري منتجاً فقط، بل يشتري تجربة وثقة.<br/><br/>ورحلة هذه الثقة تنتهي عند باب منزله.<br/><br/>(مشهد محاكاة UGC إيجابي)<br/><br/>'يا جماعة شوفو الاحترافية! لحقتني الكوموند في وقتها، مغلفة الله يبارك، والليفرور بزاف محترم. أكيد راح نزيد نشري من عندهم!'<br/><br/>(تظهر تعليقات إيجابية كثيرة على الشاشة)<br/><br/>هذا هو الفرق لي يصنعو التوصيل الاحترافي.<br/><br/>هذا هو الانطباع لي يخليه Alloui باسمك.<br/><br/>حنا ماناش نوصلو برك في السلعة... حنا نوصلو في صورة علامتك التجارية بكل احترافية.<br/><br/>Alloui هو المرشد لي يخلي أبطالك (زبائنك) يحكيو قصص نجاح عليك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-13')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-13" class="modal-body">سمعة متجرك يتم تحديدها في آخر 5 دقائق من عملية الشراء! <br/><br/> يمكنك أن تنفق آلاف الدينارات على الإعلانات، ولكن تجربة توصيل سيئة واحدة كفيلة بتدمير كل هذا الجهد.<br/><br/>في المقابل، تجربة توصيل احترافية وممتعة تحول العميل العادي إلى مسوق مخلص لعلامتك التجارية.<br/><br/>شاهد في هذا الفيديو كيف يمكن للتوصيل أن يبني سمعتك أو يهدمها، وكيف يضمن لك Alloui أن تكون النتيجة دائماً في صالحك. <br/><br/> خلي زبائنك يحكو على احترافيتك. ابدأ شراكتك مع Alloui اليوم. <br/><br/> #سمعة_المتجر #ثقة_العملاء #تجربة_العميل #Alloui_dz #UGC #algeria_ecom</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[إطار هجين: BAB + StoryBrand]<br/><br/>[الأسلوب]: محاكاة لمحتوى من إنشاء المستخدم (UGC). تصوير عمودي يشبه فيديوهات تيك توك أو ريلز. استخدام فلاتر ونصوص شائعة في هذه المنصات.<br/><br/>[المشهد 1 - قبل]: فيديو UGC سلبي. الإضاءة سيئة، الصوت غير واضح قليلاً، لإعطاء إحساس بالواقعية. يظهر المنتج في حالة سيئة.<br/><br/>[المشهد 2 - بعد]: فيديو UGC إيجابي. الشخص مبتسم، يفتح العلبة بحماس. يثني على سرعة التوصيل واحترافية الموزع. الإضاءة جيدة.<br/><br/>[الرسالة]: يتم التركيز على أن Alloui هو 'المرشد' الذي يساعد صاحب المتجر (البطل الحقيقي) على تحقيق هذه النتيجة الإيجابية مع زبائنه.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C14</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">ماشي غير تبيع وتنسى... لازم تربح الزبون باش يعاود يولي. شوف كيفاش.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('14')">
+                    <div class="preview-text">Slide 1: الزبون الوفي هو كنز. كيف تبني ولاء العملاء من خلال تجربة توصيل استثنائية؟
+Slide 2: السر 1: ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-14" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('14')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C14</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-14')">📋 نسخ النص</button>
+                            <div id="script-text-14" class="modal-body">Slide 1: الزبون الوفي هو كنز. كيف تبني ولاء العملاء من خلال تجربة توصيل استثنائية؟<br/><br/>Slide 2: السر 1: السرعة والدقة. احترام مواعيد التسليم هو أول وأقوى رسالة احترام تبعثها لزبونك.<br/><br/>Slide 3: السر 2: التواصل الشفاف. لا تجعل زبونك يسأل 'وين راهي الكوموند تاعي؟'. كن سبّاقاً وأعلمه بكل مرحلة. هذا يبني الثقة.<br/><br/>Slide 4: السر 3: واجهة احترافية. الموزع (Livreur) هو السفير الوحيد الذي يلتقي به عميلك وجهاً لوجه. تعامله الراقي يعكس صورة علامتك.<br/><br/>Slide 5: السر 4: خدمة ما بعد التسليم. هل كل شيء على ما يرام؟ رسالة بسيطة بعد يوم من التسليم تسأل فيها عن رأيه في المنتج تترك أثراً كبيراً. (Alloui يتولى الأمر).</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-14')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-14" class="modal-body">البيع هو البداية فقط. الولاء هو النجاح الحقيقي. <br/><br/> اكتساب عميل جديد يكلف 5 أضعاف تكلفة الحفاظ على عميل حالي. والولاء لا يُبنى بالمنتج فقط، بل بالتجربة الكاملة، خاصة مرحلة التوصيل.<br/><br/>في هذا الكاروسال، نشاركك 4 أسرار عملية لتحويل تجربة التوصيل من مجرد عملية لوجستية إلى أداة قوية لبناء ولاء عملائك.<br/><br/>مع Alloui، كل توصيلة هي فرصة لكسب عميل مدى الحياة. <br/><br/> ابنِ علاقة قوية مع زبائنك. اكتشف حلول Alloui المتكاملة لتعزيز ولاء العملاء. <br/><br/> #ولاء_العملاء #تجربة_العميل #نصائح_تسويق #Alloui #تجارة_الكترونية #dz</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">التصميم: قصصي وتعليمي. كل سلايد يستخدم صورة حقيقية تعبر عن المفهوم (ساعة دقيقة، فقاعة دردشة، موزع مبتسم، أيقونة قلب). استخدام اقتباسات قصيرة بخط أنيق لتعزيز الرسالة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P15</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">زبون فرحان = إشهار مجاني لمتجرك! كيفاش؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('15')">
+                    <div class="preview-text">عندما تقدم تجربة توصيل احترافية، العميل لا يشتري فقط... بل يحكي. 
+يحكي لأصدقائه، لعائلته، وعلى مواقع...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-15" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('15')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P15</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-15')">📋 نسخ النص</button>
+                            <div id="script-text-15" class="modal-body">عندما تقدم تجربة توصيل احترافية، العميل لا يشتري فقط... بل يحكي. <br/><br/>يحكي لأصدقائه، لعائلته، وعلى مواقع التواصل.<br/><br/>العميل الراضي هو أفضل وأرخص مسوق لعلامتك التجارية.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-15')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-15" class="modal-body">هل تريد جيشاً من المسوقين يعملون لصالحك مجاناً؟ <br/><br/> أقوى أداة تسويقية على الإطلاق ليست الإعلانات المدفوعة، بل هي 'الكلمة المنطوقة' (Word of Mouth) من عميل راضٍ.<br/><br/>تجربة تسليم سريعة، احترافية، وممتعة هي أسهل طريقة لتحويل عملائك إلى سفراء لعلامتك التجارية، يوصون بمنتجاتك بحماس وثقة.<br/><br/>الاستثمار في التوصيل هو استثمار مباشر في التسويق. <br/><br/> خلي زبائنك يسوقولك! تواصل مع Alloui وشوف كيفاش نحولو كل توصيلة إلى تجربة لا تُنسى. <br/><br/> #تسويق_شفوي #رضا_العملاء #Alloui_dz #نمو_المبيعات #تجارة_الجزائر #alger</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[إطار AIDA]<br/>التصميم: صورة لشخص يبتسم وهو يفتح طرداً، ومنه تخرج أيقونات لمواقع التواصل الاجتماعي (Facebook, Instagram) وإشارة 'مشاركة'. النص مكتوب بطريقة جذابة ومحفزة. الألوان دافئة وإيجابية.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V16</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">فاتورة المرتجعات تزيد... ووقتك يضيع... والحل قدامك. واش راك تستنى؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('16')">
+                    <div class="preview-text">(مشهد سريع ومقلق: أوراق متناثرة، هواتف ترن، شخص يمسح العرق من جبينه)
+هذه هي فوضى التوصيل... وهذا هو ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-16" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('16')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V16</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-16')">📋 نسخ النص</button>
+                            <div id="script-text-16" class="modal-body">(مشهد سريع ومقلق: أوراق متناثرة، هواتف ترن، شخص يمسح العرق من جبينه)<br/><br/>هذه هي فوضى التوصيل... وهذا هو الثمن الذي تدفعه كل يوم.<br/><br/>وقت ضائع كان بإمكانك استثماره في النمو.<br/><br/>مال ضائع في المرتجعات كان بإمكانه زيادة أرباحك.<br/><br/>وطاقة نفسية مستنزفة تمنعك من التفكير بوضوح.<br/><br/>(توقف مفاجئ في الموسيقى، شاشة سوداء ثم يظهر لوغو Alloui)<br/><br/>حان الوقت لوضع حد لكل هذا.<br/><br/>Alloui يقدم لك نظاماً متكاملاً.<br/><br/>(تظهر أيقونات متحركة مع كل جملة)<br/><br/>نظام يزيد من نسبة التسليم.<br/><br/>يقلل من المرتجعات.<br/><br/>يبني ثقة زبائنك.<br/><br/>والأهم... يرجعلك راحة بالك ووقتك.<br/><br/>تخيل تجارتك وهي تنمو بسلاسة... وأنت مرتاح.<br/><br/>هذا ليس مجرد وعد، هذه هي مهمتنا.<br/><br/>قرار واحد اليوم يمكن أن يغير مستقبل تجارتك غداً.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-16')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-16" class="modal-body">كفى من الحلول المؤقتة. حان وقت النظام الدائم. <br/><br/> لقد حاولت إدارة كل شيء بنفسك، وجربت حلولاً مختلفة، لكن الفوضى تعود دائماً.<br/><br/>المشكلة ليست في جهدك، بل في غياب النظام.<br/><br/>Alloui لا يقدم لك خدمة توصيل، بل يقدم لك شريكاً استراتيجياً يبني لك نظاماً لوجستياً كاملاً ومستداماً، مصمماً خصيصاً لراحتك ونمو تجارتك.<br/><br/>حان الوقت لاتخاذ القرار الصحيح. <br/><br/> لا تؤجل نجاحك. اضغط على الرابط في البايو وتواصل معنا الآن لبدء التحول. <br/><br/> #تحويل_الآن #حل_نهائي #Alloui #تجارة_الكترونية #استثمار #dzpower</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[إطار هجين: PAS + AIDA]<br/><br/>[المشهد 1 - المشكلة/التحريك]: Motion Graphics سريع يجسد الألم (Problem) ويثير القلق (Agitate) باستخدام أرقام ورسوم بيانية حمراء هابطة.<br/><br/>[المشهد 2 - الحل]: انتقال حاد إلى مشهد نظيف ومنظم. يظهر لوغو Alloui. النص يركز على الحلول المباشرة (Solution).<br/><br/>[المشهد 3 - الاهتمام/الرغبة]: عرض سريع للقيمة المضافة (Interest & Desire) من خلال إظهار أيقونات تمثل 'الوقت'، 'المال'، 'النمو'، و'راحة البال' وهي تظهر بجانب لوغو Alloui.<br/><br/>[المشهد 4 - الفعل]: دعوة للعمل (Action) واضحة جداً ومباشرة. تظهر على كامل الشاشة مع معلومات الاتصال.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C17</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الراحة و الربح على بعد 3 خطوات فقط! شوف كيفاش تبدأ معنا.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('17')">
+                    <div class="preview-text">Slide 1: مستعد للانطلاق نحو الاحترافية؟ ابدأ رحلتك مع Alloui في 3 خطوات بسيطة جداً!
+Slide 2: الخطوة ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-17" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('17')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C17</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-17')">📋 نسخ النص</button>
+                            <div id="script-text-17" class="modal-body">Slide 1: مستعد للانطلاق نحو الاحترافية؟ ابدأ رحلتك مع Alloui في 3 خطوات بسيطة جداً!<br/><br/>Slide 2: الخطوة 1: تواصل معنا وسجل حسابك. فريقنا سيقوم بإرشادك خلال عملية تسجيل سريعة وسهلة لا تستغرق دقائق.<br/><br/>Slide 3: الخطوة 2: اربط متجرك بنظامنا. سواء كنت تستخدم منصة جاهزة أو نظاماً خاصاً، عملية الربط تتم بسلاسة فائقة.<br/><br/>Slide 4: الخطوة 3: استرخ وركز على نمو تجارتك. من هذه اللحظة، فريق Alloui يتولى كل شيء: من تأكيد الطلبيات إلى المتابعة والتسليم. أهلاً بك في عالم راحة البال!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-17')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-17" class="modal-body">الانتقال إلى نظام احترافي أسهل مما تتخيل! <br/><br/> الكثير من أصحاب المتاجر يؤجلون تطوير عملياتهم خوفاً من التعقيدات التقنية أو الإجراءات الطويلة.<br/><br/>مع Alloui، صممنا عملية الانضمام لتكون في غاية البساطة والسرعة، لأننا نؤمن بأن وقتك يجب أن يُستثمر في تجارتك، وليس في الإجراءات.<br/><br/>اكتشف في هذا الكاروسال كيف يمكنك البدء معنا اليوم في 3 خطوات فقط. <br/><br/> لا تضيع المزيد من الوقت في الفوضى. ابدأ الآن بالضغط على الرابط في البايو. <br/><br/> #ابدأ_الآن #خطوات_بسيطة #Alloui_dz #تنظيم #ecommerce_algerie #algiers</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">التصميم: بسيط وواضح جداً، على شكل دليل إرشادي. كل سلايد مرقم بشكل كبير (1, 2, 3). استخدام أيقونات بسيطة لكل خطوة (أيقونة تسجيل، أيقونة ربط/سلسلة، أيقونة صاروخ منطلق). ألوان البراند مع خلفية بيضاء لسهولة القراءة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P18</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">في التجارة، عندك زوج عملات برك: وقتك ودراهمك. لي يضيّعلك وحدة منهم، راه يسرقلك مستقبلك.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('18')">
+                    <div class="preview-text">وقتك أغلى من أن يضيع في متابعة الطلبيات.
+
+مالك أثمن من أن يُهدر في المرتجعات.
+
+Alloui: نحمي لك أصولك...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-18" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('18')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P18</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-18')">📋 نسخ النص</button>
+                            <div id="script-text-18" class="modal-body">وقتك أغلى من أن يضيع في متابعة الطلبيات.<br/><br/><br/><br/>مالك أثمن من أن يُهدر في المرتجعات.<br/><br/><br/><br/>Alloui: نحمي لك أصولك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-18')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-18" class="modal-body">رسالة مباشرة لكل صاحب متجر طموح. <br/><br/> نجاحك أو فشلك في التجارة الإلكترونية يعتمد في النهاية على كيفية إدارتك لموردين أساسيين: الوقت والمال.<br/><br/>أي عملية غير فعالة في تجارتك هي تسريب مباشر لهذين الموردين.<br/><br/>مهمة Alloui واضحة: نحن نسد هذه التسريبات. نبني لك نظاماً يحافظ على وقتك، ويحمي مالك، ويتيح لك الفرصة لبناء المستقبل الذي تستحقه. <br/><br/> استثمر في أهم أصولك. تواصل مع Alloui اليوم. <br/><br/> #وقت_مال #استثمار_ذكي #Alloui #رسالة_مباشرة #تجارة_الجزائر #dz_business</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">التصميم: قوي ومباشر. خلفية داكنة. في الأعلى أيقونة ساعة، وفي الأسفل أيقونة عملة. النص مكتوب في المنتصف بخط أبيض عريض وقوي. لوغو Alloui في الأسفل كأنه توقيع أو ختم ضمان.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr></tbody></table></div>
+
+    <div class="disclaimer-card">
+        <span style="font-size: 1.2em;">⚠️</span>
+        <span>قد تخضع هذه الاستراتيجية لبعض التعديلات والتحسينات، حسب المواد الإعلامية المتوفرة أو لغرض تحقيق أفضل النتائج.</span>
+    </div>
+
+    <div class="summary-box">
+        <span style="font-weight: 700; color: #FFD700;">الميزانية الإجمالية المعتمدة</span>
+        <span class="total-amount">123000 دج</span>
+        <a href="https://wa.me/213770820431" class="cta-btn">تواصل معنا للاعتماد</a>
+        <div style="border: 1px dashed #FFD700; padding: 25px; border-radius: 15px; margin-top: 20px;">
+            <h3 style="color:#FFD700; margin:0;">الخطوة التالية</h3>
+            <p style="margin:10px 0;">مكالمة قصيرة لنكيّف هذه الاستراتيجية حسب مشروعك ونبدأ العمل فوراً.</p>
+            <div class="phones-list">
+                <div class="phone-item">0770 82 04 31</div>
+                <div class="phone-item">0770 55 01 51</div>
+                <div class="phone-item">0770 82 01 45</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+function openModal(id) { document.getElementById('modal-' + id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
+function closeModal(id) { document.getElementById('modal-' + id).style.display = 'none'; document.body.style.overflow = 'auto'; }
+window.onclick = function(event) { if (event.target.className === 'modal') { event.target.style.display = 'none'; document.body.style.overflow = 'auto'; } }
+
+// وظيفة النسخ الجديدة
+function copyToClipboard(elementId) {
+    const el = document.getElementById(elementId);
+    const text = el.innerText || el.textContent; // نسخ النص بدون HTML tags
+    navigator.clipboard.writeText(text).then(() => {
+        alert("تم نسخ النص بنجاح! ✅");
+    }).catch(err => {
+        console.error('Failed to copy', err);
+    });
+}
+</script></body></html>
