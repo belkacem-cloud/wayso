@@ -1,0 +1,1247 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>فدرالية الرياضات الرملية في الجزائر Strategy</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+<style>
+    body { background: #FFFFFF; color: #1A1A1A; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; line-height: 1.6; overflow-x: hidden; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 15px; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 2px solid #000; }
+    .wayso-logo { height: 45px; }
+    .brand-name { font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 1.4em; color: #000; text-transform: uppercase; border-right: 4px solid #FFD700; padding-right: 12px; }
+    
+    .analysis-section { margin: 30px 0; }
+    .card-philosophy { padding: 30px; border-radius: 20px; background: #000; color: #FFF; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+    .card-philosophy h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #FFD700; }
+    
+    .card-why { padding: 30px; border-radius: 20px; background: #F9F9F9; color: #333; margin-bottom: 20px; border: 1px solid #EDECE9; }
+    .card-why h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #000; display: flex; align-items: center; gap: 10px; }
+    .card-why h2::after { content: ''; flex-grow: 1; height: 1px; background: #EDECE9; margin-right: 15px; }
+
+    .hero { margin: 35px 0 20px 0; border-right: 6px solid #FFD700; padding-right: 15px; }
+    .hero h1 { font-size: 2.5em; font-weight: 700; margin: 0; }
+    .table-wrapper { margin-top: 25px; border-radius: 12px; overflow: hidden; border: 1px solid #EDECE9; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #000; color: #FFF; padding: 15px; text-align: right; font-size: 0.95em; }
+    td { padding: 20px 12px; border-bottom: 1px solid #EDECE9; vertical-align: top; }
+    
+    .code-badge { font-family: 'Montserrat', sans-serif; font-weight: 700; background: #FFD700; color: #000; padding: 5px 12px; border-radius: 6px; font-size: 1.1em; display: inline-block; margin-bottom: 5px; }
+    .type-label { display: block; font-weight: 700; color: #555; font-size: 0.95em; }
+    
+    .hook-pill { background: #000; color: #FFD700; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 1.1em; display: block; border-right: 5px solid #FFD700; }
+    
+    /* تحسين زر المودال */
+    .script-trigger { background: #F8F9FA; border: 1px solid #EDECE9; padding: 15px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; position: relative; }
+    .script-trigger:hover { background: #FFF; border-color: #FFD700; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transform: translateY(-2px); }
+    
+    .preview-text { font-size: 0.95em; color: #333; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; white-space: pre-wrap; }
+    
+    /* ستايل المودال */
+    .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); }
+    .modal-content { background: #FFF; margin: 5% auto; padding: 30px; border-radius: 20px; width: 90%; max-width: 750px; position: relative; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+    .close-modal { position: absolute; top: 20px; left: 20px; font-size: 30px; cursor: pointer; color: #999; line-height: 1; transition: color 0.2s; }
+    .close-modal:hover { color: #000; }
+    
+    .modal-section { margin-bottom: 25px; padding: 20px; border-radius: 12px; background: #fbfbfa; border: 1px solid #eee; position: relative; }
+    
+    /* زر النسخ */
+    .copy-btn { position: absolute; top: 10px; left: 10px; background: #fff; border: 1px solid #ddd; padding: 5px 10px; border-radius: 6px; cursor: pointer; font-size: 0.8em; font-weight: bold; color: #555; display: flex; align-items: center; gap: 5px; transition: all 0.2s; }
+    .copy-btn:hover { border-color: #FFD700; color: #000; background: #FFD70020; }
+    .copy-btn:active { transform: scale(0.95); }
+    
+    .modal-body { font-size: 1.15em; color: #1A1A1A; line-height: 1.9; word-wrap: break-word; white-space: pre-wrap; }
+    
+    .disclaimer-card { margin: 25px 0; padding: 20px; background: #FFF9E6; border-radius: 12px; border-right: 5px solid #FFC107; font-size: 1.05em; color: #856404; display: flex; align-items: center; gap: 12px; }
+    .summary-box { margin-top: 50px; background: #000; color: #FFF; padding: 40px 20px; border-radius: 25px; text-align: center; }
+    .total-amount { font-family: 'Montserrat'; font-size: 3.5em; font-weight: 700; display: block; color: #FFD700; margin: 10px 0; }
+    .cta-btn { display: inline-block; background: #FFD700; color: #000; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.2em; margin-bottom: 25px; transition: transform 0.2s; }
+    .cta-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px #FFD70060; }
+    
+    .phones-list { margin-top: 15px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; direction: ltr; } 
+    .phone-item { background: #1A1A1A; padding: 8px 15px; border-radius: 8px; border: 1px solid #333; color: #FFF; font-family: 'Montserrat'; font-weight: 700; font-size: 1.2em; white-space: nowrap; }
+
+    @media (max-width: 768px) {
+        thead { display: none; }
+        tr { display: block; border: 1px solid #EDECE9; border-radius: 15px; margin-bottom: 20px; padding: 15px; background: #FFF; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        td { display: block; padding: 10px 0; text-align: right; border-bottom: 1px dashed #eee; }
+        td:last-child { border-bottom: none; }
+        td::before { content: attr(data-label); font-weight: 700; color: #BBB; display: block; font-size: 0.8em; margin-bottom: 6px; text-transform: uppercase; }
+        .brand-name { font-size: 1.1em; }
+        .modal-content { width: 95%; padding: 20px; margin: 10% auto; }
+        .total-amount { font-size: 2.5em; }
+    }
+</style></head><body>
+
+<div class="container">
+    <div class="header">
+        <img src="https://storage.googleapis.com/msgsndr/GwIPQCjstTzxnzDQ1B32/media/68fddb5534bb1597bc934f89.png" class="wayso-logo">
+        <div class="brand-name">فدرالية الرياضات الرملية في الجزائر</div>
+    </div>
+
+    <div class="analysis-section">
+        <div class="card-philosophy"><h2>🎯 فلسفة الاستراتيجية</h2><p>نحن في Wayso، شركاء نجاحكم الاستراتيجي. خطتنا هذه ليست مجرد حملة إعلانية، بل هي هندسة دقيقة لنمو مستدام.
+
+لقد قمنا بدمج الإبداع مع أعمق الأطر التسويقية لضمان أن كل محتوى يلامس الجمهور بفعالية، محولاً الشغف إلى التزام، والاهتمام إلى عمل.
+
+هدفنا هو ترسيخ مكانة 'الفدرالية' كرائد لا ينازع في الرياضات الرملية، وفتح آفاق جديدة لقصة نجاحكم.</p></div>
+        <div class="card-why"><h2>💡 لماذا هذه الخطة؟</h2><p>بدأنا بـ V1 لخطف الانتباه وتأسيس السلطة كأول كيان رسمي، متبوعاً بكاروسالات تعليمية (مثل C2) لتبديد الشكوك وبناء الثقة.
+
+يتبع ذلك محتوى بصري قوي (P3) للترسيخ العاطفي، ثم تتوالى الفيديوهات والمنشورات لتغطية كل جوانب رحلة العميل وصولاً للتحويل والدعوة للانضمام.</p></div>
+    </div>
+
+    <div class="hero"><h1>خطة الإنتاج الإبداعي</h1></div>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th style="width: 20%;">الكود والنوع</th><th style="width: 30%;">الهوك (Hook)</th><th style="width: 50%;">المحتوى</th></tr></thead>
+            <tbody><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V1</span>
+                <span class="type-label">🎬 VIDEO</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الرمل لي تلعب فيه اليوم... قادر غدوة يخلّد اسمك في التاريخ! كيفاش؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('1')">
+                    <div class="preview-text">(صوت رياح الصحراء الهادئة مع موسيقى ملحمية تصاعدية خفيفة)
+الشغف... كلمة تسكن في قلب كل واحد فينا.
+و ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-1" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('1')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V1</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-1')">📋 نسخ النص</button>
+                            <div id="script-text-1" class="modal-body">(صوت رياح الصحراء الهادئة مع موسيقى ملحمية تصاعدية خفيفة)<br/><br/>الشغف... كلمة تسكن في قلب كل واحد فينا.<br/><br/>و في الجزائر، الشغف عندو حكاية خاصة مع الرمل...<br/><br/>مغامرات... تحديات... طاقة ما تخلصش.<br/><br/>بصح شحال من مرة حسيت بلي هاد الطاقة رايحة في الريح؟<br/><br/>شحال من موهبة ضاعت بين الكثبان؟<br/><br/>وشحال من مغامر خاف يجرب... خاطر مكانش لي يأطر ويوجه.<br/><br/>(الموسيقى تصبح أكثر قوة وحماس)<br/><br/>اليوم... الحكاية هذي راح تتبدل.<br/><br/>لأول مرة في الجزائر!<br/><br/>نقدمولكم 'الفدرالية الجزائرية للرياضات الرملية'.<br/><br/>الكيان الرسمي لي راح يجمع الشغف... بالتنظيم.<br/><br/>والمغامرة... بالأمان.<br/><br/>والهواية... بالاحتراف.<br/><br/>رانا هنا باش نحولو صحراء بلادنا لمنجم تاع أبطال... ووجهة عالمية للمغامرين.<br/><br/>رانا هنا باش نعطيو لكل موهبة حقها... وكل مغامر فرصتو.<br/><br/>هذا ماشي مجرد مشروع... هذا حلم جيل كامل.<br/><br/>وهذا هو وقتك... باش تكون جزء من التاريخ.<br/><br/>صحراء بلادك تستنّاك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-1')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-1" class="modal-body">🔥 أخيراً في الجزائر! الحلم أصبح حقيقة.<br/><br/>شغفك بالرياضات الرملية لم يعد مجرد هواية! نقدم لكم 'الفدرالية الجزائرية للرياضات الرملية'، أول كيان رسمي يؤطر المواهب، ينظم المغامرات، ويفتح الطريق نحو العالمية.<br/>من اليوم، موهبتك عندها مسار، ومغامرتك عندها ضمان. مستعد تصنع التاريخ معانا؟<br/><br/>زوروا موقعنا الرسمي الآن، سجلوا أسماءكم وكونوا جزءاً من الجيل المؤسس. الرابط في البايو!<br/><br/>#فدرالية_الرياضات_الرملية_الجزائرية #صحراء_الجزائر #رياضات_رملية #المغامرة_تبدأ_هنا #الجزائر #SandSportsDZ</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[المشهد الافتتاحي]: لقطات درون بانورامية واسعة لشروق الشمس فوق كثبان رملية ذهبية لا نهاية لها. إضاءة دافئة وناعمة.<br/>[0-5 ثواني]: لقطات سريعة B-roll (slow motion) لأقدام تجري على الرمل، عجلات رباعية تثير الغبار، شاب ينظر نحو الأفق بتحدي.<br/>[5-10 ثواني]: لقطات تظهر شباب يمارسون الرياضات الرملية بشكل عشوائي، ربما يقع أحدهم أو يبدو تائهاً. إضاءة طبيعية قاسية لإظهار 'الألم'.<br/>[10-15 ثانية]: لقطات مقربة (close-up) على وجوه شباب تظهر الشغف وفي نفس الوقت لمحة من الإحباط أو التساؤل.<br/>[15-25 ثانية]: (لحظة التحول) Cut سريع لشاشة سوداء ثم يظهر شعار 'الفدرالية' بشكل أنيق وقوي. الموسيقى تصل للذروة. لقطات منظمة لمدربين يوجهون رياضيين، معدات احترافية، سيارات إسعاف جاهزة، سياح يضحكون بأمان.<br/>[25-30 ثانية]: لقطات سريعة لأعلام جزائرية ترفرف على سيارات الدفع الرباعي، رياضيون يرفعون أيديهم احتفالاً. لقطة أخيرة بطائرة درون ترتفع لتكشف عن قافلة منظمة في قلب الصحراء.<br/>[نبرة الصوت]: تبدأ هادئة وعميقة (ملهمة)، ثم تصبح قوية وحماسية عند تقديم الحل (الفدرالية)، وتنتهي بنبرة دعوة واثقة ومباشرة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C2</span>
+                <span class="type-label">📚 CAROUSEL</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">ماشي مجرد اسم جديد... هذي هي الثورة لي كانت تستنى فيها الرياضات الرملية في بلادنا!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('2')">
+                    <div class="preview-text">Slide 1: علاش لازم تكون كاينة 'فدرالية للرياضات الرملية' في الجزائر؟ و واش راح تبدّل في حياتك كرياضي...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-2" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('2')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C2</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-2')">📋 نسخ النص</button>
+                            <div id="script-text-2" class="modal-body">Slide 1: علاش لازم تكون كاينة 'فدرالية للرياضات الرملية' في الجزائر؟ و واش راح تبدّل في حياتك كرياضي أو مغامر؟<br/><br/>Slide 2: أولاً: الرسمية والثقة.<br/><br/>نحن أول كيان معتمد من الدولة. هذا يعني أن كل نشاطاتنا مؤطرة قانونياً، ومغامرتك معنا مضمونة ومحمية.<br/><br/>Slide 3: ثانياً: من الهواية للاحتراف.<br/><br/>مهمتنا اكتشاف المواهب وتكوينها عبر برامج تدريب معتمدة. حلم الفريق الوطني يبدأ من هنا!<br/><br/>Slide 4: ثالثاً: سياحة رياضية بمعايير عالمية.<br/><br/>وداعاً للمغامرات العشوائية! نقدم تجارب سياحية فريدة، آمنة، ومنظمة تليق بجمال صحرائنا.<br/><br/>Slide 5: رابعاً: فعاليات ومنافسات كبرى.<br/><br/>نطمح لوضع الجزائر على الخريطة العالمية عبر تنظيم بطولات وطنية ودولية تجذب الأبطال من كل مكان.<br/><br/>Slide 6: خامساً: فوائد حصرية للأعضاء.<br/><br/>الانضمام إلينا يمنحك الأولوية في التدريب، تخفيضات على الرحلات، تأمين رياضي، وفرصة للانتماء لأول مجتمع رسمي من نوعه.<br/><br/>Slide 7: رؤيتنا واضحة.<br/><br/>صحراء الجزائر ليست مجرد مكان جميل، بل هي منجم للأبطال ومنصة للمستقبل.<br/><br/>Slide 8: الخطوة التالية بيدك!<br/><br/>اكتشف الآن كيف ستغير الفدرالية مستقبل الرياضات الرملية في الجزائر و كيف يمكنك أن تكون جزءاً من هذا التغيير.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-2')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-2" class="modal-body">🤔 فدرالية؟ وعلاش لازم تهمك؟<br/><br/>الرياضات الرملية في الجزائر انتقلت لمستوى آخر! لم تعد مجرد 'لعب في الرمل'.<br/>اكتشف في هذا الكاروسال ٨ أسباب تخلي 'الفدرالية الجزائرية للرياضات الرملية' هي المنصة لي كنت تستناها سواء كنت رياضي طموح أو مغامر تبحث عن تجربة آمنة.<br/><br/>مرر لليمين باش تفهم قوة هذا الكيان الجديد وتشوف فرصتك معانا!<br/><br/>#الجزائر #رياضة #سياحة_جزائرية #اكتشف_الجزائر #الرياضات_الرملية #مستقبل_الرياضة</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Slide 1: خلفية صورة بانورامية للصحراء مع عنوان كبير وجذاب. استخدام خط عريض وواضح.<br/>Slide 2: صورة لوثيقة رسمية أو ختم بجانب صورة لمجموعة من المغامرين يبتسمون بثقة. أيقونة 'درع أمان'.<br/>Slide 3: تصميم يوضح مساراً يبدأ من شاب هاوي وينتهي ببطل على منصة تتويج. أيقونة 'كأس'.<br/>Slide 4: صورة عالية الجودة لسياح أجانب يستمتعون بتجربة sandboarding بشكل منظم. أيقونة 'خريطة العالم'.<br/>Slide 5: تصميم جرافيك يظهر أجندة فعاليات مع صور لرياضيين في منافسات. أيقونة 'ميدالية'.<br/>Slide 6: انفوجرافيك بسيط يعدد الفوائد باستخدام أيقونات واضحة (بطاقة عضوية، علامة %، قلب...).<br/>Slide 7: صورة ملهمة لرياضي ينظر إلى الأفق من قمة كثيب رملي. النص مكتوب بطريقة فنية.<br/>Slide 8: خلفية تحمل شعار الفدرالية مع دعوة واضحة للعمل وزر 'اكتشف المزيد'.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P3</span>
+                <span class="type-label">🖼️ IMAGE</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">من كثبان الرمل... إلى منصات التتويج. الحلم عندو عنوان واحد.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('3')">
+                    <div class="preview-text">صحراء بلادك تستنّاك: من مغامر لفريق وطني....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-3" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('3')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P3</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-3')">📋 نسخ النص</button>
+                            <div id="script-text-3" class="modal-body">صحراء بلادك تستنّاك: من مغامر لفريق وطني.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-3')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-3" class="modal-body">📍 هذا هو المسار. وهذا هو المستقبل.<br/><br/>كل رحلة عظيمة تبدأ بخطوة. وكل بطل عالمي كان في يوم من الأيام مجرد هاوٍ بشغف كبير.<br/>الفدرالية الجزائرية للرياضات الرملية هي الجسر بين شغفك وتحقيق حلمك.<br/>نؤمن أن في كل مغامر جزائري يكمن بطل ينتظر الفرصة.<br/><br/>شاركنا حلمك في التعليقات: ما هي الرياضة الرملية التي تتمنى أن تمثل فيها الجزائر؟ 🇩🇿<br/><br/>#من_مغامر_لفريق_وطني #حلم_جزائري #الجزائر_تقدر #طموح #شباب_الجزائر #الرياضة_تجمعنا</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم بصري قوي جداً. الصورة مقسومة لنصفين: النصف الأيمن يظهر شاب يمارس هواية الـ Sandboarding بشكل فردي في الصحراء. النصف الأيسر يظهره وهو يرتدي قميص الفريق الوطني الجزائري ويحمل كأساً. الشعار 'صحراء بلادك تستنّاك: من مغامر لفريق وطني' مكتوب في المنتصف بخط أنيق وواضح. شعار الفدرالية في زاوية التصميم.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V4</span>
+                <span class="type-label">🎬 VIDEO</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كل مشروع عظيم وراه قصة... وهذي هي القصة لي بدأت من قلب الصحراء.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('4')">
+                    <div class="preview-text">(مقابلة مع أحد المؤسسين، في إطار طبيعي بالصحراء، إضاءة سينمائية)
+المؤسس (بنبرة شغف): 'كنا نشوفو ديما...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-4" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('4')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V4</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-4')">📋 نسخ النص</button>
+                            <div id="script-text-4" class="modal-body">(مقابلة مع أحد المؤسسين، في إطار طبيعي بالصحراء، إضاءة سينمائية)<br/><br/>المؤسس (بنبرة شغف): 'كنا نشوفو ديما شبابنا عندهم طاقة كبيرة... بصح طاقة مشتتة. نشوفو السياح يحوسو على مغامرة حقيقية... بصح يلقاو تجارب عشوائية. كنا نشوفو صحراء بلادنا، كنز رباني... والإمكانيات تاعو مهدورة.'<br/><br/>(لقطات أرشيفية سريعة لشباب يمارسون الرياضات بشكل غير منظم)<br/><br/>'الألم الكبير كان كي تشوف موهبة قدامك، وتعرف بلي لوكان تلقى شوية تأطير برك... تقدر توصل للعالمية. بصح للأسف، مكانش كاينة هذيك المنصة.'<br/><br/>(الموسيقى تصبح أكثر إلهاماً)<br/><br/>'من هنا جات الفكرة. قلنا: علاش ما نكونوش حنا هاد المنصة؟ علاش ما نبنيوش أول كيان رسمي يلم الشمل، ينظم الأمور، ويفتح الباب لي كان مغلوق؟'<br/><br/>(لقطات حديثة تظهر اجتماعات، تخطيط، بناء هوية بصرية للفدرالية)<br/><br/>'ماكانتش ساهلة... بصح الإيمان بالحلم كان أقوى. اليوم، الفدرالية ماهيش مجرد مكتب وسجل تجاري... هي تتويج لسنوات من الشغف والأمل.'<br/><br/>'هي الحل لذاك الألم... وفرصة كل شاب جزائري طموح.'</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-4')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-4" class="modal-body">🗣️ وراء كل إنجاز... قصة شغف حقيقية.<br/><br/>لم تولد 'الفدرالية الجزائرية للرياضات الرملية' من فراغ. بل ولدت من رحم الحاجة، من رؤية شباب آمنوا بإمكانيات صحرائنا ومواهب أبنائها.<br/>شاهدوا القصة الملهمة وراء تأسيس أول كيان رسمي للرياضات الرملية في الجزائر، وكيف تحول الألم إلى أمل.<br/><br/>اكتشفوا القصة الكاملة التي دفعت الجزائر لاتخاذ هذه الخطوة نحو العالمية. تابعونا للمزيد من القصص الملهمة!<br/><br/>#قصة_نجاح #جزائريون #صنع_في_الجزائر #إلهام #ريادة_الأعمال #الصحراء_الجزائرية</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">الأسلوب: وثائقي قصصي. استخدام كاميرا ثابتة للمقابلات مع عمق ميدان (bokeh) لإبراز الشخصية. الإضاءة دافئة (Golden Hour). دمج لقطات أرشيفية (قديمة أو تبدو قديمة) لإظهار 'ما قبل' الفدرالية، مع لقطات حديثة وسينمائية لإظهار 'الآن'. الموسيقى تلعب دوراً كبيراً في نقل المشاعر. يجب أن يكون أداء المتحدث عاطفياً وصادقاً، وليس تمثيلاً.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C5</span>
+                <span class="type-label">📚 CAROUSEL</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الصحراء ماشي غير رمل وجمال... هي أكبر ملعب مفتوح في العالم!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('5')">
+                    <div class="preview-text">Slide 1: تعرّف على عالم الرياضات الرملية لي تقدر تمارسها في الجزائر! أنواع ممكن أول مرة تسمع بيها.
+S...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-5" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('5')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C5</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-5')">📋 نسخ النص</button>
+                            <div id="script-text-5" class="modal-body">Slide 1: تعرّف على عالم الرياضات الرملية لي تقدر تمارسها في الجزائر! أنواع ممكن أول مرة تسمع بيها.<br/><br/>Slide 2: Sandboarding (التزلج على الكثبان)<br/><br/>رياضة السرعة والأدرينالين. تخيل روحك تتزلج من أعلى الكثبان الرملية الذهبية. تجربة فريدة من نوعها!<br/><br/>Slide 3: Desert Trekking & Running (المشي والجري الصحراوي)<br/><br/>لعشاق التحمل واكتشاف الطبيعة. مسارات مدروسة وآمنة تأخذك لأجمل المناظر الخلابة في صحرائنا.<br/><br/>Slide 4: Quad Biking & Dune Buggy (الدراجات الرباعية والباجي)<br/><br/>قوة المحركات في مواجهة الطبيعة! مغامرة حماسية لاستكشاف مساحات شاسعة من الصحراء بسرعة وتشويق.<br/><br/>Slide 5: Sand Soccer/Volleyball (كرة القدم وكرة الطائرة الشاطئية... بنكهة صحراوية!)<br/><br/>متعة اللعب الجماعي تنتقل لقلب الصحراء. نجهز لكم ملاعب خاصة لبطولات لن تنسى.<br/><br/>Slide 6: آفاق جديدة ومستقبل واعد.<br/><br/>نحن نعمل على إدخال رياضات جديدة ومبتكرة مثل الـ Sand-Kiting والـ Desert Archery. المستقبل يحمل الكثير!<br/><br/>Slide 7: وأنت، واش هي رياضتك المفضلة؟<br/><br/>شاركنا في التعليقات الرياضة لي تحمست تجربها أكثر شي!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-5')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-5" class="modal-body">مستعد للأدرينالين؟  adrenaline 🚀<br/><br/>هل تعتقد أنك تعرف كل شيء عن الرياضات الصحراوية؟ فكر مرة أخرى!<br/>توجد عوالم من المغامرة تنتظرك بين كثبان الجزائر الرملية. من التزلج على الرمال إلى سباقات الباجي، الإمكانيات لا حصر لها.<br/><br/>مرر لليمين واستكشف معنا أروع الرياضات الرملية التي نعمل على تطويرها وتأطيرها. أي واحدة ستختار؟<br/><br/>#Sandboarding #QuadBiking #DesertLife #مغامرات #ادرينالين #الجزائر_جنة</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم حيوي ومليء بالألوان. كل سلايد يستخدم صورة أكشن عالية الجودة للرياضة المذكورة. استخدام خطوط عصرية وحماسية. أيقونات بسيطة لكل رياضة لتعزيز الجانب البصري. في السلايد الأخير، استخدام صورة تجمع عدة رياضات مع سؤال تفاعلي كبير.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P6</span>
+                <span class="type-label">🖼️ IMAGE</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الخوف عدو المغامرة... وحنا جينا باش نقضيو عليه.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('6')">
+                    <div class="preview-text">مغامرتك في الصحراء لازم تكون 100% متعة و 0% قلق. 
+الفدرالية تضمن لك: أمان، تنظيم، احترافية....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-6" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('6')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P6</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-6')">📋 نسخ النص</button>
+                            <div id="script-text-6" class="modal-body">مغامرتك في الصحراء لازم تكون 100% متعة و 0% قلق. <br/><br/>الفدرالية تضمن لك: أمان، تنظيم، احترافية.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-6')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-6" class="modal-body">🔒 مغامرة آمنة؟ نعم، هذا هو معيارنا.<br/><br/>نعرف أن أكبر عائق أمام استكشاف الصحراء هو القلق بشأن الأمان. لهذا السبب، وضعنا سلامتك كأولوية قصوى.<br/>مع الفدرالية، كل خطوة محسوبة، كل مسار مدروس، وكل تجربة مؤطرة من قبل خبراء.<br/>استمتع بالمغامرة... واترك الباقي علينا.<br/><br/>اكتشف المزيد عن بروتوكولات السلامة الصارمة التي نتبعها عبر زيارة موقعنا. الرابط في البايو!<br/><br/>#الأمان_أولا #سياحة_آمنة #الجزائر #مغامرة_بثقة #اطمئن #SafetyFirst</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم يبعث على الثقة. صورة لمغامر مجهز بالكامل (خوذة، نظارات) وهو يعطي إشارة '👍' للكاميرا بابتسامة واثقة. في الخلفية، يمكن رؤية مدرب محترف وسيارة إسعاف بوضوح. النص مكتوب بخط قوي وواضح. استخدام ألوان تبعث على الثقة مثل الأزرق والأبيض. شعار الفدرالية وعبارة 'الأمان أولاً' في الأسفل.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V7</span>
+                <span class="type-label">🎬 VIDEO</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">عندك شغف بالرمل؟ 5 أسباب راح تخليك تنضم لينا اليوم قبل غدوة!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('7')">
+                    <div class="preview-text">(فيديو Motion Graphics سريع وحيوي مع موسيقى إلكترونية حماسية)
+(نص يظهر على الشاشة مع تعليق صوتي)
+'عل...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-7" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('7')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V7</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-7')">📋 نسخ النص</button>
+                            <div id="script-text-7" class="modal-body">(فيديو Motion Graphics سريع وحيوي مع موسيقى إلكترونية حماسية)<br/><br/>(نص يظهر على الشاشة مع تعليق صوتي)<br/><br/>'علاش تنضم للفدرالية الجزائرية للرياضات الرملية؟'<br/><br/>'5. وداعاً للعشوائية!'<br/><br/>(أيقونة لخريطة عشوائية تتحول لمسار واضح ومنظم)<br/><br/>'نوفر لك مسارات آمنة ومدروسة ومعدات احترافية.'<br/><br/>'4. طور موهبتك!'<br/><br/>(أيقونة لمبة فوق رأس رياضي تتحول لكأس)<br/><br/>'استفد من برامج تدريب مع مدربين معتمدين وحول هوايتك لاحتراف.'<br/><br/>'3. كن جزءاً من مجتمع! '<br/><br/>(أيقونات لأشخاص متفرقين يتجمعون تحت شعار الفدرالية)<br/><br/>'انضم لأول شبكة من المحترفين والهواة في الجزائر وتبادل الخبرات.'<br/><br/>'2. فرص حقيقية!'<br/><br/>(أيقونة جواز سفر عليه علم الجزائر)<br/><br/>'المتميزون ستكون لهم فرصة تمثيل الجزائر في المنافسات الدولية.'<br/><br/>'1. مغامرة مضمونة!'<br/><br/>(أيقونة درع حماية كبير)<br/><br/>'استمتع بشغفك تحت مظلة كيان رسمي يضمن لك الأمان والمتعة.'<br/><br/>'القرار بيدك... والفرصة أمامك!'</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-7')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-7" class="modal-body">🚀 5 أسباب ستغير نظرتك للرياضات الرملية!<br/><br/>الانضمام للفدرالية ليس مجرد اشتراك، بل هو استثمار في شغفك ومستقبلك.<br/>شاهد هذا الفيديو السريع واكتشف 5 فوائد ملموسة ستحصل عليها بمجرد أن تصبح جزءاً من عائلتنا. من التدريب الاحترافي إلى المغامرات الآمنة، كل شيء مصمم من أجلك.<br/><br/>لا تترك الفرصة تفوتك! زر موقعنا الآن (الرابط في البايو) واكتشف تفاصيل العضوية.<br/><br/>#فرصة #تطوير #احتراف #مجتمع #الجزائر_تتغير #انضم_الينا</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو Motion Graphics بالكامل. استخدام ألوان الهوية البصرية للفدرالية (الألوان الترابية مع لون حيوي مثل البرتقالي أو الأزرق). الرسوم متحركة وسلسة، والانتقالات سريعة. التعليق الصوتي يجب أن يكون شاباً، حيوياً، ومقنعاً. كل نقطة يتم تمثيلها بصرياً بأيقونات ورسوم بسيطة وواضحة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C8</span>
+                <span class="type-label">📚 CAROUSEL</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">حلم تمثيل 🇩🇿 ما بقاش بعيد... هذا هو الطريق خطوة بخطوة!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('8')">
+                    <div class="preview-text">Slide 1: كيف تحول شغفك بالرياضات الرملية إلى مسيرة احترافية وتمثل الجزائر عالمياً؟
+Slide 2: الخطوة 1...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-8" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('8')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C8</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-8')">📋 نسخ النص</button>
+                            <div id="script-text-8" class="modal-body">Slide 1: كيف تحول شغفك بالرياضات الرملية إلى مسيرة احترافية وتمثل الجزائر عالمياً؟<br/><br/>Slide 2: الخطوة 1: الانضمام الرسمي.<br/><br/>كل شيء يبدأ من هنا. سجل عضويتك في الفدرالية لتصبح رياضياً معترفاً به وتدخل قاعدة بيانات المواهب الوطنية.<br/><br/>Slide 3: الخطوة 2: التدريب الممنهج.<br/><br/>انخرط في برامجنا التدريبية المصممة من قبل خبراء. تعلم التقنيات الصحيحة، قواعد الأمان، واستراتيجيات المنافسة.<br/><br/>Slide 4: الخطوة 3: المنافسات المحلية.<br/><br/>شارك في البطولات الولائية والوطنية التي ننظمها. هي فرصتك لإظهار موهبتك، صقلها، والتعلم من الاحتكاك.<br/><br/>Slide 5: الخطوة 4: معسكرات النخبة.<br/><br/>سيتم دعوة أفضل الرياضيين من المنافسات المحلية للانضمام لمعسكرات تدريب مكثفة تحت إشراف مدربين وطنيين.<br/><br/>Slide 6: الخطوة 5: الفريق الوطني.<br/><br/>الأداء المتميز في المعسكرات هو تذكرتك للانضمام لأول فريق وطني جزائري للرياضات الرملية. الحلم يصبح حقيقة!<br/><br/>Slide 7: قصص ملهمة في طور الصنع.<br/><br/>نحن نبحث عن أبطال المستقبل. قصة نجاحك يمكن أن تكون هنا قريباً.<br/><br/>Slide 8: شغفك هو نقطة البداية... والفدرالية هي طريقك نحو القمة. انضم الآن!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-8')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-8" class="modal-body">🏆 عندك حلم العالمية؟ الطريق يبدأ من هنا.<br/><br/>لم يعد الاحتراف في الرياضات الرملية مجرد حلم بعيد المنال. لقد قمنا بتصميم مسار واضح وشفاف يأخذك من نقطة الصفر إلى تمثيل الراية الوطنية.<br/>اكتشف خطوة بخطوة كيف يمكنك تحقيق هذا الحلم.<br/><br/>مرر لليمين وشاهد خريطة طريقك نحو القمة. هل أنت مستعد لاتخاذ الخطوة الأولى؟<br/><br/>#الطريق_إلى_القمة #احتراف #الفريق_الوطني #الجزائر #رياضي #حقق_حلمك</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم إنفوجرافيك على شكل خريطة طريق أو سلم يصعد. كل سلايد يمثل درجة في السلم. استخدام صور حقيقية لشباب يتدربون بجدية. في السلايد الأخير، صورة لرياضي يقف على قمة كثيب رملي يرفع علم الجزائر. الألوان يجب أن تكون ملهمة وحماسية. الخطوط واضحة وسهلة القراءة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P9</span>
+                <span class="type-label">🖼️ IMAGE</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الصحراء الجزائرية: ماشي مجرد رمل... كنز سياحي ينتظر العالم.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('9')">
+                    <div class="preview-text">الوجهة الجديدة للسياحة العالمية تبدأ من هنا.
+مغامرة. ثقافة. أمان.
+الفدرالية الجزائرية للرياضات الرمل...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-9" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('9')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P9</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-9')">📋 نسخ النص</button>
+                            <div id="script-text-9" class="modal-body">الوجهة الجديدة للسياحة العالمية تبدأ من هنا.<br/><br/>مغامرة. ثقافة. أمان.<br/><br/>الفدرالية الجزائرية للرياضات الرملية.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-9')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-9" class="modal-body">🌍 الجزائر: الوجهة التي لا تشبه أي مكان آخر.<br/><br/>تمتلك الجزائر واحدة من أروع الصحاري في العالم، والآن، أصبح استكشافها أكثر إثارة وأماناً من أي وقت مضى.<br/>مع الفدرالية، نحن لا نقدم مجرد رياضة، بل نقدم تجربة سياحية متكاملة تجمع بين المغامرة، اكتشاف الثقافة، والاستمتاع بجمال طبيعي يخطف الأنفاس.<br/><br/>اكتشفوا باقاتنا السياحية الرياضية التي ستجعلكم ترون الصحراء بعيون جديدة. الرابط في البايو!<br/><br/>#VisitAlgeria #Sahara #Algeria #Tourism #TravelDZ #اكتشف_الجزائر #سياحة</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">صورة فوتوغرافية احترافية ومبهرة لجمال الصحراء الجزائرية (مثلاً تكوين صخري فريد في تاسيلي ناجر مع قافلة سيارات دفع رباعي تابعة للفدرالية). جودة الصورة يجب أن تكون عالمية. النص مكتوب بأناقة وبشكل بسيط في الأسفل. الهدف هو إبراز جمال الجزائر كوجهة سياحية عالمية.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V10</span>
+                <span class="type-label">🎬 VIDEO</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">قالوا 'مجرد هواية'... بصح شوف بعينيك الشغف لي يسكن في قلوبهم!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('10')">
+                    <div class="preview-text">(مجموعة من المقاطع السريعة لشباب وفتيات يتحدثون للكاميرا بأسلوب UGC عفوي)
+شاب 1 (بحماس): 'الـ Sandbo...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-10" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('10')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V10</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-10')">📋 نسخ النص</button>
+                            <div id="script-text-10" class="modal-body">(مجموعة من المقاطع السريعة لشباب وفتيات يتحدثون للكاميرا بأسلوب UGC عفوي)<br/><br/>شاب 1 (بحماس): 'الـ Sandboarding بالنسبة ليا ماشي لعب، هو حرية!'<br/><br/>فتاة 1: 'نحلم يجي نهار وين نشارك في بطولة عالمية ونقولهم أنا من الجزائر.'<br/><br/>شاب 2: 'كنت ديما نروح وحدي، نخاف... بصح درك مع الفدرالية، الحكاية تبدلت.'<br/><br/>(لقطات B-roll تظهرهم وهم يمارسون شغفهم في الصحراء)<br/><br/>شاب 3: 'هذي فرصة باش نبينو للعالم بلي الجزائر عندها أبطال في كل بلاصة، حتى في الصحراء.'<br/><br/>(مونتاج سريع لوجوه مبتسمة، عناق بين الأصدقاء بعد تحدي، لقطات لغروب الشمس)<br/><br/>تعليق صوتي (هادئ وملهم): 'أحلامهم هي مهمتنا. وشغفهم هو وقودنا. الفدرالية وُجدت من أجلهم... ومن أجلك.'</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-10')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-10" class="modal-body">🔥 هذا هو صوت شباب الجزائر! وهذا هو شغفهم الحقيقي.<br/><br/>استمعوا مباشرة لأحلام وطموحات الجيل الجديد من الرياضيين والمغامرين في الجزائر.<br/>هؤلاء الشباب هم السبب في وجودنا، وقصصهم هي التي تدفعنا كل يوم لتقديم الأفضل. الفدرالية هي منصتهم لتحويل هذا الشغف إلى إنجاز.<br/><br/>هل أنت واحد منهم؟ انضم إلينا وكن جزءاً من هذه القصة. الرابط في البايو!<br/><br/>#شباب_الجزائر #صوت_الشباب #شغف #طموح #جزائري_وافتخر #UGC</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">الأسلوب: User-Generated Content (UGC) أو محتوى من صنع المستخدم. يجب أن تبدو المقاطع عفوية وحقيقية، كأنها مصورة بالهاتف. الجودة ليست الأهم بقدر الصدق في المشاعر. المونتاج يجب أن يكون سريعاً وإيقاعياً، مع موسيقى شبابية ملهمة. التركيز على إظهار 'البطل الحقيقي' وهو الجمهور.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C11</span>
+                <span class="type-label">📚 CAROUSEL</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">5 خطوات برك... وتدخل رسمياً لعالم الرياضات الرملية المنظمة!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('11')">
+                    <div class="preview-text">Slide 1: مستعد للانضمام؟ العملية أسهل مما تتخيل! اتبع هذه الخطوات البسيطة.
+Slide 2: الخطوة 1: زر موق...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-11" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('11')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C11</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-11')">📋 نسخ النص</button>
+                            <div id="script-text-11" class="modal-body">Slide 1: مستعد للانضمام؟ العملية أسهل مما تتخيل! اتبع هذه الخطوات البسيطة.<br/><br/>Slide 2: الخطوة 1: زر موقعنا الرسمي.<br/><br/>افتح متصفحك وادخل إلى [www.federation-sable.dz] (موقع افتراضي). كل شيء يبدأ من هناك!<br/><br/>Slide 3: الخطوة 2: املأ استمارة التسجيل.<br/><br/>اضغط على 'انضم الآن' واملأ معلوماتك الشخصية والرياضية. العملية لا تستغرق أكثر من 5 دقائق.<br/><br/>Slide 4: الخطوة 3: اختر عضويتك.<br/><br/>سواء كنت رياضياً طموحاً، مغامراً تبحث عن رحلات، أو مبتدئاً تريد التدريب، لدينا باقة تناسبك.<br/><br/>Slide 5: الخطوة 4: أكمل الدفع الآمن.<br/><br/>اختر طريقة الدفع التي تناسبك عبر منصتنا المؤمنة 100%.<br/><br/>Slide 6: الخطوة 5: أهلاً بك في العائلة!<br/><br/>ستستلم بطاقة عضويتك الرقمية عبر الإيميل، وستكون جاهزاً للانطلاق في أولى مغامراتك المنظمة!<br/><br/>Slide 7: ما الذي تنتظره؟<br/><br/>انضم الآن وكن جزءاً من أول مجتمع رسمي للرياضات الرملية في الجزائر!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-11')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-11" class="modal-body">✅ الانضمام أصبح سهلاً وسريعاً!<br/><br/>لا تدع الإجراءات تعقد عليك الأمور. لقد صممنا عملية تسجيل بسيطة ومباشرة لتتمكن من الانضمام إلينا في دقائق معدودة.<br/>تابع هذا الدليل المصور خطوة بخطوة.<br/><br/>مرر لليمين وشاهد كم هو سهل أن تصبح عضواً رسمياً. هل أنت جاهز للخطوة الأولى؟<br/><br/>#كيف #دليل #خطوات #انضم_الآن #سهلة #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم إنفوجرافيك إرشادي. استخدام أيقونات واضحة لكل خطوة (أيقونة فأرة، أيقونة قلم، أيقونة بطاقة بنكية...). استخدام لقطات شاشة (Screenshots) من الموقع الإلكتروني لتوضيح العملية. الألوان زاهية وواضحة. الخطوات مرقمة بشكل كبير وبارز.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P12</span>
+                <span class="type-label">🖼️ IMAGE</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الفرصة الذهبية لي كنت تستناها... راهي هنا ودوكا!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('12')">
+                    <div class="preview-text">عرض الإطلاق الخاص!
+سجل الآن كواحد من أول 100 عضو واستفد من خصم 25% على أول باقة تدريب أو مغامرة سياح...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-12" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('12')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P12</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-12')">📋 نسخ النص</button>
+                            <div id="script-text-12" class="modal-body">عرض الإطلاق الخاص!<br/><br/>سجل الآن كواحد من أول 100 عضو واستفد من خصم 25% على أول باقة تدريب أو مغامرة سياحية.<br/><br/>العرض ينتهي قريباً!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-12')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-12" class="modal-body">🚨 عرض خاص للمؤسسين الأوائل! 🚨<br/><br/>بمناسبة إطلاقنا الرسمي، نقدم فرصة لا تعوض للأعضاء الـ 100 الأوائل الذين ينضمون لعائلتنا!<br/>احصل على تخفيض فوري بنسبة 25% على باقتك الأولى، سواء كانت دورة تدريبية احترافية أو مغامرة سياحية لا تنسى.<br/>هذه طريقتنا لنقول لكم 'شكراً' لثقتكم بنا منذ البداية.<br/><br/>الأماكن محدودة جداً! اضغط على الرابط في البايو واحجز مكانك الآن قبل فوات الأوان!<br/><br/>#عرض_خاص #تخفيضات #فرصة_لا_تعوض #الجزائر #خصم #Urgent</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم إعلاني واضح ومباشر. استخدام ألوان قوية مثل الأحمر والأصفر لجذب الانتباه. كتابة 'عرض خاص' و '25%' بخط كبير جداً. إضافة عداد تنازلي (صورة) أو عبارة 'الوقت ينفد' لخلق الإلحاح. شعار الفدرالية وزر 'سجل الآن' يجب أن يكونا بارزين.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V13</span>
+                <span class="type-label">🎬 VIDEO</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">يقولو الصحراء قاحلة... وأنا نقوللكم الصحراء كنز من ذهب ينتظر من يكتشفه!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('13')">
+                    <div class="preview-text">(الوجه الإعلامي يقف في منظر طبيعي صحراوي خلاب، يتحدث مباشرة للكاميرا بنبرة ملهمة)
+'شوفو ورايا... شوف...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-13" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('13')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V13</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-13')">📋 نسخ النص</button>
+                            <div id="script-text-13" class="modal-body">(الوجه الإعلامي يقف في منظر طبيعي صحراوي خلاب، يتحدث مباشرة للكاميرا بنبرة ملهمة)<br/><br/>'شوفو ورايا... شوفو هاد الجمال. شوفو هاد المساحة الشاسعة. هذي ماشي مجرد رمال... هذي هي الجزائر الحقيقية.'<br/><br/>'هذي هي الأرض لي تقدر تخرّج أبطال عالميين في الـ Sandboarding... سائقين محترفين في سباقات الرالي... وعدائين أسطوريين في الماراثون الصحراوي.'<br/><br/>'هذي هي الوجهة السياحية لي يقدر يحكي عليها العالم كامل... لوكان برك نستغلوها صح.'<br/><br/>'الإمكانيات لي عندنا هنا... دول أخرى تحلم بيها. والطاقة لي عند شبابنا... ماعندهاش حدود.'<br/><br/>'الفدرالية ماجاتش باش تخترع العجلة. جات باش تعطي لهاد الكنز قيمتو الحقيقية. باش تفتح الطريق لهاد الطاقة الشابة.'<br/><br/>'جات باش تقول للعالم: صحراء الجزائر ليست فراغاً... بل هي مستقبل الرياضة والمغامرة.'<br/><br/>'بلادك عندها كل المقومات... وأنت عندك الشغف. ما بقالنا غير نخدمو مع بعض.'</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-13')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-13" class="modal-body">🇩🇿 كنزنا الحقيقي... تحت أقدامنا.<br/><br/>الجزائر تمتلك ثروة طبيعية هائلة، وصحراؤنا هي جوهرة هذه الثروة. لكن هل نستغلها حقاً؟<br/>شاهدوا هذه الرسالة الملهمة عن الإمكانيات اللامحدودة التي توفرها لنا صحراؤنا وكيف تعمل الفدرالية على تحويل هذه الرؤية إلى واقع ملموس.<br/><br/>لا تكن مجرد متفرج. كن جزءاً من هذه الحركة. انضم إلينا اليوم!<br/><br/>#جزائري_وافتخر #ثروة_الجزائر #الصحراء_الجزائرية #رؤية #مستقبل #إلهام</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">الوجه الإعلامي (Host) يجب أن يكون شخصية مؤثرة ومقنعة. التصوير سينمائي باستخدام كاميرا عالية الجودة وربما مثبت (Gimbal) لحركة سلسة. لقطات درون متداخلة تظهر جمال المكان الذي يتحدث عنه. الصوت يجب أن يكون واضحاً جداً (باستخدام ميكروفون احترافي). التركيز على إظهار الصدق والعاطفة في الأداء.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C14</span>
+                <span class="type-label">📚 CAROUSEL</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">ماشي حنا لي نشكرو روحنا... اسمع واش قالو لي جربو بنفسهم!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('14')">
+                    <div class="preview-text">Slide 1: الثقة لا تُبنى بالكلام، بل بالتجارب الحقيقية. شاهد آراء أول أعضائنا.
+Slide 2: 'كنت نمارس ال...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-14" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('14')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C14</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-14')">📋 نسخ النص</button>
+                            <div id="script-text-14" class="modal-body">Slide 1: الثقة لا تُبنى بالكلام، بل بالتجارب الحقيقية. شاهد آراء أول أعضائنا.<br/><br/>Slide 2: 'كنت نمارس الـ Quad وحدي، ديما خايف من الأعطال ولا نتوّلف. مع الفدرالية، كاين فريق كامل معاك. أمان لا مثيل له!' - محمد، 24 سنة.<br/><br/>Slide 3: 'جئت كسائحة أبحث عن مغامرة. وجدت تنظيماً واحترافية تفوق توقعاتي. أحسن تجربة في حياتي!' - إيميلي، سائحة من فرنسا.<br/><br/>Slide 4: 'وليدي عندو طاقة كبيرة، والفدرالية عطاتلو المكان المناسب باش يفرغها ويتعلم رياضة جديدة في إطار آمن. كولي أمر، أنا مطمئن جداً.' - السيد أحمد، ولي أمر.<br/><br/>Slide 5: 'أخيراً لقيت مجتمع يشاركني نفس الشغف. تعلمنا من بعضنا، تنافسنا، وقضينا أوقات رائعة. الفدرالية هي عائلتنا الثانية.' - فاطمة، 21 سنة.<br/><br/>Slide 6: أصواتهم هي شهادتنا. رضاؤهم هو هدفنا.<br/><br/>Slide 7: قصص حقيقية، مغامرات حقيقية، وثقة حقيقية. حان دورك لتصنع قصتك معنا!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-14')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-14" class="modal-body">💬 صوت وصورة... تجارب حقيقية من قلب الصحراء.<br/><br/>أفضل طريقة لتعرف قيمة ما نقدمه هي أن تسمع مباشرة من الذين عاشوا التجربة.<br/>جمعنا لكم بعض الشهادات من أوائل الأعضاء والسياح الذين شاركونا مغامراتنا. رضاهم هو أكبر دليل على نجاحنا.<br/><br/>مرر لليمين واكتشف بنفسك لماذا يختارون الفدرالية. انضم إليهم اليوم!<br/><br/>#شهادات #تجارب #ثقة #دليل_اجتماعي #زبائن_سعداء #SocialProof</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم أنيق يركز على الاقتباسات. كل سلايد يحتوي على صورة شخصية عالية الجودة لصاحب الاقتباس مع اسمه وعمره/صفته. النص مكتوب بخط واضح ومقروء. استخدام علامات الاقتباس الكبيرة لإبراز الشهادة. في السلايد الأخير، يمكن وضع شبكة (Grid) من صور الأعضاء المبتسمين.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P15</span>
+                <span class="type-label">🖼️ IMAGE</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كي تجتمع إمكانيات بلادنا مع طموح شبابنا... النتيجة تكون عالمية.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('15')">
+                    <div class="preview-text">معاً، نرفع راية الجزائر عالياً في سماء الرياضات الرملية العالمية....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-15" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('15')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P15</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-15')">📋 نسخ النص</button>
+                            <div id="script-text-15" class="modal-body">معاً، نرفع راية الجزائر عالياً في سماء الرياضات الرملية العالمية.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-15')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-15" class="modal-body">🇩🇿 طموحنا... بحجم صحرائنا!<br/><br/>هذا ليس مجرد مشروع رياضي، بل هو مشروع وطني. مشروع يهدف إلى إبراز أفضل ما في الجزائر: جمال طبيعتها، وقوة شبابها.<br/>كل عضو ينضم إلينا هو سفير لهذا الحلم. وكل نجاح نحققه هو فخر لبلادنا.<br/><br/>انضم إلى الحركة التي ستجعل الجزائر رقماً صعباً في عالم الرياضات الرملية. كن جزءاً من الفخر!<br/><br/>#فخر_الجزائر #طموح_وطني #الجزائر_أولا #معا_نصنع_المستقبل #تحيا_الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">صورة قوية ومؤثرة. مجموعة من الرياضيين الشباب يقفون على قمة كثيب رملي عند غروب الشمس، يرفعون علم الجزائر عالياً بفخر. الصورة يجب أن تكون ملحمية وتعبر عن الوحدة والطموح الوطني. النص يكتب في الأسفل بخط فخم. شعار الفدرالية بجانب النص.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V16</span>
+                <span class="type-label">🎬 VIDEO</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">راك تحوس على طريق العالمية؟ الفدرالية رسمتلك الخريطة!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('16')">
+                    <div class="preview-text">(الوجه الإعلامي في استوديو أو أمام خلفية جرافيك أنيقة، يتحدث بثقة واحترافية)
+'شغفك بالرياضات الرملية...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-16" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('16')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V16</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-16')">📋 نسخ النص</button>
+                            <div id="script-text-16" class="modal-body">(الوجه الإعلامي في استوديو أو أمام خلفية جرافيك أنيقة، يتحدث بثقة واحترافية)<br/><br/>'شغفك بالرياضات الرملية كبير، بصح ممكن راك تسقسي روحك: كيفاش نقدر نطور من روحي؟ كيفاش نوصل للاحتراف؟'<br/><br/>'جوابك راهو هنا. في الفدرالية، ما نبيعولكش الوهم. نقدملك مسار احترافي واضح ومدروس.'<br/><br/>(تظهر رسوم بيانية على الشاشة)<br/><br/>'برامجنا التدريبية مبنية على مراحل. تبدأ من المستوى المبتدئ، وين تتعلم الأساسيات وقواعد الأمان على يد مدربين معتمدين.'<br/><br/>'بعدها، تنتقل للمستوى المتقدم، وين تركز على تقنيات المنافسة والأداء العالي.'<br/><br/>'وأخيراً، مرحلة النخبة، لي تتجهز فيها للمنافسات الوطنية والدولية.'<br/><br/>'كل مرحلة تنتهي بشهادة معترف بها، وكل خطوة تقربك من حلمك.'<br/><br/>'هوايتك عندها قيمة كبيرة، وحنا هنا باش نساعدوك تحولها لمسيرة مهنية ناجحة.'<br/><br/>'ما تزيدش تضيع وقتك في التدريب العشوائي. استثمر في موهبتك بالطريقة الصحيحة.'</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-16')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-16" class="modal-body">📈 من هاوٍ إلى محترف: هذا هو نظامنا التدريبي.<br/><br/>هل تريد أن تعرف بالضبط كيف سنحول شغفك إلى احتراف؟<br/>في هذا الفيديو، نشرح لك بالتفصيل المسار التدريبي المعتمد لدى الفدرالية. من الأساسيات إلى مستوى النخبة، كل خطوة مصممة لتصنع منك بطلاً.<br/><br/>شاهد الفيديو واكتشف برامج التدريب التي ستأخذ موهبتك إلى المستوى التالي. سجل اليوم وابدأ مسيرتك الاحترافية!<br/><br/>#تدريب #احتراف #تطوير_الذات #رياضة #تعليم #مسار_مهني</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">الأسلوب احترافي وتعليمي. الوجه الإعلامي يرتدي ملابس أنيقة. استخدام رسوم بيانية (Motion Graphics) متقدمة لتوضيح مسار التدريب والمراحل. الإضاءة ممتازة والصوت نقي. الهدف هو بناء الثقة وإظهار جدية واحترافية البرامج المقدمة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C17</span>
+                <span class="type-label">📚 CAROUSEL</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">دورة Sandboarding لي راح تبدلك... كل التفاصيل لي تحتاجها راهي هنا!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('17')">
+                    <div class="preview-text">Slide 1: دورة تدريب Sandboarding للمبتدئين: فرصتك باش تبدا رحلتك الاحترافية بالطريقة الصحيحة!
+Slide ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-17" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('17')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C17</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-17')">📋 نسخ النص</button>
+                            <div id="script-text-17" class="modal-body">Slide 1: دورة تدريب Sandboarding للمبتدئين: فرصتك باش تبدا رحلتك الاحترافية بالطريقة الصحيحة!<br/><br/>Slide 2: شكون هو المدرب؟<br/><br/>الكوتش [اسم المدرب]، خبير دولي في التزلج على الرمال بخبرة تفوق 10 سنوات، ومتحصل على شهادات [ذكر شهادات].<br/><br/>Slide 3: واش راح تتعلم؟<br/><br/>التحكم في اللوح، تقنيات الوقوف والتوازن، طرق الانعطاف الآمن، وكيفية اختيار الكثبان المناسبة. الأمان أولاً!<br/><br/>Slide 4: المعدات اللازمة.<br/><br/>لا تقلق! الفدرالية توفر لك كل المعدات اللازمة خلال الدورة: لوح تزلج احترافي، خوذة، ونظارات واقية.<br/><br/>Slide 5: جدول التدريب.<br/><br/>الدورة تمتد على مدار 4 أسابيع، بمعدل حصتين كل نهاية أسبوع (الجمعة والسبت) من الساعة 9 صباحاً إلى 12 ظهراً.<br/><br/>Slide 6: تكلفة الدورة.<br/><br/>الاشتراك في الدورة كاملة هو [السعر] دج. خصم خاص 15% لأول 20 مسجل!<br/><br/>Slide 7: علاش تتدرب معانا؟<br/><br/>في نهاية الدورة، ستحصل على شهادة معتمدة من الفدرالية، وهي أول خطوة في مسارك نحو المنافسات الرسمية.<br/><br/>Slide 8: المقاعد محدودة جداً! كن أول بطل Sandboarding في الجزائر. سجل الآن عبر موقعنا.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-17')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-17" class="modal-body">🏂 تريد تعلم الـ Sandboarding على أصوله؟<br/><br/>نقدم لكم أول دورة تدريبية احترافية في التزلج على الرمال للمبتدئين، تحت إشراف خبراء معتمدين.<br/>هذه فرصتك لتعلم رياضة ممتعة ومثيرة في بيئة آمنة ومنظمة. اكتشف كل التفاصيل في هذا الكاروسال.<br/><br/>مرر لليمين لمعرفة كل شيء عن الدورة. المقاعد محدودة، لا تفوت فرصتك! سجل الآن عبر الرابط في البايو.<br/><br/>#دورة_تدريبية #Sandboarding #تعلم_رياضة #الجزائر #فرصة #مبتدئين</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم الكاروسال كأنه بروشور رقمي للدورة. كل سلايد يعالج نقطة محددة بوضوح. استخدام صورة احترافية للمدرب، صور للمعدات، وتصميم أنيق للجدول الزمني. الألوان يجب أن تكون جذابة وتعكس طاقة الرياضة. في السلايد الأخير، استخدام عبارة 'المقاعد محدودة' لخلق الإلحاح.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P18</span>
+                <span class="type-label">🖼️ IMAGE</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">عندك طاقة وحاب تعاون؟ مكانك معانا!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('18')">
+                    <div class="preview-text">النجاح يبنى بالجهود الجماعية.
+الفدرالية تفتح أبوابها للمتطوعين والشركاء الطموحين.
+كن جزءاً من الحلم،...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-18" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('18')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P18</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-18')">📋 نسخ النص</button>
+                            <div id="script-text-18" class="modal-body">النجاح يبنى بالجهود الجماعية.<br/><br/>الفدرالية تفتح أبوابها للمتطوعين والشركاء الطموحين.<br/><br/>كن جزءاً من الحلم، وساهم في بناء مستقبل الرياضات الرملية.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-18')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-18" class="modal-body">🤝 هل تريد أن تكون جزءاً من فريقنا؟<br/><br/>نحن نؤمن بقوة المجتمع. ولتحقيق رؤيتنا الكبيرة، نحتاج إلى طاقات وشغف أفراد مثلكم.<br/>سواء كنت تريد التطوع في تنظيم الفعاليات، أو تمثل شركة ترغب في شراكة استراتيجية، نحن نرحب بك.<br/>معاً يمكننا تحقيق المزيد.<br/><br/>اتصلوا بنا اليوم لمعرفة كيف يمكنكم المساهمة في بناء هذا الصرح الرياضي. معلومات التواصل في البايو.<br/><br/>#تطوع #شراكة #بناء_المجتمع #الجزائر #فرص_عمل #معا_أقوى</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">صورة تظهر فريق عمل متنوع (منظمين، مسعفين، إداريين) يبتسمون معاً في إحدى الفعاليات. الصورة تعبر عن روح الفريق والتعاون. النص مكتوب بطريقة ودودة ومرحبة. يمكن إضافة أيقونات تمثل مختلف مجالات التطوع (تنظيم، إعلام، إسعاف...).</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V19</span>
+                <span class="type-label">🎬 VIDEO</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">السياحة في الصحراء ماشي غير تشوف وتصور... لازم تعيش المغامرة!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('19')">
+                    <div class="preview-text">(فيديو Motion Graphics ملون وجذاب، يعرض باقات سياحية مختلفة)
+تعليق صوتي (حيوي ومرح): 'مللت من الرحلا...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-19" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('19')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V19</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-19')">📋 نسخ النص</button>
+                            <div id="script-text-19" class="modal-body">(فيديو Motion Graphics ملون وجذاب، يعرض باقات سياحية مختلفة)<br/><br/>تعليق صوتي (حيوي ومرح): 'مللت من الرحلات التقليدية؟ الفدرالية تقدم لك 3 باقات من المغامرة الخالصة!'<br/><br/>(تظهر الباقة الأولى)<br/><br/>'باقة 'اكتشاف الأدرينالين': يوم كامل من الـ Quad Biking والـ Sandboarding مع وجبة غداء تقليدية في قلب الكثبان. مثالية ليوم مليء بالحماس!'<br/><br/>(تظهر الباقة الثانية)<br/><br/>'باقة 'رحلة المستكشف': يومان وليلة. Trekking لاكتشاف أجمل المناظر، التخييم تحت النجوم، وورشة لتعلم أساسيات البقاء في الصحراء. تجربة لن تنساها!'<br/><br/>(تظهر الباقة الثالثة)<br/><br/>'باقة 'VIP الصحراء': تجربة فاخرة ومصممة خصيصاً لك. اختر رياضاتك، مساراتك، ونوع إقامتك. كل شيء حسب رغبتك!'<br/><br/>'كل باقاتنا تشمل: مرشدين محترفين، معدات كاملة، وتأمين شامل. الأمان والمتعة مضمونان.'<br/><br/>'اختر باقتك... وعيش الصحراء كما لم تعشها من قبل!'</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-19')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-19" class="modal-body">🏜️ أي نوع من المغامرين أنت؟ اختر باقتك الآن!<br/><br/>سواء كنت تبحث عن جرعة أدرينالين سريعة، أو تجربة تخييم عميقة، أو مغامرة فاخرة ومخصصة، لدينا الباقة المثالية لك.<br/>شاهد هذا الفيديو واكتشف باقاتنا السياحية الرياضية المصممة لتعيشك تجربة فريدة وآمنة في صحراء الجزائر.<br/><br/>زوروا موقعنا الآن (الرابط في البايو) لحجز مغامرتكم القادمة. الأماكن محدودة لكل رحلة!<br/><br/>#سياحة_الجزائر #مغامرة #رحلات #اكتشف_الجزarbre #عروض_سياحية #SaharaExperience</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو Motion Graphics يشبه قائمة طعام في مطعم فاخر، ولكن للمغامرات. كل باقة تظهر مع أيقوناتها الخاصة، صور أو فيديوهات قصيرة تمثلها، وسعرها. التصميم يجب أن يكون جذاباً وسهل الفهم. الموسيقى تكون مغامراتية ومبهجة. الانتقالات بين الباقات تكون سلسة ومبتكرة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C20</span>
+                <span class="type-label">📚 CAROUSEL</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">عندك أسئلة تحير فيك؟ بالاك الجواب لي تحوس عليه راه هنا!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('20')">
+                    <div class="preview-text">Slide 1: كل الأسئلة الشائعة حول الفدرالية... وإجاباتها الواضحة والمباشرة.
+Slide 2: س1: هل الفدرالية ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-20" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('20')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C20</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-20')">📋 نسخ النص</button>
+                            <div id="script-text-20" class="modal-body">Slide 1: كل الأسئلة الشائعة حول الفدرالية... وإجاباتها الواضحة والمباشرة.<br/><br/>Slide 2: س1: هل الفدرالية هيئة حكومية؟<br/><br/>ج: نحن كيان رياضي خاص معتمد ورسمي، نعمل بالتنسيق مع السلطات المعنية لتطوير القطاع.<br/><br/>Slide 3: س2: هل النشاطات مخصصة للشباب فقط؟<br/><br/>ج: أبداً! نشاطاتنا مفتوحة للجميع: شباب، عائلات، سياح، وكل من يملك روح المغامرة، مع برامج تناسب كل فئة عمرية.<br/><br/>Slide 4: س3: ما هي الرياضات التي تركزون عليها حالياً؟<br/><br/>ج: حالياً نركز على Sandboarding, Quad Biking, و Desert Trekking، مع خطط لتوسيع القائمة قريباً جداً.<br/><br/>Slide 5: س4: أنا مبتدئ تماماً، هل يمكنني المشاركة؟<br/><br/>ج: بالتأكيد! معظم برامجنا مصممة لتناسب المبتدئين، مع توفير كل التدريب والمعدات اللازمة.<br/><br/>Slide 6: س5: كيف يمكنني متابعة أخباركم وفعالياتكم القادمة؟<br/><br/>ج: تابع صفحاتنا على مواقع التواصل الاجتماعي واشترك في نشرتنا البريدية عبر موقعنا الرسمي.<br/><br/>Slide 7: عندك سؤال آخر؟<br/><br/>لا تتردد في طرحه في التعليقات أو مراسلتنا على الخاص. نحن هنا لخدمتك!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-20')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-20" class="modal-body">🤔 أسئلة وأجوبة: كل ما تريد معرفته عنا.<br/><br/>الشفافية هي أحد مبادئنا الأساسية. جمعنا لكم أكثر الأسئلة التي تصلنا وأجبنا عليها بوضوح لمساعدتكم على فهم دورنا وخدماتنا بشكل أفضل.<br/>إذا كان لديك أي استفسار، فمن المحتمل أن تجد إجابته هنا.<br/><br/>مرر لليمين وخذ كل المعلومات التي تحتاجها. وإذا لم تجد سؤالك، اتركه لنا في التعليقات!<br/><br/>#FAQ #أسئلة_شائعة #معلومات #شفافية #الجزائر #كل_شيء_واضح</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم على شكل سؤال وجواب (Q&A). كل سلايد مقسوم لنصفين، جزء للسؤال (بحرف 'س' كبير) وجزء للجواب (بحرف 'ج' كبير). استخدام ألوان مريحة للعين وخطوط واضحة. التصميم يجب أن يكون تفاعلياً ويشجع المستخدم على طرح المزيد من الأسئلة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P21</span>
+                <span class="type-label">🖼️ IMAGE</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الحدث لي كامل يستناو فيه... التسجيل انطلق الآن!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('21')">
+                    <div class="preview-text">إعلان رسمي:
+أول معسكر تدريبي وطني للرياضات الرملية
+[تاريخ البدء] - [تاريخ الانتهاء]
+في [الموقع]
+المق...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-21" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('21')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P21</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-21')">📋 نسخ النص</button>
+                            <div id="script-text-21" class="modal-body">إعلان رسمي:<br/><br/>أول معسكر تدريبي وطني للرياضات الرملية<br/><br/>[تاريخ البدء] - [تاريخ الانتهاء]<br/><br/>في [الموقع]<br/><br/>المقاعد محدودة جداً!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-21')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-21" class="modal-body">📣 التسجيل مفتوح الآن! الحدث التاريخي يقترب.<br/><br/>يسرنا أن نعلن عن إطلاق التسجيل في أول معسكر تدريبي وطني للرياضات الرملية في الجزائر!<br/>فرصة فريدة للتدرب مع أفضل الخبراء، التعرف على رياضيين من كل أنحاء الوطن، وعيش تجربة احترافية متكاملة.<br/>هذا هو المكان الذي سيولد منه أبطال المستقبل.<br/><br/>العدد محدود جداً لضمان جودة التدريب! سارع بالتسجيل عبر الرابط في البايو واضمن مكانك في هذا الحدث الاستثنائي.<br/><br/>#حدث #معسكر_تدريبي #الجزائر #فرصة_تاريخية #سجل_الآن #لا_تفوت_الفرصة</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم يشبه ملصق إعلان رسمي لحدث كبير (Poster). استخدام خطوط كبيرة وواضحة للعنوان والتاريخ. معلومات الحدث تكون منظمة في نقاط. يمكن إضافة صور أيقونية للرياضات التي سيتم التدريب عليها. التصميم يجب أن يوحي بالأهمية والإلحاح.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V22</span>
+                <span class="type-label">🎬 VIDEO</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">قالو، جربو، وحكاو... شوف بعينيك فرحة المشاركين في أول فعالية لينا!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('22')">
+                    <div class="preview-text">(مونتاج سريع وحيوي لشهادات فيديو قصيرة (UGC) من المشاركين في فعالية سابقة، مع موسيقى مبهجة)
+مشارك 1 ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-22" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('22')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V22</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-22')">📋 نسخ النص</button>
+                            <div id="script-text-22" class="modal-body">(مونتاج سريع وحيوي لشهادات فيديو قصيرة (UGC) من المشاركين في فعالية سابقة، مع موسيقى مبهجة)<br/><br/>مشارك 1 (يلهث من الحماس): 'واو! والله تجربة تفوق الخيال! التنظيم، الأمان، الجو... كل شي كان توب!'<br/><br/>مشاركة 2 (تضحك): 'كنت خايفة في الأول، بصح المدربين كانو معانا خطوة بخطوة. درك راني نحس روحي محترفة!'<br/><br/>مشارك 3 (مع مجموعة أصدقاء): 'أحسن خرجة درناها في حياتنا! شكراً للفدرالية لي جمعتنا في هاد المغامرة.'<br/><br/>(لقطات B-roll تظهرهم وهم يستمتعون بالفعالية: يتزلجون، يقودون الدراجات، يلتقطون الصور)<br/><br/>تعليق صوتي (دافئ): 'سعادتهم هي نجاحنا. وهذه التجربة يمكن أن تكون تجربتك القادمة.'</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-22')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-22" class="modal-body">🤩 لا يمكن أن نصفها... يجب أن تعيشها!<br/><br/>شاهدوا ردود الفعل العفوية والطاقة الإيجابية للمشاركين في أولى فعالياتنا.<br/>الصور والفيديوهات تحكي جزءاً من القصة، لكن مشاعرهم الحقيقية تقول كل شيء.<br/>هذا هو الفرق الذي يحدثه التنظيم والاحترافية.<br/><br/>لا تبق مجرد مشاهد! مغامرتك القادمة تبدأ بالتسجيل معنا. انضم للمتعة عبر الرابط في البايو.<br/><br/>#تجارب_حية #فرحة #طاقة_ايجابية #مغامراتنا #شكرا #JoinTheFun</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">الأسلوب هو UGC Testimonial. التركيز على العفوية والفرح الحقيقي على وجوه المشاركين. المونتاج يجب أن يكون ديناميكياً، يمزج بين الشهادات ولقطات الأكشن من الفعالية نفسها. الموسيقى تلعب دوراً كبيراً في نقل الشعور بالسعادة والمتعة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C23</span>
+                <span class="type-label">📚 CAROUSEL</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الفرق بين 'مغامرة' و 'مشكلة'... هو كلمة وحدة: التنظيم.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('23')">
+                    <div class="preview-text">Slide 1: مغامرتك في الصحراء: تحبها تجربة لا تنسى... أو كابوس لا يتكرر؟
+Slide 2: الخيار 1: المغامرة ا...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-23" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('23')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C23</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-23')">📋 نسخ النص</button>
+                            <div id="script-text-23" class="modal-body">Slide 1: مغامرتك في الصحراء: تحبها تجربة لا تنسى... أو كابوس لا يتكرر؟<br/><br/>Slide 2: الخيار 1: المغامرة العشوائية.<br/><br/>النتيجة: ضياع في الطريق، أعطال غير متوقعة، خطر الإصابة، ونقص في المعدات. باختصار: قلق وتعب.<br/><br/>Slide 3: الخيار 2: المغامرة مع الفدرالية.<br/><br/>النتيجة: مسارات مدروسة، فريق دعم فني، إسعافات أولية جاهزة، ومعدات احترافية. باختصار: أمان ومتعة.<br/><br/>Slide 4: بدوننا: تبحث عن أماكن بنفسك، وقد تضيع ساعات ثمينة.<br/><br/>معنا: نأخذك مباشرة لأفضل وأجمل المواقع التي تم اختبارها مسبقاً.<br/><br/>Slide 5: بدوننا: أي مشكلة صغيرة يمكن أن تفسد يومك بالكامل.<br/><br/>معنا: فريقنا جاهز للتعامل مع أي طارئ لضمان استمرارية متعتك.<br/><br/>Slide 6: بدوننا: تجربتك تبقى ناقصة وغير مكتملة.<br/><br/>معنا: نضمن لك تجربة متكاملة تجمع بين الرياضة، الاستكشاف، والراحة.<br/><br/>Slide 7: الخيار الذكي واضح.<br/><br/>لا تساوم على أمانك ومتعتك. اختر الاحترافية، اختر الفدرالية.<br/><br/>Slide 8: قرارك اليوم... يصنع ذكرى الغد. انضم إلينا الآن وعش المغامرة الحقيقية.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-23')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-23" class="modal-body">❌ العشوائية vs التنظيم ✔️: اختر بحكمة!<br/><br/>في الصحراء، الخط الفاصل بين المتعة والخطر رفيع جداً. وهذا الخط هو 'التنظيم'.<br/>في هذا الكاروسال، نوضح لك بالصور الفرق الشاسع بين الخروج في مغامرة عشوائية وتجربة المغامرة تحت إشراف الفدرالية.<br/><br/>مرر لليمين وشاهد لماذا اختيارنا هو الخيار الأذكى لأمانك ومتعتك. لا تخاطر بتجربتك!<br/><br/>#مقارنة #الخيار_الصحيح #الأمان #الجودة #لا_تخاطر #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم مقارنة (Comparison). كل سلايد (أو سلايدين متتاليين) يقارن بين 'الحالة السيئة' و 'الحالة الجيدة'. استخدام أيقونات (X) باللون الأحمر و (✓) باللون الأخضر. الصور التي تمثل الجانب العشوائي تكون باهتة أو مربكة، بينما صور الفدرالية تكون زاهية ومنظمة. الهدف هو إبراز القيمة المضافة بشكل بصري وقوي.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P24</span>
+                <span class="type-label">🖼️ IMAGE</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الوقت يداهمنا! آخر فرصة للانضمام للمعسكر التاريخي.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('24')">
+                    <div class="preview-text">باقي 48 ساعة فقط!
+للتسجيل في أول معسكر تدريبي وطني.
+لا تدع الفرصة تفوتك!...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-24" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('24')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P24</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-24')">📋 نسخ النص</button>
+                            <div id="script-text-24" class="modal-body">باقي 48 ساعة فقط!<br/><br/>للتسجيل في أول معسكر تدريبي وطني.<br/><br/>لا تدع الفرصة تفوتك!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-24')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-24" class="modal-body">⏳ العد التنازلي بدأ! هل ستلحق بالركب؟<br/><br/>هذه هي فرصتك الأخيرة لتكون جزءاً من الحدث الذي سيتحدث عنه الجميع. بقيت 48 ساعة فقط على إغلاق باب التسجيل في المعسكر التدريبي الوطني.<br/>المقاعد المتبقية قليلة جداً، والطلب كبير.<br/><br/>لا تؤجل قرارك! اضغط على الرابط في البايو وسجل اسمك الآن قبل فوات الأوان!<br/><br/>#آخر_فرصة #العد_التنازلي #سجل_الآن #عاجل #لا_تؤجل #LastChance</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم إعلاني عاجل. استخدام ساعة رملية أو عداد رقمي كبير يظهر '48:00:00'. كلمة 'آخر فرصة' و '48 ساعة' تكون بالخط العريض واللون الأحمر. التصميم يجب أن يصرخ 'إلحاح'. زر 'سجل الآن' يكون هو العنصر الأبرز في التصميم.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V25</span>
+                <span class="type-label">🎬 VIDEO</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">كيف يعيش رياضي طموح يومه مع الفدرالية؟ تبعنا وشوف.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('25')">
+                    <div class="preview-text">(فيديو يتبع رياضياً شاباً خلال يوم كامل، بأسلوب 'يوم في حياتي' - A Day in the Life)
+(يبدأ الفيديو مع...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-25" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('25')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V25</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-25')">📋 نسخ النص</button>
+                            <div id="script-text-25" class="modal-body">(فيديو يتبع رياضياً شاباً خلال يوم كامل، بأسلوب 'يوم في حياتي' - A Day in the Life)<br/><br/>(يبدأ الفيديو مع شروق الشمس، الشاب يستيقظ ويجهز حقيبته الرياضية)<br/><br/>الرياضي (صوت داخلي): 'كل صباح، نستيقظ على نفس الحلم: أن نكون أفضل من البارحة.'<br/><br/>(مشاهد له وهو في الطريق إلى موقع التدريب، ثم لقائه بزملائه والمدرب)<br/><br/>'مع الفدرالية، التدريب ما بقاش مجرد مجهود فردي. أصبحنا عائلة تدعم بعضها.'<br/><br/>(لقطات تدريب مكثفة: تمارين لياقة، تطبيق تقنيات، تصحيحات من المدرب)<br/><br/>'كل تمرين، كل نصيحة من الكوتش، تقربنا خطوة من هدفنا.'<br/><br/>(مشهد استراحة الغداء: ضحك، حديث، روح فريق)<br/><br/>'هنا ما نتعلموش غير الرياضة. نتعلمو الانضباط، روح الفريق، واحترام المنافس.'<br/><br/>(مشهد تدريب مسائي مع غروب الشمس، الشاب ينجح في أداء حركة صعبة)<br/><br/>'هذيك اللحظة... لي تحس فيها أن تعبك كامل ما راحش باطل... لا تقدر بثمن.'<br/><br/>(لقطة أخيرة له وهو ينظر إلى الأفق، مبتسماً بثقة)<br/><br/>'هذا ماشي مجرد يوم تدريب. هذي هي حياتي الجديدة. وهذا هو مستقبلي.'</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-25')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-25" class="modal-body">☀️ من شروق الشمس إلى غروبها: يوم في حياة بطل.<br/><br/>هل تساءلت يوماً كيف يبدو يوم رياضي محترف في الفدرالية؟<br/>اتبعنا في هذه الرحلة القصيرة وشاهد عن قرب التفاني، التدريب، وروح الأخوة التي تصنع أبطال الغد. شغفك يستحق أن يصبح أسلوب حياتك.<br/><br/>اكتشف كيف يمكن للفدرالية أن تغير مسارك الرياضي بالكامل. زر موقعنا وتعرف على برامجنا.<br/><br/>#يوم_في_حياة #قصة_بطل #تدريب #انضباط #حياة_رياضي #إلهام_يومي</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">الأسلوب سينمائي وقصصي. الكاميرا تتبع البطل عن قرب لنقل مشاعره. استخدام اللقطات البطيئة (Slow Motion) في لحظات الأكشن والنجاح. الموسيقى تكون ملهمة وتصاعدية، تعكس رحلة البطل خلال يومه. يجب أن يشعر المشاهد بأنه يعيش التجربة مع الرياضي.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C26</span>
+                <span class="type-label">📚 CAROUSEL</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">قبل ما تفكر في المتعة... لازم تكون مطمئن على سلامتك. شوف كيفاش.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('26')">
+                    <div class="preview-text">Slide 1: أمانك هو أولويتنا المطلقة. تعرّف بالتفصيل على إجراءات السلامة الصارمة التي نطبقها في كل نشا...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-26" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('26')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C26</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-26')">📋 نسخ النص</button>
+                            <div id="script-text-26" class="modal-body">Slide 1: أمانك هو أولويتنا المطلقة. تعرّف بالتفصيل على إجراءات السلامة الصارمة التي نطبقها في كل نشاطاتنا.<br/><br/>Slide 2: 1. المعدات الواقية الإجبارية.<br/><br/>لا تنازل عن الخوذة، النظارات، وأي واقيات أخرى ضرورية لكل رياضة. نوفرها بمعايير عالمية.<br/><br/>Slide 3: 2. مدربون مؤهلون في الإسعافات.<br/><br/>كل مدربينا ومرافقينا حاصلون على شهادات في الإسعافات الأولية وجاهزون للتدخل السريع.<br/><br/>Slide 4: 3. فريق إنقاذ متخصص.<br/><br/>في الفعاليات الكبرى والرحلات الطويلة، يرافقنا فريق إنقاذ مجهز بسيارات دفع رباعي ومعدات اتصال متطورة.<br/><br/>Slide 5: 4. نقاط طبية مجهزة.<br/><br/>نقيم نقاطاً طبية ثابتة ومتحركة في مناطق نشاطاتنا، تحتوي على كل ما يلزم للتعامل مع أي طارئ.<br/><br/>Slide 6: 5. مسارات مدروسة ومؤمّنة.<br/><br/>قبل أي رحلة، يقوم فريقنا بمسح وتأمين المسار بالكامل لتجنب أي مفاجآت أو مناطق خطرة.<br/><br/>Slide 7: 6. تتبع عبر الأقمار الصناعية (GPS).<br/><br/>في المناطق النائية، يتم تزويد المجموعات بأجهزة تتبع لضمان عدم ضياع أي فرد.<br/><br/>Slide 8: استمتع بالمغامرة بكل راحة بال. سلامتك في أيدٍ أمينة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-26')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-26" class="modal-body">🛡️ 6 طبقات من الحماية لضمان سلامتك.<br/><br/>عندما يتعلق الأمر بسلامتك، نحن لا نترك شيئاً للصدفة. لقد قمنا ببناء نظام أمان متكامل يحيط بك في كل خطوة من مغامرتك.<br/>اكتشف في هذا الكاروسال الإجراءات التي تجعلنا الخيار الأكثر أماناً في الصحراء.<br/><br/>مرر لليمين وطمئن بالك. مغامرتك معنا ليست ممتعة فحسب، بل آمنة أيضاً.<br/><br/>#السلامة_أولا #أمان #احترافية #ثقة #مغامرة_آمنة #اطمئنان</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم يبعث على الثقة والأمان. استخدام اللونين الأخضر والأبيض بكثرة. كل سلايد يستخدم أيقونة واضحة تمثل إجراء السلامة (أيقونة خوذة، أيقونة هلال أحمر، أيقونة جهاز لاسلكي...). الصور المرفقة تظهر هذه الإجراءات على أرض الواقع (مدرب يلبس خوذة لمشارك، سيارة إسعاف، إلخ).</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P27</span>
+                <span class="type-label">🖼️ IMAGE</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">أحسن صورة لمغامرتك... تقدر تولي جزء من صفحتنا الرسمية!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('27')">
+                    <div class="preview-text">عندك صور أو فيديوهات احترافية لمغامراتك في صحراء الجزائر؟
+شاركها معنا باستخدام هاشتاغ
+#مغامرتي_في_صح...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-27" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('27')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P27</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-27')">📋 نسخ النص</button>
+                            <div id="script-text-27" class="modal-body">عندك صور أو فيديوهات احترافية لمغامراتك في صحراء الجزائر؟<br/><br/>شاركها معنا باستخدام هاشتاغ<br/><br/>#مغامرتي_في_صحراء_الجزائر<br/><br/>وأفضل المشاركات سنعيد نشرها على صفحاتنا الرسمية!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-27')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-27" class="modal-body">📸 شاركنا إبداعك! كن نجم صفحتنا القادم.<br/><br/>نحن نعلم أن مجتمعنا مليء بالمصورين والمبدعين الموهوبين. والآن، نريد أن نرى الصحراء من خلال عيونكم!<br/>شاركوا أفضل صوركم وفيديوهاتكم من مغامراتكم الصحراوية، ولا تنسوا استخدام الهاشتاغ الخاص بنا.<br/><br/>استخدموا الهاشتاغ #مغامرتي_في_صحراء_الجزائر وقد تكون مشاركتكم هي التالية التي نزين بها صفحاتنا! هيا، أرونا إبداعاتكم!<br/><br/>#مغامرتي_في_صحراء_الجزائر #تصوير #فوتوغرافيا #الجزائر #تحدي #شارك_واربح</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم على شكل تحدي أو مسابقة. استخدام صورة مجمعة (Collage) من عدة صور رائعة لمغامرات مختلفة (UGC). الهاشتاغ مكتوب بخط كبير جداً وواضح في منتصف التصميم. يجب أن يكون التصميم تفاعلياً ويشجع على المشاركة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V28</span>
+                <span class="type-label">🎬 VIDEO</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الحلم بدأ، الطريق ترسمت، والمستقبل يستناك أنت!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('28')">
+                    <div class="preview-text">(الوجه الإعلامي يقف أمام خلفية تعرض شعار الفدرالية بشكل بارز، يتحدث بنبرة قوية وحاسمة)
+'خلال الأسابي...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-28" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('28')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V28</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-28')">📋 نسخ النص</button>
+                            <div id="script-text-28" class="modal-body">(الوجه الإعلامي يقف أمام خلفية تعرض شعار الفدرالية بشكل بارز، يتحدث بنبرة قوية وحاسمة)<br/><br/>'خلال الأسابيع الماضية، حكينالكم القصة... وريناكم الإمكانيات... ورسمنالكم الطريق.'<br/><br/>'شفنا مع بعض كيفاش الشغف يقدر يتحول لاحتراف... وكيفاش المغامرة تقدر تكون آمنة ومنظمة.'<br/><br/>'شفنا أحلام الشباب في عيونهم، وشفنا الإمكانيات الهائلة لي تزخر بيها بلادنا.'<br/><br/>'الآن، الكرة في ملعبك. السؤال ما بقاش 'واش هي الفدرالية؟'، بل أصبح 'وقتاش راح تنضم؟'.'<br/><br/>'المستقبل الذي نبنيه اليوم، أنت جزء أساسي منه. سواء كرياضي يطمح لرفع الراية الوطنية، أو كمغامر يريد اكتشاف بلاده بطريقة جديدة، أو حتى كداعم ومساهم في هذا المشروع الوطني.'<br/><br/>'الفرص الأولى هي الأثمن دائماً. كونك من المؤسسين الأوائل يعطيك مكانة خاصة في هذه الرحلة.'<br/><br/>'الأبواب مازالت مفتوحة... ولكن ليس لوقت طويل.'<br/><br/>'هذه هي دعوتنا الأخيرة والأقوى لك: لا تكن متفرجاً في قصة نجاح وطنك. كن واحداً من صانعيها.'</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-28')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-28" class="modal-body">‼️ هذه هي دعوتنا الأخيرة لك... لا تفوتها.<br/><br/>لقد وضعنا بين يديك الرؤية، الخطة، والفرصة. لقد أثبتنا لك أن حلم الرياضات الرملية في الجزائر أصبح حقيقة ملموسة.<br/>الآن هو وقت اتخاذ القرار. المستقبل يُصنع اليوم، والمقاعد الأمامية محجوزة لأصحاب المبادرة.<br/><br/>هذه فرصتك لتكون من الأوائل. من الرواد. من المؤسسين. سجل الآن عبر الرابط في البايو وانضم للمغامرة الكبرى. صحراء بلادك تستنّاك!<br/><br/>#دعوة_للعمل #الفرصة_الأخيرة #كن_جزءا_من_التاريخ #الجزائر_المستقبل #لا_تتردد #اتخذ_قرارا</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">هذا الفيديو هو دعوة نهائية للعمل (Final CTA). يجب أن يكون الوجه الإعلامي مباشراً جداً في خطابه. نظراته موجهة للكاميرا مباشرة. الإضاءة قوية والتركيز عليه بالكامل. يمكن استخدام بعض اللقطات السريعة من الفيديوهات السابقة كفلاش باك لتلخيص الرحلة. الموسيقى تكون ملحمية وتترك أثراً قوياً.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C29</span>
+                <span class="type-label">📚 CAROUSEL</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">تخيل للحظة... الجزائر عاصمة الرياضات الرملية في العالم. هذا ليس خيالاً.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('29')">
+                    <div class="preview-text">Slide 1: الجزائر على الخريطة العالمية للرياضات الرملية: حلمنا الكبير الذي نعمل على تحقيقه... معك!
+Sl...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-29" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('29')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C29</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-29')">📋 نسخ النص</button>
+                            <div id="script-text-29" class="modal-body">Slide 1: الجزائر على الخريطة العالمية للرياضات الرملية: حلمنا الكبير الذي نعمل على تحقيقه... معك!<br/><br/>Slide 2: نمتلك كل المقومات: أكبر صحراء في العالم، بثروة وتنوع تضاريسي فريد من نوعه.<br/><br/>Slide 3: نمتلك الشغف: شباب جزائري موهوب وطموح، متعطش للفرص وإثبات الذات.<br/><br/>Slide 4: نمتلك التنظيم: مع وجود الفدرالية، أصبح لدينا الهيكل الرسمي القادر على تحويل الإمكانيات إلى إنجازات.<br/><br/>Slide 5: خطوتنا التالية: تنظيم أول بطولة دولية للـ Sandboarding على أرض الجزائر. العالم سيأتي إلينا!<br/><br/>Slide 6: هدفنا الأسمى: تكوين فرق وطنية قوية تنافس على أعلى المستويات العالمية وترفع راية الجزائر في كل محفل.<br/><br/>Slide 7: هذا المستقبل ليس بعيداً. إنه يُبنى الآن، كل يوم، مع كل عضو جديد ينضم إلينا، ومع كل مغامرة ناجحة ننظمها.<br/><br/>Slide 8: انضم إلينا في صناعة هذا المجد. كن فخوراً بأنك جزء من الحركة التي ستضع الجزائر في مكانتها التي تستحقها عالمياً.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-29')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-29" class="modal-body">🌍 من صحراء الجزائر... إلى قمة العالم!<br/><br/>رؤيتنا تتجاوز الحدود. نحن لا نطمح فقط لتنظيم الرياضات الرملية محلياً، بل لوضع الجزائر كقائد عالمي في هذا المجال.<br/>نمتلك الطبيعة، الشغف، والآن التنظيم. اكتشف معنا كيف سنحقق هذا الحلم الكبير.<br/><br/>مرر لليمين وشاهد خريطة طريقنا نحو العالمية. انضم إلينا وكن جزءاً من هذا الفخر الوطني!<br/><br/>#رؤية2030 #الجزائر_عالمية #فخر_وطني #طموح_بلا_حدود #المستقبل_لنا #MadeInAlgeria</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم ملحمي وملهم. استخدام صور فوتوغرافية عالمية المستوى للصحراء الجزائرية. في سلايد 5 و 6، يمكن استخدام تصاميم جرافيك تتخيل شكل هذه الفعاليات والأبطال الجزائريين على منصات التتويج. الألوان وطنية (أخضر، أبيض، أحمر) مع لمسة من الفخامة (الذهبي). الخطوط يجب أن تكون أنيقة وكبيرة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P30</span>
+                <span class="type-label">🖼️ IMAGE</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">القصة لم تنتهِ هنا... قصتك أنت، الآن بدأت.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('30')">
+                    <div class="preview-text">مغامرتك تبدأ هنا... ومجد بلادك يبدأ معك.
+صحراء بلادك تستنّاك: من مغامر لفريق وطني....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-30" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('30')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P30</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-30')">📋 نسخ النص</button>
+                            <div id="script-text-30" class="modal-body">مغامرتك تبدأ هنا... ومجد بلادك يبدأ معك.<br/><br/>صحراء بلادك تستنّاك: من مغامر لفريق وطني.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-30')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-30" class="modal-body">اترك بصمتك... Leave Your Mark.<br/><br/>كل ما قلناه، وكل ما فعلناه، يقود إلى هذه اللحظة. لحظة قرارك.<br/>الصحراء تنتظر بصمتك. والتاريخ ينتظر قصتك.<br/>لا تدعها مجرد كلمات تمر أمامك.<br/><br/>انطلق الآن. سجل. شارك. ابدأ رحلتك. الرابط في البايو.<br/><br/>#اترك_بصمتك #بداية_جديدة #الرحلة_تبدأ #الجزائر #مغامر #بطل_المستقبل</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">صورة رمزية وقوية جداً. بصمة يد على الرمل الذهبي، كأنها عهد أو بداية جديدة. إضاءة الغروب تضفي على الصورة طابعاً عاطفياً. الشعار 'صحراء بلادك تستنّاك: من مغامر لفريق وطني' مكتوب بوضوح وأناقة. التصميم بسيط ولكنه عميق ومؤثر.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr></tbody></table></div>
+
+    <div class="disclaimer-card">
+        <span style="font-size: 1.2em;">⚠️</span>
+        <span>قد تخضع هذه الاستراتيجية لبعض التعديلات والتحسينات، حسب المواد الإعلامية المتوفرة أو لغرض تحقيق أفضل النتائج.</span>
+    </div>
+
+    <div class="summary-box">
+        <span style="font-weight: 700; color: #FFD700;">الميزانية الإجمالية المعتمدة</span>
+        <span class="total-amount">205000 دج</span>
+        <a href="https://wa.me/213770820431" class="cta-btn">تواصل معنا للاعتماد</a>
+        <div style="border: 1px dashed #FFD700; padding: 25px; border-radius: 15px; margin-top: 20px;">
+            <h3 style="color:#FFD700; margin:0;">الخطوة التالية</h3>
+            <p style="margin:10px 0;">مكالمة قصيرة لنكيّف هذه الاستراتيجية حسب مشروعك ونبدأ العمل فوراً.</p>
+            <div class="phones-list">
+                <div class="phone-item">0770 82 04 31</div>
+                <div class="phone-item">0770 55 01 51</div>
+                <div class="phone-item">0770 82 01 45</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+function openModal(id) { document.getElementById('modal-' + id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
+function closeModal(id) { document.getElementById('modal-' + id).style.display = 'none'; document.body.style.overflow = 'auto'; }
+window.onclick = function(event) { if (event.target.className === 'modal') { event.target.style.display = 'none'; document.body.style.overflow = 'auto'; } }
+
+// وظيفة النسخ الجديدة
+function copyToClipboard(elementId) {
+    const el = document.getElementById(elementId);
+    const text = el.innerText || el.textContent; // نسخ النص بدون HTML tags
+    navigator.clipboard.writeText(text).then(() => {
+        alert("تم نسخ النص بنجاح! ✅");
+    }).catch(err => {
+        console.error('Failed to copy', err);
+    });
+}
+</script></body></html>
