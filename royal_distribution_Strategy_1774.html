@@ -1,0 +1,1034 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>royal distribution Strategy</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+<style>
+    body { background: #FFFFFF; color: #1A1A1A; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; line-height: 1.6; overflow-x: hidden; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 15px; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 2px solid #000; }
+    .wayso-logo { height: 45px; }
+    .brand-name { font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 1.4em; color: #000; text-transform: uppercase; border-right: 4px solid #FFD700; padding-right: 12px; }
+    
+    .analysis-section { margin: 30px 0; }
+    .card-philosophy { padding: 30px; border-radius: 20px; background: #000; color: #FFF; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+    .card-philosophy h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #FFD700; }
+    
+    .card-why { padding: 30px; border-radius: 20px; background: #F9F9F9; color: #333; margin-bottom: 20px; border: 1px solid #EDECE9; }
+    .card-why h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #000; display: flex; align-items: center; gap: 10px; }
+    .card-why h2::after { content: ''; flex-grow: 1; height: 1px; background: #EDECE9; margin-right: 15px; }
+
+    .hero { margin: 35px 0 20px 0; border-right: 6px solid #FFD700; padding-right: 15px; }
+    .hero h1 { font-size: 2.5em; font-weight: 700; margin: 0; }
+    .table-wrapper { margin-top: 25px; border-radius: 12px; overflow: hidden; border: 1px solid #EDECE9; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #000; color: #FFF; padding: 15px; text-align: right; font-size: 0.95em; }
+    td { padding: 20px 12px; border-bottom: 1px solid #EDECE9; vertical-align: top; }
+    
+    .code-badge { font-family: 'Montserrat', sans-serif; font-weight: 700; background: #FFD700; color: #000; padding: 5px 12px; border-radius: 6px; font-size: 1.1em; display: inline-block; margin-bottom: 5px; }
+    .type-label { display: block; font-weight: 700; color: #555; font-size: 0.95em; }
+    
+    .hook-pill { background: #000; color: #FFD700; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 1.1em; display: block; border-right: 5px solid #FFD700; }
+    
+    /* تحسين زر المودال */
+    .script-trigger { background: #F8F9FA; border: 1px solid #EDECE9; padding: 15px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; position: relative; }
+    .script-trigger:hover { background: #FFF; border-color: #FFD700; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transform: translateY(-2px); }
+    
+    .preview-text { font-size: 0.95em; color: #333; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; white-space: pre-wrap; }
+    
+    /* ستايل المودال */
+    .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); }
+    .modal-content { background: #FFF; margin: 5% auto; padding: 30px; border-radius: 20px; width: 90%; max-width: 750px; position: relative; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+    .close-modal { position: absolute; top: 20px; left: 20px; font-size: 30px; cursor: pointer; color: #999; line-height: 1; transition: color 0.2s; }
+    .close-modal:hover { color: #000; }
+    
+    .modal-section { margin-bottom: 25px; padding: 20px; border-radius: 12px; background: #fbfbfa; border: 1px solid #eee; position: relative; }
+    
+    /* زر النسخ */
+    .copy-btn { position: absolute; top: 10px; left: 10px; background: #fff; border: 1px solid #ddd; padding: 5px 10px; border-radius: 6px; cursor: pointer; font-size: 0.8em; font-weight: bold; color: #555; display: flex; align-items: center; gap: 5px; transition: all 0.2s; }
+    .copy-btn:hover { border-color: #FFD700; color: #000; background: #FFD70020; }
+    .copy-btn:active { transform: scale(0.95); }
+    
+    .modal-body { font-size: 1.15em; color: #1A1A1A; line-height: 1.9; word-wrap: break-word; white-space: pre-wrap; }
+    
+    .disclaimer-card { margin: 25px 0; padding: 20px; background: #FFF9E6; border-radius: 12px; border-right: 5px solid #FFC107; font-size: 1.05em; color: #856404; display: flex; align-items: center; gap: 12px; }
+    .summary-box { margin-top: 50px; background: #000; color: #FFF; padding: 40px 20px; border-radius: 25px; text-align: center; }
+    .total-amount { font-family: 'Montserrat'; font-size: 3.5em; font-weight: 700; display: block; color: #FFD700; margin: 10px 0; }
+    .cta-btn { display: inline-block; background: #FFD700; color: #000; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.2em; margin-bottom: 25px; transition: transform 0.2s; }
+    .cta-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px #FFD70060; }
+    
+    .phones-list { margin-top: 15px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; direction: ltr; } 
+    .phone-item { background: #1A1A1A; padding: 8px 15px; border-radius: 8px; border: 1px solid #333; color: #FFF; font-family: 'Montserrat'; font-weight: 700; font-size: 1.2em; white-space: nowrap; }
+
+    @media (max-width: 768px) {
+        thead { display: none; }
+        tr { display: block; border: 1px solid #EDECE9; border-radius: 15px; margin-bottom: 20px; padding: 15px; background: #FFF; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        td { display: block; padding: 10px 0; text-align: right; border-bottom: 1px dashed #eee; }
+        td:last-child { border-bottom: none; }
+        td::before { content: attr(data-label); font-weight: 700; color: #BBB; display: block; font-size: 0.8em; margin-bottom: 6px; text-transform: uppercase; }
+        .brand-name { font-size: 1.1em; }
+        .modal-content { width: 95%; padding: 20px; margin: 10% auto; }
+        .total-amount { font-size: 2.5em; }
+    }
+</style></head><body>
+
+<div class="container">
+    <div class="header">
+        <img src="https://storage.googleapis.com/msgsndr/GwIPQCjstTzxnzDQ1B32/media/68fddb5534bb1597bc934f89.png" class="wayso-logo">
+        <div class="brand-name">royal distribution</div>
+    </div>
+
+    <div class="analysis-section">
+        <div class="card-philosophy"><h2>🎯 فلسفة الاستراتيجية</h2><p>في Wayso، نؤمن أن الشراكة الحقيقية هي أساس النجاح. هذه الاستراتيجية، بدمجها للفيديو الرئيسي والكاروسالات التعليمية، ليست مجرد حملة تسويقية؛ بل هي استثمار مدروس لترسيخ مكانة 'Royal Distribution' كشريك لا غنى عنه في تمنراست.
+هدفنا هو تحقيق نمو مستدام لعملائنا من خلال بناء الثقة وتقديم قيمة ملموسة.
+نحن هنا لنتجاوز التوقعات وندفع بعجلة أعمالكم نحو الأمام بثقة وابتكار.</p></div>
+        <div class="card-why"><h2>💡 لماذا هذه الخطة؟</h2><p>بدأنا بالفيديو الرئيسي (V1) لخطف الانتباه وبناء سردية الثقة، ثم انتقلنا إلى الكاروسالات التعليمية والمنشورات البسيطة لتغذية العملاء بالمعلومات وتعميق الولاء.
+هذا التسلسل المصمم بعناية يضمن جذب العملاء، تثقيفهم، ثم تحويلهم إلى شركاء دائمين، مما يخلق رحلة عميل متكاملة وفعالة.</p></div>
+    </div>
+
+    <div class="hero"><h1>خطة الإنتاج الإبداعي</h1></div>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th style="width: 20%;">الكود والنوع</th><th style="width: 30%;">الهوك (Hook)</th><th style="width: 50%;">المحتوى</th></tr></thead>
+            <tbody><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V1</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">تخدم في تمنراست وراسك قريب يطرطق من الموردين؟ حبس كلش وشوف هاد الفيديو.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('1')">
+                    <div class="preview-text">راك تاجر في تمنراست؟
+معناها تعرف هاد الحكاية مليح...
+تليفونات ما تحبسش... عشرات الموردين... كل واحد ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-1" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('1')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V1</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-1')">📋 نسخ النص</button>
+                            <div id="script-text-1" class="modal-body">راك تاجر في تمنراست؟<br/><br/>معناها تعرف هاد الحكاية مليح...<br/><br/>تليفونات ما تحبسش... عشرات الموردين... كل واحد ومشاكلو.<br/><br/>هذا تعطل في الطريق... وهذا سلعتو ناقصة... وواحد أسعاره كل يوم تتبدل.<br/><br/>وراسك يوجعك... ووقتك يضيع... والربح تاعك يذوب.<br/><br/>والخوف الكبير... الرفوف تاعك تفرغ... والزبون يدور ويروح.<br/><br/>بصح، كاين حل واحد يريحك من هاد الكابوس.<br/><br/>حنا في Royal Distribution، ماشي مجرد موردين.<br/><br/>حنا الشريك لي يفهمك... ويعرف واش تحتاج.<br/><br/>بنينا أكبر مخازن في تمنراست... وجهزنا أسطول توصيل يوصل لكل بلاصة.<br/><br/>باش نضمنولك... كلش لمحلّك، في بلاصة وحدة.<br/><br/>تخيل تخدم بفاتورة وحدة... بكونتاكت واحد... وبراحة بال وحدة.<br/><br/>الرفوف تاعك ديما معمرة... الزباين فرحانين... وأنت، تركز على الصح: تكبر تجارتك.<br/><br/>هذا هو الفرق لي تصنعو Royal Distribution.<br/><br/>مستعد تبدل طريقة خدمتك للأحسن؟</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-1')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-1" class="modal-body">🚨 تجار تمنراست: هل مللتم من فوضى الموردين؟ <br/><br/> كل يوم نفس القصة: مكالمات لا تنتهي، بضاعة ناقصة، وأسعار متقلبة تلتهم أرباحك.<br/><br/>Royal Distribution وُجدت لتضع حداً لهذه المعاناة. نحن لسنا مجرد مورد، بل شريكك الاستراتيجي الذي يوفر لك كل ما يحتاجه محلك في مكان واحد، بنظام لوجستي قوي يضمن لك راحة البال، وبأسعار تزيد من هامش ربحك.<br/><br/>شاهد الفيديو واكتشف كيف يمكنك تحويل الفوضى إلى كفاءة. <br/><br/> اكتشف الحل الشامل لمحلّك، تواصل معنا اليوم! <br/><br/> #توزيع_بالجملة #تمنراست #تجارة_الجزائر #موردين_الجزائر #حلول_لوجستية #RoyalDistributionDZ #تمراست</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[إطار PAS + BAB + StoryBrand]<br/><br/>**المشاهد الافتتاحية (Problem/Before):**<br/>- لقطة سريعة ومضطربة لتاجر (بن صايبي) في محله، متوتر، يرد على هاتفين في نفس الوقت. إضاءة قاسية قليلاً.<br/>- لقطات مقربة على فواتير كثيرة مبعثرة على المكتب.<br/>- لقطة لرف فارغ في المحل، مع مرور زبون وخروجه خائباً.<br/>- نبرة الصوت: سريعة، تعكس القلق والضغط.<br/><br/>**المشاهد الانتقالية (Agitate/Bridge):**<br/>- شاشة سوداء للحظة، ثم تظهر عبارة "بصح، كاين حل...". موسيقى هادئة وواثقة تبدأ.<br/>- لقطة درون واسعة جداً (Drone shot) تظهر ضخامة مخازن Royal Distribution عند شروق الشمس. إضاءة دافئة وذهبية.<br/>- لقطات ديناميكية لعمال ينظمون البضاعة بكفاءة، رافعات شوكية تتحرك بنظام.<br/>- لقطات لأسطول شاحنات Royal Distribution وهي تنطلق على طريق في تمنراست.<br/>- نبرة الصوت: تصبح هادئة، واثقة، وحلّالة للمشاكل.<br/><br/>**المشاهد الختامية (Solution/After):**<br/>- عودة لنفس التاجر، لكنه الآن هادئ، يبتسم وهو يتصفح قائمة طلباته على تابلت أو هاتف.<br/>- لقطات واسعة للمحل وهو ممتلئ بالبضاعة والزبائن.<br/>- لقطة مقربة للتاجر وهو يصافح زبوناً راضياً.<br/>- إظهار لوغو Royal Distribution بشكل بارز في النهاية.<br/>- نبرة الصوت: ملهمة، تدعو للثقة والعمل.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C2</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">مورد واحد في تمنراست يغنيك على 10؟ حقيقة ولا خيال؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('2')">
+                    <div class="preview-text">Slide 1: علاش تختار Royal Distribution كشريك ليك في تمنراست؟ 5 أسباب تخليك تنسى كامل الموردين الآخري...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-2" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('2')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C2</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-2')">📋 نسخ النص</button>
+                            <div id="script-text-2" class="modal-body">Slide 1: علاش تختار Royal Distribution كشريك ليك في تمنراست؟ 5 أسباب تخليك تنسى كامل الموردين الآخرين.<br/><br/>Slide 2: 1. مخزون هو الأضخم: كل ما تحتاجه تلقاه متوفر ديما. لا خوف من نفاذ السلعة، ولا تأخير في الطلبيات.<br/><br/>Slide 3: 2. قوة لوجستية توصلك وين ما كنت: أسطولنا يغطي كل مناطق تمنراست، نضمنولك وصول سلعتك في الوقت المحدد وبأمان تام.<br/><br/>Slide 4: 3. زيادة مضمونة في الأرباح: أسعار الجملة تاعنا مدروسة باش تخليك تنافس بقوة وتزيد من هامش الربح ديالك.<br/><br/>Slide 5: 4. شريك نجاحك، ماشي مجرد مورد: فريقنا راه هنا باش يسمعلك، ينصحك، ويسهلك كلش. نجاحك هو نجاحنا.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-2')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-2" class="modal-body">🤔 تتساءل لماذا Royal Distribution هي الخيار الأول في تمنراست؟ <br/><br/> الأمر لا يتعلق فقط بتوفير البضاعة، بل بتوفير نظام عمل متكامل يريحك ويزيد من أرباحك.<br/><br/>اسحب لتعرف الأسباب الخمسة التي تجعلنا الشريك الذي لا يمكن الاستغناء عنه لكل تاجر ناجح في تمنراست. <br/><br/> اسحب لتعرف قصتنا وكيفاش نعاونوك! <br/><br/> #لماذا_نحن #تمنراست #مورد_بالجملة #الجزائر #تجارة #نجاح #RoyalDistributionDZ #تمراست</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم احترافي وموحد الهوية.<br/>- **Slide 1:** خلفية لصورة بانورامية لتمنراست مع سؤال بارز في المنتصف. استخدام أيقونة علامة استفهام كبيرة.<br/>- **Slide 2:** صورة عالية الجودة لمخزن Royal Distribution الضخم والمنظم. النص يكون بجانب أيقونة 'صندوق مفتوح'.<br/>- **Slide 3:** تصميم جرافيكي يوضح خريطة تمنراست مع شاحنات صغيرة تتحرك من نقطة مركزية (المخزن) إلى عدة نقاط.<br/>- **Slide 4:** أيقونة 'كيس نقود مع سهم للأعلى'. استخدام خط عريض وواضح للأرقام والنسب إن أمكن.<br/>- **Slide 5:** صورة لفريق عمل Royal Distribution أو صورة رمزية لمصافحة. وضع لوغو الشركة بشكل بارز.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P3</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الكالكيلاطريس تاعك عيات وهي تحسب فواتير الموردين؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('3')">
+                    <div class="preview-text">شريك واحد.
+فاتورة وحدة.
+راحة بال وحدة.
+Royal Distribution: شريكك الموثوق والوحيد....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-3" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('3')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P3</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-3')">📋 نسخ النص</button>
+                            <div id="script-text-3" class="modal-body">شريك واحد.<br/><br/>فاتورة وحدة.<br/><br/>راحة بال وحدة.<br/><br/>Royal Distribution: شريكك الموثوق والوحيد.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-3')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-3" class="modal-body">🤯 تعبت من إدارة عشرات الفواتير والموردين؟ <br/><br/> حان الوقت لتبسيط عملك والتركيز على ما يهم حقًا: نمو تجارتك.<br/><br/>مع Royal Distribution، ودّع فوضى الأوراق والمتابعات التي لا تنتهي. نوفر لك شريكًا واحدًا لكل احتياجاتك، مما يعني إدارة أسهل، شفافية أكبر، وراحة بال لا تقدر بثمن. <br/><br/> Royal Distribution: شريك واحد، كل احتياجاتك. <br/><br/> #تبسيط_الأعمال #تمنراست #مورد_موثوق #الجزائر #كفاءة #تنظيم #RoyalDistributionDZ</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم بسيط ونظيف.<br/>- **الخلفية:** لون موحد أو خلفية هادئة تتناسب مع هوية العلامة.<br/>- **العناصر:** تصميم جرافيكي يصور مجموعة من الفواتير المبعثرة وهي تتحول إلى فاتورة واحدة نظيفة تحمل شعار Royal Distribution.<br/>- **الخط:** استخدام خط عريض، واضح، واحترافي. التركيز على كلمة "واحد" في كل سطر.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V4</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">في قلب الصحراء، حكاية ثقة بنيناها حجرة بحجرة... مع تجار تمنراست.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('4')">
+                    <div class="preview-text">تمنراست ماشي مجرد ولاية... هي تحدي.
+الطرق طويلة... والظروف صعيبة.
+والتاجر هنا، يحتاج شريك يفهم هاد ا...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-4" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('4')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V4</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-4')">📋 نسخ النص</button>
+                            <div id="script-text-4" class="modal-body">تمنراست ماشي مجرد ولاية... هي تحدي.<br/><br/>الطرق طويلة... والظروف صعيبة.<br/><br/>والتاجر هنا، يحتاج شريك يفهم هاد التحدي... ويعرف كيفاش يتغلب عليه.<br/><br/>حنا في Royal Distribution، ما جيناش باش نبيعو سلعة برك.<br/><br/>جينا باش نبنو الثقة.<br/><br/>مشينا في طرقها... وفهمنا احتياجات تجارها.<br/><br/>عرفنا بلي الموثوقية هي الصح... وأن الكلمة أغلى من كلش.<br/><br/>اليوم، حنا فخورين نكونو جزء من قصة نجاح كل محل وكل تاجر خدم معانا.<br/><br/>لأن حكايتنا... هي حكايتكم.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-4')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-4" class="modal-body">قصتنا في تمنراست... هي قصة ثقة والتزام. <br/><br/> لكل منطقة تحدياتها، وتمنراست علمتنا أن النجاح يبدأ من فهم هذه التحديات وتقديم حلول حقيقية.<br/><br/>في هذا الفيديو، نشارككم جزءًا من رحلتنا، وكيف أصبحنا الشريك الموثوق الذي يعتمد عليه تجار الجنوب الكبير. هذه ليست مجرد قصة علامة تجارية، بل هي قصة التزام تجاهكم. <br/><br/> اكتشف كيفاش Royal Distribution ولات شريكك الأساسي في تمنراست! <br/><br/> #قصة_نجاح #تمنراست #ثقة #التزام #الجزائر #الجنوب_الكبير #RoyalDistributionDZ #madeinDZ</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[إطار Storytelling]<br/>- **المشاهد:** لقطات سينمائية جميلة لطرق تمنراست عند الغروب. لقطات إنسانية لسكان المنطقة في الأسواق.<br/>- **التركيز:** مشاهد مقربة لعمال Royal Distribution وهم يتحدثون ويبتسمون مع التجار المحليين (يمكن أن تكون لقطات شبه وثائقية).<br/>- **الموسيقى:** موسيقى هادئة وملهمة، قد تحمل طابعًا محليًا خفيفًا.<br/>- **الأداء الصوتي:** نبرة صوت دافئة، صادقة، وقريبة من القلب. ليست نبرة بيع، بل سرد قصة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C5</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">واش يخلي Royal Distribution تفهم تمنراست خير من أي واحد آخر؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('5')">
+                    <div class="preview-text">Slide 1: رحلتنا في تمنراست: أكثر من مجرد تجارة، إنه التزام.
+Slide 2: بديناها بثقة، وكملناها بإخلاص. ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-5" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('5')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C5</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-5')">📋 نسخ النص</button>
+                            <div id="script-text-5" class="modal-body">Slide 1: رحلتنا في تمنراست: أكثر من مجرد تجارة، إنه التزام.<br/><br/>Slide 2: بديناها بثقة، وكملناها بإخلاص. منذ اليوم الأول، هدفنا كان بناء علاقات تدوم، ماشي مجرد معاملات عابرة.<br/><br/>Slide 3: تحديات المنطقة حولناها لفرص ليك. كل طريق صعيب وكل عقبة لوجستية كانت دافع لينا باش نطوروا حلول تخدمك وتضمن استمرارية عملك.<br/><br/>Slide 4: معاكم، يد في اليد، للنهوض بتجارة تمنراست. لأننا نؤمن أن نجاحنا مرتبط بنجاحكم.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-5')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-5" class="modal-body">رحلتنا معكم في قلب تمنراست... قصة من الثقة والإصرار. <br/><br/> لم نأت إلى تمنراست كغرباء، بل كشركاء ملتزمين بفهم احتياجاتكم وتحدياتكم الفريدة. كل خطوة في رحلتنا كانت مبنية على خدمتكم بشكل أفضل.<br/><br/>اسحب لتكتشف قصة التزامنا، وكيف نحول كل تحدٍ إلى فرصة لنجاحك. <br/><br/> اقرا قصتنا وشوف علاش حنا اختيارك الأول. <br/><br/> #رحلتنا #تمنراست #ولاء #شراكة #الجزائر #الجنوب_الجزائري #RoyalDistributionStory</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم قصصي ودافئ.<br/>- **Slide 1:** صورة مؤثرة لمشهد طبيعي من تمنراست مع العنوان بخط أنيق.<br/>- **Slide 2:** صورة قديمة أو بالأبيض والأسود (رمزية) لبدايات الشركة أو مصافحة، لتعزيز فكرة الثقة والأصالة.<br/>- **Slide 3:** صورة لشاحنة Royal Distribution على طريق صحراوي، ترمز إلى التغلب على التحديات.<br/>- **Slide 4:** صورة جماعية لفريق العمل أو صورة لتجار محليين مبتسمين. استخدام ألوان دافئة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P6</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">محلك في تمنراست، بصح المورد تاعك يعرف طريق الصحرا كيما يعرفها وليد البلاد؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('6')">
+                    <div class="preview-text">خبرة تمنراست في يديك.
+نعرفو طرقها، ونفهمو تحدياتها.
+Royal Distribution: توصيل مضمون بلا حدود....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-6" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('6')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P6</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-6')">📋 نسخ النص</button>
+                            <div id="script-text-6" class="modal-body">خبرة تمنراست في يديك.<br/><br/>نعرفو طرقها، ونفهمو تحدياتها.<br/><br/>Royal Distribution: توصيل مضمون بلا حدود.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-6')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-6" class="modal-body">في تمنراست، الخبرة بالطريق هي نصف الخدمة! <br/><br/> توصيل البضائع في الجنوب الكبير ليس مجرد نقل، بل هو معرفة دقيقة بالتضاريس، التوقيت، والتحديات. نحن لا نعتمد على الحظ، بل على خبرتنا المحلية العميقة لضمان وصول طلبيتك بأمان وفي الوقت المحدد.<br/><br/>اختر الشريك الذي يعرف تمنراست حق المعرفة. <br/><br/> Royal Distribution: خبرة محلية، توصيل بلا حدود. <br/><br/> #خبرة_محلية #تمنراست #توصيل_الجزائر #لوجستيك #الجنوب_الكبير #RoyalDistributionDZ</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم يبرز الخبرة المحلية.<br/>- **الخلفية:** صورة عالية الجودة لخريطة طبوغرافية لمنطقة تمنراست، مع تحديد الطرق الرئيسية.<br/>- **العناصر:** أيقونة شاحنة صغيرة موضوعة على الخريطة، مع شعار Royal Distribution.<br/>- **الخط:** خط قوي وواثق.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V7</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">شحال من ساعة ضيعتها مع الموردين هاد السمانة؟ 5؟ 10؟ شوف كيفاش ترجعها.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('7')">
+                    <div class="preview-text">(صوت واضح ومباشر)
+هذه هي الطريقة القديمة:
+تتصل بالمورد الأول... ثم الثاني... ثم العاشر.
+تتابع كل واح...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-7" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('7')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V7</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-7')">📋 نسخ النص</button>
+                            <div id="script-text-7" class="modal-body">(صوت واضح ومباشر)<br/><br/>هذه هي الطريقة القديمة:<br/><br/>تتصل بالمورد الأول... ثم الثاني... ثم العاشر.<br/><br/>تتابع كل واحد وحدو... وتستنى كل واحد وحدو.<br/><br/>ساعات من وقتك الثمين تضيع في التنسيق والمتابعة.<br/><br/>الآن، مع Royal Distribution، هذه هي الطريقة الجديدة:<br/><br/>خطوة 1: تفتح حسابك معانا.<br/><br/>خطوة 2: تختار كل ما يحتاجه محلك من منصة واحدة.<br/><br/>خطوة 3: تؤكد طلبيتك، وحنا نتكلفوا بالباقي.<br/><br/>وقتك لي كنت تضيعو... رجع ليك.<br/><br/>استثمروا في زبائنك... في تطوير محلك... في راحتك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-7')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-7" class="modal-body">وقتك أغلى من أن يضيع في المكالمات! ⏳ <br/><br/> تخيل لو كان بإمكانك استرجاع كل الساعات التي تقضيها في التنسيق مع الموردين كل أسبوع. ماذا ستفعل بها؟<br/><br/>Royal Distribution تقدم لك الحل: منصة واحدة لجميع احتياجاتك، تبسط عملية الطلب وتوفر لك وقتاً ثميناً يمكنك استثماره في نمو عملك أو حتى في راحتك الشخصية.<br/><br/>شاهد الفيديو واكتشف العملية البسيطة من 3 خطوات. <br/><br/> اكتشف كيفاش توفر وقتك وجهدك مع منصة وحدة! <br/><br/> #توفير_الوقت #كفاءة #أتمتة #تمنراست #تجارة_ذكية #الجزائر #RoyalDistributionDZ</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[إطار QUEST - فيديو Motion Graphics]<br/>- **الأسلوب:** رسوم متحركة بسيطة وواضحة (2D Motion Graphics).<br/>- **مشهد 1 (القديم):** إظهار شخصية كرتونية غارقة في الأوراق والهواتف، مع ظهور أيقونات ساعات تتطاير.<br/>- **مشهد 2 (الجديد):** إظهار نفس الشخصية وهي تستخدم هاتفًا أو حاسوبًا بابتسامة. تظهر أيقونات (قائمة تسوق، شاحنة، علامة صح) بشكل متسلسل وبسيط.<br/>- **الانتقالات:** سريعة وسلسة. استخدام ألوان العلامة التجارية.<br/>- **الصوت:** تعليق صوتي واضح، إيقاع سريع، وموسيقى خلفية حيوية.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C8</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الوقت هو الدراهم. بصح كيفاش تربحهم في زوج مع التوريد؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('8')">
+                    <div class="preview-text">Slide 1: وقّف ضياع الوقت، ابدأ الربح! كيفاش Royal Distribution ترجعلك أغلى حاجة عندك: وقتك.
+Slide 2:...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-8" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('8')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C8</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-8')">📋 نسخ النص</button>
+                            <div id="script-text-8" class="modal-body">Slide 1: وقّف ضياع الوقت، ابدأ الربح! كيفاش Royal Distribution ترجعلك أغلى حاجة عندك: وقتك.<br/><br/>Slide 2: 1. طلب موحد من مكان واحد: انسى قائمة الموردين الطويلة. كلش عندنا، تطلب خطرة وحدة وتهني راسك.<br/><br/>Slide 3: 2. توصيل سريع ومنظم: نظامنا اللوجستي يضمنلك وصول طلبيتك كاملة في الوقت المحدد. لا حاجة للمتابعة والقلق.<br/><br/>Slide 4: 3. ركّز على الأهم: محلك وزبائنك: خلي علينا هم التوريد، وأنت تفرغ لتطوير تجارتك وخدمة زبائنك. هكذا تكبر صح.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-8')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-8" class="modal-body">خطوات بسيطة لاسترجاع وقتك الضائع في التوريد! ⏱️ <br/><br/> الوقت هو أثمن أصولك كتاجر. كل دقيقة توفرها هي فرصة لزيادة مبيعاتك أو تحسين خدمتك.<br/><br/>اسحب لتكتشف كيف أن نظامنا في Royal Distribution مصمم خصيصًا ليمنحك المزيد من الوقت والكفاءة، ويحررك من تعقيدات التوريد اليومية. <br/><br/> اسحب لتعرف أسرار توفير الوقت! <br/><br/> #إدارة_الوقت #إنتاجية #تجار_الجزائر #تمنراست #عمل_ذكي #RoyalDistributionDZ</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم تعليمي وواضح.<br/>- **Slide 1:** أيقونة ساعة رملية تتحول إلى أيقونة كيس نقود.<br/>- **Slide 2:** جرافيك يوضح 'عدة أسهم' تندمج في 'سهم واحد' كبير يتجه نحو شعار Royal Distribution.<br/>- **Slide 3:** أيقونة شاحنة سريعة مع تقويم وعلامة صح.<br/>- **Slide 4:** صورة لتاجر مبتسم داخل محله وهو يتحدث مع زبون. النص يكون في الأعلى بشكل واضح.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P9</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">شحال راه يسوى وقتك وانت تجري ورا الموردين؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('9')">
+                    <div class="preview-text">وقتك = أرباحك
+لا تضيعه في التوريد.
+Royal Distribution: استثمر وقتك صح....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-9" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('9')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P9</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-9')">📋 نسخ النص</button>
+                            <div id="script-text-9" class="modal-body">وقتك = أرباحك<br/><br/>لا تضيعه في التوريد.<br/><br/>Royal Distribution: استثمر وقتك صح.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-9')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-9" class="modal-body">هل حسبت يومًا التكلفة الحقيقية لوقتك؟ <br/><br/> كل ساعة تقضيها في مهام لوجستية هي ساعة مسروقة من نمو عملك. حان الوقت لتغيير هذه المعادلة.<br/><br/>دع Royal Distribution تتولى عنك عبء التوريد، واستثمر وقتك وجهدك في المكان الصحيح: داخل محلك ومع زبائنك. <br/><br/> Royal Distribution: حل واحد لوقتك، وربحك. <br/><br/> #قيمة_الوقت #استثمار #تمنراست #الجزائر #ريادة_الأعمال #RoyalDistributionTips</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم مؤثر ومباشر.<br/>- **الخلفية:** صورة لساعة كبيرة وواضحة.<br/>- **العناصر:** معادلة بسيطة في منتصف التصميم: [أيقونة ساعة] = [أيقونة كيس نقود]. تحتها الشعار والنص.<br/>- **الخط:** خط جريء ومقروء بسهولة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V10</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">حاب تزيد في الربح؟ اسمع لتاجر من تمنراست كيفاش بدل المعادلة.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('10')">
+                    <div class="preview-text">(تاجر حقيقي أو ممثل يبدو كتاجر حقيقي، يتحدث بصدق وعفوية للكاميرا من داخل محله)
+
+السلام عليكم، معاكم ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-10" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('10')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V10</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-10')">📋 نسخ النص</button>
+                            <div id="script-text-10" class="modal-body">(تاجر حقيقي أو ممثل يبدو كتاجر حقيقي، يتحدث بصدق وعفوية للكاميرا من داخل محله)<br/><br/><br/><br/>السلام عليكم، معاكم 'أحمد' صاحب محل هنا في تمنراست.<br/><br/>قبل، كنت نتعامل مع بزاف موردين... والله راسي كان يوجعني.<br/><br/>كل واحد وسعرو... وفي آخر الشهر، كي نحسبها، نلقى الربح قليل بزاف.<br/><br/>واحد صاحبي نصحني بـ Royal Distribution. في الأول ترددت، قلت بالاك كيما الآخرين.<br/><br/>بصح كي شفت الأسعار تاعهم تاع الجملة، تفاجأت.<br/><br/>الطلبية الأولى لحقتني كاملة، والأسعار هي هي.<br/><br/>دروكا، وليت نوفر في التكاليف، وهامش الربح تاعي زاد بشكل ملحوظ.<br/><br/>الحمد لله، وليت نخدم مرتاح، وعارف بلي دراهمي راهم في بلاصتهم.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-10')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-10" class="modal-body">الأرقام لا تكذب... اسمع شهادة حقيقية عن زيادة الأرباح! 💰 <br/><br/> الكلام عن الأسعار التنافسية سهل، لكن الدليل الحقيقي يأتي من التجار الذين جربوا خدماتنا وشاهدوا الفرق في دفاتر حساباتهم.<br/><br/>استمع لأحمد، تاجر من تمنراست، وهو يشارك تجربته وكيف ساعدته Royal Distribution على زيادة هامش ربحه وتوفير التكاليف. <br/><br/> شوف كيفاش Royal Distribution ترجعلك الربح لمحالك! <br/><br/> #زيادة_الأرباح #شهادة_عميل #تمنراست #أسعار_الجملة #الجزائر #قصص_نجاح #RoyalDistributionDZ</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[إطار AIDA - فيديو UGC/شهادة]<br/>- **المصور:** أحمد وإسلام.<br/>- **المكان:** داخل محل تجاري حقيقي يبدو ناجحًا ومنظمًا.<br/>- **الكاميرا:** تصوير ثابت، على مستوى العين، ليشعر المشاهد أن الحديث موجه له مباشرة.<br/>- **الأداء:** يجب أن يكون طبيعيًا جدًا، مع وقفات عفوية. لا يجب أن يبدو كنص محفوظ.<br/>- **التركيز:** يجب أن يذكر التاجر بوضوح مشكلة 'الأسعار' و'هامش الربح' وكيف حلتها Royal Distribution.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C11</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">حاب تزيد في أرباحك وتولي المنافس الأول في السوق؟ السر هنا.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('11')">
+                    <div class="preview-text">Slide 1: خلي ربحك يكبر! كيفاش تزيد هامش الربح ديالك مع Royal Distribution؟
+Slide 2: 1. أسعار جملة تن...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-11" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('11')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C11</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-11')">📋 نسخ النص</button>
+                            <div id="script-text-11" class="modal-body">Slide 1: خلي ربحك يكبر! كيفاش تزيد هامش الربح ديالك مع Royal Distribution؟<br/><br/>Slide 2: 1. أسعار جملة تنافسية: نشريو بكميات كبيرة، وهاد الفائدة نفوتوهالك مباشرة. أسعارنا مدروسة باش تخليك الرابح الأول.<br/><br/>Slide 3: 2. عروض خاصة للزبائن الأوفياء: كل ما تخدم معانا أكثر، كل ما تستفاد من تخفيضات وعروض حصرية تزيد من أرباحك.<br/><br/>Slide 4: 3. احسبها تلقاها رابح: كي تجمع توفير الوقت، توفير تكاليف النقل المتعدد، والأسعار المباشرة... النتيجة هي ربح صافي أكبر في جيبك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-11')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-11" class="modal-body">📈 دليلك لزيادة هامش الربح في 3 خطوات بسيطة. <br/><br/> زيادة الأرباح لا تعني فقط زيادة المبيعات، بل تعني أيضًا التحكم في التكاليف. وهذا هو اختصاصنا.<br/><br/>اسحب لتكتشف كيف أن استراتيجيتنا في التسعير والعروض مصممة خصيصًا لوضع المزيد من المال في جيبك في نهاية كل شهر. <br/><br/> اسحب وشوف كيفاش نخلوك تربح أكثر! <br/><br/> #أرباح #هامش_الربح #توفير #تمنراست #تجارة #الجزائر #استراتيجية_أعمال</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم يركز على الفوائد المالية.<br/>- **Slide 1:** رسم بياني يوضح نمو الأرباح بشكل سهم صاعد.<br/>- **Slide 2:** أيقونة 'عربة تسوق كبيرة' بجانب أيقونة 'بطاقة سعر منخفض'.<br/>- **Slide 3:** أيقونة 'هدية' أو 'بطاقة VIP' لترمز للعروض الحصرية.<br/>- **Slide 4:** أيقونة آلة حاسبة تُظهر نتيجة إيجابية، مع شعار Royal Distribution.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P12</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">شحال راه يضيع من جيبك كي تخدم مع موردين غالين؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('12')">
+                    <div class="preview-text">أرباح أكثر، قلق أقل.
+Royal Distribution: أسعار الجملة لي تزيدلك في الربح....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-12" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('12')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P12</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-12')">📋 نسخ النص</button>
+                            <div id="script-text-12" class="modal-body">أرباح أكثر، قلق أقل.<br/><br/>Royal Distribution: أسعار الجملة لي تزيدلك في الربح.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-12')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-12" class="modal-body">توقف عن ترك أرباحك على طاولة الموردين! <br/><br/> كل دينار توفره في عملية الشراء هو دينار يضاف مباشرة إلى أرباحك الصافية. في Royal Distribution، نمنحك القوة الشرائية التي تحتاجها لزيادة هوامش ربحك والمنافسة بقوة في السوق.<br/><br/>اختر الأسعار التي تعمل لصالحك، وليس ضدك. <br/><br/> رويال ديستريبيسيون: أسعار الجملة لي تزيدلك في الربح. <br/><br/> #ربحية #أسعار_تنافسية #تمنراست #الجملة #الجزائر #استثمار_ذكي #RoyalDistributionDZ</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم مباشر وجذاب.<br/>- **الخلفية:** لون أخضر يرمز للمال والنمو.<br/>- **العناصر:** صورة ليد تضع عملة نقدية في حصالة على شكل محل تجاري صغير.<br/>- **الخط:** خط واضح وقوي، مع إبراز كلمتي "أكثر" و "أقل".</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V13</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">هداك الشعور بالخوف كي تشوف الرفوف بدات تفرغ... تقدر تنساه.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('13')">
+                    <div class="preview-text">(صوت هادئ وواثق)
+قبل... كان القلق جزء من يومك.
+تخمم... هل السلعة تلحق في الوقت؟
+هل المورد راح يجيبلي...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-13" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('13')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V13</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-13')">📋 نسخ النص</button>
+                            <div id="script-text-13" class="modal-body">(صوت هادئ وواثق)<br/><br/>قبل... كان القلق جزء من يومك.<br/><br/>تخمم... هل السلعة تلحق في الوقت؟<br/><br/>هل المورد راح يجيبلي كلش كيما طلبت؟<br/><br/>واش نقول للزبون كي يسقسيني على حاجة وما يلقاهاش؟<br/><br/>هذا القلق... يسرق منك راحة البال.<br/><br/>الآن... تخيل عالم آخر.<br/><br/>عالم فيه الرفوف تاعك ديما عامرة.<br/><br/>عالم فيه كلمة "ماكاش" ماعندهاش بلاصة.<br/><br/>هذا هو الوعد تاع Royal Distribution.<br/><br/>بفضل مخزوننا الضخم، أسطولنا الجاهز، وفريقنا المحترف...<br/><br/>نضمنولك استمرارية عملك.<br/><br/>باش ترقد مهني... وتخدم مرتاح.<br/><br/>لأن ثقتك هي أساس خدمتنا.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-13')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-13" class="modal-body">راحة البال... أهم سلعة يمكنك توفيرها في محلك. 😌 <br/><br/> الخوف من نفاد المخزون يمكن أن يكون أكبر ضغط يواجهه أي تاجر. هذا القلق لا يؤثر فقط على مبيعاتك، بل على سمعتك وراحة بالك.<br/><br/>في Royal Distribution، مهمتنا هي إزالة هذا العبء عنك. شاهد الفيديو لترى كيف يضمن لك نظامنا اللوجستي المتكامل استمرارية لا تنقطع، وثقة لا تهتز. <br/><br/> رويال ديستريبيسيون: عمرك ما تبقى بلا سلعة، ثقة لا تتقطع! <br/><br/> #موثوقية #راحة_البال #استمرارية #تمنراست #إدارة_المخزون #الجزائر #RoyalDistributionDZ</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[إطار BAB - فيديو Storytelling]<br/>- **مشاهد (Before):** لقطات باللونين الأبيض والأسود أو بألوان باهتة لتاجر قلق ينظر إلى رفوف شبه فارغة. لقطة مقربة على ساعة حائط تتحرك ببطء.<br/>- **مشاهد (Bridge):** انتقال سلس إلى لقطات ملونة ونابضة بالحياة. لقطات درون للمخازن الممتلئة، لقطات مقربة على وجوه العمال المبتسمين والمتفانين، شاحنات التوصيل وهي تصطف بنظام.<br/>- **مشاهد (After):** عودة للتاجر وهو يبتسم بثقة داخل محله الممتلئ بالبضاعة والنشاط. لقطة أخيرة له وهو يغلق محله في المساء بابتسامة رضا.<br/>- **الموسيقى:** تبدأ متوترة ثم تتحول إلى موسيقى هادئة ومطمئنة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C14</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">واش هي القوة الخفية لي تخلي Royal Distribution المورد لي جامي يخيبك؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('14')">
+                    <div class="preview-text">Slide 1: راحة بالك تبدأ من هنا! اكتشف القوة اللوجستية لـ Royal Distribution.
+Slide 2: 1. أضخم المخاز...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-14" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('14')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C14</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-14')">📋 نسخ النص</button>
+                            <div id="script-text-14" class="modal-body">Slide 1: راحة بالك تبدأ من هنا! اكتشف القوة اللوجستية لـ Royal Distribution.<br/><br/>Slide 2: 1. أضخم المخازن في تمنراست: مساحات تخزين عملاقة تضمن توفر آلاف المنتجات في أي وقت. السلعة ديما كاينة!<br/><br/>Slide 3: 2. أسطول توصيل جاهز 24/7: شاحناتنا المجهزة تجوب تمنراست يوميًا لتلبية طلباتك بسرعة قياسية.<br/><br/>Slide 4: 3. فريق عمل محترف: من المستودع إلى التوصيل، فريقنا مدرب لضمان الدقة والسرعة في كل خطوة.<br/><br/>Slide 5: توصيلك مضمون، سمعة محلك محمية. مع Royal Distribution، أنت في أيدٍ أمينة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-14')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-14" class="modal-body">👀 جولة خلف الكواليس: اكتشف أسرار قوتنا اللوجستية! <br/><br/> الموثوقية ليست مجرد كلمة، بل هي نظام متكامل يعمل بدقة لخدمتك. من مخازننا الضخمة إلى أسطولنا الحديث وفريقنا المتفاني، كل جزء من عمليتنا مصمم لضمان شيء واحد: راحتك واستمرارية عملك.<br/><br/>اسحب لتلقي نظرة حصرية على ما يجعلنا الشريك الأكثر موثوقية في تمنراست. <br/><br/> اسحب وشوف قوة نظامنا اللوجستي! <br/><br/> #خلف_الكواليس #لوجستيك #كفاءة #تمنراست #الجزائر #قوة #RoyalDistributionDZ</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم يبرز القوة والكفاءة (خلف الكواليس).<br/>- **Slide 1:** صورة من زاوية منخفضة لشاحنة Royal Distribution، مما يعطي إحساسًا بالقوة.<br/>- **Slide 2:** صورة بانورامية للمخازن من الداخل، تظهر الرفوف العالية الممتلئة بالبضاعة.<br/>- **Slide 3:** صورة لعدة شاحنات توصيل مصطفة وجاهزة للانطلاق.<br/>- **Slide 4:** صورة لفريق العمل وهم يعملون بجدية ونشاط.<br/>- **Slide 5:** تصميم يجمع بين شعار الشركة ودرع يرمز للحماية والضمان.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P15</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">آخر مرة خلصتلك سلعة مهمة، شحال خسرت في هذاك النهار؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('15')">
+                    <div class="preview-text">لا لنفاذ المخزون.
+نعم لاستمرارية الأرباح.
+Royal Distribution: مخزون دائم، ومبيعات مضمونة....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-15" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('15')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P15</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-15')">📋 نسخ النص</button>
+                            <div id="script-text-15" class="modal-body">لا لنفاذ المخزون.<br/><br/>نعم لاستمرارية الأرباح.<br/><br/>Royal Distribution: مخزون دائم، ومبيعات مضمونة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-15')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-15" class="modal-body">رف فارغ واحد يمكن أن يكلفك الكثير! <br/><br/> كل منتج ناقص هو فرصة بيع ضائعة وزبون قد لا يعود. لا تدع مشاكل التوريد تهدد استمرارية عملك وأرباحك.<br/><br/>مع Royal Distribution، نضمن لك مخزونًا دائمًا وتدفقًا مستمرًا للبضائع، لتحافظ على مبيعاتك ورضا زبائنك كل يوم. <br/><br/> Royal Distribution: مخزون دائم، ومبيعات مضمونة. <br/><br/> #لا_للخوف #استمرارية_العمل #تمنراست #إدارة_المبيعات #الجزائر #RoyalDistributionGuarantees</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم بصري قوي.<br/>- **الخلفية:** تصميم مقسوم نصفين. النصف الأيسر يظهر رفًا فارغًا مع علامة 'X' حمراء كبيرة. النصف الأيمن يظهر نفس الرف ممتلئًا بالبضاعة مع علامة '✓' خضراء كبيرة.<br/>- **الخط:** استخدام خط واضح ومباشر.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V16</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">شحال من مورد لازمك باش تعمر محلك؟ واحد برك.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('16')">
+                    <div class="preview-text">(تعليق صوتي حيوي وسريع مع موسيقى إيقاعية)
+محلك يحتاج بقوليات؟ عندنا.
+زيوت وسكر؟ عندنا.
+مواد تنظيف؟ ع...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-16" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('16')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V16</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-16')">📋 نسخ النص</button>
+                            <div id="script-text-16" class="modal-body">(تعليق صوتي حيوي وسريع مع موسيقى إيقاعية)<br/><br/>محلك يحتاج بقوليات؟ عندنا.<br/><br/>زيوت وسكر؟ عندنا.<br/><br/>مواد تنظيف؟ عندنا.<br/><br/>عصائر ومشروبات؟ عندنا.<br/><br/>تمور؟ بأفضل الأنواع، عندنا.<br/><br/>كل ما يخطر في بالك... وأكثر.<br/><br/>علاش تضيع وقتك مع عشرات الموردين؟<br/><br/>Royal Distribution: كلش لمحلّك، في بلاصة وحدة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-16')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-16" class="modal-body">🛒 كل ما يحتاجه محلك... في طلبية واحدة! <br/><br/> تخيل أنك تستطيع ملء كل رفوف محلك من خلال مورد واحد فقط. لا مزيد من البحث والمقارنة والمتابعة مع جهات متعددة.<br/><br/>شاهد هذا الفيديو السريع واستعرض معنا التشكيلة الشاملة من المنتجات التي نوفرها، والمصممة لتلبية كل احتياجات تجارتك بسهولة وكفاءة. <br/><br/> اكتشف أكبر تشكيلة مواد غذائية في تمنراست، كلش في بلاصة وحدة! <br/><br/> #تشكيلة_شاملة #حل_متكامل #تمنراست #تجارة_الجملة #الجزائر #تسوق_ذكي #RoyalDistributionDZ</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[إطار HVC - فيديو Motion Graphics]<br/>- **الأسلوب:** رسوم متحركة سريعة وجذابة.<br/>- **المشاهد:** ظهور سريع ومتتالي لأيقونات وصور منتجات مختلفة (كيس أرز، قارورة زيت، علبة منظف، إلخ). كلما ذُكر صنف، يظهر المنتج على الشاشة.<br/>- **النهاية:** تتجمع كل أيقونات المنتجات وتدخل في أيقونة 'عربة تسوق' واحدة تحمل شعار Royal Distribution.<br/>- **الألوان:** زاهية وحيوية. الإيقاع البصري يجب أن يكون سريعًا ليعكس التنوع والشمولية.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C17</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">حاب تعمر محلك بكل أنواع السلع من بلاصة وحدة؟ الحل هنا.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('17')">
+                    <div class="preview-text">Slide 1: محلك ناقصو والو مع Royal Distribution! تصفح تشكيلتنا الشاملة.
+Slide 2: البقوليات، الحبوب، و...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-17" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('17')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C17</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-17')">📋 نسخ النص</button>
+                            <div id="script-text-17" class="modal-body">Slide 1: محلك ناقصو والو مع Royal Distribution! تصفح تشكيلتنا الشاملة.<br/><br/>Slide 2: البقوليات، الحبوب، والتمور: أساس كل محل، نوفرها بأفضل جودة وتنوع.<br/><br/>Slide 3: الزيوت، السكر، والمعلبات: كل المواد الأساسية التي لا يستغني عنها زبائنك.<br/><br/>Slide 4: مواد التنظيف ولوازم المنزل: من المطبخ إلى الحمام، تشكيلة كاملة لزبائنك.<br/><br/>Slide 5: تشكيلة لا تضاهى، جودة مضمونة، ومورد واحد فقط. هذا هو وعدنا.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-17')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-17" class="modal-body">من الألف إلى الياء... اكتشف التشكيلة التي ستغنيك عن الجميع! <br/><br/> لماذا تشتت جهدك بين عدة موردين بينما يمكنك الحصول على كل شيء من مكان واحد؟<br/><br/>اسحب وتصفح فئات منتجاتنا المتنوعة التي اخترناها بعناية لتلبية جميع احتياجات محلك وتوقعات زبائنك. الجودة والتنوع والموثوقية، كلها تحت سقف واحد. <br/><br/> اسحب وشوف تشكيلتنا لي ماتخلصش! <br/><br/> #تنوع_المنتجات #جودة #شامل #تمنراست #مورد_الجزائر #RoyalDistributionProducts</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم بصري جذاب يعرض المنتجات.<br/>- **Slide 1:** صورة مجمعة (Collage) لمنتجات متنوعة ومختلفة.<br/>- **Slides 2, 3, 4:** كل سلايد يعرض صورًا عالية الجودة للمنتجات المذكورة في تلك الفئة. يمكن وضعها على خلفية نظيفة ومميزة.<br/>- **Slide 5:** تصميم ختامي قوي يجمع شعار Royal Distribution مع عبارة 'موردك الشامل'.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P18</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">ملّيت من تكسار الراس مع بزاف موردين لأنواع سلعة مختلفة؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('18')">
+                    <div class="preview-text">كل محلك في كبسة زر.
+Royal Distribution: الحل الشامل....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-18" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('18')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P18</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-18')">📋 نسخ النص</button>
+                            <div id="script-text-18" class="modal-body">كل محلك في كبسة زر.<br/><br/>Royal Distribution: الحل الشامل.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-18')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-18" class="modal-body">إدارة محلك أصبحت أسهل من أي وقت مضى! <br/><br/> ودّع تعقيدات الماضي. مع Royal Distribution، يمكنك تزويد محلك بالكامل من خلال منصة واحدة سهلة الاستخدام. نحن نجمع لك كل ما تحتاجه، لنوفر عليك الوقت والجهد والمال.<br/><br/>بساطة، كفاءة، وشمولية. هذا هو التزامنا. <br/><br/> Royal Distribution: جمعنا كل احتياجاتك في مورد واحد. <br/><br/> #حل_شامل #بساطة #كفاءة #تمنراست #الجزائر #تجارة_حديثة #RoyalDistributionDZ</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم حديث وتقني.<br/>- **الخلفية:** خلفية بسيطة.<br/>- **العناصر:** أيقونة كبيرة لـ 'عربة تسوق' على شاشة هاتف أو تابلت، ويخرج منها أصناف مختلفة من المنتجات (بقوليات، زيوت، منظفات).<br/>- **الخط:** خط عصري وواضح.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V19</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">ما تآمنش كلامنا، آمن كلام التجار لي يخدمو في تمنراست كيما نتا.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('19')">
+                    <div class="preview-text">(مجموعة من اللقطات السريعة لـ 3-4 تجار مختلفين، كل واحد يقول جملة أو جملتين)
+
+التاجر 1: "من لي بديت ...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-19" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('19')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V19</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-19')">📋 نسخ النص</button>
+                            <div id="script-text-19" class="modal-body">(مجموعة من اللقطات السريعة لـ 3-4 تجار مختلفين، كل واحد يقول جملة أو جملتين)<br/><br/><br/><br/>التاجر 1: "من لي بديت نخدم مع Royal Distribution، والله تهنيت من المشاكل تاع التوصيل."<br/><br/><br/><br/>التاجر 2: "الأسعار تاعهم هي لي خلاتني نزيد في الربح تاعي ونكبر المحل."<br/><br/><br/><br/>التاجر 3: "أحسن حاجة هي راحة البال. علابالي السلعة تلحقني كاملة وفي الوقت."<br/><br/><br/><br/>(صوت المعلق في النهاية):<br/><br/>قصص نجاحهم... ممكن تكون قصتك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-19')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-19" class="modal-body">💯 الدليل الاجتماعي: اسمعها مباشرة من تجار تمنراست! <br/><br/> أقوى دليل على نجاح أي خدمة هو رضا عملائها. نحن فخورون بالثقة التي يضعها فينا شركاؤنا من التجار في جميع أنحاء تمنراست.<br/><br/>شاهد هذا الفيديو القصير واستمع لشهادات حقيقية من تجار مثلك، يتحدثون عن تجربتهم مع Royal Distribution وكيف أثرت بشكل إيجابي على أعمالهم. <br/><br/> سمع تجارب النجاح، وانضم لعائلة Royal Distribution! <br/><br/> #دليل_اجتماعي #شهادات #ثقة #تمنراست #الجزائر #زبائن_راضون #RoyalDistributionFamily</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[إطار Storytelling - فيديو UGC/شهادات مجمعة]<br/>- **الأسلوب:** ديناميكي وسريع. لقطات قصيرة وحقيقية من داخل محلات مختلفة.<br/>- **الكاميرا:** تصوير طبيعي وعفوي. لا بأس ببعض الاهتزاز الخفيف لإعطاء شعور بالواقعية.<br/>- **المونتاج:** قصات سريعة (Jump cuts) بين الشهادات المختلفة مع موسيقى خلفية إيجابية.<br/>- **النهاية:** عرض شهاداتهم مكتوبة على الشاشة مع أسمائهم (أو محلاتهم)، ثم الدعوة للعمل.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C20</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">واش يقولو التجار لي جربو Royal Distribution في تمنراست؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('20')">
+                    <div class="preview-text">Slide 1: حكايات نجاح من قلب تمنراست! شركاؤنا يتحدثون.
+Slide 2: "وفرت وقت وجهد كبير كنت نضيعو مع مورد...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-20" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('20')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C20</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-20')">📋 نسخ النص</button>
+                            <div id="script-text-20" class="modal-body">Slide 1: حكايات نجاح من قلب تمنراست! شركاؤنا يتحدثون.<br/><br/>Slide 2: "وفرت وقت وجهد كبير كنت نضيعو مع موردين آخرين. الآن تركيزي كامل على المحل." - أحمد، صاحب سوبر ماركت.<br/><br/>Slide 3: "أرباحي زادت بشكل ملحوظ بفضل أسعارهم التنافسية. قدرت نكبر في التجارة تاعي." - فاطمة، صاحبة محل مواد غذائية.<br/><br/>Slide 4: "مورد موثوق بمعنى الكلمة. عمري ما خاب ظني فيهم، السلعة تلحق في وقتها وديما كاملة." - علي، موزع بالجملة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-20')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-20" class="modal-body">الكلمات تتحدث عن نفسها... اقرأ قصص نجاح شركائنا! 💬 <br/><br/> لا يوجد أفضل من شهادة حقيقية لتعكس قيمة خدماتنا. لقد جمعنا لكم بعض آراء شركائنا من التجار في تمنراست الذين شهدوا بأنفسهم الفرق الذي أحدثته Royal Distribution.<br/><br/>اسحب لتقرأ قصصهم وتستلهم من تجاربهم. <br/><br/> اسحب لتقرا قصصهم وتنجح كيفهم! <br/><br/> #شهادات_حقيقية #قصص_النجاح #تمنراست #ثقة_العملاء #الجزائر #RoyalDistributionReviews</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم احترافي يركز على الاقتباسات.<br/>- **Slide 1:** خريطة تمنراست مع دبابيس في مواقع مختلفة، ترمز للعملاء في كل مكان.<br/>- **Slides 2, 3, 4:** كل سلايد يحتوي على صورة للتاجر (أو صورة رمزية) بجانب اقتباسه. يجب أن يكون الاقتباس هو العنصر الأبرز في التصميم. استخدام علامات اقتباس كبيرة وخط واضح.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P21</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الثقة ماشي كلام... الثقة نتائج تشوفها بعينك.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('21')">
+                    <div class="preview-text">النجاح يتحدث.
+(اقتباس قصير ومؤثر من أحد العملاء)
+"Royal Distribution بدلت طريقة خدمتي للأحسن."...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-21" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('21')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P21</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-21')">📋 نسخ النص</button>
+                            <div id="script-text-21" class="modal-body">النجاح يتحدث.<br/><br/>(اقتباس قصير ومؤثر من أحد العملاء)<br/><br/>"Royal Distribution بدلت طريقة خدمتي للأحسن."</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-21')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-21" class="modal-body">عندما يتحدث النجاح، نصمت لنستمع. <br/><br/> أكبر فخر لنا هو رؤية شركائنا من التجار يحققون أهدافهم وينمون أعمالهم. شهاداتهم هي الوقود الذي يدفعنا لتقديم الأفضل دائمًا.<br/><br/>نحن لا نبني علاقات تجارية فقط، بل نبني شراكات نجاح حقيقية. <br/><br/> رويال ديستريبيسيون: شركاء النجاح في تمنراست. <br/><br/> #شركاء_النجاح #الثقة #النتائج #تمنراست #الجزائر #اقتباس #RoyalDistributionDZ</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم أنيق وبسيط.<br/>- **الخلفية:** خلفية نظيفة بألوان العلامة التجارية.<br/>- **العناصر:** الاقتباس مكتوب بخط يدوي (Script font) أنيق ليعطيه لمسة شخصية. أسفله اسم العميل ومحله بخط أصغر. شعار Royal Distribution في الأسفل.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V22</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">فرصة ما تتعوضش لتجار تمنراست... بصح الوقت راه يجري!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('22')">
+                    <div class="preview-text">(وجه إعلامي/Host يتحدث بحماس وثقة مباشرة للكاميرا)
+
+إذا راك تاجر في تمنراست وتخمم تبدا تخدم معانا......</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-22" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('22')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V22</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-22')">📋 نسخ النص</button>
+                            <div id="script-text-22" class="modal-body">(وجه إعلامي/Host يتحدث بحماس وثقة مباشرة للكاميرا)<br/><br/><br/><br/>إذا راك تاجر في تمنراست وتخمم تبدا تخدم معانا...<br/><br/>هذا هو الوقت المناسب!<br/><br/>بمناسبة إطلاق خدماتنا الجديدة، Royal Distribution تقدم عرض خاص ومحدود جدا.<br/><br/>لكل تاجر جديد ينضم لينا هذا الأسبوع، راح يستفاد من تخفيضات استثنائية على أول طلبية كبيرة... مع توصيل مجاني لمدة شهر كامل!<br/><br/>هذه فرصتك باش تجرب خدماتنا، توفر دراهم كبار، وتزيد من الربح تاعك من اليوم الأول.<br/><br/>بصح العرض هذا ماراحش يبقى بزاف.<br/><br/>ماتخليش الفرصة تروحلك.<br/><br/>عيطلنا ولا ابعثلنا ميساج دروكا.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-22')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-22" class="modal-body">🔥 عرض حصري لتجار تمنراست... لمدة أسبوع واحد فقط! 🔥 <br/><br/> هل فكرت في الانضمام إلى شبكة شركاء Royal Distribution؟ الآن هي فرصتك الذهبية!<br/><br/>نقدم عرضًا خاصًا لا يقاوم لجميع التجار الجدد: استفد من تخفيضات مذهلة على طلبيتك الأولى بالإضافة إلى توصيل مجاني لمدة شهر كامل.<br/><br/>شاهد الفيديو لمعرفة كل التفاصيل، لكن لا تتردد، فالوقت محدود! <br/><br/> اتصل بنا دروكا باش تستفاد من هذا العرض قبل ما يفوتك! <br/><br/> #عرض_خاص #تخفيضات #تمنراست #فرصة #الجزائر #وقت_محدود #RoyalDistributionOffer</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[إطار PAS + AIDA]<br/>- **المؤدي:** وجه إعلامي (Host) يتمتع بالكاريزما والطاقة. يقف في مكان احترافي، ربما أمام خلفية تظهر شعار الشركة.<br/>- **الكاميرا:** لقطة متوسطة (Medium shot)، تواصل بصري مباشر مع الكاميرا.<br/>- **الجرافيكس:** ظهور نصوص على الشاشة لتأكيد تفاصيل العرض (تخفيضات استثنائية، توصيل مجاني، العرض لمدة أسبوع).<br/>- **النبرة:** حماسية، مقنعة، وتخلق إحساسًا بالإلحاح (Urgency).</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C23</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">حاب تبدا تخدم مع Royal Distribution بعرض مايتعوضش؟</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('23')">
+                    <div class="preview-text">Slide 1: فرصة ذهبية لتجار تمنراست! عرض خاص للعملاء الجدد.
+Slide 2: 1. تخفيضات استثنائية على أول طلبي...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-23" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('23')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C23</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-23')">📋 نسخ النص</button>
+                            <div id="script-text-23" class="modal-body">Slide 1: فرصة ذهبية لتجار تمنراست! عرض خاص للعملاء الجدد.<br/><br/>Slide 2: 1. تخفيضات استثنائية على أول طلبية كبيرة. ابدأ بقوة ووفر من اليوم الأول.<br/><br/>Slide 3: 2. خدمة توصيل مجانية لمدة شهر كامل! جرب سرعتنا وموثوقيتنا بدون أي تكاليف إضافية.<br/><br/>Slide 4: انتباه! هذا العرض صالح لمدة أسبوع واحد فقط. لا تفوت الفرصة!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-23')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-23" class="modal-body">🎁 تفاصيل العرض الذي ينتظره كل تجار تمنراست! <br/><br/> لا تدع هذه الفرصة تفوتك. لقد صممنا هذا العرض خصيصًا لنمنحك أفضل بداية ممكنة مع Royal Distribution، مع توفير حقيقي وفوائد ملموسة.<br/><br/>اسحب لتكتشف بالتفصيل المزايا التي ستحصل عليها عند انضمامك إلينا هذا الأسبوع. <br/><br/> اسحب وشوف التفاصيل لي تخليك تربح! <br/><br/> #عرض_محدود #توصيل_مجاني #تخفيضات_الجزائر #تمنراست #اغتنم_الفرصة #RoyalDistributionDZ</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم خاص بالعروض، جذاب ويخلق إحساسًا بالإلحاح.<br/>- **الألوان:** استخدام ألوان قوية مثل الأحمر والأصفر لجذب الانتباه.<br/>- **Slide 1:** عنوان العرض بخط كبير وجريء مع أيقونة 'هدية' أو 'نجمة'.<br/>- **Slides 2 & 3:** كل سلايد يشرح ميزة من العرض مع أيقونة معبرة (أيقونة نسبة مئوية للتخفيض، أيقونة شاحنة مع علامة 'مجاني').<br/>- **Slide 4:** استخدام أيقونة 'ساعة رملية' أو 'تقويم' مع عبارة 'ينتهي قريباً' بخط بارز جدا.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P24</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الأسعار لي كنت تحلم بيها راهي هنا... بصح ماشي للأبد!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('24')">
+                    <div class="preview-text">الفرصة الآن!
+عرض الأسبوع: تخفيضات + توصيل مجاني.
+ينتهي قريباً......</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-24" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('24')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P24</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-24')">📋 نسخ النص</button>
+                            <div id="script-text-24" class="modal-body">الفرصة الآن!<br/><br/>عرض الأسبوع: تخفيضات + توصيل مجاني.<br/><br/>ينتهي قريباً...</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-24')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-24" class="modal-body">⏳ الوقت ينفد... هل ستغتنم الفرصة؟ <br/><br/> عرضنا الخاص لتجار تمنراست في أيامه الأخيرة. هذه هي فرصتك الأخيرة للاستفادة من تخفيضات استثنائية وتوصيل مجاني لمدة شهر كامل.<br/><br/>القرار لك، لكن لا تنتظر طويلاً. النجاح لا ينتظر المترددين. <br/><br/> تواصل دروكا قبل ما يخلص العرض المحدود! <br/><br/> #الفرصة_الأخيرة #لا_تتردد #تمنراست #عرض_ناري #الجزائر #استثمر_الآن #RoyalDistributionUrgent</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم يخلق إحساسًا قويًا بالإلحاح (Urgency).<br/>- **الخلفية:** استخدام عداد تنازلي (Countdown timer) كعنصر بصري رئيسي.<br/>- **النص:** كتابة النص بخطوط كبيرة وواضحة. كلمة 'الآن' و 'قريباً' يجب أن تكون الأبرز.<br/>- **الألوان:** استخدام ألوان تحذيرية مثل الأحمر والبرتقالي.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr></tbody></table></div>
+
+    <div class="disclaimer-card">
+        <span style="font-size: 1.2em;">⚠️</span>
+        <span>قد تخضع هذه الاستراتيجية لبعض التعديلات والتحسينات، حسب المواد الإعلامية المتوفرة أو لغرض تحقيق أفضل النتائج.</span>
+    </div>
+
+    <div class="summary-box">
+        <span style="font-weight: 700; color: #FFD700;">الميزانية الإجمالية المعتمدة</span>
+        <span class="total-amount">159000 دج</span>
+        <a href="https://wa.me/213770820431" class="cta-btn">تواصل معنا للاعتماد</a>
+        <div style="border: 1px dashed #FFD700; padding: 25px; border-radius: 15px; margin-top: 20px;">
+            <h3 style="color:#FFD700; margin:0;">الخطوة التالية</h3>
+            <p style="margin:10px 0;">مكالمة قصيرة لنكيّف هذه الاستراتيجية حسب مشروعك ونبدأ العمل فوراً.</p>
+            <div class="phones-list">
+                <div class="phone-item">0770 82 04 31</div>
+                <div class="phone-item">0770 55 01 51</div>
+                <div class="phone-item">0770 82 01 45</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+function openModal(id) { document.getElementById('modal-' + id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
+function closeModal(id) { document.getElementById('modal-' + id).style.display = 'none'; document.body.style.overflow = 'auto'; }
+window.onclick = function(event) { if (event.target.className === 'modal') { event.target.style.display = 'none'; document.body.style.overflow = 'auto'; } }
+
+// وظيفة النسخ الجديدة
+function copyToClipboard(elementId) {
+    const el = document.getElementById(elementId);
+    const text = el.innerText || el.textContent; // نسخ النص بدون HTML tags
+    navigator.clipboard.writeText(text).then(() => {
+        alert("تم نسخ النص بنجاح! ✅");
+    }).catch(err => {
+        console.error('Failed to copy', err);
+    });
+}
+</script></body></html>
