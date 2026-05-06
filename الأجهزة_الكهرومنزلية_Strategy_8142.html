@@ -1,0 +1,812 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>الأجهزة الكهرومنزلية Strategy</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+<style>
+    body { background: #FFFFFF; color: #1A1A1A; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; line-height: 1.6; overflow-x: hidden; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 15px; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 2px solid #000; }
+    .wayso-logo { height: 45px; }
+    .brand-name { font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 1.4em; color: #000; text-transform: uppercase; border-right: 4px solid #FFD700; padding-right: 12px; }
+    
+    .analysis-section { margin: 30px 0; }
+    .card-philosophy { padding: 30px; border-radius: 20px; background: #000; color: #FFF; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+    .card-philosophy h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #FFD700; }
+    
+    .card-why { padding: 30px; border-radius: 20px; background: #F9F9F9; color: #333; margin-bottom: 20px; border: 1px solid #EDECE9; }
+    .card-why h2 { font-size: 1.5em; margin: 0 0 12px 0; color: #000; display: flex; align-items: center; gap: 10px; }
+    .card-why h2::after { content: ''; flex-grow: 1; height: 1px; background: #EDECE9; margin-right: 15px; }
+
+    .hero { margin: 35px 0 20px 0; border-right: 6px solid #FFD700; padding-right: 15px; }
+    .hero h1 { font-size: 2.5em; font-weight: 700; margin: 0; }
+    .table-wrapper { margin-top: 25px; border-radius: 12px; overflow: hidden; border: 1px solid #EDECE9; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #000; color: #FFF; padding: 15px; text-align: right; font-size: 0.95em; }
+    td { padding: 20px 12px; border-bottom: 1px solid #EDECE9; vertical-align: top; }
+    
+    .code-badge { font-family: 'Montserrat', sans-serif; font-weight: 700; background: #FFD700; color: #000; padding: 5px 12px; border-radius: 6px; font-size: 1.1em; display: inline-block; margin-bottom: 5px; }
+    .type-label { display: block; font-weight: 700; color: #555; font-size: 0.95em; }
+    
+    .hook-pill { background: #000; color: #FFD700; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 1.1em; display: block; border-right: 5px solid #FFD700; }
+    
+    /* تحسين زر المودال */
+    .script-trigger { background: #F8F9FA; border: 1px solid #EDECE9; padding: 15px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; position: relative; }
+    .script-trigger:hover { background: #FFF; border-color: #FFD700; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transform: translateY(-2px); }
+    
+    .preview-text { font-size: 0.95em; color: #333; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; white-space: pre-wrap; }
+    
+    /* ستايل المودال */
+    .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); }
+    .modal-content { background: #FFF; margin: 5% auto; padding: 30px; border-radius: 20px; width: 90%; max-width: 750px; position: relative; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+    .close-modal { position: absolute; top: 20px; left: 20px; font-size: 30px; cursor: pointer; color: #999; line-height: 1; transition: color 0.2s; }
+    .close-modal:hover { color: #000; }
+    
+    .modal-section { margin-bottom: 25px; padding: 20px; border-radius: 12px; background: #fbfbfa; border: 1px solid #eee; position: relative; }
+    
+    /* زر النسخ */
+    .copy-btn { position: absolute; top: 10px; left: 10px; background: #fff; border: 1px solid #ddd; padding: 5px 10px; border-radius: 6px; cursor: pointer; font-size: 0.8em; font-weight: bold; color: #555; display: flex; align-items: center; gap: 5px; transition: all 0.2s; }
+    .copy-btn:hover { border-color: #FFD700; color: #000; background: #FFD70020; }
+    .copy-btn:active { transform: scale(0.95); }
+    
+    .modal-body { font-size: 1.15em; color: #1A1A1A; line-height: 1.9; word-wrap: break-word; white-space: pre-wrap; }
+    
+    .disclaimer-card { margin: 25px 0; padding: 20px; background: #FFF9E6; border-radius: 12px; border-right: 5px solid #FFC107; font-size: 1.05em; color: #856404; display: flex; align-items: center; gap: 12px; }
+    .summary-box { margin-top: 50px; background: #000; color: #FFF; padding: 40px 20px; border-radius: 25px; text-align: center; }
+    .total-amount { font-family: 'Montserrat'; font-size: 3.5em; font-weight: 700; display: block; color: #FFD700; margin: 10px 0; }
+    .cta-btn { display: inline-block; background: #FFD700; color: #000; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.2em; margin-bottom: 25px; transition: transform 0.2s; }
+    .cta-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px #FFD70060; }
+    
+    .phones-list { margin-top: 15px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; direction: ltr; } 
+    .phone-item { background: #1A1A1A; padding: 8px 15px; border-radius: 8px; border: 1px solid #333; color: #FFF; font-family: 'Montserrat'; font-weight: 700; font-size: 1.2em; white-space: nowrap; }
+
+    @media (max-width: 768px) {
+        thead { display: none; }
+        tr { display: block; border: 1px solid #EDECE9; border-radius: 15px; margin-bottom: 20px; padding: 15px; background: #FFF; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        td { display: block; padding: 10px 0; text-align: right; border-bottom: 1px dashed #eee; }
+        td:last-child { border-bottom: none; }
+        td::before { content: attr(data-label); font-weight: 700; color: #BBB; display: block; font-size: 0.8em; margin-bottom: 6px; text-transform: uppercase; }
+        .brand-name { font-size: 1.1em; }
+        .modal-content { width: 95%; padding: 20px; margin: 10% auto; }
+        .total-amount { font-size: 2.5em; }
+    }
+</style></head><body>
+
+<div class="container">
+    <div class="header">
+        <img src="https://storage.googleapis.com/msgsndr/GwIPQCjstTzxnzDQ1B32/media/68fddb5534bb1597bc934f89.png" class="wayso-logo">
+        <div class="brand-name">الأجهزة الكهرومنزلية</div>
+    </div>
+
+    <div class="analysis-section">
+        <div class="card-philosophy"><h2>🎯 فلسفة الاستراتيجية</h2><p>في Wayso، نؤمن بأن النجاح الحقيقي لعملائنا ينبع من فهم عميق لاحتياجاتهم وتحويل التحديات إلى فرص. لقد صممنا هذه الاستراتيجية بدقة لتكون استثمارًا ذكيًا وموجهًا نحو تحقيق النمو المستدام لعلامتكم التجارية.
+من خلال هذا المزيج المتكامل من المحتوى، نضمن لكم بناء حضور رقمي قوي وموثوق، يُعلي من قيمة منتجاتكم ويزرع الثقة في قلوب عملائكم.
+نحن هنا ليس لتقديم خدمة فقط، بل لنكون شركاءكم الاستراتيجيين في رحلة بناء علامة تجارية لا تُنسى.</p></div>
+        <div class="card-why"><h2>💡 لماذا هذه الخطة؟</h2><p>بدأنا بتسليط الضوء على الفيديو الرئيسي (V1) لخطف الانتباه وبناء سرد عاطفي قوي حول مشكلة وحلها. ثم انتقلنا إلى الكاروسالات التعليمية (مثل C2) لتقديم قيمة مضافة وتثقيف العميل حول جودة منتجاتكم وموثوقيتها.
+هذا التسلسل المصمم بعناية يضمن جذب العميل، تثقيفه، وبناء الثقة اللازمة لاتخاذ قرار الشراء، مما يقود في النهاية إلى تعزيز الولاء وتوسيع قاعدة العملاء.</p></div>
+    </div>
+
+    <div class="hero"><h1>خطة الإنتاج الإبداعي</h1></div>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th style="width: 20%;">الكود والنوع</th><th style="width: 30%;">الهوك (Hook)</th><th style="width: 50%;">المحتوى</th></tr></thead>
+            <tbody><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V1</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">شقى عمرك وعلاش يروح في جهاز يفسد في عامو؟ كاين الحل.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('1')">
+                    <div class="preview-text">(صوت الراوي، بنبرة هادئة ومتعاطفة)
+كل واحد فينا تعب وشقى باش يجهز دارو... باش يوفر الراحة لعائلتو.
+ب...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-1" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('1')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V1</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-1')">📋 نسخ النص</button>
+                            <div id="script-text-1" class="modal-body">(صوت الراوي، بنبرة هادئة ومتعاطفة)<br/><br/>كل واحد فينا تعب وشقى باش يجهز دارو... باش يوفر الراحة لعائلتو.<br/><br/>بصح واش يصرا كي هذاك الشقى يروح في لحظة؟<br/><br/>(صوت مؤثرات عطل كهربائي مفاجئ)<br/><br/>تخسرلك الماشينة في نص الغسيل... ولا الفريجيدار يحبس في عز السخانة.<br/><br/>ماشي برك الجهاز لي فسد... هذي راحتك لي تفسدت... دراهمك لي ضاعو... وثقتك لي تكسرت.<br/><br/>(توقف قصير، تتغير النبرة إلى واثقة ومطمئنة)<br/><br/>واليوم، قررنا نرجعو الثقة هذي.<br/><br/>قررنا نقدمولك ماشي مجرد جهاز... نقدمولك راحة البال.<br/><br/>نقدمولك [اسم العلامة التجارية].<br/><br/>أجهزتنا ماشي مصنوعة باش تتباع برك... مصنوعة باش 'تشدّ'.<br/><br/>مخدومة بمواد أولية صحيحة... وهندسة داخلية مصممة للصمود.<br/><br/>والأهم... جبنالك ضمان وطني حقيقي.<br/><br/>واش معنتها؟ معنتها فريقنا يلحقك وين ما كنت في 48 ولاية.<br/><br/>ماشي كلام... هذا التزام.<br/><br/>لأننا نآمنو بلي راحتك ماشي اختيار... راحتك هي الصح.<br/><br/>[اسم العلامة التجارية]... الصح اللي يشدّ، مع ضمان يلحقك للدار.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-1')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-1" class="modal-body">علاش تخلي شقى سنين يضيع في جهاز معيوب؟<br/><br/>نعرفو مليح إحساس الخذلان كي يفسدلك جهاز شريتو بغلاوتو. ماشي برك الدراهم لي راحو، حتى راحة بالك تروح معاهم.<br/><br/>لهذا السبب، في [اسم العلامة التجارية]، مهمتنا ماشي نبيعولك جهاز، مهمتنا نرجعولك الثقة وراحة البال.<br/><br/>✅ أجهزة مصممة باش تعيش وتصبر (الصح اللي يشدّ).<br/>✅ ضمان وطني حقيقي يوصلك وين ما كنت، من العاصمة لتمنراست.<br/><br/>استثمر في راحتك. استثمر في الصح.<br/><br/>أدخل لصفحتنا واكتشف التشكيلة اللي تجيبلك الراحة لدارك!<br/><br/>#أجهزة_كهرومنزلية #جودة_عالية #ضمان_حقيقي #جودة_جزائرية #الجزائر #وهران #قسنطينة #الصح_اللي_يشد</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">[مشهد 1 - Problem/Before]: لقطات بالأسود والأبيض أو بألوان باهتة. أم في حالة إحباط أمام غسالة متوقفة. أب يفتح ثلاجة لا تعمل بقلق. لقطات مقربة على فواتير تصليح. إضاءة خافتة وموسيقى حزينة.<br/>[مشهد 2 - Agitate]: تسريع اللقطات السابقة مع إضافة مؤثرات صوتية للقلق (دقات ساعة، صوت هاتف يرن دون رد). التركيز على تعابير وجه الإحباط.<br/>[مشهد 3 - Solution/Bridge]: انتقال سلس إلى لقطات ملونة ومشرقة. ظهور شعار البراند ببطء. الوجه الإعلامي يظهر مبتسماً بثقة. لقطات مقربة عالية الجودة على المكونات الداخلية للجهاز (محرك، هيكل معدني). إضاءة دافئة وموسيقى ملهمة.<br/>[مشهد 4 - After]: نفس العائلة السابقة لكنها سعيدة. الأم تستخدم الغسالة بسهولة. الأب يأخذ مشروباً بارداً من الثلاجة. لقطات واسعة للمنزل وهو منظم ومريح. التركيز على شعور 'راحة البال'.<br/>[مشهد 5 - CTA]: عرض تشكيلة من الأجهزة بشكل أنيق. كتابة الشعار على الشاشة بوضوح: 'الصح اللي يشدّ، مع ضمان يلحقك للدار'. كتابة الدعوة للعمل. نبرة الراوي يجب أن تكون قوية وواضحة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C2</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">السر باش الجهاز 'يشدّ' ماشي فالحديد برك. أرواح تشوف الصح!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('2')">
+                    <div class="preview-text">Slide 1: وعلاش أجهزتنا 'تشدّ'؟
+السر ماشي غير في الحديد!
+
+Slide 2: شحال من مرة حطيت دراهمك في جهاز......</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-2" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('2')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C2</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-2')">📋 نسخ النص</button>
+                            <div id="script-text-2" class="modal-body">Slide 1: وعلاش أجهزتنا 'تشدّ'؟<br/><br/>السر ماشي غير في الحديد!<br/><br/><br/><br/>Slide 2: شحال من مرة حطيت دراهمك في جهاز... وخذالك في وقت قصير؟<br/><br/>الإحساس بالخذلان هذا نعرفوه مليح.<br/><br/><br/><br/>Slide 3: الحل يبدأ من الداخل.<br/><br/>كل قطعة في أجهزتنا مدروسة ومصممة باش تخدم سنين، ماشي شهور. الهندسة تاعنا هي ضمان الموثوقية.<br/><br/><br/><br/>Slide 4: الثقة تتبنى بالفعل، ماشي بالكلام.<br/><br/>ضماننا الوطني الحقيقي هو كلمتنا. فريقنا يلحقك وين ما كنت في الجزائر باش تبقى دايماً مهني.<br/><br/><br/><br/>Slide 5: ما تشريش جهاز... اشري راحة البال.<br/><br/>استثمر في الصح اللي يشدّ. استثمر في [اسم العلامة التجارية].</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-2')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-2" class="modal-body">الجودة عندنا ماشي كلمة، هي التزام من القلب.<br/><br/>في سوق معمر بالعروض، بزاف لي يركزو على السعر وينساو الأهم: الصح اللي يشد.<br/><br/>في هذا الكاروسال، نكشفولك علاش أجهزتنا مختلفة. السر ماشي برك في المظهر، السر في كل قطعة لداخل، وفي التزامنا بضمان حقيقي يلحقك وين ما كنت.<br/><br/>تصفح واكتشف الفرق.<br/><br/>تصفح الآن واعرف المزيد عن التزامنا بالجودة!<br/><br/>#جودة #متانة #ضمان_وطني #ثقة #أجهزة_كهرومنزلية_الجزائر #استثمار_ذكي #راحة_البال</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">Slide 1: خلفية نظيفة مع عنوان بارز بخط عريض وأنيق. صورة مقربة لجزء لامع من أحد الأجهزة.<br/>Slide 2: صورة غسالة أو ثلاجة قديمة معطلة (يمكن استخدام رسم توضيحي أو أيقونة). استخدام لون داكن أو فلتر باهت للتعبير عن الإحباط.<br/>Slide 3: رسم انفوجرافيك يوضح المكونات الداخلية للجهاز (محرك، هيكل...). التركيز على الجودة والمتانة. استخدام خطوط واضحة وأيقونات تقنية.<br/>Slide 4: خريطة الجزائر مع أيقونات صغيرة تظهر انتشار خدمة الضمان. التركيز على شعور الطمأنينة والثقة.<br/>Slide 5: صورة لعائلة سعيدة في منزلها. الشعار والدعوة للعمل في الأسفل. ألوان دافئة ومشرقة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P3</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الصح اللي يشدّ، مع ضمان يلحقك للدار.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('3')">
+                    <div class="preview-text">الصح اللي يشدّ،
+مع ضمان يلحقك للدار....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-3" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('3')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P3</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-3')">📋 نسخ النص</button>
+                            <div id="script-text-3" class="modal-body">الصح اللي يشدّ،<br/><br/>مع ضمان يلحقك للدار.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-3')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-3" class="modal-body">معادلة الراحة بسيطة: جودة تدوم + ضمان يطمّن.<br/><br/>لا تقبل بأنصاف الحلول. استثمر في جهاز يخدمك سنين طويلة، وكن مطمئناً مع ضمان حقيقي يغطيك في كل ولايات الوطن.<br/><br/>[اسم العلامة التجارية]، اختيارك الذكي لراحة بال دائمة.<br/><br/>أجهزة تستاهل ثقتك، تفقدها الآن على صفحتنا!<br/><br/>#جودة_جزائرية #ضمان_الجزائر #أجهزة_منزلية #الصح_اللي_يشد #ثقة_وأمان #تسوق_الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم بصري قوي ونظيف. صورة عالية الجودة لأحد أفضل منتجات العلامة على خلفية بسيطة وأنيقة. الشعار (النص) مكتوب بخط كبير وواضح يجسد الثقة. شعار العلامة في زاوية بشكل غير مزعج.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V4</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">تسكن بعيد على العاصمة وخايف الضمان ما يلحقكش؟ هذي الحكاية ليك.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('4')">
+                    <div class="preview-text">(صوت الراوي، بنبرة صديقة وواثقة)
+يقولك 'الضمان'... بصح كي تسحقو، يقولك 'أرواح للعاصمة'.
+نعرفو هذا ال...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-4" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('4')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V4</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-4')">📋 نسخ النص</button>
+                            <div id="script-text-4" class="modal-body">(صوت الراوي، بنبرة صديقة وواثقة)<br/><br/>يقولك 'الضمان'... بصح كي تسحقو، يقولك 'أرواح للعاصمة'.<br/><br/>نعرفو هذا التخوف مليح.<br/><br/>لهذا، حكايتنا في [اسم العلامة التجارية] بدات بفكرة بسيطة: الثقة لازم تكون للجميع.<br/><br/>من تلمسان... لعنابة.<br/><br/>من الجزائر العاصمة... لتمنراست.<br/><br/>بنينا شبكة خدمة وطنية ماشي باش نكونو الأكبر... مي باش نكونو الأقرب ليك.<br/><br/>كي نقولو 'ضمان يلحقك للدار'، رانا نعنيوها.<br/><br/>ما يهمش وين تسكن، فريقنا المتخصص يتنقل ليك.<br/><br/>لأن الثقة ماعندهاش حدود.<br/><br/>[اسم العلامة التجارية]، التزامنا يغطي كل شبر من الجزائر.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-4')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-4" class="modal-body">ضماننا لا يعرف الحدود. من الشرق للغرب، رانا معاك.<br/><br/>الكثير من العلامات تتكلم عن الضمان، لكن القليل من يلتزم به فعلاً، خاصة في الولايات البعيدة.<br/><br/>في [اسم العلامة التجارية]، بنينا سمعتنا على الثقة. شاهد هذا الفيديو القصير لتعرف كيف نضمن وصول خدمتنا لكل عائلة جزائرية، أينما كانت.<br/><br/>راحتك هي أولويتنا.<br/><br/>تعرف على تفاصيل ضماننا الشامل الذي يجعلك مطمئن البال!<br/><br/>#ضمان_الجزائر #خدمة_وطنية #كل_الولايات #ثقة #راحة_البال #الجزائر_العميقة #جزائري</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو Motion Graphics بشكل أساسي. تبدأ الشاشة بخريطة الجزائر، مع ظهور علامة استفهام فوق الولايات البعيدة. تظهر رسائل نصية قصيرة تجسد قلق العملاء. ثم تبدأ سيارة فان صغيرة تحمل شعار البراند بالتحرك من العاصمة وتنتشر فروعها كشبكة تغطي كل الخريطة. استخدام رسومات أنيقة وبسيطة. موسيقى تصويرية تبعث على الأمل والثقة. يمكن دمج لقطات UGC قصيرة جداً (ثانيتين) لعملاء يبتسمون في مناطق مختلفة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C5</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">تخيل ضمان يجيك فني للدار في أي ولاية كنت؟ شوف كيفاش تمشي معانا.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('5')">
+                    <div class="preview-text">Slide 1: ضمانك معانا ساهل ومباشر.
+في 3 خطوات، راحة بالك ترجع مضمونة.
+
+Slide 2: الخطوة 1: عندك مشكلة؟...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-5" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('5')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C5</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-5')">📋 نسخ النص</button>
+                            <div id="script-text-5" class="modal-body">Slide 1: ضمانك معانا ساهل ومباشر.<br/><br/>في 3 خطوات، راحة بالك ترجع مضمونة.<br/><br/><br/><br/>Slide 2: الخطوة 1: عندك مشكلة؟<br/><br/>كلمة وحدة تكفي. اتصل بنا من أي ولاية، وفريقنا ياخذ كل التفاصيل.<br/><br/><br/><br/>Slide 3: الخطوة 2: رانا جايين!<br/><br/>فريقنا التقني المتخصص ينسق معاك موعد ويوصلك حتى لباب الدار.<br/><br/><br/><br/>Slide 4: الخطوة 3: الحل في بلاصتو.<br/><br/>إصلاح سريع وفعّال، أو استبدال فوري إذا لزم الأمر. المهم راحتك ترجع في أسرع وقت.<br/><br/><br/><br/>Slide 5: الثقة ماشي كلمة، هي خدمة.<br/><br/>مع [اسم العلامة التجارية]، ثقتك هي أولويتنا المطلقة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-5')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-5" class="modal-body">كيف يعمل ضماننا الوطني؟ العملية أبسط مما تتخيل!<br/><br/>الضمان الحقيقي هو الذي يكون واضحاً وبسيطاً عند الحاجة إليه. نسينا التعقيدات والإجراءات الطويلة.<br/><br/>في هذا الكاروسال، نشرح لك خطوة بخطوة كيف أن راحة بالك مضمونة معنا. من أول اتصال حتى حل المشكلة، رانا معاك.<br/><br/>تصفح الكاروسال وتعرف على العملية التي تضمن لك راحة البال!<br/><br/>#خدمة_العملاء #ضمان_فعال #خطوة_بخطوة #الجزائر #أجهزة_منزلية #دعم_فني #ثقة_العميل</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم تعليمي وواضح. كل سلايد يحتوي على أيقونة كبيرة تمثل الخطوة (هاتف، سيارة خدمة، مفك براغي، علامة صح). استخدام أرقام كبيرة وواضحة (1, 2, 3). ألوان هادئة ومريحة للعين. خط سهل القراءة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P6</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">ضماننا يغطي كل شبر في دزاير. شوف بعينك.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('6')">
+                    <div class="preview-text">من الشرق للغرب، من الشمال للجنوب،
+ضمان [اسم العلامة التجارية] يلحقك وين ما كنت....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-6" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('6')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P6</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-6')">📋 نسخ النص</button>
+                            <div id="script-text-6" class="modal-body">من الشرق للغرب، من الشمال للجنوب،<br/><br/>ضمان [اسم العلامة التجارية] يلحقك وين ما كنت.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-6')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-6" class="modal-body">لست وحدك، أينما كنت في الجزائر!<br/><br/>لأن كل زبون يستحق نفس الاهتمام، ضماننا لا يستثني أي ولاية. شبكة خدمتنا الوطنية تضمن لك الدعم وراحة البال، سواء كنت في العاصمة أو في أبعد نقطة في الجنوب.<br/><br/>معنا، البعد الجغرافي ليس عائقاً.<br/><br/>أينما كنت، ضماننا معك! اكتشف تشكيلتنا الآن.<br/><br/>#تغطية_وطنية #كل_الجزائر #48ولاية #ضمان #خدمة_مميزة #جزائري_وأفتخر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">التصميم عبارة عن خريطة أنيقة للجزائر. كل ولاية عليها علامة 'Pin' أو نقطة مضيئة، لتوضيح أن التغطية شاملة 100%. استخدام ألوان العلامة التجارية. النص مكتوب في الأعلى أو الأسفل بشكل واضح.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V7</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">شحال من خطرة جهاز يخذلاك في الوقت لي تسحقو فيه صح؟ هذا الفيديو ليك.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('7')">
+                    <div class="preview-text">(مشهد أم تحضر لضيوف، فجأة يتوقف الخلاط. صوت صمت محرج)
+(مشهد أب يريد مشاهدة مباراة مهمة، التلفاز لا ي...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-7" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('7')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V7</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-7')">📋 نسخ النص</button>
+                            <div id="script-text-7" class="modal-body">(مشهد أم تحضر لضيوف، فجأة يتوقف الخلاط. صوت صمت محرج)<br/><br/>(مشهد أب يريد مشاهدة مباراة مهمة، التلفاز لا يعمل)<br/><br/>(صوت الراوي، بنبرة متفهمة)<br/><br/>الأعطال المفاجئة... دايماً تجي في وقت غلط.<br/><br/>تفسدلك نهارك، تزيد عليك الستراس، وتخليك حاير.<br/><br/>(توقف قصير، ثم نبرة حاسمة)<br/><br/>حان الوقت باش تتخلص من هذا القلق.<br/><br/>مع أجهزة [اسم العلامة التجارية]، القصة تتبدل.<br/><br/>(انتقال سريع لنفس المشاهد، لكن الأجهزة تعمل بشكل مثالي والناس سعداء)<br/><br/>جودة يمكنك الاعتماد عليها... في كل وقت.<br/><br/>باش تركز على المهم... حياتك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-7')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-7" class="modal-body">لا تدع عطلاً مفاجئاً يفسد يومك!<br/><br/>نعلم أن الحياة مليئة بالمفاجآت، لكن جهازك الكهرومنزلي لا يجب أن يكون واحداً منها!<br/><br/>شاهد كيف أن اختيار الجودة والموثوقية من [اسم العلامة التجارية] يمنحك راحة البال التي تستحقها، لتستمتع بلحظاتك المهمة دون قلق.<br/><br/>تخلص من قلق الأعطال المفاجئة: شوف حلنا اليوم!<br/><br/>#مشاكل_يومية #حلول_ذكية #راحة_البال #جودة_تستحق_الثقة #الجزائر #حياة_أسهل</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو بأسلوب UGC (محتوى من إنشاء المستخدم) أو مصور بشكل واقعي جداً. الجزء الأول (Problem) مصور بكاميرا مهتزة قليلاً، مع إضاءة عادية. الجزء الثاني (Solution) مصور بثبات، مع إضاءة أفضل وألوان أزهى. استخدام مؤثرات صوتية كوميدية خفيفة عند حدوث العطل. الموسيقى تنتقل من متوترة إلى مريحة. الفيديو قصير جداً ومباشر (15-20 ثانية).</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C8</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الغسالة تفسد نهار العيد؟ والفريجيدار في الصيف؟ هذي الحكايات لازم تخلاص!</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('8')">
+                    <div class="preview-text">Slide 1: وداعاً لمشاكل الأجهزة لي تجي بلا ما تعرض!
+
+Slide 2: المشكل #1: "الغسالة حبست في نص غسيل الع...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-8" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('8')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C8</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-8')">📋 نسخ النص</button>
+                            <div id="script-text-8" class="modal-body">Slide 1: وداعاً لمشاكل الأجهزة لي تجي بلا ما تعرض!<br/><br/><br/><br/>Slide 2: المشكل #1: "الغسالة حبست في نص غسيل العيد!"<br/><br/>سيناريو محبط يفسد فرحة العائلة. السبب؟ محرك ضعيف ومكونات رديئة.<br/><br/><br/><br/>Slide 3: المشكل #2: "الثلاجة ما بقاتش تبرد في عز السخانة!"<br/><br/>كارثة حقيقية تهدد أكل الدار. السبب؟ نظام تبريد غير فعال ومعرض للأعطال.<br/><br/><br/><br/>Slide 4: الحل: هندسة ضد المفاجآت.<br/><br/>أجهزتنا مصممة بمحركات قوية وأنظمة تبريد معززة لتجنب هذه المشاكل من الأساس. الجودة هي الوقاية.<br/><br/><br/><br/>Slide 5: اختر الصح، وريح بالك.<br/><br/>مع [اسم العلامة التجارية]، هذه المشاكل تصبح من الماضي. استثمر في راحة بالك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-8')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-8" class="modal-body">هل مللت من الأعطال التي تحدث في أسوأ الأوقات؟<br/><br/>كلنا مررنا بهذه التجربة المحبطة. لكن هل تعلم أن معظم هذه المشاكل يمكن تجنبها منذ البداية؟<br/><br/>تصفح هذا الكاروسال لتعرف كيف أن أجهزتنا مصممة خصيصاً لتفادي هذه الأعطال الشائعة، مما يضمن لك راحة بال دائمة.<br/><br/>تصفح لتعرف كيف تضمن راحة بالك وتتجنب المشاكل!<br/><br/>#أعطال_منزلية #جودة_أولا #هندسة_ذكية #حلول_عملية #استثمار_آمن #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم يعتمد على المقارنة. السلايد 2 و 3 يستخدمان أيقونات ورسومات تعبر عن المشكلة بألوان قاتمة (أحمر، رمادي). السلايد 4 يستخدم رسماً توضيحياً للمكونات القوية بألوان زاهية (أخضر، أزرق). السلايد الأخير يجمع كل شيء بصورة منتج نظيفة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P9</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">وداعاً للأعطال المتكررة. مرحباً براحة البال الدائمة.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('9')">
+                    <div class="preview-text">لا مزيد من الأعطال المفاجئة....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-9" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('9')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P9</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-9')">📋 نسخ النص</button>
+                            <div id="script-text-9" class="modal-body">لا مزيد من الأعطال المفاجئة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-9')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-9" class="modal-body">تخيل حياة بدون قلق من أعطال الأجهزة.<br/><br/>هذا ليس حلماً. هذا هو وعدنا في [اسم العلامة التجارية]. بفضل الجودة الفائقة في كل جزء، يمكنك الاعتماد على أجهزتنا لسنوات طويلة.<br/><br/>استثمر مرة واحدة، وارتاح لسنوات.<br/><br/>اكتشف أجهزتنا التي لا تخذلك أبداً!<br/><br/>#بدون_أعطال #موثوقية #جودة_عالية #راحة_البال #استثمار #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم بسيط وجريء. النص مكتوب بخط كبير وواثق على خلفية بلون واحد من ألوان العلامة التجارية. يمكن وضع صورة ظلية (silhouette) لجهاز في الخلفية بشكل خفيف. الرسالة مباشرة وقوية.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V10</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">قبل ما تحط دراهمك في جهاز، علابالك واش لازم تشوف فيه؟ 3 أسرار.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('10')">
+                    <div class="preview-text">(موسيقى هادئة وخبير يتكلم أو صوت راوي واضح)
+كي تجي تشري جهاز كهرومنزلي، العين تشوف الشكل والسعر... ب...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-10" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('10')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V10</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-10')">📋 نسخ النص</button>
+                            <div id="script-text-10" class="modal-body">(موسيقى هادئة وخبير يتكلم أو صوت راوي واضح)<br/><br/>كي تجي تشري جهاز كهرومنزلي، العين تشوف الشكل والسعر... بصح الصح مخبي لداخل.<br/><br/>السر الأول: قلب الجهاز... المحرك.<br/><br/>لازم يكون قوي ومصنوع من مواد صحيحة باش يصبر للخدمة الشاقة.<br/><br/>(تظهر رسوم متحركة لمحرك قوي)<br/><br/>السر الثاني: الهيكل.<br/><br/>ابحث عن الفولاذ المقاوم للصدأ والمواد المعالجة ضد الرطوبة. هذا هو الدرع لي يحمي جهازك.<br/><br/>(تظهر رسوم متحركة لهيكل متين)<br/><br/>السر الثالث، والأهم: الضمان.<br/><br/>ماشي مجرد ورقة. لازم يكون ضمان حقيقي، مع خدمة تلحقك للدار. هذا هو دليل ثقة الصانع في منتوجو.<br/><br/>(تظهر أيقونة درع الضمان)<br/><br/>كي تختار صح، ما تشريش جهاز... تشري استثمار لراحة بالك.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-10')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-10" class="modal-body">لا تشتري جهازك القادم قبل مشاهدة هذا الفيديو!<br/><br/>سوق الأجهزة الكهرومنزلية كبير، والخيارات كثيرة. لكن كيف تفرّق بين الجهاز الذي سيدوم لسنوات والآخر الذي سيتعطل بعد أشهر؟<br/><br/>في هذا الفيديو التعليمي، نكشف لك الأسرار التي يجب أن تعرفها لتتخذ قراراً ذكياً. معرفة قوة حقيقية!<br/><br/>تعلم أسرار الأجهزة التي تدوم طويلاً، وشاهد تشكيلتنا الآن!<br/><br/>#نصائح_خبراء #كيف_تختار #شراء_ذكي #جودة #معرفة #دليل_الشراء #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو Motion Graphics تعليمي. استخدام أيقونات ورسوم متحركة بسيطة وواضحة لشرح كل نقطة. النص يظهر على الشاشة متزامناً مع كلام الراوي. الألوان هادئة وتوحي بالخبرة (درجات الأزرق والرمادي). إذا ظهر مقدم، يجب أن يكون في بيئة احترافية ونظيفة، ويشغل أقل من 30% من وقت الشاشة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C11</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">رايح تشري جهاز؟ حبس! شوف هذي القائمة قبل ما تقرر.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('11')">
+                    <div class="preview-text">Slide 1: دليل الشراء الذكي.
+5 نصائح باش تخيّر جهاز 'يشدّ' صح!
+
+Slide 2: 1. المواد أهم من السعر.
+ما ي...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-11" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('11')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C11</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-11')">📋 نسخ النص</button>
+                            <div id="script-text-11" class="modal-body">Slide 1: دليل الشراء الذكي.<br/><br/>5 نصائح باش تخيّر جهاز 'يشدّ' صح!<br/><br/><br/><br/>Slide 2: 1. المواد أهم من السعر.<br/><br/>ما يغركش السعر الرخيص. تفقد نوعية البلاستيك، ثقل الهيكل، وجودة الفولاذ. هذي هي لي دير الفرق.<br/><br/><br/><br/>Slide 3: 2. الضمان الحقيقي ماشي كلام.<br/><br/>اسأل: هل الضمان يغطي كل الولاية؟ هل عندهم فريق متنقل؟ الضمان الفعّال هو أكبر دليل على الجودة.<br/><br/><br/><br/>Slide 4: 3. اسمع لسمعة العلامة.<br/><br/>ابحث عن تجارب الزبائن الآخرين. علامة تجارية موثوقة تبني سمعتها على رضا عملائها، ماشي على الإعلانات برك.<br/><br/><br/><br/>Slide 5: 4. خدمة ما بعد البيع هي الأساس.<br/><br/>واش يصرا بعد ما تخلص؟ هل عندهم فريق دعم؟ هل قطع الغيار متوفرة؟ هذي الأسئلة مهمة بزاف.<br/><br/><br/><br/>Slide 6: الخلاصة؟ ريح راسك.<br/><br/>مع [اسم العلامة التجارية]، كل هذه النقاط هي أساس خدمتنا. اختيارك لينا هو اختيار لراحة البال.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-11')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-11" class="modal-body">قائمة التحقق الذهبية لشراء أي جهاز كهرومنزلي.<br/><br/>الشراء المتسرع يكلف الكثير لاحقاً. لهذا السبب، أعددنا لك هذا الدليل البسيط والفعّال.<br/><br/>استخدم هذه القائمة في عملية شرائك القادمة وتأكد من أنك تستثمر أموالك في المكان الصحيح. قرار واحد ذكي اليوم يوفر عليك الكثير من المتاعب غداً.<br/><br/>تصفح الدليل الآن لتتعلم كيف تختار صح!<br/><br/>#دليل_المشتري #نصائح_شراء #استثمار_ذكي #جودة_مضمونة #تسوق_بذكاء #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم على شكل قائمة مرجعية (Checklist). كل سلايد يحمل رقم النصيحة مع أيقونة معبرة. استخدام علامات صح (✓) لتعزيز الشعور بالإنجاز والمعرفة. تصميم نظيف ومنظم لتسهيل القراءة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P12</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">الجودة ماشي صدفة. هذي هي المكونات اللي تصنع الفرق.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('12')">
+                    <div class="preview-text">الجودة ليست صدفة، بل هي نتيجة هندسة دقيقة.
+- محرك فائق القوة
+- هيكل مقاوم للصدأ
+- عزل حراري معزز
+- ن...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-12" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('12')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P12</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-12')">📋 نسخ النص</button>
+                            <div id="script-text-12" class="modal-body">الجودة ليست صدفة، بل هي نتيجة هندسة دقيقة.<br/><br/>- محرك فائق القوة<br/><br/>- هيكل مقاوم للصدأ<br/><br/>- عزل حراري معزز<br/><br/>- نظام تحكم ذكي</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-12')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-12" class="modal-body">ماذا يوجد داخل أجهزتنا؟ اكتشف أسرار المتانة.<br/><br/>المظهر الخارجي مهم، لكن القوة الحقيقية تكمن في الداخل. في [اسم العلامة التجارية]، نختار كل مكون بعناية فائقة لنضمن لك أداءً يدوم لسنوات.<br/><br/>هذا ليس مجرد جهاز، بل هو استثمار في الهندسة والجودة.<br/><br/>اعرف المزيد عن تفوق أجهزتنا التقني على صفحتنا!<br/><br/>#هندسة_الجودة #مكونات_أصلية #متانة #تكنولوجيا #ابتكار #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم إنفوجرافيك جذاب. صورة عالية الجودة للمنتج في المنتصف، وتخرج منها خطوط تشير إلى أجزاء مختلفة. بجانب كل خط، توجد أيقونة واسم الميزة (مثلاً: أيقونة محرك + 'محرك فائق القوة'). التصميم يجب أن يبدو تقنياً وموثوقاً.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V13</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">علابالك واش كاين داخل الغسالة تاعنا؟ أرواح تشوف الهندسة لي تخليك مهني.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('13')">
+                    <div class="preview-text">(صوت الراوي، بنبرة خبير واثق)
+من برا، كل الأجهزة تتشابه.
+بصح الفرق الحقيقي... راه هنا لداخل.
+(الكامي...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-13" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('13')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V13</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-13')">📋 نسخ النص</button>
+                            <div id="script-text-13" class="modal-body">(صوت الراوي، بنبرة خبير واثق)<br/><br/>من برا، كل الأجهزة تتشابه.<br/><br/>بصح الفرق الحقيقي... راه هنا لداخل.<br/><br/>(الكاميرا تتحرك ببطء لتدخل افتراضياً داخل الجهاز)<br/><br/>شوف قوة المحرك... مصمم باش يدور آلاف المرات بدون تعب.<br/><br/>شوف متانة الهيكل... معالج ضد الصدأ والرطوبة، باش يعيش معاك العمر.<br/><br/>كل قطعة، كل سلك، كل مكون... مدروس ومختار باش يضمنلك حاجة وحدة.<br/><br/>راحة بالك.<br/><br/>هذا ماشي مجرد جهاز. هذا هو التزامنا بالجودة.<br/><br/>[اسم العلامة التجارية]. الصح يبان من الداخل.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-13')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-13" class="modal-body">نظرة عن قرب على ما يجعل الجودة... جودة.<br/><br/>ندعوك في جولة بصرية داخل أحد أجهزتنا. شاهد بنفسك دقة الهندسة وقوة المكونات التي نضعها بين يديك.<br/><br/>في [اسم العلامة التجارية]، الشفافية هي جزء من التزامنا. الجودة التي نعد بها، نثبتها لك بالدليل.<br/><br/>اكتشف قوة الجودة بنفسك: تفضل بزيارة موقعنا للمزيد من التفاصيل!<br/><br/>#تفاصيل_الجودة #صناعة_متقنة #هندسة_دقيقة #موثوقية #تكنولوجيا_منزلية #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو يركز على جماليات المنتج. لقطات مقربة جداً (Close-ups) ومصورة بحركة بطيئة (Slow-motion) لأجزاء الجهاز. استخدام إضاءة سينمائية تبرز تفاصيل المعدن والبلاستيك. يمكن استخدام رسومات 3D لإظهار المكونات الداخلية وهي تعمل. الموسيقى هادئة وراقية.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C14</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">واش لي يخلي المحرك تاعنا يصبر سنين؟ السر في هذي التفاصيل.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('14')">
+                    <div class="preview-text">Slide 1: داخل جهازنا: سر القوة الخفية!
+نغوص اليوم في تفاصيل أهم جزء: المحرك.
+
+Slide 2: الميزة 1: محر...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-14" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('14')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C14</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-14')">📋 نسخ النص</button>
+                            <div id="script-text-14" class="modal-body">Slide 1: داخل جهازنا: سر القوة الخفية!<br/><br/>نغوص اليوم في تفاصيل أهم جزء: المحرك.<br/><br/><br/><br/>Slide 2: الميزة 1: محرك صامت وقوي.<br/><br/>مصمم بتكنولوجيا متقدمة لتقليل الاهتزاز والضجيج. يعمل بقوة لسنوات من الخدمة الشاقة بدون ما تسمع حسو.<br/><br/><br/><br/>Slide 3: الميزة 2: هيكل داخلي مقاوم للصدأ.<br/><br/>الهيكل الداخلي معالج بالكامل ليقاوم أصعب الظروف من رطوبة وحرارة، ويحمي المكونات الحساسة لسنوات.<br/><br/><br/><br/>Slide 4: النتيجة: كل جزء مصمم ليدوم.<br/><br/>عندما تجتمع المكونات الصحيحة مع الهندسة الدقيقة، تحصل على جهاز يمكنك الوثوق به كل يوم.<br/><br/><br/><br/>Slide 5: دعوة للإعجاب: اكتشف الفرق الحقيقي.<br/><br/>الجودة الحقيقية تكمن في التفاصيل التي لا تراها. تفضل بزيارة صفحتنا لتعرف أكثر.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-14')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-14" class="modal-body">ميزة واحدة يمكن أن تغير كل شيء.<br/><br/>أحياناً، الفرق بين جهاز عادي وجهاز استثنائي يكمن في تفصيل واحد. اليوم، نسلط الضوء على سر القوة في أجهزتنا.<br/><br/>تصفح هذا الكاروسال لتكتشف كيف أن اهتمامنا بأدق التفاصيل هو ما يضمن لك أداءً وموثوقية لا مثيل لهما.<br/><br/>تصفح لاكتشاف تفاصيل الجودة التي تصنع الفارق!<br/><br/>#تفاصيل_تقنية #محرك_قوي #جودة_خفية #هندسة_متانة #ابتكار #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم تقني جذاب. السلايد الأول يظهر صورة الجهاز مع عدسة مكبرة موجهة نحو جزء معين. السلايد 2 و 3 يستخدمان رسومات 3D أو صور مقربة جداً للميزة المشروحة مع نص قصير وواضح. الألوان المستخدمة يجب أن تكون احترافية (أزرق، رمادي، أبيض).</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P15</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">القوة والمتانة تتكلم عن نفسها. شوف الفرق.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('15')">
+                    <div class="preview-text">جودة يمكنك رؤيتها ولمسها....</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-15" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('15')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P15</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-15')">📋 نسخ النص</button>
+                            <div id="script-text-15" class="modal-body">جودة يمكنك رؤيتها ولمسها.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-15')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-15" class="modal-body">هذا ليس مجرد تصميم جميل، هذا تصميم ليدوم.<br/><br/>في كل منحنى وكل تفصيل، تجد التزامنا بالجودة والمتانة. نحن لا نصنع أجهزة للاستخدام المؤقت، بل نصنع شركاء لبيتك يدومون لسنوات.<br/><br/>استمتع بالجمال، واطمئن للقوة.<br/><br/>اطلب جهازك اليوم واستمتع بجودة تدوم!<br/><br/>#تصميم_متين #جودة_ملموسة #أناقة_وقوة #استثمار_طويل_الأمد #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">صورة احترافية وعالية الجودة للمنتج بزاوية تبرز متانته (مثلاً، لقطة من الأسفل للأعلى). إضاءة درامية تسلط الضوء على تفصيل معين (مثل الهيكل الفولاذي أو لوحة تحكم متينة). النص يكون قصيراً جداً وأنيقاً.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">V16</span>
+                <span class="type-label">🎬 فيديو</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">ماشي حنا لي نشكرو روحنا... كلام زباينا من 48 ولاية هو دليلنا.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('16')">
+                    <div class="preview-text">(مجموعة شهادات فيديو قصيرة جداً ومجمعة)
+زبون 1 (من وهران): "والله يا خويا سلعة وصناعة، الله يبارك. ت...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-16" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('16')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر V16</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-16')">📋 نسخ النص</button>
+                            <div id="script-text-16" class="modal-body">(مجموعة شهادات فيديو قصيرة جداً ومجمعة)<br/><br/>زبون 1 (من وهران): "والله يا خويا سلعة وصناعة، الله يبارك. تهنيت من المشاكل."<br/><br/>زبون 2 (من سطيف): "لي عجبتني بزاف هي الضمان تاعهم. جاوني للدار وخدمولي المشكل في نهارو. ناس تاع كلمة."<br/><br/>زبون 3 (من تمنراست): "كنت خايفة ما يوصلنيش لهنا، بصح وصلني الجهاز والضمان فعال. الحمد لله."<br/><br/>(صوت الراوي في النهاية)<br/><br/>ثقتكم هي أكبر شهادة لينا.<br/><br/>انضموا لعائلة [اسم العلامة التجارية] المرتاحة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-16')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-16" class="modal-body">أفضل إعلان لنا هو كلمة من زبائننا السعداء!<br/><br/>من وهران، سطيف، وحتى تمنراست... قمنا بجمع بعض الرسائل التي وصلتنا من عائلتنا الكبيرة في كل أنحاء الجزائر.<br/><br/>شاهد الفيديو واسمع بنفسك تجارب حقيقية من ناس وضعوا ثقتهم فينا. شهادتهم هي أكبر فخر لنا.<br/><br/>انضم لعائلة زبائننا المرتاحين: اطلب جهازك اليوم!<br/><br/>#شهادة_زبائن #ثقة_العملاء #دليل_اجتماعي #زبائن_سعداء #الجزائر #تجربة_حقيقية</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">فيديو تجميعي لشهادات عملاء مصورة بالهاتف (UGC style) لتبدو حقيقية وعفوية. يتم كتابة اسم الزبون والولاية في شريط سفلي. موسيقى خلفية إيجابية ومحفزة. المونتاج يجب أن يكون سريعاً وحيوياً.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">C17</span>
+                <span class="type-label">📚 كاروسال</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">ما تصدقش كلامنا برك، شوف واش قالو علينا ناس من كل بلاصة.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('17')">
+                    <div class="preview-text">Slide 1: قالوا عنا...
+تجارب حقيقية من عائلتنا في كل ولاية!
+
+Slide 2: "الجودة لي كنت نحوس عليها سنين،...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-17" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('17')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر C17</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-17')">📋 نسخ النص</button>
+                            <div id="script-text-17" class="modal-body">Slide 1: قالوا عنا...<br/><br/>تجارب حقيقية من عائلتنا في كل ولاية!<br/><br/><br/><br/>Slide 2: "الجودة لي كنت نحوس عليها سنين، لقيتها عندكم. شكراً." - محمد من وهران.<br/><br/><br/><br/>Slide 3: "أكثر حاجة طمنتني هي الضمان. خدمة ممتازة وناس محترفين. يعطيكم الصحة." - فاطمة من سطيف.<br/><br/><br/><br/>Slide 4: "كنت متخوف من الشراء أونلاين خاصة وأنا في الجنوب، لكن التجربة كانت رائعة والجهاز وصلني في حالة ممتازة." - علي من تمنراست.<br/><br/><br/><br/>Slide 5: ثقتكم هي وقودنا لنقدم الأفضل دائماً.<br/><br/>كن أنت القصة التالية!</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-17')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-17" class="modal-body">كلماتهم هي أفضل وسام لنا!<br/><br/>نفخر بكل رسالة ثقة تصلنا من عملائنا في جميع أنحاء الوطن. هذه ليست مجرد كلمات، بل هي قصص نجاح وتجارب حقيقية تؤكد أننا على الطريق الصحيح.<br/><br/>تصفح بعض الشهادات التي اخترناها لكم.<br/><br/>تصفح لتكتشف قصص النجاح التي تلهمنا كل يوم!<br/><br/>#قالوا_عنا #شهادات_حقيقية #رضا_العملاء #مجتمع #ثقة #الجزائر</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم أنيق لعرض الاقتباسات. كل سلايد يحتوي على نص الشهادة، اسم الزبون والولاية. يمكن استخدام صورة رمزية (avatar) أو صورة للمدينة لزيادة المصداقية. استخدام علامات الاقتباس الكبيرة والخطوط الواضحة.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr><tr>
+            <td data-label="الهوية والنوع">
+                <span class="code-badge">P18</span>
+                <span class="type-label">🖼️ صورة</span>
+            </td>
+            <td data-label="الهوك (Hook)"><div class="hook-pill">"أخيراً لقيت جهاز يستاهل دراهمي!" - زبونة من قسنطينة.</div></td>
+            <td data-label="المحتوى">
+                <div class="script-trigger" onclick="openModal('18')">
+                    <div class="preview-text">"شريت شحال من ماشينة وندمت. مع [اسم العلامة التجارية]، أخيراً لقيت جهاز يستاهل دراهمي وريحلي بالي."
+...</div>
+                    <span style="font-size:0.8em; color:#000; font-weight:700; margin-top:8px; display:inline-block; background:#FFD700; padding:4px 12px; border-radius:4px;">📄 التفاصيل والـ Ad Copy</span>
+                </div>
+                
+                <div id="modal-18" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeModal('18')">&times;</span>
+                        <h2 style="border-bottom:3px solid #FFD700; padding-bottom:10px; font-size:1.5em; margin-top:0;">تفاصيل العنصر P18</h2>
+                        
+                        <div class="modal-section">
+                            <h4 style="margin-top:0; color:#000;">🎬 السكربت / المحتوى</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('script-text-18')">📋 نسخ النص</button>
+                            <div id="script-text-18" class="modal-body">"شريت شحال من ماشينة وندمت. مع [اسم العلامة التجارية]، أخيراً لقيت جهاز يستاهل دراهمي وريحلي بالي."<br/><br/>- نادية، قسنطينة.</div>
+                        </div>
+
+                        <div class="modal-section" style="background:#FFF9E6; border: 1px solid #FFE69C;">
+                            <h4 style="margin-top:0; color:#000;">📝 نص المنشور (Caption)</h4>
+                            <button class="copy-btn" onclick="copyToClipboard('adcopy-text-18')">📋 نسخ الكابشن</button>
+                            <div id="adcopy-text-18" class="modal-body">قصة نادية من قسنطينة يمكن أن تكون قصتك!<br/><br/>عندما تصلنا رسالة مثل هذه، نعرف أننا نقوم بعملنا على أكمل وجه. هدفنا ليس بيع منتج، بل تقديم حل يجلب راحة البال الحقيقية لبيوتكم.<br/><br/>شكراً نادية على ثقتك!<br/><br/>كن أنت زبوننا السعيد القادم! اكتشف تشكيلتنا الآن.<br/><br/>#قصة_زبون #تجربة_شراء #سعادة #ثقة #قسنطينة #الجزائر #شهادة</div>
+                        </div>
+
+                        <div class="modal-section" style="border:none; background:none; margin-bottom:0;">
+                            <h4 style="margin-top:0; color:#000;">⚙️ ملاحظات التنفيذ</h4>
+                            <div style="color:#666; font-size:1em; white-space:pre-wrap;">تصميم يركز على الاقتباس. صورة عالية الجودة لزبونة سعيدة (إذا توفرت) أو صورة للمنتج. نص الاقتباس مكتوب بخط كبير وواضح كأنه مكتوب بخط اليد لإضافة لمسة شخصية. اسم الزبونة والولاية مكتوبان في الأسفل.</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr></tbody></table></div>
+
+    <div class="disclaimer-card">
+        <span style="font-size: 1.2em;">⚠️</span>
+        <span>قد تخضع هذه الاستراتيجية لبعض التعديلات والتحسينات، حسب المواد الإعلامية المتوفرة أو لغرض تحقيق أفضل النتائج.</span>
+    </div>
+
+    <div class="summary-box">
+        <span style="font-weight: 700; color: #FFD700;">الميزانية الإجمالية المعتمدة</span>
+        <span class="total-amount">128000 دج</span>
+        <a href="https://wa.me/213770820431" class="cta-btn">تواصل معنا للاعتماد</a>
+        <div style="border: 1px dashed #FFD700; padding: 25px; border-radius: 15px; margin-top: 20px;">
+            <h3 style="color:#FFD700; margin:0;">الخطوة التالية</h3>
+            <p style="margin:10px 0;">مكالمة قصيرة لنكيّف هذه الاستراتيجية حسب مشروعك ونبدأ العمل فوراً.</p>
+            <div class="phones-list">
+                <div class="phone-item">0770 82 04 31</div>
+                <div class="phone-item">0770 55 01 51</div>
+                <div class="phone-item">0770 82 01 45</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+function openModal(id) { document.getElementById('modal-' + id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
+function closeModal(id) { document.getElementById('modal-' + id).style.display = 'none'; document.body.style.overflow = 'auto'; }
+window.onclick = function(event) { if (event.target.className === 'modal') { event.target.style.display = 'none'; document.body.style.overflow = 'auto'; } }
+
+// وظيفة النسخ الجديدة
+function copyToClipboard(elementId) {
+    const el = document.getElementById(elementId);
+    const text = el.innerText || el.textContent; // نسخ النص بدون HTML tags
+    navigator.clipboard.writeText(text).then(() => {
+        alert("تم نسخ النص بنجاح! ✅");
+    }).catch(err => {
+        console.error('Failed to copy', err);
+    });
+}
+</script></body></html>
